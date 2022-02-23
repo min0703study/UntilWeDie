@@ -39,7 +39,7 @@ using namespace std;
 #define TEXTDATAMANAGER TextDataManager::getSingleton()
 #define SCENEMANAGER SceneManager::getSingleton()
 #define GDIPLUSMANAGER GdiPlusManager::getSingleton()
-#define CANERA Camera::getSingleton()
+#define CAMERA Camera::getSingleton()
 //Singleton==
 
 // 디그리 1도의 라디안 값
@@ -119,8 +119,10 @@ extern int			_winRealSizeX;
 extern int			_winRealSizeY;
 
 //min - player size
-#define PLAYER_Y				70
-#define PLAYER_X				70
+#define PLAYER_X_SIZE	140
+#define PLAYER_Y_SIZE	140
+#define PLAYER_Y_ACTION_SIZE	180
+
 
 //min - player keboard key
 #define PLAYER_MOVE_R			'D'
