@@ -8,7 +8,7 @@ HRESULT MainScene::init(void)
 	mPlayer->init(CAMERA_X / 2 - 20 ,CAMERA_Y  - 420, 100.0f, 100.0f);
 
 	mTempBkImg = IMAGEMANAGER->findImage(IMGCLASS->TEMP_BK_IMG);
-	mTempBkImg1 = IMAGEMANAGER->findImage(IMGCLASS->Obj_Mushroom);
+	mTempBkImg1 = IMAGEMANAGER->findImage(IMGCLASS->Object_Mushroom);
 	
 
 	return S_OK;
