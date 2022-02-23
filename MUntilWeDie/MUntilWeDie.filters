@@ -1,0 +1,219 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="ApiFrameWork">
+      <UniqueIdentifier>{fbc67512-0c5d-424d-92da-28676466c9a2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ApiFrameWork\Utillity">
+      <UniqueIdentifier>{e4e0c581-7ff3-4553-b0e4-41776266f52f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ApiFrameWork\Stdafx">
+      <UniqueIdentifier>{380a8776-ba71-4d18-8808-93ac71cda0fb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ApiFrameWork\DesignPattern">
+      <UniqueIdentifier>{256e7a2a-fcf8-4275-976c-4306d1be68b5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ApiFrameWork\Manager">
+      <UniqueIdentifier>{8bd0ccbc-277d-4dd2-9af3-78668d8b037d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ApiFrameWork\DesignPattern\Singleton">
+      <UniqueIdentifier>{6c6f4951-3972-4f33-9c47-77fd946fb1c4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ApiFrameWork\GameNode">
+      <UniqueIdentifier>{2ed20c0f-c3d8-4062-924b-0b6f4b6e7c94}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ApiFrameWork\Image">
+      <UniqueIdentifier>{35d2ccf3-7010-4bf1-a366-8d6632502289}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ApiFrameWork\Animation">
+      <UniqueIdentifier>{140c1749-0f48-432e-8eb4-4da9f22df3a8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ApiFrameWork\Timer">
+      <UniqueIdentifier>{50cdabd4-ab00-49e5-979c-ef0917fb5720}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ApiFrameWork\Classes">
+      <UniqueIdentifier>{6b96cb28-bb35-4e30-a2be-3c4edad0e24c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ApiFrameWork\Scene">
+      <UniqueIdentifier>{b7e4fe0a-39d9-41a9-81da-b1e02b77142f}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Stdafx.cpp">
+      <Filter>ApiFrameWork\Stdafx</Filter>
+    </ClCompile>
+    <ClCompile Include="KeyManager.cpp">
+      <Filter>ApiFrameWork\Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="GameNode.cpp">
+      <Filter>ApiFrameWork\GameNode</Filter>
+    </ClCompile>
+    <ClCompile Include="WinMain.cpp">
+      <Filter>ApiFrameWork</Filter>
+    </ClCompile>
+    <ClCompile Include="ImageManager.cpp">
+      <Filter>ApiFrameWork\Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="Image.cpp">
+      <Filter>ApiFrameWork\Image</Filter>
+    </ClCompile>
+    <ClCompile Include="MainGame.cpp">
+      <Filter>ApiFrameWork\GameNode</Filter>
+    </ClCompile>
+    <ClCompile Include="Utils.cpp">
+      <Filter>ApiFrameWork\Utillity</Filter>
+    </ClCompile>
+    <ClCompile Include="Animation.cpp">
+      <Filter>ApiFrameWork\Animation</Filter>
+    </ClCompile>
+    <ClCompile Include="Timer.cpp">
+      <Filter>ApiFrameWork\Timer</Filter>
+    </ClCompile>
+    <ClCompile Include="TimeManager.cpp">
+      <Filter>ApiFrameWork\Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="TempSoundManager.cpp">
+      <Filter>ApiFrameWork\Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="FontManager.cpp">
+      <Filter>ApiFrameWork\Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <Filter>ApiFrameWork\Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="Weapon.cpp">
+      <Filter>ApiFrameWork\Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="Enemy.cpp">
+      <Filter>ApiFrameWork\Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="EnemyManager.cpp">
+      <Filter>ApiFrameWork\Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="ProgressBar.cpp">
+      <Filter>ApiFrameWork\Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="CollisionManager.cpp">
+      <Filter>ApiFrameWork\Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="ImageClass.cpp">
+      <Filter>ApiFrameWork\Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="MapProgressBar.cpp">
+      <Filter>ApiFrameWork\Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="StartScene.cpp">
+      <Filter>ApiFrameWork\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="GameScene.cpp">
+      <Filter>ApiFrameWork\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="EndScene.cpp">
+      <Filter>ApiFrameWork\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneManager.cpp">
+      <Filter>ApiFrameWork\Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="CenterScene.cpp">
+      <Filter>ApiFrameWork\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerAnimation.cpp">
+      <Filter>ApiFrameWork\Animation</Filter>
+    </ClCompile>
+    <ClCompile Include="GameOverScene.cpp">
+      <Filter>ApiFrameWork\Scene</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Stdafx.h">
+      <Filter>ApiFrameWork\Stdafx</Filter>
+    </ClInclude>
+    <ClInclude Include="RandomFunction.h">
+      <Filter>ApiFrameWork\Utillity</Filter>
+    </ClInclude>
+    <ClInclude Include="ShapeFunction.h">
+      <Filter>ApiFrameWork\Utillity</Filter>
+    </ClInclude>
+    <ClInclude Include="KeyManager.h">
+      <Filter>ApiFrameWork\Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="SingletonBase.h">
+      <Filter>ApiFrameWork\DesignPattern\Singleton</Filter>
+    </ClInclude>
+    <ClInclude Include="GameNode.h">
+      <Filter>ApiFrameWork\GameNode</Filter>
+    </ClInclude>
+    <ClInclude Include="ImageManager.h">
+      <Filter>ApiFrameWork\Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="Image.h">
+      <Filter>ApiFrameWork\Image</Filter>
+    </ClInclude>
+    <ClInclude Include="MainGame.h">
+      <Filter>ApiFrameWork\GameNode</Filter>
+    </ClInclude>
+    <ClInclude Include="Utils.h">
+      <Filter>ApiFrameWork\Utillity</Filter>
+    </ClInclude>
+    <ClInclude Include="Animation.h">
+      <Filter>ApiFrameWork\Animation</Filter>
+    </ClInclude>
+    <ClInclude Include="Timer.h">
+      <Filter>ApiFrameWork\Timer</Filter>
+    </ClInclude>
+    <ClInclude Include="TimeManager.h">
+      <Filter>ApiFrameWork\Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="TempSoundManager.h">
+      <Filter>ApiFrameWork\Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="FontManager.h">
+      <Filter>ApiFrameWork\Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="Player.h">
+      <Filter>ApiFrameWork\Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="Weapon.h">
+      <Filter>ApiFrameWork\Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="Enemy.h">
+      <Filter>ApiFrameWork\Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="EnemyManager.h">
+      <Filter>ApiFrameWork\Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="ProgressBar.h">
+      <Filter>ApiFrameWork\Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="CollisionManager.h">
+      <Filter>ApiFrameWork\Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="ImageClass.h">
+      <Filter>ApiFrameWork\Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="MapProgressBar.h">
+      <Filter>ApiFrameWork\Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="StartScene.h">
+      <Filter>ApiFrameWork\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="GameScene.h">
+      <Filter>ApiFrameWork\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="EndScene.h">
+      <Filter>ApiFrameWork\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneManager.h">
+      <Filter>ApiFrameWork\Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="CenterScene.h">
+      <Filter>ApiFrameWork\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerAnimation.h">
+      <Filter>ApiFrameWork\Animation</Filter>
+    </ClInclude>
+    <ClInclude Include="GameOverScene.h">
+      <Filter>ApiFrameWork\Scene</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
