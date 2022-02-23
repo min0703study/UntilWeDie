@@ -175,11 +175,6 @@ public:
 	inline void offsetX(int frameX, bool isReverse)
 	{
 		_imageInfo->currentFrameX += frameX;
-
-		if (_imageInfo->currentFrameX > _imageInfo->maxFrameX)
-		{
-			_imageInfo->currentFrameX = isReverse ? 0 : _imageInfo->maxFrameX;
-		}
 	}
 
 
