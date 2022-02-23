@@ -27,7 +27,7 @@ HRESULT GameNode::init(bool managerInit)
 		IMGCLASS->init();
 		SCENEMANAGER->init();
 		GDIPLUSMANAGER->init();
-		CANERA->init(0.0f, 0.0f, CAMERA_X, CAMERA_Y);
+		CAMERA->init(0.0f, 0.0f, CAMERA_X, CAMERA_Y);
 
 		_ptMouse = { 0,0 };
 	}
@@ -57,7 +57,7 @@ void GameNode::release(void)
 		SCENEMANAGER->releaseSingleton();
 
 		GDIPLUSMANAGER->release();
-		CANERA->release();
+		CAMERA->release();
 	}
 
 	ReleaseDC(_hWnd, _hdc);

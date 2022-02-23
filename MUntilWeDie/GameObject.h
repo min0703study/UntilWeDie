@@ -16,21 +16,43 @@ public:
 	float getAbsX() { return mX; };
 	float getAbsY() { return mY; };
 
-	inline float getX() { return mX - CANERA->getX();};
-	inline float getY() { return mY - CANERA->getY();};
+	inline float getX() { return mX - CAMERA->getX();};
+	inline float getY() { return mY - CAMERA->getY();};
+	inline RECT getRc() {
+		RECT cRc = CAMERA->getRc();
+		return {
+			mRc.left - cRc.left,
+			mRc.top - cRc.top,
+			mRc.right - cRc.left,
+			mRc.bottom - cRc.top };
+	};
 
-	float offsetX(float x) { return mX += x; };
-	float offsetY(float y) { return mY += y; };
+	void offsetX(float x) { 
+		mRc.left += x;
+		mRc.right += x;
+		
+		mX += x; 
+	};
+
+	void offsetY(float y) {
+		mRc.left += y;
+		mRc.right += y;
+
+		mY += y; 
+	};
 
 	GameObject() {};
 	virtual ~GameObject() {};
+protected:
+	float mWidth;
+	float mHeight;
 private:
 	string mId;
 	
-	float mWidth;
-	float mHeight;
 
 	float mX;
 	float mY;
+
+	RECT mRc;
 };
 
