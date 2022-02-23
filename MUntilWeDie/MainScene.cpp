@@ -5,9 +5,9 @@
 HRESULT MainScene::init(void)
 {
 	mPlayer = new Player;
-	mPlayer->init(CAMERA_X / 2 - 20 ,CAMERA_Y - 190, 100.0f, 100.0f);
+	mPlayer->init(CAMERA_X / 2 - 20 ,CAMERA_Y - 190, PLAYER_X_SIZE, PLAYER_X_SIZE);
 
-	mTempBkImg = IMAGEMANAGER->findImage(IMGCLASS->TEMP_BK_IMG);
+	mTempBkImg = IMAGEMANAGER->findImage(IMGCLASS->TempBkImg);
 	
 
 	return S_OK;
@@ -25,6 +25,6 @@ void MainScene::release(void)
 
 void MainScene::render(void)
 {
-	mTempBkImg->render(getMemDc(), 0,0, CANERA->GetX(), CANERA->GetY(), CANERA->GetWidth(), CANERA->GetHeight());
+	mTempBkImg->render(getMemDc(), 0,0, CAMERA->getX(), CAMERA->getY(), CAMERA->getWidth(), CAMERA->getHeight());
 	mPlayer->render();
 }

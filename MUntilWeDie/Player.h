@@ -1,50 +1,93 @@
 #pragma once
 #include "GameObject.h"
 
+class Npc;
+
 class Player : public GameObject
 {
 public:
-
 	enum eStat {
 		Idle,
-		WalkR,
-		WalkL,
-		RunR,
-		RunL,
-		ShootR,
-		ShootL,
+		Walk,
+		Run,
+		Shoot,
 		ShootRun,
 		CommandCall,
 		CommandExec
 	};
 
-	typedef	struct tagAnimation {
+	enum eDirection {
+		Left,
+		Right
+	};
 
-		unordered_map<eStat, ImageBase*> mImageList;
-		unordered_map<eStat, ImageBase*>::iterator mItImageList;
+	typedef	struct tagAnimation {
 
 		float mFrameUpdateSec;	// 초당 프레임 업데이트 수
 		float mElapsedSec;		// 프레임과 프레임 사이의 시간
 
 		ImageBase* mCurImage;
 
+		int mPlayCount;
+
 		tagAnimation() {
 			mFrameUpdateSec = 1.0f / 10;
 			mElapsedSec = 0;
+			mPlayCount = 0;
 
 			mCurImage = nullptr;
 		}
 
-		void SetStatImage(eStat stat, ImageBase* image) {
-			mImageList.insert(make_pair(stat, image));
-		}
-
-		void ChangeCurImage(eStat changeStat) {
-			auto itFindImage = mImageList.find(changeStat);
-			
-			if (itFindImage != mImageList.end())
-			{
-				mCurImage = itFindImage->second;
+		void ChangeCurImage(eStat changeStat, eDirection curDirection) {
+			mPlayCount = 0;
+			switch (curDirection) {
+			case Left:
+				switch (changeStat) {
+				case Idle:
+					mCurImage = IMAGEMANAGER->findImage(IMGCLASS->PlayerIdleL);
+					break;
+				case Walk:
+					mCurImage = IMAGEMANAGER->findImage(IMGCLASS->PlayerWalkL);
+					break;
+				case Run:
+					mCurImage = IMAGEMANAGER->findImage(IMGCLASS->PlayerRunL);
+					break;
+				case CommandCall:
+					mCurImage = IMAGEMANAGER->findImage(IMGCLASS->PlayerCommandCallL);
+					break;
+				case CommandExec:
+					mCurImage = IMAGEMANAGER->findImage(IMGCLASS->PlayerCommandExecL);
+					break;
+				default:
+					//Do Nothing
+					break;
+				}
+				break;
+			case Right:
+				switch (changeStat) {
+				case Idle:
+					mCurImage = IMAGEMANAGER->findImage(IMGCLASS->PlayerIdleR);
+					break;
+				case Walk:
+					mCurImage = IMAGEMANAGER->findImage(IMGCLASS->PlayerWalkR);
+					break;
+				case Run:
+					mCurImage = IMAGEMANAGER->findImage(IMGCLASS->PlayerRunR);
+					break;
+				case CommandCall:
+					mCurImage = IMAGEMANAGER->findImage(IMGCLASS->PlayerCommandCallR);
+					break;
+				case CommandExec:
+					mCurImage = IMAGEMANAGER->findImage(IMGCLASS->PlayerCommandExecR);
+					break;
+				default:
+					//Do Nothing
+					break;
+				}
+				break;
+			default:
+				//Do Nothing
+				break;
 			}
 		}
 
@@ -56,6 +99,10 @@ public:
 			if (mElapsedSec >= mFrameUpdateSec) {
 				mElapsedSec = 0;
 				mCurImage->offsetX(1, true);
+				if (mCurImage->getFrameX() > mCurImage->getMaxFrameX()) {
+					mPlayCount++;
+					mCurImage->setFrameX(0);
+				}
 			}
 		}
 
@@ -85,6 +132,10 @@ public:
 	~Player() {};
 private:
 	eStat mCurStat;
+	eStat mPastStat;
+
+	eDirection mCurDirection;
+
 	Animation mAni;
 
 	void changeStat(eStat changeStat);
