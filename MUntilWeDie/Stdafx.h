@@ -118,12 +118,14 @@ extern int			_winsizeY;
 extern int			_winRealSizeX;
 extern int			_winRealSizeY;
 
-#define PLAYER_Y				60
-#define PLAYER_X				35
+//min - player size
+#define PLAYER_Y				70
+#define PLAYER_X				70
 
-//key
+//min - player keboard key
 #define PLAYER_MOVE_R			'D'
 #define PLAYER_MOVE_L			'A'
 #define PLAYER_COMMAND_CALL		'S'
 #define PLAYER_COMMAND_EXEC		'W'
 #define PLAYER_RUN				VK_LSHIFT
+#define PLAYER_SHOOT			VK_LBUTTON

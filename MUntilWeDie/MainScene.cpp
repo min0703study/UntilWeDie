@@ -7,7 +7,7 @@ HRESULT MainScene::init(void)
 	mPlayer = new Player;
 	mPlayer->init(CAMERA_X / 2 - 20 ,CAMERA_Y - 190, 100.0f, 100.0f);
 
-	mTempBkImg = IMAGEMANAGER->findImage(IMGCLASS->TEMP_BK_IMG);
+	mTempBkImg = IMAGEMANAGER->findImage(IMGCLASS->TempBkImg);
 	
 
 	return S_OK;
@@ -25,6 +25,6 @@ void MainScene::release(void)
 
 void MainScene::render(void)
 {
-	mTempBkImg->render(getMemDc(), 0,0, CANERA->GetX(), CANERA->GetY(), CANERA->GetWidth(), CANERA->GetHeight());
+	mTempBkImg->render(getMemDc(), 0,0, CANERA->getX(), CANERA->getY(), CANERA->getWidth(), CANERA->getHeight());
 	mPlayer->render();
 }
