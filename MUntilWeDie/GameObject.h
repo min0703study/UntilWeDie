@@ -16,8 +16,8 @@ public:
 	float getAbsX() { return mX; };
 	float getAbsY() { return mY; };
 
-	inline float getX() { return mX - CANERA->GetX();};
-	inline float getY() { return mY - CANERA->GetY();};
+	inline float getX() { return mX - CANERA->getX();};
+	inline float getY() { return mY - CANERA->getY();};
 
 	float offsetX(float x) { return mX += x; };
 	float offsetY(float y) { return mY += y; };
