@@ -15,14 +15,24 @@ public:
 	HRESULT init(float x, float y, float width, float height);
 	void release(void);
 
-	inline float GetX() const { return mX; }
-	inline float GetY() const { return mY; }
+	inline float getX() const { return mX; }
+	inline float getY() const { return mY; }
 
-	inline float GetWidth() const { return mWidth; }
-	inline float GetHeight() const { return mHeight; }
+	inline RECT getRc() const { return *mlpRc; }
 
-	inline void OffSetX(int x) { mX += x; };
-	inline void OffSetY(int y) { mY += y; };
+	inline float getWidth() const { return mWidth; }
+	inline float getHeight() const { return mHeight; }
+
+	inline void offSetX(int x) { 
+		mX += x; 
+		mlpRc->left += x;
+		mlpRc->right += x;
+	};
+	inline void offSetY(int y) { 
+		mY += y; 
+		mlpRc->top += y;
+		mlpRc->bottom += y;
+	};
 
 	Camera() {};
 	~Camera() {}

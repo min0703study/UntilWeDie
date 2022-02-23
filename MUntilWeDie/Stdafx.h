@@ -39,7 +39,7 @@ using namespace std;
 #define TEXTDATAMANAGER TextDataManager::getSingleton()
 #define SCENEMANAGER SceneManager::getSingleton()
 #define GDIPLUSMANAGER GdiPlusManager::getSingleton()
-#define CANERA Camera::getSingleton()
+#define CAMERA Camera::getSingleton()
 //Singleton==
 
 // 디그리 1도의 라디안 값
@@ -118,14 +118,16 @@ extern int			_winsizeY;
 extern int			_winRealSizeX;
 extern int			_winRealSizeY;
 
-#define PLAYER_POWER			10
-#define PLAYER_MAX_HP			1000
-#define DRAGON_MAX_HP			50
-#define DRAGON_POWER			1
-#define BOSS_MAX_HP				20000
-#define BOSS_POWER				10
-#define SCORE_POINT				15
-#define BOSS_TIME				30.0f
+//min - player size
+#define PLAYER_X_SIZE	140
+#define PLAYER_Y_SIZE	140
+#define PLAYER_Y_ACTION_SIZE	180
 
-#define PLAYER_Y				60
-#define PLAYER_X				35
+
+//min - player keboard key
+#define PLAYER_MOVE_R			'D'
+#define PLAYER_MOVE_L			'A'
+#define PLAYER_COMMAND_CALL		'S'
+#define PLAYER_COMMAND_EXEC		'W'
+#define PLAYER_RUN				VK_LSHIFT
+#define PLAYER_SHOOT			VK_LBUTTON
