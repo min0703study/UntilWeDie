@@ -10,6 +10,8 @@ public:
 	const char* PLAYER_WALK_R = "플레이어 오른쪽으로 걷는 액션";
 	const char* PLAYER_WALK_L = "플레이어 왼쪽으로 걷는 액션";
 
+	const char * Obj_Mushroom = "버섯 임시";
+
 	HRESULT init(void);
 	virtual void release(void);
 };

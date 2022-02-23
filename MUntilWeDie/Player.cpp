@@ -31,15 +31,15 @@ void Player::move()
 {
 	if (KEYMANAGER->isStayKeyDown(VK_LEFT)) 
 	{
-		offsetX(-1.0f);
-		CANERA->OffSetX(-1.0f);
+		offsetX(-20.0f);
+		CANERA->OffSetX(-20.0f);
 		changeStat(WalkL);
 	}
 
 	if (KEYMANAGER->isStayKeyDown(VK_RIGHT)) 
 	{
-		offsetX(1.0f);
-		CANERA->OffSetX(1.0f);
+		offsetX(20.0f);
+		CANERA->OffSetX(20.0f);
 		changeStat(WalkR);
 	}
 
