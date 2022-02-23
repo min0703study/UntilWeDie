@@ -12,6 +12,9 @@ HRESULT ImageClass::init(void)
 	IMAGEMANAGER->addFrameImage(PLAYER_WALK_R, "Resources/Images/Player/tex_hero_walk_r.bmp", PLAYER_X_SIZE * 8, PLAYER_X_SIZE, 8, 1);
 	IMAGEMANAGER->addFrameImage(PLAYER_WALK_L, "Resources/Images/Player/tex_hero_walk_l.bmp", PLAYER_X_SIZE * 8, PLAYER_X_SIZE, 8, 1);
 
+	IMAGEMANAGER->addFrameImage(PLAYER_RUN_R, "Resources/Images/Player/tex_hero_run_r.bmp", PLAYER_X_SIZE * 8, PLAYER_X_SIZE, 8, 1);
+	IMAGEMANAGER->addFrameImage(PLAYER_RUN_L, "Resources/Images/Player/tex_hero_run_l.bmp", PLAYER_X_SIZE * 8, PLAYER_X_SIZE, 8, 1);
+	
 	return S_OK;
 }
 

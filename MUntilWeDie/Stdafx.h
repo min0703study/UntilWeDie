@@ -118,14 +118,12 @@ extern int			_winsizeY;
 extern int			_winRealSizeX;
 extern int			_winRealSizeY;
 
-#define PLAYER_POWER			10
-#define PLAYER_MAX_HP			1000
-#define DRAGON_MAX_HP			50
-#define DRAGON_POWER			1
-#define BOSS_MAX_HP				20000
-#define BOSS_POWER				10
-#define SCORE_POINT				15
-#define BOSS_TIME				30.0f
-
 #define PLAYER_Y				60
 #define PLAYER_X				35
+
+//key
+#define PLAYER_MOVE_R			'D'
+#define PLAYER_MOVE_L			'A'
+#define PLAYER_COMMAND_CALL		'S'
+#define PLAYER_COMMAND_EXEC		'W'
+#define PLAYER_RUN				VK_LSHIFT
