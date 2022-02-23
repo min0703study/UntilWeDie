@@ -6,13 +6,16 @@ void Player::init(float x, float y, float width, float height)
 {
 	GameObject::Init("Player", x, y, width, height);
 
-	mAni.SetStatImage(Idle, IMAGEMANAGER->findImage(IMGCLASS->PLAYER_IDLE));
+	mAni.SetStatImage(Idle, IMAGEMANAGER->findImage(IMGCLASS->PlayerIdle));
 	
-	mAni.SetStatImage(WalkR, IMAGEMANAGER->findImage(IMGCLASS->PLAYER_WALK_R));
-	mAni.SetStatImage(WalkL, IMAGEMANAGER->findImage(IMGCLASS->PLAYER_WALK_L));
+	mAni.SetStatImage(WalkR, IMAGEMANAGER->findImage(IMGCLASS->PlayerWalkR));
+	mAni.SetStatImage(WalkL, IMAGEMANAGER->findImage(IMGCLASS->PlayerWalkL));
 
-	mAni.SetStatImage(RunR, IMAGEMANAGER->findImage(IMGCLASS->PLAYER_RUN_R));
-	mAni.SetStatImage(RunL, IMAGEMANAGER->findImage(IMGCLASS->PLAYER_RUN_L));
+	mAni.SetStatImage(RunR, IMAGEMANAGER->findImage(IMGCLASS->PlayerRunR));
+	mAni.SetStatImage(RunL, IMAGEMANAGER->findImage(IMGCLASS->PlayerRunL));
+
+	mAni.SetStatImage(CommandCall, IMAGEMANAGER->findImage(IMGCLASS->PlayerCommandCall));
+	mAni.SetStatImage(CommandExec, IMAGEMANAGER->findImage(IMGCLASS->PlayerCommandExec));
 
 	mAni.ChangeCurImage(Idle);
 }
@@ -28,15 +31,14 @@ void Player::draw()
 
 void Player::animation()
 {
-
 }
 
 void Player::move()
 {
-	if (KEYMANAGER->isStayKeyDown(VK_LEFT)) 
+	if (KEYMANAGER->isStayKeyDown(PLAYER_MOVE_L)) 
 	{
 		//¶Ù´Â ¾×¼Ç
-		if (KEYMANAGER->isStayKeyDown(VK_LSHIFT)) 
+		if (KEYMANAGER->isStayKeyDown(PLAYER_RUN)) 
 		{
 			offsetX(-3.0f);
 			CANERA->OffSetX(-3.0f);
@@ -50,9 +52,9 @@ void Player::move()
 
 	}
 
-	if (KEYMANAGER->isStayKeyDown(VK_RIGHT)) 
+	if (KEYMANAGER->isStayKeyDown(PLAYER_MOVE_R))
 	{
-		if (KEYMANAGER->isStayKeyDown(VK_LSHIFT))
+		if (KEYMANAGER->isStayKeyDown(PLAYER_RUN))
 		{
 			offsetX(3.0f);
 			CANERA->OffSetX(3.0f);
@@ -65,7 +67,17 @@ void Player::move()
 		}
 	}
 
-	if (KEYMANAGER->isOnceKeyUp(VK_LEFT) || KEYMANAGER->isOnceKeyUp(VK_RIGHT)) {
+	if (KEYMANAGER->isStayKeyDown(PLAYER_COMMAND_EXEC))
+	{
+		changeStat(CommandExec);
+	}
+
+	if (KEYMANAGER->isStayKeyDown(PLAYER_COMMAND_CALL))
+	{
+		changeStat(CommandCall);
+	}
+
+	if (KEYMANAGER->isOnceKeyUp(PLAYER_MOVE_L) || KEYMANAGER->isOnceKeyUp(PLAYER_MOVE_R)) {
 		changeStat(Idle);
 	}
 }
