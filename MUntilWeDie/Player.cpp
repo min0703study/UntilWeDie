@@ -41,12 +41,12 @@ void Player::move()
 		if (KEYMANAGER->isStayKeyDown(PLAYER_RUN)) 
 		{
 			offsetX(-3.0f);
-			CANERA->OffSetX(-3.0f);
+			CANERA->offSetX(-3.0f);
 			changeStat(RunL);
 		}
 		else {
 			offsetX(-1.0f);
-			CANERA->OffSetX(-1.0f);
+			CANERA->offSetX(-1.0f);
 			changeStat(WalkL);
 		}
 
@@ -57,12 +57,12 @@ void Player::move()
 		if (KEYMANAGER->isStayKeyDown(PLAYER_RUN))
 		{
 			offsetX(3.0f);
-			CANERA->OffSetX(3.0f);
+			CANERA->offSetX(3.0f);
 			changeStat(RunR);
 		}
 		else {
 			offsetX(1.0f);
-			CANERA->OffSetX(1.0f);
+			CANERA->offSetX(1.0f);
 			changeStat(WalkR);
 		}
 	}
