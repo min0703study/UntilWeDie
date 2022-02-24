@@ -19,6 +19,16 @@ HRESULT ImageClass::init(void)
 	IMAGEMANAGER->addFrameImage(PlayerCommandExecR, "Resources/Images/Player/tex_hero_command2_r.bmp", PLAYER_X_SIZE * 8, PLAYER_Y_ACTION_SIZE, 8, 1);
 	IMAGEMANAGER->addFrameImage(PlayerCommandExecL, "Resources/Images/Player/tex_hero_command2_l.bmp", PLAYER_X_SIZE * 8, PLAYER_Y_ACTION_SIZE, 8, 1);
 
+	IMAGEMANAGER->addFrameImage(NpcIdleL, "Resources/Images/Npc/tex_civilian_idle_l.bmp", PLAYER_X_SIZE * 8, PLAYER_X_SIZE, 8, 1);
+	IMAGEMANAGER->addFrameImage(NpcIdleR, "Resources/Images/Npc/tex_civilian_idle_r.bmp", PLAYER_X_SIZE * 8, PLAYER_X_SIZE, 8, 1);
+	IMAGEMANAGER->addFrameImage(NpcWalkR, "Resources/Images/Npc/tex_civilian_walk_r.bmp", PLAYER_X_SIZE * 8, PLAYER_X_SIZE, 8, 1);
+	IMAGEMANAGER->addFrameImage(NpcWalkL, "Resources/Images/Npc/tex_civilian_walk_l.bmp", PLAYER_X_SIZE * 8, PLAYER_X_SIZE, 8, 1);
+	IMAGEMANAGER->addFrameImage(NpcRunR, "Resources/Images/Npc/tex_civilian_run_r.bmp", PLAYER_X_SIZE * 8, PLAYER_X_SIZE, 8, 1);
+	IMAGEMANAGER->addFrameImage(NpcRunL, "Resources/Images/Npc/tex_civilian_run_l.bmp", PLAYER_X_SIZE * 8, PLAYER_X_SIZE, 8, 1);
+	IMAGEMANAGER->addFrameImage(NpcGrabL, "Resources/Images/Npc/tex_civilian_grab_r.bmp", PLAYER_X_SIZE * 4, PLAYER_X_SIZE, 4, 1);
+	IMAGEMANAGER->addFrameImage(NpcGrabR, "Resources/Images/Npc/tex_civilian_grab_l.bmp", PLAYER_X_SIZE * 4, PLAYER_X_SIZE, 4, 1);
+
+
 	return S_OK;
 }
 

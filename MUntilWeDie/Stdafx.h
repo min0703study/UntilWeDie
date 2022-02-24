@@ -131,3 +131,11 @@ extern int			_winRealSizeY;
 #define PLAYER_COMMAND_EXEC		'W'
 #define PLAYER_RUN				VK_LSHIFT
 #define PLAYER_SHOOT			VK_LBUTTON
+
+//min - npc default value
+#define NPC_INIT_COUNT			4
+
+enum class eDirection {
+	Left,
+	Right
+};

@@ -1,7 +1,8 @@
 #pragma once
 #include "GameNode.h"
 
-class Player;
+#include "NpcManager.h"
+#include "Player.h"
 
 class MainScene: public GameNode
 {

@@ -1,6 +1,5 @@
 #include "Stdafx.h"
 #include "MainScene.h"
-#include "Player.h"
 
 HRESULT MainScene::init(void)
 {
@@ -9,7 +8,6 @@ HRESULT MainScene::init(void)
 
 	mTempBkImg = IMAGEMANAGER->findImage(IMGCLASS->TempBkImg);
 	
-
 	return S_OK;
 }
 

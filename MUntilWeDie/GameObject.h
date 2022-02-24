@@ -13,11 +13,12 @@ public:
 	virtual void move(void);
 	virtual void action(void);
 
-	float getAbsX() { return mX; };
-	float getAbsY() { return mY; };
+	float* getAbsX() { return &mX; };
+	float* getAbsY() { return &mY; };
 
 	inline float getX() { return mX - CAMERA->getX();};
 	inline float getY() { return mY - CAMERA->getY();};
+
 	inline RECT getRc() {
 		RECT cRc = CAMERA->getRc();
 		return {
@@ -26,6 +27,11 @@ public:
 			mRc.right - cRc.left,
 			mRc.bottom - cRc.top };
 	};
+
+	inline RECT getAbsRc() {
+		return mRc;
+	};
+
 
 	void offsetX(float x) { 
 		mRc.left += x;

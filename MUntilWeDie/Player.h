@@ -1,7 +1,7 @@
 #pragma once
 #include "GameObject.h"
 
-class Npc;
+class NpcManager;
 
 class Player : public GameObject
 {
@@ -10,16 +10,13 @@ public:
 		Idle,
 		Walk,
 		Run,
+		Dash,
 		Shoot,
 		ShootRun,
 		CommandCall,
 		CommandExec
 	};
 
-	enum eDirection {
-		Left,
-		Right
-	};
 
 	typedef	struct tagAnimation {
 
@@ -41,7 +38,7 @@ public:
 		void ChangeCurImage(eStat changeStat, eDirection curDirection) {
 			mPlayCount = 0;
 			switch (curDirection) {
-			case Left:
+			case eDirection::Left:
 				switch (changeStat) {
 				case Idle:
 					mCurImage = IMAGEMANAGER->findImage(IMGCLASS->PlayerIdleL);
@@ -49,7 +46,7 @@ public:
 				case Walk:
 					mCurImage = IMAGEMANAGER->findImage(IMGCLASS->PlayerWalkL);
 					break;
-				case Run:
+				case Run: case Dash:
 					mCurImage = IMAGEMANAGER->findImage(IMGCLASS->PlayerRunL);
 					break;
 				case CommandCall:
@@ -63,7 +60,7 @@ public:
 					break;
 				}
 				break;
-			case Right:
+			case eDirection::Right:
 				switch (changeStat) {
 				case Idle:
 					mCurImage = IMAGEMANAGER->findImage(IMGCLASS->PlayerIdleR);
@@ -71,7 +68,7 @@ public:
 				case Walk:
 					mCurImage = IMAGEMANAGER->findImage(IMGCLASS->PlayerWalkR);
 					break;
-				case Run:
+				case Run: case Dash:
 					mCurImage = IMAGEMANAGER->findImage(IMGCLASS->PlayerRunR);
 					break;
 				case CommandCall:
@@ -112,21 +109,14 @@ public:
 	void init(float x, float y, float width, float height);
 	void release(void);
 
-	void update(void) {
-		move();
-		action();
-	};
+	void update(void);
 
-	void render(void) {
-		draw();
-		animation();
-	};
+	void render(void);
 
 	void draw();
 	void animation();
 	void move();
 	void action();
-
 
 	Player() {};
 	~Player() {};
@@ -137,8 +127,12 @@ private:
 	eDirection mCurDirection;
 
 	Animation mAni;
+	NpcManager* mNpcManager;
 
 	void changeStat(eStat changeStat);
+	
+	void orderCallNpc();
+	void orderExcuteNpc();
 
 };
 
