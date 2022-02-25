@@ -39,7 +39,8 @@ void Player::move()
 			
 			changeStat(Run);
 		}
-		else {
+		else
+		{
 			offsetX(-1.0f);
 			CAMERA->offSetX(-1.0f);
 			changeStat(Walk);
@@ -56,7 +57,8 @@ void Player::move()
 			CAMERA->offSetX(3.0f);
 			changeStat(Run);
 		}
-		else {
+		else
+		{
 			offsetX(1.0f);
 			CAMERA->offSetX(1.0f);
 			changeStat(Walk);
@@ -73,7 +75,8 @@ void Player::move()
 		changeStat(CommandCall);
 	}
 
-	if (KEYMANAGER->isOnceKeyUp(PLAYER_MOVE_L) || KEYMANAGER->isOnceKeyUp(PLAYER_MOVE_R)) {
+	if (KEYMANAGER->isOnceKeyUp(PLAYER_MOVE_L) || KEYMANAGER->isOnceKeyUp(PLAYER_MOVE_R))
+	{
 		changeStat(Idle);
 	}
 }
@@ -82,8 +85,10 @@ void Player::action()
 {
 	mAni.frameUpdate(TIMEMANAGER->getElapsedTime());
 
-	if (mCurStat == CommandCall || mCurStat == CommandExec) {
-		if (mAni.mPlayCount > 0) {
+	if (mCurStat == CommandCall || mCurStat == CommandExec)
+	{
+		if (mAni.mPlayCount > 0)
+		{
 			changeStat(mPastStat);
 		};
 	}

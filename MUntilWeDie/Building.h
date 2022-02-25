@@ -1,33 +1,22 @@
 #pragma once
 #include "GameObject.h"
 
-class Npc;
-
-class Player : public GameObject
+class Building : public GameObject
 {
 public:
 	enum eStat
 	{
-		Idle,
-		Walk,
-		Run,
-		Shoot,
-		ShootRun,
-		CommandCall,
-		CommandExec
+		off_1,
+		off_2,
+		open,
+		stand,
+		close
 	};
 
-	enum eDirection 
+	typedef	struct tagAnimation 
 	{
-		Left,
-		Right
-	};
-
-	typedef	struct tagAnimation
-	{
-
-		float mFrameUpdateSec;	// 초당 프레임 업데이트 수
-		float mElapsedSec;		// 프레임과 프레임 사이의 시간
+		float mFrameUpdateSec;
+		float mElapsedSec;
 
 		ImageBase* mCurImage;
 
@@ -42,7 +31,7 @@ public:
 			mCurImage = nullptr;
 		}
 
-		void ChangeCurImage(eStat changeStat, eDirection curDirection)
+		void ChangeCurImage(eStat changeStat)
 		{
 			mPlayCount = 0;
 			switch (curDirection)
@@ -66,35 +55,11 @@ public:
 					mCurImage = IMAGEMANAGER->findImage(IMGCLASS->PlayerCommandExecL);
 					break;
 				default:
-					//Do Nothing
 					break;
 				}
 				break;
-			case Right:
-				switch (changeStat)
-				{
-				case Idle:
-					mCurImage = IMAGEMANAGER->findImage(IMGCLASS->PlayerIdleR);
-					break;
-				case Walk:
-					mCurImage = IMAGEMANAGER->findImage(IMGCLASS->PlayerWalkR);
-					break;
-				case Run:
-					mCurImage = IMAGEMANAGER->findImage(IMGCLASS->PlayerRunR);
-					break;
-				case CommandCall:
-					mCurImage = IMAGEMANAGER->findImage(IMGCLASS->PlayerCommandCallR);
-					break;
-				case CommandExec:
-					mCurImage = IMAGEMANAGER->findImage(IMGCLASS->PlayerCommandExecR);
-					break;
-				default:
-					//Do Nothing
-					break;
-				}
-				break;
+			
 			default:
-				//Do Nothing
 				break;
 			}
 		}
@@ -119,39 +84,15 @@ public:
 		inline ImageBase* GetImage() const { return mCurImage; }
 	} Animation;
 
-	void init(float x, float y, float width, float height);
-	void release(void);
-
-	void update(void)
-	{
-		move();
-		action();
-	};
-
-	void render(void)
-	{
-		draw();
-		animation();
-	};
-
-	void draw();
-	void animation();
-	void move();
-	void action();
-
-
-	Player() {};
-	~Player() {};
+	Building() {}
+	~Building() {}
 
 private:
 	eStat mCurStat;
 	eStat mPastStat;
 
-	eDirection mCurDirection;
-
 	Animation mAni;
 
 	void changeStat(eStat changeStat);
-
 };
 

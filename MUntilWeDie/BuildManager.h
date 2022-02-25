@@ -20,4 +20,3 @@ public:
 	BuildManager() {}
 	~BuildManager() {}
 };
-
