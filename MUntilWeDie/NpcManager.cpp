@@ -1,15 +1,13 @@
 #include "Stdafx.h"
 #include "NpcManager.h"
-#include "NPC.h"
 
-HRESULT NpcManager::init(float* playerAbsX, float* playerAbsY, eDirection* playerDirection)
+HRESULT NpcManager::init(float* playerAbsX, float* playerAbsY,Player::eStat* playerStat, eDirection* playerDirection)
 {
-	
 	mNpcCount = NPC_INIT_COUNT;
 
 	for (int i = 0; i < mNpcCount; i++) {
 		Npc* npc = new Npc;
-		npc->init(playerAbsX, playerAbsY, playerDirection, PLAYER_X_SIZE, PLAYER_X_SIZE);
+		npc->init(playerAbsX, playerAbsY, playerDirection, playerStat, PLAYER_X_SIZE, PLAYER_X_SIZE);
 		mNpcs.push_back(npc);
 	}
 	return S_OK;
@@ -40,6 +38,7 @@ bool NpcManager::orderCallNpc(RECT playerCallableRc)
 {
 	RECT tempRc;
 	for (mItNpcs = mNpcs.begin(); mItNpcs != mNpcs.end(); mItNpcs++) {
+		if ((*mItNpcs)->isActivated()) continue;
 		if (IntersectRect(&tempRc, &(*mItNpcs)->getAbsRc(), &playerCallableRc)) {
 			(*mItNpcs)->orderCall(mActiveNpcs.size() + 1);
 			mActiveNpcs.push_back(*mItNpcs);
@@ -53,21 +52,5 @@ bool NpcManager::orderExecNpc()
 	if (mActiveNpcs.begin() == mActiveNpcs.end()) return false;
 	(*mActiveNpcs.begin())->orderGrap();
 	mActiveNpcs.erase(mActiveNpcs.begin());
-	return true;
-}
-
-bool NpcManager::orderFollowActiveNpc()
-{
-	for (mItActiveNpcs = mActiveNpcs.begin(); mItActiveNpcs != mActiveNpcs.end(); mItActiveNpcs++) {
-		(*mItActiveNpcs)->orderFollow();
-	}
-	return true;
-}
-
-bool NpcManager::orderStopActiveNpc()
-{
-	for (mItActiveNpcs = mActiveNpcs.begin(); mItActiveNpcs != mActiveNpcs.end(); mItActiveNpcs++) {
-		(*mItActiveNpcs)->orderStop();
-	}
 	return true;
 }

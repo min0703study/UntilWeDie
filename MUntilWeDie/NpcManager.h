@@ -1,12 +1,11 @@
 #pragma once
 #include "GameNode.h"
-
-class Npc;
+#include "NPC.h"
 
 class NpcManager: public GameNode
 {
 public:
-	HRESULT init(float * playerAbsX, float * playerAbsY, eDirection * playerDirection);
+	HRESULT init(float * playerAbsX, float * playerAbsY, Player::eStat* playerStat, eDirection * playerDirection);
 
 	void update(void);
 	void release(void);
@@ -14,8 +13,6 @@ public:
 
 	bool orderCallNpc(RECT playerCallableRc);
 	bool orderExecNpc();
-	bool orderFollowActiveNpc();
-	bool orderStopActiveNpc();
 
 	NpcManager() {};
 	~NpcManager() {};

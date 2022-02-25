@@ -24,5 +24,6 @@ void MainScene::release(void)
 void MainScene::render(void)
 {
 	mTempBkImg->render(getMemDc(), 0,0, CAMERA->getX(), CAMERA->getY(), CAMERA->getWidth(), CAMERA->getHeight());
+	GDIPLUSMANAGER->drawCProgressBar(getMemDc(), 100, 100, 100, 100, 100, 150);
 	mPlayer->render();
 }

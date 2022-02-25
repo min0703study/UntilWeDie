@@ -26,6 +26,8 @@ public:
 
 	void frameRender(HDC hdc, string strKey, float x, float y);
 
+	void drawCProgressBar(HDC hdc, float x, float y, float width, float height, float value, float maxValue);
+
 	void release();
 };
 

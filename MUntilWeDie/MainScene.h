@@ -3,6 +3,7 @@
 
 #include "NpcManager.h"
 #include "Player.h"
+#include "NPC.h"
 
 class MainScene: public GameNode
 {

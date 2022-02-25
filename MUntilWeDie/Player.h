@@ -6,7 +6,7 @@ class NpcManager;
 class Player : public GameObject
 {
 public:
-	enum eStat {
+	enum class eStat {
 		Idle,
 		Walk,
 		Run,
@@ -16,7 +16,6 @@ public:
 		CommandCall,
 		CommandExec
 	};
-
 
 	typedef	struct tagAnimation {
 
@@ -40,19 +39,19 @@ public:
 			switch (curDirection) {
 			case eDirection::Left:
 				switch (changeStat) {
-				case Idle:
+				case eStat::Idle:
 					mCurImage = IMAGEMANAGER->findImage(IMGCLASS->PlayerIdleL);
 					break;
-				case Walk:
+				case eStat::Walk:
 					mCurImage = IMAGEMANAGER->findImage(IMGCLASS->PlayerWalkL);
 					break;
-				case Run: case Dash:
+				case eStat::Run: case eStat::Dash:
 					mCurImage = IMAGEMANAGER->findImage(IMGCLASS->PlayerRunL);
 					break;
-				case CommandCall:
+				case eStat::CommandCall:
 					mCurImage = IMAGEMANAGER->findImage(IMGCLASS->PlayerCommandCallL);
 					break;
-				case CommandExec:
+				case eStat::CommandExec:
 					mCurImage = IMAGEMANAGER->findImage(IMGCLASS->PlayerCommandExecL);
 					break;
 				default:
@@ -62,19 +61,19 @@ public:
 				break;
 			case eDirection::Right:
 				switch (changeStat) {
-				case Idle:
+				case eStat::Idle:
 					mCurImage = IMAGEMANAGER->findImage(IMGCLASS->PlayerIdleR);
 					break;
-				case Walk:
+				case eStat::Walk:
 					mCurImage = IMAGEMANAGER->findImage(IMGCLASS->PlayerWalkR);
 					break;
-				case Run: case Dash:
+				case eStat::Run: case eStat::Dash:
 					mCurImage = IMAGEMANAGER->findImage(IMGCLASS->PlayerRunR);
 					break;
-				case CommandCall:
+				case eStat::CommandCall:
 					mCurImage = IMAGEMANAGER->findImage(IMGCLASS->PlayerCommandCallR);
 					break;
-				case CommandExec:
+				case eStat::CommandExec:
 					mCurImage = IMAGEMANAGER->findImage(IMGCLASS->PlayerCommandExecR);
 					break;
 				default:

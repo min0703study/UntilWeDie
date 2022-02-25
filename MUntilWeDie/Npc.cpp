@@ -1,7 +1,7 @@
 #include "Stdafx.h"
 #include "NPC.h"
 
-void Npc::init(float* playerAbsX, float* playerAbsY, eDirection* playerDirection, float width, float height)
+void Npc::init(float* playerAbsX, float* playerAbsY, eDirection * playerDirection, Player::eStat* playerStat, float width, float height)
 {
 	GameObject::Init("Npc", *playerAbsX + RND->getFromIntTo(300, 600), *playerAbsY, width, height);
 
@@ -10,7 +10,9 @@ void Npc::init(float* playerAbsX, float* playerAbsY, eDirection* playerDirection
 
 	mPlayerDirection = playerDirection;
 
-	mCurStat = StopNoting;
+	mPlayerStat = playerStat;
+
+	mCurStat = eStat::StopNoting;
 	mCurDirection = eDirection::Left;
 
 	nothing();
@@ -34,28 +36,7 @@ void Npc::move()
 {
 	switch (mCurStat)
 	{
-	case RunToPlayer: {
-		int distance = 0;
-
-		if (*mPlayerDirection == eDirection::Left) {
-			distance = static_cast<int> (*mPlayerAbsX + (mRank * 80) - *getAbsX());
-		}
-		else if (*mPlayerDirection == eDirection::Right) {
-			distance = static_cast<int> (*mPlayerAbsX - (mRank * 80) - *getAbsX());
-		}
-
-		if (distance > 3) {
-			offsetX(3.0f);
-		}
-		else if (distance < 3) {
-			offsetX(-3.0f);
-		}
-		else {
-			changeStat(StopToPlayer, *mPlayerDirection);
-		};
-	}
-	break;
-	case WalkNoting: {
+	case eStat::WalkNoting: {
 		if (mCurDirection == eDirection::Left) {
 			if (mNotingToX < getAbsRc().left) {
 				offsetX(-1.0f);
@@ -64,7 +45,7 @@ void Npc::move()
 				mNotingStopCount = RND->getFromIntTo(300, 600);
 				mNotingToX = mNotingStartX + RND->getFromIntTo(200, 400);
 				mCurDirection = eDirection::Right;
-				changeStat(StopNoting, mCurDirection);
+				changeStat(eStat::StopNoting, mCurDirection);
 			}
 		}
 		else if (mCurDirection == eDirection::Right) {
@@ -75,17 +56,52 @@ void Npc::move()
 				mNotingStopCount = RND->getFromIntTo(300, 600);
 				mNotingToX = mNotingStartX - RND->getFromIntTo(200, 400);
 				mCurDirection = eDirection::Left;
-				changeStat(StopNoting, mCurDirection);
+				changeStat(eStat::StopNoting, mCurDirection);
 			}
 		}
 	}
 	break;
-	case StopNoting:
+	case eStat::StopNoting:
 		mNotingStopCount--;
 		if (mNotingStopCount == 0) {
-			changeStat(WalkNoting, mCurDirection);
+			changeStat(eStat::WalkNoting, mCurDirection);
 		}
 		break;
+
+	case eStat::FollowToPlayer: {
+		int distance = 0;
+
+		if (*mPlayerDirection == eDirection::Left) {
+			distance = static_cast<int> (*mPlayerAbsX + (mRank * 80) - *getAbsX());
+		}
+		else if (*mPlayerDirection == eDirection::Right) {
+			distance = static_cast<int> (*mPlayerAbsX - (mRank * 80) - *getAbsX());
+		}
+
+		if (distance > 0) {
+			mAni.ChangeCurImage(eStat::Run, mCurDirection);
+			if (*mPlayerStat == Player::eStat::Dash) {
+				offsetX(RND->getFromFloatTo(3.0f, 6.0f));
+			}
+			else {
+				offsetX(RND->getFromFloatTo(2.0f, 4.0f));
+			}
+		}
+		else if (distance < 0) {
+			mAni.ChangeCurImage(eStat::Run, mCurDirection);
+			if (*mPlayerStat == Player::eStat::Dash) {
+				offsetX(-RND->getFromFloatTo(3.0f, 6.0f));
+			}
+			else {
+				offsetX(-RND->getFromFloatTo(2.0f, 4.0f));
+			}
+		}
+		else {
+			mCurDirection = *mPlayerDirection;
+			mAni.ChangeCurImage(eStat::Idle, mCurDirection);
+		};
+	}
+	break;
 	default:
 		break;
 	}
@@ -97,9 +113,9 @@ void Npc::action()
 
 	switch (mCurStat)
 	{
-	case Grab: 
-		mActiveCount--;
-		if (mActiveCount == 0) {
+	case eStat::Grab:
+		mOrderCount--;
+		if (mOrderCount == 0) {
 			nothing();
 		}
 		break;
@@ -119,23 +135,13 @@ void Npc::orderCall(int rank)
 		mCurDirection = eDirection::Left;
 	};
 
-	changeStat(RunToPlayer, mCurDirection);
-}
-
-void Npc::orderFollow()
-{
-	changeStat(RunToPlayer, *mPlayerDirection);
-}
-
-void Npc::orderStop()
-{
-	changeStat(StopToPlayer, *mPlayerDirection);
+	changeStat(eStat::FollowToPlayer, mCurDirection);
 }
 
 void Npc::orderGrap()
 {
-	mActiveCount = 500;
-	changeStat(Grab, *mPlayerDirection);
+	mOrderCount = 500;
+	changeStat(eStat::Grab, *mPlayerDirection);
 }
 
 void Npc::nothing()
@@ -149,7 +155,7 @@ void Npc::nothing()
 		mNotingToX = mNotingStartX + RND->getFromIntTo(0, 400);
 	}
 
-	changeStat(WalkNoting, mCurDirection);
+	changeStat(eStat::WalkNoting, mCurDirection);
 }
 
 void Npc::changeStat(eStat changeStat, eDirection direction)

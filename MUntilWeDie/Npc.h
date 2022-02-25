@@ -1,18 +1,17 @@
 #pragma once
 #include "GameObject.h"
+#include "Player.h"
 
 class Npc: public GameObject
 {
 public:
-	enum eStat {
+	enum class eStat {
 		Idle,
 		Walk,
 		Run,
-		RunToPlayer,
-		DashToPlayer,
-		StopToPlayer,
 		StopNoting,
 		WalkNoting,
+		FollowToPlayer,
 		Grab,
 	};
 
@@ -38,16 +37,16 @@ public:
 			switch (curDirection) {
 			case eDirection::Left:
 				switch (changeStat) {
-				case Idle: case StopToPlayer: case StopNoting:
+				case eStat::Idle: case eStat::StopNoting:
 					mCurImage = IMAGEMANAGER->findImage(IMGCLASS->NpcIdleL);
 					break;
-				case Walk: case WalkNoting:
+				case eStat::Walk: case eStat::WalkNoting:
 					mCurImage = IMAGEMANAGER->findImage(IMGCLASS->NpcWalkL);
 					break;
-				case Run: case RunToPlayer:
+				case eStat::Run:
 					mCurImage = IMAGEMANAGER->findImage(IMGCLASS->NpcRunL);
 					break;
-				case Grab:
+				case eStat::Grab:
 					mCurImage = IMAGEMANAGER->findImage(IMGCLASS->NpcGrabL);
 					break;
 				default:
@@ -57,16 +56,16 @@ public:
 				break;
 			case eDirection::Right:
 				switch (changeStat) {
-				case Idle: case StopToPlayer: case StopNoting:
+				case eStat::Idle: case eStat::StopNoting:
 					mCurImage = IMAGEMANAGER->findImage(IMGCLASS->NpcIdleR);
 					break;
-				case Walk:case WalkNoting:
+				case eStat::Walk:case eStat::WalkNoting:
 					mCurImage = IMAGEMANAGER->findImage(IMGCLASS->NpcWalkR);
 					break;
-				case Run: case RunToPlayer:
+				case eStat::Run:
 					mCurImage = IMAGEMANAGER->findImage(IMGCLASS->NpcRunR);
 					break;
-				case Grab:
+				case eStat::Grab:
 					mCurImage = IMAGEMANAGER->findImage(IMGCLASS->NpcGrabR);
 					break;
 				default:
@@ -98,7 +97,11 @@ public:
 		inline ImageBase* GetImage() const { return mCurImage; }
 	} Animation;
 
-	void init(float * playerAbsX, float * playerAbsY, eDirection * playerDirection, float width, float height);
+	void init(float * playerAbsX, 
+		float * playerAbsY, 
+		eDirection * playerDirection, 
+		Player::eStat* playerStat,
+		float width, float height);
 
 	void release(void);
 
@@ -119,25 +122,25 @@ public:
 
 	//npc 행동
 	void orderCall(int rank);
-	void orderFollow();
-	void orderStop();
 	void orderGrap();
 
 	void nothing();
 
+	inline bool isActivated() { return mCurStat == eStat::FollowToPlayer; }
 
 	Npc() {};
 	~Npc() {};
 private:
 	eStat mCurStat;
 	eStat mPastStat;
-
 	eDirection mCurDirection;
 
 	Animation mAni;
 
 	int mRank;
 
+	//Player 데이터
+	Player::eStat* mPlayerStat;
 	float* mPlayerAbsX;
 	float* mPlayerAbsY;
 
@@ -147,7 +150,7 @@ private:
 	int mNotingStartX;
 
 	//명령 수행 시간
-	int mActiveCount;
+	int mOrderCount;
 
 	void changeStat(eStat changeStat, eDirection direction);
 
