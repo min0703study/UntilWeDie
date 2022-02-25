@@ -7,7 +7,7 @@ HRESULT MainScene::init(void)
 	mPlayer = new Player;
 	mPlayer->init(CAMERA_X / 2 - 20 ,CAMERA_Y  - 420, 100.0f, 100.0f);
 
-	mTempBkImg = IMAGEMANAGER->findImage(IMGCLASS->TEMP_BK_IMG);
+	mTempBkImg = IMAGEMANAGER->findImage(IMGCLASS->TempBkImg);
 	mTempBkImg1 = IMAGEMANAGER->findImage(IMGCLASS->Object_Mushroom);
 	
 
@@ -26,7 +26,7 @@ void MainScene::release(void)
 
 void MainScene::render(void)
 {
-	mTempBkImg->render(getMemDc(), 0,0, CANERA->GetX(), CANERA->GetY() +270, CANERA->GetWidth(), CANERA->GetHeight());
-	mTempBkImg1->frameRender(getMemDc(), 10000 - CANERA->GetX(), CAMERA_Y - 360, mTempBkImg1->getFrameX(), mTempBkImg1->getFrameY());
+	mTempBkImg->render(getMemDc(), 0,0, CAMERA->getX(), CAMERA->getY() +270, CAMERA->getWidth(), CAMERA->getHeight());
+	mTempBkImg1->frameRender(getMemDc(), 10000 - CAMERA->getX(), CAMERA_Y - 360, mTempBkImg1->getFrameX(), mTempBkImg1->getFrameY());
 	mPlayer->render();
 }

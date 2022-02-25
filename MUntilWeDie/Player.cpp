@@ -6,11 +6,10 @@ void Player::init(float x, float y, float width, float height)
 {
 	GameObject::Init("Player", x, y, width, height);
 
-	mAni.SetStatImage(Idle, IMAGEMANAGER->findImage(IMGCLASS->PLAYER_IDLE));
-	mAni.SetStatImage(WalkR, IMAGEMANAGER->findImage(IMGCLASS->PLAYER_WALK_R));
-	mAni.SetStatImage(WalkL, IMAGEMANAGER->findImage(IMGCLASS->PLAYER_WALK_L));
+	mCurStat = Idle;
+	mCurDirection = Right;
 
-	mAni.ChangeCurImage(Idle);
+	mAni.ChangeCurImage(mCurStat, mCurDirection);
 }
 
 void Player::release(void)
@@ -19,31 +18,61 @@ void Player::release(void)
 
 void Player::draw()
 {
-	mAni.GetImage()->frameRender(getMemDc(), getX(), getY());
+	RectangleMake(getMemDc(), getRc());
+	mAni.GetImage()->frameRender(getMemDc(), getX(), getY() + (mHeight - mAni.GetImage()->getHeight()));
 }
 
 void Player::animation()
 {
-
 }
 
 void Player::move()
 {
-	if (KEYMANAGER->isStayKeyDown(VK_LEFT)) 
+	if (KEYMANAGER->isStayKeyDown(PLAYER_MOVE_L))
 	{
-		offsetX(-20.0f);
-		CANERA->OffSetX(-20.0f);
-		changeStat(WalkL);
+		mCurDirection = Left;
+		//¶Ù´Â ¾×¼Ç
+		if (KEYMANAGER->isStayKeyDown(PLAYER_RUN))
+		{
+			offsetX(-3.0f);
+			CAMERA->offSetX(-3.0f);
+
+			changeStat(Run);
+		}
+		else {
+			offsetX(-1.0f);
+			CAMERA->offSetX(-1.0f);
+			changeStat(Walk);
+		}
 	}
 
-	if (KEYMANAGER->isStayKeyDown(VK_RIGHT)) 
+	if (KEYMANAGER->isStayKeyDown(PLAYER_MOVE_R))
 	{
-		offsetX(20.0f);
-		CANERA->OffSetX(20.0f);
-		changeStat(WalkR);
+		mCurDirection = Right;
+		if (KEYMANAGER->isStayKeyDown(PLAYER_RUN))
+		{
+			offsetX(3.0f);
+			CAMERA->offSetX(3.0f);
+			changeStat(Run);
+		}
+		else {
+			offsetX(1.0f);
+			CAMERA->offSetX(1.0f);
+			changeStat(Walk);
+		}
 	}
 
-	if (KEYMANAGER->isOnceKeyUp(VK_LEFT) || KEYMANAGER->isOnceKeyUp(VK_RIGHT)) {
+	if (KEYMANAGER->isOnceKeyDown(PLAYER_COMMAND_EXEC))
+	{
+		changeStat(CommandExec);
+	}
+
+	if (KEYMANAGER->isOnceKeyDown(PLAYER_COMMAND_CALL))
+	{
+		changeStat(CommandCall);
+	}
+
+	if (KEYMANAGER->isOnceKeyUp(PLAYER_MOVE_L) || KEYMANAGER->isOnceKeyUp(PLAYER_MOVE_R)) {
 		changeStat(Idle);
 	}
 }
@@ -51,13 +80,20 @@ void Player::move()
 void Player::action()
 {
 	mAni.frameUpdate(TIMEMANAGER->getElapsedTime());
+
+	if (mCurStat == CommandCall || mCurStat == CommandExec) {
+		if (mAni.mPlayCount > 0) {
+			changeStat(mPastStat);
+		};
+	}
 }
 
 void Player::changeStat(eStat changeStat)
 {
-	if (mCurStat != changeStat) 
+	if (mCurStat != changeStat)
 	{
+		mPastStat = mCurStat;
 		mCurStat = changeStat;
-		mAni.ChangeCurImage(mCurStat);
+		mAni.ChangeCurImage(mCurStat, mCurDirection);
 	}
 }
