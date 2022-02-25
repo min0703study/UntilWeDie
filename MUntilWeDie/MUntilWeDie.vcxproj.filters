@@ -62,7 +62,7 @@
     <ClCompile Include="BuildManager.cpp">
       <Filter>Building</Filter>
     </ClCompile>
-    <ClCompile Include="Building.cpp">
+    <ClCompile Include="ShovelShop.cpp">
       <Filter>Building</Filter>
     </ClCompile>
   </ItemGroup>
@@ -136,7 +136,7 @@
     <ClInclude Include="BuildManager.h">
       <Filter>Building</Filter>
     </ClInclude>
-    <ClInclude Include="Building.h">
+    <ClInclude Include="ShovelShop.h">
       <Filter>Building</Filter>
     </ClInclude>
   </ItemGroup>
