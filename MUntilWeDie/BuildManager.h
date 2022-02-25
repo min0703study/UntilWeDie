@@ -1,6 +1,8 @@
 #pragma once
 #include "GameNode.h"
 
+class ShovelShop;
+
 struct BuildRect
 {
 	RECT rc;
@@ -19,4 +21,7 @@ public:
 
 	BuildManager() {}
 	~BuildManager() {}
+
+private:
+	ShovelShop* mShovelShop;
 };
