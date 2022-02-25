@@ -3,7 +3,7 @@
 
 HRESULT ImageClass::init(void)
 {
-	IMAGEMANAGER->addImage(TempBkImg, "Resources/Images/Background/onworking2.bmp", 21818 * 2.125, 780 * 2.125, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage(BkImg, "Resources/Images/Background/onworking2.bmp",MAP_X_SIZE, MAP_Y_SIZE, true, RGB(255, 0, 255));
 
 	IMAGEMANAGER->addFrameImage(PlayerIdleL, "Resources/Images/Player/tex_hero_idle_l.bmp", PLAYER_X_SIZE * 6, PLAYER_X_SIZE, 6, 1);
 	IMAGEMANAGER->addFrameImage(PlayerIdleR, "Resources/Images/Player/tex_hero_idle_r.bmp", PLAYER_X_SIZE * 6, PLAYER_X_SIZE, 6, 1);

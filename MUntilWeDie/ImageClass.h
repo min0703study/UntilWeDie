@@ -4,7 +4,7 @@
 class ImageClass: public SingletonBase<ImageClass>
 {
 public:
-	const char* TempBkImg = "임시 배경 화면";
+	const char* BkImg = "배경 화면";
 
 	const char* PlayerIdleR = "플레이어 정지 오른쪽 액션";
 	const char* PlayerIdleL = "플레이어 정지 왼쪽 액션";

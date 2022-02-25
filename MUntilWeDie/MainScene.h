@@ -1,7 +1,7 @@
 #pragma once
 #include "GameNode.h"
-
-class Player;
+#include "Player.h"
+#include "Map.h"
 
 class MainScene: public GameNode
 {
@@ -15,7 +15,6 @@ public:
 	~MainScene() {};
 private:
 	Player* mPlayer;
-	ImageBase* mTempBkImg; //임시로 추가
-	ImageBase* mTempBkImg1; //임시로 추가
+	Map* mMap;
 };
 
