@@ -20,10 +20,26 @@ public:
 	const char* PlayerCommandExecL = "플레이어 왼쪽으로 실행 명령";
 	const char* PlayerCommandExecR = "플레이어 오른쪽으로 실행 명령";
 
-	const char* MONSTER_NORMAL = "MonsterNormal";
-	const char* MONSTER_SUICIDE = "MonsterSuicide";
-	const char* MONSTER_FROG = "MonsterFrog";
-	const char* MONSTER_CANNON = "MonsterCannon";
+	const char* MONSTER_NORMAL_IDLE = "MonsterNormalIdle";
+	const char* MONSTER_NORMAL_WALK = "MonsterNormalWalk";
+	const char* MONSTER_NORMAL_ATTACK = "MonsterNormalAttack";
+	const char* MONSTER_NORMAL_DEATH = "MonsterNormalDeath";
+	const char* MONSTER_NORMAL_FALL = "MonsterNormalFall";
+
+	const char* MONSTER_SUICIDE_IDLE = "MonsterSuicideIdle";
+	const char* MONSTER_SUICIDE_WALK = "MonsterSuicideWalk";
+	const char* MONSTER_SUICIDE_ATTACK = "MonsterSuicideAttack";
+
+	const char* MONSTER_FROG_IDLE = "MonsterFrogIdle";
+	const char* MONSTER_FROG_WALK = "MonsterFrogWalk";
+	const char* MONSTER_FROG_JUMP = "MonsterFrogJump";
+	const char* MONSTER_FROG_ATTACK = "MonsterFrogAttack";
+	const char* MONSTER_FROG_DEATH = "MonsterFrogDeath";
+
+	const char* MONSTER_CANNON_IDLE = "MonsterCannonIdle";
+	const char* MONSTER_CANNON_WALK = "MonsterCannonWalk";
+	const char* MONSTER_CANNON_ATTACK = "MonsterCannonAttack";
+	const char* MONSTER_CANNON_DEATH = "MonsterCannonDeath";
 
 	HRESULT init(void);
 	virtual void release(void);

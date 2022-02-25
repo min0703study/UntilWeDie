@@ -160,6 +160,7 @@
     <ClCompile Include="MainGame.cpp" />
     <ClCompile Include="MainScene.cpp" />
     <ClCompile Include="Monster.cpp" />
+    <ClCompile Include="MonsterManager.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="SceneManager.cpp" />
     <ClCompile Include="Stdafx.cpp">
@@ -186,6 +187,7 @@
     <ClInclude Include="MainGame.h" />
     <ClInclude Include="MainScene.h" />
     <ClInclude Include="Monster.h" />
+    <ClInclude Include="MonsterManager.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="RandomFunction.h" />
     <ClInclude Include="SceneManager.h" />
