@@ -62,9 +62,6 @@
     <ClCompile Include="BuildManager.cpp">
       <Filter>Building</Filter>
     </ClCompile>
-    <ClCompile Include="Building.cpp">
-      <Filter>Building</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameNode.h">
@@ -134,9 +131,6 @@
       <Filter>Manager</Filter>
     </ClInclude>
     <ClInclude Include="BuildManager.h">
-      <Filter>Building</Filter>
-    </ClInclude>
-    <ClInclude Include="Building.h">
       <Filter>Building</Filter>
     </ClInclude>
   </ItemGroup>

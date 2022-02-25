@@ -147,7 +147,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Building.cpp" />
     <ClCompile Include="BuildManager.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="FontManager.cpp" />
@@ -174,7 +173,6 @@
     <ClCompile Include="WinMain.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Building.h" />
     <ClInclude Include="BuildManager.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="FontManager.h" />
