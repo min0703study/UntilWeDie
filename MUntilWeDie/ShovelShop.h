@@ -5,7 +5,9 @@
 #define MAX_UI_SHOVEL_COUNT 4
 
 struct Shovel {
-
+	float x, y;
+	float width;
+	float height;
 };
 
 class ShovelShop: public GameObject
@@ -32,16 +34,18 @@ public:
 	void action();
 
 	void giveShovelCommand();
-	void autoGenerator();
+	void autoCreate();
 	void intoNpc();
+
 private:
 	vector<Shovel*> mShovels;
 	vector<Shovel*>::iterator mItShovels;
 
 	ImageBase* mImg;
 
+	bool mShoveltrue;
 	int mCurShovelCount;
-	int mGeneratorCount;
+	int mCreateCount;
 
 	bool isNpcIn;
 };
