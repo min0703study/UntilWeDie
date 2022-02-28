@@ -144,6 +144,11 @@ void Npc::orderGrap()
 	changeStat(eStat::Grab, *mPlayerDirection);
 }
 
+void Npc::changeType(eType type)
+{
+	mType = type;
+}
+
 void Npc::nothing()
 {
 	mNotingStartX = getX();

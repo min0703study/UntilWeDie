@@ -15,6 +15,16 @@ public:
 		Grab,
 	};
 
+	enum class eType {
+		Civilian,
+		Digger,
+		Engineer
+	};
+
+	enum class eOrderType {
+		Grap
+	};
+
 	typedef	struct tagAnimation {
 
 		float mFrameUpdateSec;	// 초당 프레임 업데이트 수
@@ -38,16 +48,16 @@ public:
 			case eDirection::Left:
 				switch (changeStat) {
 				case eStat::Idle: case eStat::StopNoting:
-					mCurImage = IMAGEMANAGER->findImage(IMGCLASS->NpcIdleL);
+					mCurImage = IMAGEMANAGER->findImage(IMGCLASS->EngineerIdleL);
 					break;
 				case eStat::Walk: case eStat::WalkNoting:
-					mCurImage = IMAGEMANAGER->findImage(IMGCLASS->NpcWalkL);
+					mCurImage = IMAGEMANAGER->findImage(IMGCLASS->EngineerWalkL);
 					break;
 				case eStat::Run:
-					mCurImage = IMAGEMANAGER->findImage(IMGCLASS->NpcRunL);
+					mCurImage = IMAGEMANAGER->findImage(IMGCLASS->EngineerRunL);
 					break;
 				case eStat::Grab:
-					mCurImage = IMAGEMANAGER->findImage(IMGCLASS->NpcGrabL);
+					mCurImage = IMAGEMANAGER->findImage(IMGCLASS->CivilianBuildL);
 					break;
 				default:
 					//Do Nothing
@@ -57,16 +67,16 @@ public:
 			case eDirection::Right:
 				switch (changeStat) {
 				case eStat::Idle: case eStat::StopNoting:
-					mCurImage = IMAGEMANAGER->findImage(IMGCLASS->NpcIdleR);
+					mCurImage = IMAGEMANAGER->findImage(IMGCLASS->EngineerIdleR);
 					break;
 				case eStat::Walk:case eStat::WalkNoting:
-					mCurImage = IMAGEMANAGER->findImage(IMGCLASS->NpcWalkR);
+					mCurImage = IMAGEMANAGER->findImage(IMGCLASS->EngineerWalkR);
 					break;
 				case eStat::Run:
-					mCurImage = IMAGEMANAGER->findImage(IMGCLASS->NpcRunR);
+					mCurImage = IMAGEMANAGER->findImage(IMGCLASS->EngineerRunR);
 					break;
 				case eStat::Grab:
-					mCurImage = IMAGEMANAGER->findImage(IMGCLASS->NpcGrabR);
+					mCurImage = IMAGEMANAGER->findImage(IMGCLASS->DiggerGrabR);
 					break;
 				default:
 					//Do Nothing
@@ -124,6 +134,7 @@ public:
 	void orderCall(int rank);
 	void orderGrap();
 
+	void changeType(eType type);
 	void nothing();
 
 	inline bool isActivated() { return mCurStat == eStat::FollowToPlayer; }
@@ -134,6 +145,7 @@ private:
 	eStat mCurStat;
 	eStat mPastStat;
 	eDirection mCurDirection;
+	eType mType;
 
 	Animation mAni;
 

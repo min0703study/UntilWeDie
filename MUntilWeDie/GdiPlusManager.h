@@ -17,17 +17,13 @@ private:
 
 	FontFamily*  fontFamily;
 	StringFormat centerFormat;
-
 public:
-	HRESULT init();
 
+	HRESULT init();
 	ImageGp * findImage(string strKey);
 	ImageGp * addFrameImage(string strKey, const string fileName, int width, int height, int maxFrameX, int maxFrameY, BOOL isTrans, COLORREF transColor);
-
 	void frameRender(HDC hdc, string strKey, float x, float y);
-
-	void drawCProgressBar(HDC hdc, float x, float y, float width, float height, float value, float maxValue);
-
+	void drawCProgressBar(HDC hdc, float startX, float startY, int size, float value, float maxValue);
 	void release();
 };
 

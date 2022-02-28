@@ -62,61 +62,48 @@ void GdiPlusManager::frameRender(HDC hdc, string strKey, float x, float y)
 		&imageAtt);
 }
 
-void GdiPlusManager::drawCProgressBar(HDC hdc, float x, float y, float width, float height, float value, float maxValue) {
+void GdiPlusManager::drawCProgressBar(HDC hdc, float startX, float startY, int size, float value, float maxValue) {
 
 	using namespace Gdiplus;
-	float _value = value / (maxValue / 100);
-	// fill the background
-	const float startY = y;
-	const float penWidth = 32.0f;
-	const float dashOffset = -559.0f + (float(_value) * 559.0f * 0.01f);
 
-	std::vector<float> dashPattern;
-	dashPattern.push_back(559.0f / penWidth);
-	dashPattern.push_back(559.0f / penWidth);
+	//민채영 - 디테일 조정
+	startX += 0.2;
 
 	Gdiplus::GraphicsPath path;
 	path.StartFigure();
-	path.AddBezier(Gdiplus::PointF(99.99999, 11.05255 + startY),
-		Gdiplus::PointF(51.31296, 11.05255 + startY),
-		Gdiplus::PointF(11.05254, 51.31297 + startY),
-		Gdiplus::PointF(11.05254, 100 + startY));
-	path.AddBezier(Gdiplus::PointF(11.05254, 100 + startY),
-		Gdiplus::PointF(11.05254, 148.6871 + startY),
-		Gdiplus::PointF(51.31297, 188.9475 + startY),
-		Gdiplus::PointF(99.99999, 188.9475 + startY));
-	path.AddBezier(Gdiplus::PointF(99.99999, 188.9475 + startY),
-		Gdiplus::PointF(148.687, 188.9475 + startY),
-		Gdiplus::PointF(188.9474, 149.1552 + startY),
-		Gdiplus::PointF(188.9474, 100 + startY));
-	path.AddBezier(Gdiplus::PointF(188.9474, 100 + startY),
-		Gdiplus::PointF(188.9474, 50.84483 + startY),
-		Gdiplus::PointF(149.1552, 11.05255 + startY),
-		Gdiplus::PointF(99.99998, 11.05255 + startY));
+	path.AddBezier(Gdiplus::PointF(startX, (size * 4) + startY),
+		Gdiplus::PointF(startX + size, (size * 4) + startY),
+		Gdiplus::PointF(startX + (size * 2), (size * 3) + startY),
+		Gdiplus::PointF(startX + (size * 2), (size * 2) + startY));
+	path.AddBezier(Gdiplus::PointF(startX + (size * 2), (size * 2) + startY),
+		Gdiplus::PointF(startX + (size * 2), size + startY),
+		Gdiplus::PointF(startX + size, startY),
+		Gdiplus::PointF(startX, startY));
+	path.AddBezier(Gdiplus::PointF(startX, startY),
+		Gdiplus::PointF(startX - size, startY),
+		Gdiplus::PointF(startX - (size * 2), size + startY),
+		Gdiplus::PointF(startX - (size * 2), (size * 2) + startY));
+	path.AddBezier(Gdiplus::PointF(startX - (size * 2), (size * 2) + startY),
+		Gdiplus::PointF(startX - (size * 2), (size * 3) + startY),
+		Gdiplus::PointF(startX - size, (size * 4) + startY),
+		Gdiplus::PointF(startX, (size * 4) + startY));
 	path.CloseFigure();
-
-	Gdiplus::Pen pen(Gdiplus::Color(255, 0, 0, 0));
+	
+	Gdiplus::Pen pen(C_DASH_PROGRESS_BAR);
+	const float penWidth = 6.0f;
 	pen.SetWidth(penWidth);
-	pen.SetDashOffset(dashOffset / penWidth);
 
-	const Gdiplus::LineCap lineCapStart = Gdiplus::LineCapFlat;
-	const Gdiplus::LineCap lineCapEnd = Gdiplus::LineCapFlat;
-	const Gdiplus::DashCap dashCap = Gdiplus::DashCapFlat;
+	float curValue = value / (maxValue / 110);
+	curValue += 0.2;
+	float dashPattern[2] = { curValue * 0.1, (110 - curValue) * 0.1};
 
-	pen.SetLineCap(lineCapStart, lineCapEnd, dashCap);
+	pen.SetDashPattern(&dashPattern[0], 2);
 
-	const Gdiplus::LineJoin lineJoin = Gdiplus::LineJoinMiter;
-	pen.SetLineJoin(lineJoin);
-	pen.SetMiterLimit(4.0f);
+	Gdiplus::Pen bgPen(Color(50, 0, 0, 0));
+	bgPen.SetWidth(penWidth);
 
-	// configure dash style to custom (meaning that dash pattern should be used)
-	pen.SetDashStyle(Gdiplus::DashStyleCustom);
-
-	// configure dash pattern
-	pen.SetDashPattern(&dashPattern[0], dashPattern.size());
-
-	// draw the path using GDI+
 	Gdiplus::Graphics graphics(hdc);
+	graphics.DrawPath(&bgPen, &path);
 	graphics.DrawPath(&pen, &path);
 }
 

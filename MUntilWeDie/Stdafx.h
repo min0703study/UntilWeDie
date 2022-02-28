@@ -129,11 +129,17 @@ extern int			_winRealSizeY;
 #define PLAYER_MOVE_L			'A'
 #define PLAYER_COMMAND_CALL		'S'
 #define PLAYER_COMMAND_EXEC		'W'
-#define PLAYER_RUN				VK_LSHIFT
-#define PLAYER_SHOOT			VK_LBUTTON
+#define PLAYER_DASH				VK_LSHIFT
+#define PLAYER_SHOOT			VK_SPACE
+
+#define C_DASH_PROGRESS_BAR		Gdiplus::Color(15,112,108)
+
+//min - player default value
+#define PLAYER_DASH_MAX_DASH_TIME		100
 
 //min - npc default value
 #define NPC_INIT_COUNT			4
+#define NPC_BUILD_X_SIZE		220
 
 enum class eDirection {
 	Left,

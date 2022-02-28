@@ -2,7 +2,6 @@
 #include "GameObject.h"
 
 class NpcManager;
-
 class Player : public GameObject
 {
 public:
@@ -54,6 +53,12 @@ public:
 				case eStat::CommandExec:
 					mCurImage = IMAGEMANAGER->findImage(IMGCLASS->PlayerCommandExecL);
 					break;
+				case eStat::Shoot:
+					mCurImage = IMAGEMANAGER->findImage(IMGCLASS->PlayerShootL);
+					break;
+				case eStat::ShootRun:
+					mCurImage = IMAGEMANAGER->findImage(IMGCLASS->PlayerRunShootL);
+					break;
 				default:
 					//Do Nothing
 					break;
@@ -75,6 +80,12 @@ public:
 					break;
 				case eStat::CommandExec:
 					mCurImage = IMAGEMANAGER->findImage(IMGCLASS->PlayerCommandExecR);
+					break;
+				case eStat::Shoot:
+					mCurImage = IMAGEMANAGER->findImage(IMGCLASS->PlayerShootR);
+					break;
+				case eStat::ShootRun:
+					mCurImage = IMAGEMANAGER->findImage(IMGCLASS->PlayerRunShootR);
 					break;
 				default:
 					//Do Nothing
@@ -125,8 +136,13 @@ private:
 
 	eDirection mCurDirection;
 
+	bool mIsClickDownDashKey;
+
 	Animation mAni;
 	NpcManager* mNpcManager;
+
+	float mDashTime;
+	float mHp;
 
 	void changeStat(eStat changeStat);
 	

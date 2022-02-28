@@ -13,7 +13,11 @@ void Player::init(float x, float y, float width, float height)
 	mCurStat = eStat::Idle;
 	mCurDirection = eDirection::Right;
 
+	mIsClickDownDashKey = false;
+
 	mAni.ChangeCurImage(mCurStat, mCurDirection);
+
+	mDashTime = PLAYER_DASH_MAX_DASH_TIME;
 }
 
 void Player::release(void)
@@ -37,25 +41,45 @@ void Player::render(void)
 
 void Player::draw()
 {
+	if (mIsClickDownDashKey) {
+		GDIPLUSMANAGER->drawCProgressBar(getMemDc(), getX(), getY(), 5, mDashTime, PLAYER_DASH_MAX_DASH_TIME);
+	}
 	mAni.GetImage()->frameRender(getMemDc(), getX(), getY() + (mHeight - mAni.GetImage()->getHeight()));
 }
 
 void Player::animation()
 {
+	mAni.frameUpdate(TIMEMANAGER->getElapsedTime());
 }
 
 void Player::move()
 {
+
+	if (KEYMANAGER->isOnceKeyDown(PLAYER_DASH)) {
+		mIsClickDownDashKey = true;
+	}
+
+	if (KEYMANAGER->isOnceKeyUp(PLAYER_DASH)) {
+		mIsClickDownDashKey = false;
+	}
+
 	if (KEYMANAGER->isStayKeyDown(PLAYER_MOVE_L)) 
 	{
 		mCurDirection = eDirection::Left;
-		if (KEYMANAGER->isStayKeyDown(PLAYER_RUN)) 
+		if (mIsClickDownDashKey)
 		{
-			offsetX(-5.0f);
-			CAMERA->offSetX(-5.0f);
-			changeStat(eStat::Dash);
-		}
-		else {
+			if (mDashTime >= 0) {
+				offsetX(-5.0f);
+				CAMERA->offSetX(-5.0f);
+				changeStat(eStat::Dash);
+			}
+			else {
+				offsetX(-3.0f);
+				CAMERA->offSetX(-3.0f);
+				changeStat(eStat::Run);
+			}
+
+		} else {
 			offsetX(-3.0f);
 			CAMERA->offSetX(-3.0f);
 			changeStat(eStat::Run);
@@ -65,11 +89,18 @@ void Player::move()
 	if (KEYMANAGER->isStayKeyDown(PLAYER_MOVE_R))
 	{
 		mCurDirection = eDirection::Right;
-		if (KEYMANAGER->isStayKeyDown(PLAYER_RUN))
+		if (mIsClickDownDashKey)
 		{
-			offsetX(5.0f);
-			CAMERA->offSetX(5.0f);
-			changeStat(eStat::Dash);
+			if (mDashTime >= 0) {
+				offsetX(5.0f);
+				CAMERA->offSetX(5.0f);
+				changeStat(eStat::Dash);
+			}
+			else {
+				offsetX(3.0f);
+				CAMERA->offSetX(3.0f);
+				changeStat(eStat::Run);
+			}
 		}
 		else {
 			offsetX(3.0f);
@@ -90,6 +121,12 @@ void Player::move()
 		orderCallNpc();
 	}
 
+
+	if (KEYMANAGER->isOnceKeyDown(PLAYER_SHOOT))
+	{
+		changeStat(eStat::Shoot);
+	}
+
 	if (KEYMANAGER->isOnceKeyUp(PLAYER_MOVE_L) || KEYMANAGER->isOnceKeyUp(PLAYER_MOVE_R)) {
 		changeStat(eStat::Idle);
 	}
@@ -97,12 +134,14 @@ void Player::move()
 
 void Player::action()
 {
-	mAni.frameUpdate(TIMEMANAGER->getElapsedTime());
-
 	if (mCurStat == eStat::CommandCall || mCurStat == eStat::CommandExec) {
 		if (mAni.mPlayCount > 0) {
 			changeStat(mPastStat);
 		};
+	}
+
+	if (mCurStat == eStat::Dash) {
+		mDashTime -= 0.1;
 	}
 }
 
