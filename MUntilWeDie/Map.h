@@ -26,7 +26,13 @@ public:
 	float getCenterX() { return CAMERA->getX() + (CAMERA_X / 2.0f); }; //∏ ¿« ∞°øÓµ• x
 	float getGoundY() { return 400.0f; }; //∂•¿« ≥Ù¿Ã
 
+
 private:
-	ImageBase* mBckImg;
+	ImageBase* mBgImg;
+	ImageBase* mBgGrassImg;
+	ImageBase* mShroomImg_01, * mShroomImg_02, * mShroomImg_03,*  mShroomImg_04,*  mShroomImg_05, * mShroomImg_06;
+	RECT rcShroom_01, rcShroom_02, rcShroom_03, rcShroom_04, rcShroom_05, rcShroom_06;
+
+	int count, index;
 };
 

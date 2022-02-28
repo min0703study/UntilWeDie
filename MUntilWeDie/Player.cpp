@@ -34,8 +34,8 @@ void Player::move()
 		//¶Ù´Â ¾×¼Ç
 		if (KEYMANAGER->isStayKeyDown(PLAYER_RUN))
 		{
-			offsetX(-3.0f);
-			CAMERA->offSetX(-3.0f);
+			offsetX(-30.0f);
+			CAMERA->offSetX(-30.0f);
 
 			changeStat(Run);
 		}
@@ -51,8 +51,8 @@ void Player::move()
 		mCurDirection = Right;
 		if (KEYMANAGER->isStayKeyDown(PLAYER_RUN))
 		{
-			offsetX(3.0f);
-			CAMERA->offSetX(3.0f);
+			offsetX(50.0f);
+			CAMERA->offSetX(50.0f);
 			changeStat(Run);
 		}
 		else {
