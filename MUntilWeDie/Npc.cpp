@@ -191,7 +191,7 @@ void Npc::orderGetWrench()
 void Npc::changeType(eType type)
 {
 	mType = type;
-d	mCurAni = mMAni.find(type)->second;
+	mCurAni = mMAni.find(type)->second;
 }
 
 void Npc::nothing()
