@@ -23,15 +23,15 @@ HRESULT ImageClass::init(void)
 	IMAGEMANAGER->addImage(Generator_off, "Resources/Images/Building/Generator/Generator_off.bmp", 208, 98);
 	IMAGEMANAGER->addFrameImage(Generator_01, "Resources/Images/Building/Generator/Generator_01.bmp", 802, 93, 4, 1);
 
-	IMAGEMANAGER->addImage(shovelshop_off, "Resources/Image/Building/shovelshop/shovelshop_off.bmp", 253, 107);
-	IMAGEMANAGER->addImage(shovelshop_off_02, "Resources/Image/Building/shovelshop/shovelshop_off_02.bmp", 253, 107);
+	IMAGEMANAGER->addImage(shovelshop_off, "Resources/Images/Building/shovelshop/shovelshop_off.bmp", 253, 107, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage(shovelshop_off_02, "Resources/Images/Building/shovelshop/shovelshop_off_02.bmp", 253, 107, true, RGB(255, 0, 255));
 
-	IMAGEMANAGER->addFrameImage(shovelshop_stand, "Resources/Image/Building/shovelshop/shovelshop_stand.bmp", 1518, 107, 6, 1);
-	IMAGEMANAGER->addFrameImage(shovelshop_open, "Resources/Image/Building/shovelshop/shovelshop_open.bmp", 2024, 107, 8, 1);
-	IMAGEMANAGER->addFrameImage(shovelshop_close, "Resources/Image/Building/shovelshop/shovelshop_close.bmp", 2277, 107, 9, 1);
+	IMAGEMANAGER->addFrameImage(shovelshop_stand, "Resources/Images/Building/shovelshop/shovelshop_stand.bmp", 1518, 107, 6, 1);
+	IMAGEMANAGER->addFrameImage(shovelshop_open, "Resources/Images/Building/shovelshop/shovelshop_open.bmp", 2024, 107, 8, 1);
+	IMAGEMANAGER->addFrameImage(shovelshop_close, "Resources/Images/Building/shovelshop/shovelshop_close.bmp", 2277, 107, 9, 1);
 
-	IMAGEMANAGER->addImage(shovelshop_shovel, "Resources/Image/Building/shovelshop/shovelshop_shovel.bmp", 20, 54);
-	IMAGEMANAGER->addImage(shovelshop_light, "Resources/Image/Building/shovelshop/shovelshop_light.bmp", 139, 82);
+	IMAGEMANAGER->addImage(shovelshop_shovel, "Resources/Images/Building/shovelshop/shovelshop_shovel.bmp", 20, 54);
+	IMAGEMANAGER->addImage(shovelshop_light, "Resources/Images/Building/shovelshop/shovelshop_light.bmp", 139, 82);
 
 	return S_OK;
 }
