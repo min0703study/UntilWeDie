@@ -139,3 +139,5 @@ extern int			_winRealSizeY;
 
 #define CAMERA_START_X		MAP_X_SIZE / 2.0f - (CAMERA_X / 2.0f)
 #define CAMERA_START_Y		0.0f
+
+#define MAX_MUSHROOM 6;

@@ -160,6 +160,8 @@
     <ClCompile Include="MainGame.cpp" />
     <ClCompile Include="MainScene.cpp" />
     <ClCompile Include="Map.cpp" />
+    <ClCompile Include="ObjectManager.cpp" />
+    <ClCompile Include="Objects.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="SceneManager.cpp" />
     <ClCompile Include="Stdafx.cpp">
@@ -187,6 +189,8 @@
     <ClInclude Include="MainScene.h" />
     <ClInclude Include="Map.h" />
     <ClInclude Include="MapInfo.h" />
+    <ClInclude Include="ObjectManager.h" />
+    <ClInclude Include="Objects.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="RandomFunction.h" />
     <ClInclude Include="SceneManager.h" />

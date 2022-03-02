@@ -21,7 +21,8 @@ public:
 	const char* PlayerCommandExecL = "플레이어 왼쪽으로 실행 명령";
 	const char* PlayerCommandExecR = "플레이어 오른쪽으로 실행 명령";
 
-	const char * Object_Mushroom = "버섯 임시";
+	const char* Object_Mushroom = "버섯";
+	const char* Item_shroom = "버섯조각";
 
 	HRESULT init(void);
 	virtual void release(void);
