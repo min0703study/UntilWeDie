@@ -1,8 +1,8 @@
 #pragma once
 #include "GameNode.h"
 #include "BuildManager.h"
-
-class Player;
+#include "Player.h"
+#include "Map.h"
 
 class MainScene: public GameNode
 {
@@ -16,7 +16,7 @@ public:
 	~MainScene() {};
 private:
 	Player* mPlayer;
-	ImageBase* mTempBkImg; //임시로 추가
 	BuildManager* mBuildManager;
+	Map* mMap;
 };
 

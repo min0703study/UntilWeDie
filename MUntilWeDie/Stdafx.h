@@ -104,6 +104,7 @@ using namespace std;
 #include "ImageClass.h"
 #include "SceneManager.h"
 #include "Camera.h"
+#include "MapInfo.h"
 //CommonFunction==
 
 using namespace MY_UTIL;
@@ -131,3 +132,12 @@ extern int			_winRealSizeY;
 #define PLAYER_COMMAND_EXEC		'W'
 #define PLAYER_RUN				VK_LSHIFT
 #define PLAYER_SHOOT			VK_LBUTTON
+
+//map
+#define MAP_X_SIZE				CAMERA_Y * 28
+#define MAP_Y_SIZE				CAMERA_Y
+
+#define CAMERA_START_X		MAP_X_SIZE / 2.0f - (CAMERA_X / 2.0f)
+#define CAMERA_START_Y		0.0f
+
+#define MAX_MUSHROOM 6;

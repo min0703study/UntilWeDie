@@ -1,35 +1,38 @@
 #include "Stdafx.h"
 #include "MainScene.h"
-#include "Player.h"
 
 HRESULT MainScene::init(void)
 {
+
+	mMap = new Map;
+	mMap->init(0,0, CAMERA_X, CAMERA_Y);
+
 	mPlayer = new Player;
-	mPlayer->init(CAMERA_X / 2 - 20 ,CAMERA_Y - 190, PLAYER_X_SIZE, PLAYER_X_SIZE);
+	mPlayer->init(mMap->getCenterX(),mMap->getGoundY() + 280, 100.0f, 100.0f);
 
 	mBuildManager = new BuildManager;
 	mBuildManager->init(100, 100, 100, 100);
 
-	mTempBkImg = IMAGEMANAGER->findImage(IMGCLASS->TempBkImg);
-	
 	return S_OK;
 }
 
 void MainScene::update(void)
 {
+	mMap->update();
 	mPlayer->update();
 	mBuildManager->update();
 }
 
 void MainScene::release(void)
 {
+	mMap->release();
 	mPlayer->release();
 	mBuildManager->release();
 }
 
 void MainScene::render(void)
 {
-	mTempBkImg->render(getMemDc(), 0,0, CAMERA->getX(), CAMERA->getY(), CAMERA->getWidth(), CAMERA->getHeight());
+	mMap->render();
 	mPlayer->render();
 	mBuildManager->render();
 }

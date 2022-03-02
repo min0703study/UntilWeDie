@@ -4,7 +4,8 @@
 class ImageClass: public SingletonBase<ImageClass>
 {
 public:
-	const char* TempBkImg = "임시 배경 화면";
+	const char* BgImg = "배경 화면";
+	const char* BgGrassImg = "배경 풀";
 
 	const char* PlayerIdleR = "플레이어 정지 오른쪽 액션";
 	const char* PlayerIdleL = "플레이어 정지 왼쪽 액션";
@@ -20,7 +21,6 @@ public:
 	const char* PlayerCommandExecL = "플레이어 왼쪽으로 실행 명령";
 	const char* PlayerCommandExecR = "플레이어 오른쪽으로 실행 명령";
 
-
 	const char* Generator_off = "발전기 최초 상태";
 	const char* Generator_01 = "발전기 1단계";
 
@@ -35,6 +35,8 @@ public:
 	const char* shovelshop_light = "삽 생산시설 전등";
 	const char* shovelshop_shovel = "삽";
 
+	const char* Object_Mushroom = "버섯";
+	const char* Item_shroom = "버섯조각";
 
 	HRESULT init(void);
 	virtual void release(void);

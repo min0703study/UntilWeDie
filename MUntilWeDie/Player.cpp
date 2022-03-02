@@ -5,7 +5,7 @@
 void Player::init(float x, float y, float width, float height)
 {
 	GameObject::Init("Player", x, y, width, height);
-	
+
 	mCurStat = Idle;
 	mCurDirection = Right;
 
@@ -28,15 +28,15 @@ void Player::animation()
 
 void Player::move()
 {
-	if (KEYMANAGER->isStayKeyDown(PLAYER_MOVE_L)) 
+	if (KEYMANAGER->isStayKeyDown(PLAYER_MOVE_L))
 	{
 		mCurDirection = Left;
 		//¶Ù´Â ¾×¼Ç
-		if (KEYMANAGER->isStayKeyDown(PLAYER_RUN)) 
+		if (KEYMANAGER->isStayKeyDown(PLAYER_RUN))
 		{
-			offsetX(-3.0f);
-			CAMERA->offSetX(-3.0f);
-			
+			offsetX(-30.0f);
+			CAMERA->offSetX(-30.0f);
+
 			changeStat(Run);
 		}
 		else
@@ -45,7 +45,6 @@ void Player::move()
 			CAMERA->offSetX(-1.0f);
 			changeStat(Walk);
 		}
-
 	}
 
 	if (KEYMANAGER->isStayKeyDown(PLAYER_MOVE_R))
@@ -53,8 +52,8 @@ void Player::move()
 		mCurDirection = Right;
 		if (KEYMANAGER->isStayKeyDown(PLAYER_RUN))
 		{
-			offsetX(3.0f);
-			CAMERA->offSetX(3.0f);
+			offsetX(50.0f);
+			CAMERA->offSetX(50.0f);
 			changeStat(Run);
 		}
 		else
@@ -96,7 +95,7 @@ void Player::action()
 
 void Player::changeStat(eStat changeStat)
 {
-	if (mCurStat != changeStat) 
+	if (mCurStat != changeStat)
 	{
 		mPastStat = mCurStat;
 		mCurStat = changeStat;
