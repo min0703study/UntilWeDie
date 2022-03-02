@@ -146,6 +146,7 @@ extern int			_winRealSizeY;
 //min - npc default value
 #define NPC_INIT_COUNT			4
 #define NPC_BUILD_X_SIZE		220
+#define NPC_FOLLOWING_SPACE		100.0f
 
 //map
 #define MAP_X_SIZE				CAMERA_Y * 28

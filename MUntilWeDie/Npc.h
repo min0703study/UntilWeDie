@@ -14,6 +14,7 @@ public:
 		FollowToPlayer,
 		Grab,
 		Build,
+		CantUnderstand
 	};
 
 	enum class eType {
@@ -138,12 +139,18 @@ public:
 
 	//npc Çàµ¿
 	void orderCall(int rank);
-	void orderGrap();
+	bool orderGrap();
+	void orderBuild();
 	void orderGetShovel();
 	void orderGetWrench();
 
 	void changeType(eType type);
 	void nothing();
+
+	//getter setter
+	void setRank(int rank) { mRank = rank; }
+	int getRank() { return mRank; }
+	eType getType() const { return mType; }
 
 	inline bool isActivated() { return mCurStat == eStat::FollowToPlayer; }
 

@@ -41,6 +41,8 @@ public:
 	const char* DiggerRunR = "삽 NPC 오른쪽으로 뛰는 액션";
 	const char* DiggerGrabL = "삽 NPC 줍는 액션 왼쪽";
 	const char* DiggerGrabR = "삽 NPC 줍는 액션 오른쪽";
+	const char* DiggerBuildR = "삽 NPC 건물 짓기 액션 오른쪽";
+	const char* DiggerBuildL = "삽 NPC 건물 짓기 액션 왼쪽";
 
 	const char* EngineerIdleR = "엔지니어 NPC 정지 오른쪽 액션";
 	const char* EngineerIdleL = "엔지니어 NPC 정지 왼쪽 액션";
@@ -48,6 +50,8 @@ public:
 	const char* EngineerWalkL = "엔지니어 NPC 왼쪽으로 걷는 액션";
 	const char* EngineerRunL = "엔지니어 NPC 왼쪽으로 뛰는 액션";
 	const char* EngineerRunR = "엔지니어 NPC 오른쪽으로 뛰는 액션";
+	const char* EngineerBuildR = "엔지니어 NPC 오른쪽으로 건물 짓기 액션";
+	const char* EngineerBuildL = "엔지니어 NPC 왼쪽으로 건물 짓기 액션";
 
 	const char* Generator_off = "발전기 최초 상태";
 	const char* Generator_01 = "발전기 1단계";

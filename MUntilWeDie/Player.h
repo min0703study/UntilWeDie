@@ -15,6 +15,7 @@ public:
 		Dash,
 		Shoot,
 		ShootRun,
+		ShootDash,
 		CommandCall,
 		CommandExec
 	};
@@ -107,6 +108,8 @@ public:
 private:
 	eStat mCurStat;
 	eStat mPastStat;
+
+	map<eStat, int> mMStatRank;
 
 	eDirection mCurDirection;
 

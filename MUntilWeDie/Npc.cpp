@@ -23,6 +23,7 @@ void Npc::init(float* playerAbsX, float* playerAbsY, eDirection * playerDirectio
 	eAni->mappingStatForImg(eStat::StopNoting, IMAGEMANAGER->findImage(IMGCLASS->EngineerIdleR), IMAGEMANAGER->findImage(IMGCLASS->EngineerIdleL), 7);
 	eAni->mappingStatForImg(eStat::WalkNoting, IMAGEMANAGER->findImage(IMGCLASS->EngineerWalkR), IMAGEMANAGER->findImage(IMGCLASS->EngineerWalkL), 7);
 	eAni->mappingStatForImg(eStat::FollowToPlayer, IMAGEMANAGER->findImage(IMGCLASS->EngineerRunR), IMAGEMANAGER->findImage(IMGCLASS->EngineerRunL), 7);
+	eAni->mappingStatForImg(eStat::Build, IMAGEMANAGER->findImage(IMGCLASS->EngineerBuildR), IMAGEMANAGER->findImage(IMGCLASS->EngineerBuildL), 7);
 	eAni->ChangeCurImage(eStat::Idle, mCurDirection);
 
 	Animation* dAni = new Animation;
@@ -33,6 +34,7 @@ void Npc::init(float* playerAbsX, float* playerAbsY, eDirection * playerDirectio
 	dAni->mappingStatForImg(eStat::WalkNoting, IMAGEMANAGER->findImage(IMGCLASS->DiggerWalkR), IMAGEMANAGER->findImage(IMGCLASS->DiggerWalkL), 7);
 	dAni->mappingStatForImg(eStat::FollowToPlayer, IMAGEMANAGER->findImage(IMGCLASS->DiggerRunR), IMAGEMANAGER->findImage(IMGCLASS->DiggerRunL), 7);
 	dAni->mappingStatForImg(eStat::Grab, IMAGEMANAGER->findImage(IMGCLASS->DiggerGrabR), IMAGEMANAGER->findImage(IMGCLASS->DiggerGrabL), 7);
+	dAni->mappingStatForImg(eStat::Build, IMAGEMANAGER->findImage(IMGCLASS->DiggerBuildR), IMAGEMANAGER->findImage(IMGCLASS->DiggerBuildL), 7);
 	dAni->ChangeCurImage(eStat::Idle, mCurDirection);
 
 	mMAni.insert(make_pair(eType::Civilian, cAni));
@@ -49,7 +51,8 @@ void Npc::init(float* playerAbsX, float* playerAbsY, eDirection * playerDirectio
 	mCurStat = eStat::StopNoting;
 	mCurDirection = eDirection::Left;
 
-	mCurAni = mMAni.find(eType::Civilian)->second;
+	mType = eType::Engineer;
+	mCurAni = mMAni.find(mType)->second;
 
 	nothing();
 }
@@ -109,29 +112,69 @@ void Npc::move()
 		float distance = 0.0f;
 
 		if (*mPlayerDirection == eDirection::Left) {
-			distance = static_cast<int> (*mPlayerAbsX + (mRank * 80) - getAbsX());
+			distance = *mPlayerAbsX + (mRank * NPC_FOLLOWING_SPACE) - getAbsX();
 		}
 		else if (*mPlayerDirection == eDirection::Right) {
-			distance = static_cast<int> (*mPlayerAbsX - (mRank * 80) - getAbsX());
+			distance = *mPlayerAbsX - (mRank * NPC_FOLLOWING_SPACE) - getAbsX();
 		}
 
-		if (distance > 0) {
-			chageImg(eStat::Run, mCurDirection);
-			if (*mPlayerStat == Player::eStat::Dash) {
-				offsetX(RND->getFromFloatTo(3.0f, 6.0f));
+		if (distance > 0.0f) {
+			if (*mPlayerStat == Player::eStat::Dash || *mPlayerStat == Player::eStat::ShootDash) {
+				mCurDirection = *mPlayerDirection;
+				if (distance < 5.0f) {
+					offsetX(distance);
+				}
+				else {
+					offsetX(5.0f);
+				}
+			}
+			else if (*mPlayerStat == Player::eStat::Run || *mPlayerStat == Player::eStat::Run) {
+				mCurDirection = *mPlayerDirection;
+				if (distance < 3.0f) {
+					offsetX(distance);
+				}
+				else {
+					offsetX(3.0f);
+				}
 			}
 			else {
-				offsetX(RND->getFromFloatTo(2.0f, 4.0f));
+				if (distance < 3.0f) {
+					offsetX(distance);
+				}
+				else {
+					offsetX(3.0f);
+				}
 			}
+			chageImg(eStat::Run, mCurDirection);
 		}
-		else if (distance < 0) {
-			chageImg(eStat::Run, mCurDirection);
-			if (*mPlayerStat == Player::eStat::Dash) {
-				offsetX(-RND->getFromFloatTo(3.0f, 6.0f));
+		else if (distance < 0.0f) {
+			if (*mPlayerStat == Player::eStat::Dash || *mPlayerStat == Player::eStat::ShootDash) {
+				mCurDirection = *mPlayerDirection;
+				if (distance > -5.0f) {
+					offsetX(distance);
+				}
+				else {
+					offsetX(-5.0f);
+				}
+			}
+			else if(*mPlayerStat == Player::eStat::Run || *mPlayerStat == Player::eStat::ShootRun) {
+				mCurDirection = *mPlayerDirection;
+				if (distance > -3.0f) {
+					offsetX(distance);
+				}
+				else {
+					offsetX(-3.0f);
+				}
 			}
 			else {
-				offsetX(-RND->getFromFloatTo(2.0f, 4.0f));
+				if (distance > -3.0f) {
+					offsetX(distance);
+				}
+				else {
+					offsetX(-3.0f);
+				}
 			}
+			chageImg(eStat::Run, mCurDirection);
 		}
 		else {
 			mCurDirection = *mPlayerDirection;
@@ -139,7 +182,14 @@ void Npc::move()
 		};
 	}
 	break;
+	case eStat::CantUnderstand:
+		if (mCurAni->mPlayCount > 0) {
+			changeStat(eStat::FollowToPlayer, mCurDirection);
+		}
+		break;
+
 	default:
+		//Do Nothing
 		break;
 	}
 }
@@ -148,7 +198,7 @@ void Npc::action()
 {
 	switch (mCurStat)
 	{
-	case eStat::Grab:
+	case eStat::Grab: case eStat::Build:
 		mOrderCount--;
 		if (mOrderCount == 0) {
 			nothing();
@@ -173,19 +223,30 @@ void Npc::orderCall(int rank)
 	changeStat(eStat::FollowToPlayer, mCurDirection);
 }
 
-void Npc::orderGrap()
+bool Npc::orderGrap()
 {
 	mOrderCount = 500;
 	switch (mType)
 	{
-	case Npc::eType::Civilian:
-		changeStat(eStat::Build, *mPlayerDirection);
-		break;
-	case Npc::eType::Digger:
+	case Npc::eType::Civilian: case Npc::eType::Digger:
 		changeStat(eStat::Grab, *mPlayerDirection);
-		break;
+		return true;
 	case Npc::eType::Engineer:
-		//불가 애니메이션
+		//불가 애니메이션 (물음표)
+		changeStat(eStat::CantUnderstand, mCurDirection);
+		return false;
+	default:
+		return false;
+	}
+}
+
+void Npc::orderBuild()
+{
+	mOrderCount = 500;
+	switch (mType)
+	{
+	case Npc::eType::Digger: case Npc::eType::Engineer: case Npc::eType::Civilian:
+		changeStat(eStat::Build, *mPlayerDirection);
 		break;
 	default:
 		break;
@@ -234,7 +295,7 @@ void Npc::changeStat(eStat changeStat, eDirection direction)
 
 void Npc::chageImg(eStat changeStat, eDirection direction)
 {
-	if (mCurStat != changeStat)
+	if (mCurStat != changeStat || mCurDirection != direction)
 	{
 		mCurAni->ChangeCurImage(changeStat, direction);
 	}

@@ -1,4 +1,5 @@
 #pragma once
+
 //정호 인터페이스
 class IObject
 {

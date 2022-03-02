@@ -40,8 +40,8 @@ bool NpcManager::orderCallNpc(RECT playerCallableRc)
 	for (mViNpcs = mVNpcs.begin(); mViNpcs != mVNpcs.end(); mViNpcs++) {
 		if ((*mViNpcs)->isActivated()) continue;
 		if (IntersectRect(&tempRc, &(*mViNpcs)->getAbsRc(), &playerCallableRc)) {
-			(*mViNpcs)->orderCall(mActiveNpcs.size() + 1);
-			mActiveNpcs.push_back(*mViNpcs);
+			(*mViNpcs)->orderCall(mVFollowingNpc.size() + 1);
+			mVFollowingNpc.push_back(*mViNpcs);
 		};
 	}
 	return true;
@@ -49,9 +49,17 @@ bool NpcManager::orderCallNpc(RECT playerCallableRc)
 
 bool NpcManager::orderExecNpc()
 {
-	if (mActiveNpcs.begin() == mActiveNpcs.end()) return false;
-	(*mActiveNpcs.begin())->orderGrap();
-	mActiveNpcs.erase(mActiveNpcs.begin());
+	if (mVFollowingNpc.begin() == mVFollowingNpc.end()) return false;
+	bool isCanExcuteOrder = (*mVFollowingNpc.begin())->orderGrap();
+	pullRank((*mVFollowingNpc.begin())->getRank());
+
+	if (!isCanExcuteOrder) {
+		Npc* npc = *mVFollowingNpc.begin();
+		mVFollowingNpc.push_back(npc);
+		npc->setRank(mVFollowingNpc.size() - 1);
+	}
+
+	mVFollowingNpc.erase(mVFollowingNpc.begin());
 	return true;
 }
 
@@ -72,17 +80,52 @@ bool NpcManager::changeStat(int npcIndex, Npc::eOrderType stat)
 	return true;
 }
 
+bool NpcManager::changeNpcPosition()
+{
+	for (mViFollowingNpc = mVFollowingNpc.begin() + 1; mViFollowingNpc != mVFollowingNpc.end(); ++mViFollowingNpc) {
+		if ((*mVFollowingNpc.begin())->getType() != (*mViFollowingNpc)->getType()) {
+			int tempRank = (*mViFollowingNpc)->getRank();
+			(*mViFollowingNpc)->setRank((*mVFollowingNpc.begin())->getRank());
+			(*mVFollowingNpc.begin())->setRank(tempRank);
+		}
+	}
+
+	return true;
+}
+
+bool NpcManager::changeRank()
+{
+	int i = 1;
+	for (mViFollowingNpc = mVFollowingNpc.begin(); mViFollowingNpc != mVFollowingNpc.end(); ++mViFollowingNpc, i++) {
+		(*mViFollowingNpc)->setRank(i);
+	}
+	return false;
+}
+
+bool NpcManager::pullRank(int rank)
+{
+	int i = 1;
+	for (mViFollowingNpc = mVFollowingNpc.begin(); mViFollowingNpc != mVFollowingNpc.end(); ++mViFollowingNpc, i++) {
+		if ((*mViFollowingNpc)->getRank() > rank) {
+			(*mViFollowingNpc)->setRank((*mViFollowingNpc)->getRank() - 1);
+		}
+	}
+	return false;
+}
+
 bool NpcManager::orderGetShovel() {
-	if (mActiveNpcs.begin() == mActiveNpcs.end()) return false;
-	(*mActiveNpcs.begin())->orderGetShovel();
-	mActiveNpcs.erase(mActiveNpcs.begin());
+	if (mVFollowingNpc.begin() == mVFollowingNpc.end()) return false;
+	(*mVFollowingNpc.begin())->orderGetShovel();
+	pullRank((*mVFollowingNpc.begin())->getRank());
+	mVFollowingNpc.erase(mVFollowingNpc.begin());
 	return true;
 }
 
 bool NpcManager::orderGetWrench()
 {
-	if (mActiveNpcs.begin() == mActiveNpcs.end()) return false;
-	(*mActiveNpcs.begin())->orderGetWrench();
-	mActiveNpcs.erase(mActiveNpcs.begin());
+	if (mVFollowingNpc.begin() == mVFollowingNpc.end()) return false;
+	(*mVFollowingNpc.begin())->orderGetWrench();
+	pullRank((*mVFollowingNpc.begin())->getRank());
+	mVFollowingNpc.erase(mVFollowingNpc.begin());
 	return true;
 }
