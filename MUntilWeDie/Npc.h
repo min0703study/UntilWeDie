@@ -22,6 +22,7 @@ public:
 	};
 
 	enum class eOrderType {
+		Nothing,
 		Grap
 	};
 
