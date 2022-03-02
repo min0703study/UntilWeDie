@@ -100,6 +100,8 @@ public:
 
 	//interface
 	RECT getPlayerRc() override;
+	void isOverGrapObject(int npcIndex) override;
+	void attackDamage(int damage) override;
 
 	Player() {};
 	~Player() {};

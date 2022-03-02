@@ -29,6 +29,8 @@ void Player::init(float x, float y, float width, float height)
 
 	mAni.ChangeCurImage(mCurStat, mCurDirection);
 
+	mHp = 100;
+
 	mDashTime = PLAYER_DASH_MAX_DASH_TIME;
 }
 
@@ -186,6 +188,17 @@ void Player::action()
 RECT Player::getPlayerRc()
 {
 	return RECT();
+}
+
+void Player::isOverGrapObject(int npcIndex)
+{
+	//mNpcManager->changeStat(npcIndex, Npc::eOrderType::Nothing);
+}
+
+void Player::attackDamage(int damage)
+{
+	mHp -= damage;
+	cout << "damage : " << mHp << endl;
 }
 
 void Player::changeStat(eStat changeStat)
