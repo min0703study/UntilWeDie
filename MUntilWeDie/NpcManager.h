@@ -14,11 +14,14 @@ public:
 	bool orderCallNpc(RECT playerCallableRc);
 	bool orderExecNpc();
 
+	bool orderGetShovel(); //삽 집는 명령
+	bool orderGetWrench(); //렌치 집는 명령
+
 	NpcManager() {};
 	~NpcManager() {};
 private:
-	vector<Npc*> mNpcs;
-	vector<Npc*>::iterator mItNpcs;
+	vector<Npc*> mVNpcs;
+	vector<Npc*>::iterator mViNpcs;
 	
 	vector<Npc*> mActiveNpcs;
 	vector<Npc*>::iterator mItActiveNpcs;

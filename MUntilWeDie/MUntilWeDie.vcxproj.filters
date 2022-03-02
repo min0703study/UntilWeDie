@@ -65,6 +65,9 @@
     <ClCompile Include="NpcManager.cpp">
       <Filter>GameObject</Filter>
     </ClCompile>
+    <ClCompile Include="Weapon.cpp">
+      <Filter>GameObject</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameNode.h">
@@ -137,6 +140,9 @@
       <Filter>GameObject</Filter>
     </ClInclude>
     <ClInclude Include="NpcManager.h">
+      <Filter>GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="Weapon.h">
       <Filter>GameObject</Filter>
     </ClInclude>
   </ItemGroup>

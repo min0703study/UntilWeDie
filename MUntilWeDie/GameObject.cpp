@@ -4,8 +4,6 @@
 
 void GameObject::Init(string id, float x, float y, float width, float height)
 {
-	GameNode::init(true);
-
 	mWidth = width;
 	mHeight = height;
 

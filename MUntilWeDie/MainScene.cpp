@@ -3,6 +3,8 @@
 
 HRESULT MainScene::init(void)
 {
+	GameNode::init(true);
+
 	mPlayer = new Player;
 	mPlayer->init(CAMERA_X / 2 - 20 ,CAMERA_Y - 190, PLAYER_X_SIZE, PLAYER_X_SIZE);
 

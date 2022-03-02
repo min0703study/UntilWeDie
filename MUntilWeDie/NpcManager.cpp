@@ -5,43 +5,43 @@ HRESULT NpcManager::init(float* playerAbsX, float* playerAbsY,Player::eStat* pla
 {
 	mNpcCount = NPC_INIT_COUNT;
 
-	for (int i = 0; i < mNpcCount; i++) {
+	for (int i = 0; i < NPC_INIT_COUNT; i++) {
 		Npc* npc = new Npc;
 		npc->init(playerAbsX, playerAbsY, playerDirection, playerStat, PLAYER_X_SIZE, PLAYER_X_SIZE);
-		mNpcs.push_back(npc);
+		mVNpcs.push_back(npc);
 	}
 	return S_OK;
 }
 
 void NpcManager::update(void)
 {
-	for (mItNpcs = mNpcs.begin(); mItNpcs != mNpcs.end(); mItNpcs++) {
-		(*mItNpcs)->update();
+	for (mViNpcs = mVNpcs.begin(); mViNpcs != mVNpcs.end(); mViNpcs++) {
+		(*mViNpcs)->update();
 	}
 }
 
 void NpcManager::release(void)
 {
-	for (mItNpcs = mNpcs.begin(); mItNpcs != mNpcs.end(); mItNpcs++) {
-		(*mItNpcs)->release();
+	for (mViNpcs = mVNpcs.begin(); mViNpcs != mVNpcs.end(); mViNpcs++) {
+		(*mViNpcs)->release();
 	}
 }
 
 void NpcManager::render(void)
 {
-	for (mItNpcs = mNpcs.begin(); mItNpcs != mNpcs.end(); mItNpcs++) {
-		(*mItNpcs)->render();
+	for (mViNpcs = mVNpcs.begin(); mViNpcs != mVNpcs.end(); mViNpcs++) {
+		(*mViNpcs)->render();
 	}
 }
 
 bool NpcManager::orderCallNpc(RECT playerCallableRc)
 {
 	RECT tempRc;
-	for (mItNpcs = mNpcs.begin(); mItNpcs != mNpcs.end(); mItNpcs++) {
-		if ((*mItNpcs)->isActivated()) continue;
-		if (IntersectRect(&tempRc, &(*mItNpcs)->getAbsRc(), &playerCallableRc)) {
-			(*mItNpcs)->orderCall(mActiveNpcs.size() + 1);
-			mActiveNpcs.push_back(*mItNpcs);
+	for (mViNpcs = mVNpcs.begin(); mViNpcs != mVNpcs.end(); mViNpcs++) {
+		if ((*mViNpcs)->isActivated()) continue;
+		if (IntersectRect(&tempRc, &(*mViNpcs)->getAbsRc(), &playerCallableRc)) {
+			(*mViNpcs)->orderCall(mActiveNpcs.size() + 1);
+			mActiveNpcs.push_back(*mViNpcs);
 		};
 	}
 	return true;
@@ -51,6 +51,21 @@ bool NpcManager::orderExecNpc()
 {
 	if (mActiveNpcs.begin() == mActiveNpcs.end()) return false;
 	(*mActiveNpcs.begin())->orderGrap();
+	mActiveNpcs.erase(mActiveNpcs.begin());
+	return true;
+}
+
+bool NpcManager::orderGetShovel() {
+	if (mActiveNpcs.begin() == mActiveNpcs.end()) return false;
+	(*mActiveNpcs.begin())->orderGetShovel();
+	mActiveNpcs.erase(mActiveNpcs.begin());
+	return true;
+}
+
+bool NpcManager::orderGetWrench()
+{
+	if (mActiveNpcs.begin() == mActiveNpcs.end()) return false;
+	(*mActiveNpcs.begin())->orderGetWrench();
 	mActiveNpcs.erase(mActiveNpcs.begin());
 	return true;
 }

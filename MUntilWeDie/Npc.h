@@ -26,66 +26,61 @@ public:
 	};
 
 	typedef	struct tagAnimation {
+		float mFrameUpdateSec;
+		int mPlayCount;
 
-		float mFrameUpdateSec;	// 초당 프레임 업데이트 수
-		float mElapsedSec;		// 프레임과 프레임 사이의 시간
+		Npc::eStat mCurImgStat;
 
 		ImageBase* mCurImage;
+		float mElapsedSec;
 
-		int mPlayCount;
+		float mFrameX;
+		float mFrameY;
+
+		map<Npc::eStat, ImageBase*> mImgRMap;
+		map<Npc::eStat, ImageBase*> mImgLMap;
+		map<Npc::eStat, float> mFrameUpdateSecMap;
 
 		tagAnimation() {
 			mFrameUpdateSec = 1.0f / 10;
 			mElapsedSec = 0;
 			mPlayCount = 0;
 
+			mFrameX = 1;
+			mFrameY = 1;
+
 			mCurImage = nullptr;
+			mCurImgStat = Npc::eStat::Idle;
 		}
 
 		void ChangeCurImage(eStat changeStat, eDirection curDirection) {
+			if (mCurImgStat == changeStat) return;
+			mCurImgStat = changeStat;
+
 			mPlayCount = 0;
-			switch (curDirection) {
-			case eDirection::Left:
-				switch (changeStat) {
-				case eStat::Idle: case eStat::StopNoting:
-					mCurImage = IMAGEMANAGER->findImage(IMGCLASS->EngineerIdleL);
-					break;
-				case eStat::Walk: case eStat::WalkNoting:
-					mCurImage = IMAGEMANAGER->findImage(IMGCLASS->EngineerWalkL);
-					break;
-				case eStat::Run:
-					mCurImage = IMAGEMANAGER->findImage(IMGCLASS->EngineerRunL);
-					break;
-				case eStat::Grab:
-					mCurImage = IMAGEMANAGER->findImage(IMGCLASS->CivilianBuildL);
-					break;
-				default:
-					//Do Nothing
-					break;
+			
+			mFrameX = 1;
+			mFrameY = 1;
+
+			if (curDirection == eDirection::Left) {
+				auto key = mImgLMap.find(changeStat);
+				if (key != mImgLMap.end())
+				{
+					mCurImage = key->second;
 				}
-				break;
-			case eDirection::Right:
-				switch (changeStat) {
-				case eStat::Idle: case eStat::StopNoting:
-					mCurImage = IMAGEMANAGER->findImage(IMGCLASS->EngineerIdleR);
-					break;
-				case eStat::Walk:case eStat::WalkNoting:
-					mCurImage = IMAGEMANAGER->findImage(IMGCLASS->EngineerWalkR);
-					break;
-				case eStat::Run:
-					mCurImage = IMAGEMANAGER->findImage(IMGCLASS->EngineerRunR);
-					break;
-				case eStat::Grab:
-					mCurImage = IMAGEMANAGER->findImage(IMGCLASS->DiggerGrabR);
-					break;
-				default:
-					//Do Nothing
-					break;
+			}
+			else if (curDirection == eDirection::Right) {
+				auto key = mImgRMap.find(changeStat);
+				if (key != mImgRMap.end())
+				{
+					mCurImage = key->second;
 				}
-				break;
-			default:
-				//Do Nothing
-				break;
+			}
+
+			auto updateSecKey = mFrameUpdateSecMap.find(changeStat);
+			if (updateSecKey != mFrameUpdateSecMap.end())
+			{
+				mFrameUpdateSec = updateSecKey->second;
 			}
 		}
 
@@ -96,15 +91,21 @@ public:
 
 			if (mElapsedSec >= mFrameUpdateSec) {
 				mElapsedSec = 0;
-				mCurImage->offsetX(1, true);
-				if (mCurImage->getFrameX() > mCurImage->getMaxFrameX()) {
+				mFrameX++;
+				if (mFrameX > mCurImage->getMaxFrameX()) {
 					mPlayCount++;
-					mCurImage->setFrameX(0);
+					mFrameX = 0;
 				}
 			}
 		}
 
 		inline ImageBase* GetImage() const { return mCurImage; }
+
+		void mappingStatForImg(Npc::eStat stat, ImageBase* rightImg, ImageBase* leftImg, float frameUpdateSec) {
+			mImgRMap.insert(make_pair(stat, rightImg));
+			mImgLMap.insert(make_pair(stat, leftImg));
+			mFrameUpdateSecMap.insert(make_pair(stat, 1.0f / frameUpdateSec));
+		}
 	} Animation;
 
 	void init(float * playerAbsX, 
@@ -133,6 +134,8 @@ public:
 	//npc 행동
 	void orderCall(int rank);
 	void orderGrap();
+	void orderGetShovel();
+	void orderGetWrench();
 
 	void changeType(eType type);
 	void nothing();
@@ -142,12 +145,15 @@ public:
 	Npc() {};
 	~Npc() {};
 private:
+	map<eType, Animation*> mMAni;
+	map<eType, Animation*>::iterator mMiAni;
+
 	eStat mCurStat;
 	eStat mPastStat;
 	eDirection mCurDirection;
 	eType mType;
 
-	Animation mAni;
+	Animation* mCurAni;
 
 	int mRank;
 
@@ -165,6 +171,7 @@ private:
 	int mOrderCount;
 
 	void changeStat(eStat changeStat, eDirection direction);
+	void chageImg(eStat changeStat, eDirection direction);
 
 	eDirection* mPlayerDirection;
 

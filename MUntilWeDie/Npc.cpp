@@ -5,6 +5,39 @@ void Npc::init(float* playerAbsX, float* playerAbsY, eDirection * playerDirectio
 {
 	GameObject::Init("Npc", *playerAbsX + RND->getFromIntTo(300, 600), *playerAbsY, width, height);
 
+	Animation* cAni = new Animation;
+
+	cAni->mappingStatForImg(eStat::Idle, IMAGEMANAGER->findImage(IMGCLASS->CivilianIdleR), IMAGEMANAGER->findImage(IMGCLASS->CivilianIdleL), 3);
+	cAni->mappingStatForImg(eStat::Run, IMAGEMANAGER->findImage(IMGCLASS->CivilianRunR), IMAGEMANAGER->findImage(IMGCLASS->CivilianRunL), 3);
+	cAni->mappingStatForImg(eStat::Walk, IMAGEMANAGER->findImage(IMGCLASS->CivilianWalkR), IMAGEMANAGER->findImage(IMGCLASS->CivilianWalkL), 3);
+	cAni->mappingStatForImg(eStat::StopNoting, IMAGEMANAGER->findImage(IMGCLASS->CivilianIdleR), IMAGEMANAGER->findImage(IMGCLASS->CivilianIdleL), 3);
+	cAni->mappingStatForImg(eStat::WalkNoting, IMAGEMANAGER->findImage(IMGCLASS->CivilianWalkR), IMAGEMANAGER->findImage(IMGCLASS->CivilianWalkL), 3);
+	cAni->mappingStatForImg(eStat::FollowToPlayer, IMAGEMANAGER->findImage(IMGCLASS->CivilianRunR), IMAGEMANAGER->findImage(IMGCLASS->CivilianRunL), 3);
+	cAni->mappingStatForImg(eStat::Grab, IMAGEMANAGER->findImage(IMGCLASS->CivilianGrabR), IMAGEMANAGER->findImage(IMGCLASS->CivilianGrabL), 3);
+
+	Animation* eAni = new Animation;
+
+	eAni->mappingStatForImg(eStat::Idle, IMAGEMANAGER->findImage(IMGCLASS->EngineerIdleR), IMAGEMANAGER->findImage(IMGCLASS->EngineerIdleL), 3);
+	eAni->mappingStatForImg(eStat::Run, IMAGEMANAGER->findImage(IMGCLASS->EngineerRunR), IMAGEMANAGER->findImage(IMGCLASS->EngineerRunL), 3);
+	eAni->mappingStatForImg(eStat::Walk, IMAGEMANAGER->findImage(IMGCLASS->EngineerWalkR), IMAGEMANAGER->findImage(IMGCLASS->EngineerWalkL), 3);
+	eAni->mappingStatForImg(eStat::StopNoting, IMAGEMANAGER->findImage(IMGCLASS->EngineerIdleR), IMAGEMANAGER->findImage(IMGCLASS->EngineerIdleL), 3);
+	eAni->mappingStatForImg(eStat::WalkNoting, IMAGEMANAGER->findImage(IMGCLASS->EngineerWalkR), IMAGEMANAGER->findImage(IMGCLASS->EngineerWalkL), 3);
+	eAni->mappingStatForImg(eStat::FollowToPlayer, IMAGEMANAGER->findImage(IMGCLASS->EngineerRunR), IMAGEMANAGER->findImage(IMGCLASS->EngineerRunL), 3);
+
+	Animation* dAni = new Animation;
+
+	dAni->mappingStatForImg(eStat::Idle, IMAGEMANAGER->findImage(IMGCLASS->DiggerIdleR), IMAGEMANAGER->findImage(IMGCLASS->DiggerIdleL), 3);
+	dAni->mappingStatForImg(eStat::Run, IMAGEMANAGER->findImage(IMGCLASS->DiggerRunR), IMAGEMANAGER->findImage(IMGCLASS->DiggerRunL), 3);
+	dAni->mappingStatForImg(eStat::Walk, IMAGEMANAGER->findImage(IMGCLASS->DiggerWalkR), IMAGEMANAGER->findImage(IMGCLASS->DiggerWalkL), 3);
+	dAni->mappingStatForImg(eStat::StopNoting, IMAGEMANAGER->findImage(IMGCLASS->DiggerIdleR), IMAGEMANAGER->findImage(IMGCLASS->DiggerIdleL), 3);
+	dAni->mappingStatForImg(eStat::WalkNoting, IMAGEMANAGER->findImage(IMGCLASS->DiggerWalkR), IMAGEMANAGER->findImage(IMGCLASS->DiggerWalkL), 3);
+	dAni->mappingStatForImg(eStat::FollowToPlayer, IMAGEMANAGER->findImage(IMGCLASS->DiggerRunR), IMAGEMANAGER->findImage(IMGCLASS->DiggerRunL), 3);
+	dAni->mappingStatForImg(eStat::Grab, IMAGEMANAGER->findImage(IMGCLASS->DiggerGrabR), IMAGEMANAGER->findImage(IMGCLASS->DiggerGrabL), 3);
+
+	mMAni.insert(make_pair(eType::Civilian, cAni));
+	mMAni.insert(make_pair(eType::Digger, dAni));
+	mMAni.insert(make_pair(eType::Engineer, eAni));
+
 	mPlayerAbsX = playerAbsX;
 	mPlayerAbsY = playerAbsY;
 
@@ -14,6 +47,8 @@ void Npc::init(float* playerAbsX, float* playerAbsY, eDirection * playerDirectio
 
 	mCurStat = eStat::StopNoting;
 	mCurDirection = eDirection::Left;
+
+	mCurAni = mMAni.find(eType::Civilian)->second;
 
 	nothing();
 }
@@ -25,11 +60,12 @@ void Npc::release(void)
 
 void Npc::draw()
 {
-	mAni.GetImage()->frameRender(getMemDc(), getX(), getY());
+	mCurAni->GetImage()->frameRender(getMemDc(), getX(), getY(), mCurAni->mFrameX, mCurAni->mFrameY);
 }
 
 void Npc::animation()
 {
+	mCurAni->frameUpdate(TIMEMANAGER->getElapsedTime());
 }
 
 void Npc::move()
@@ -79,7 +115,7 @@ void Npc::move()
 		}
 
 		if (distance > 0) {
-			mAni.ChangeCurImage(eStat::Run, mCurDirection);
+			chageImg(eStat::Run, mCurDirection);
 			if (*mPlayerStat == Player::eStat::Dash) {
 				offsetX(RND->getFromFloatTo(3.0f, 6.0f));
 			}
@@ -88,7 +124,7 @@ void Npc::move()
 			}
 		}
 		else if (distance < 0) {
-			mAni.ChangeCurImage(eStat::Run, mCurDirection);
+			chageImg(eStat::Run, mCurDirection);
 			if (*mPlayerStat == Player::eStat::Dash) {
 				offsetX(-RND->getFromFloatTo(3.0f, 6.0f));
 			}
@@ -98,7 +134,7 @@ void Npc::move()
 		}
 		else {
 			mCurDirection = *mPlayerDirection;
-			mAni.ChangeCurImage(eStat::Idle, mCurDirection);
+			chageImg(eStat::Idle, mCurDirection);
 		};
 	}
 	break;
@@ -109,8 +145,6 @@ void Npc::move()
 
 void Npc::action()
 {
-	mAni.frameUpdate(TIMEMANAGER->getElapsedTime());
-
 	switch (mCurStat)
 	{
 	case eStat::Grab:
@@ -144,9 +178,20 @@ void Npc::orderGrap()
 	changeStat(eStat::Grab, *mPlayerDirection);
 }
 
+void Npc::orderGetShovel()
+{
+	changeType(eType::Digger);
+}
+
+void Npc::orderGetWrench()
+{
+	changeType(eType::Engineer);
+}
+
 void Npc::changeType(eType type)
 {
 	mType = type;
+d	mCurAni = mMAni.find(type)->second;
 }
 
 void Npc::nothing()
@@ -169,6 +214,14 @@ void Npc::changeStat(eStat changeStat, eDirection direction)
 	{
 		mPastStat = mCurStat;
 		mCurStat = changeStat;
-		mAni.ChangeCurImage(mCurStat, direction);
+		mCurAni->ChangeCurImage(mCurStat, direction);
+	}
+}
+
+void Npc::chageImg(eStat changeStat, eDirection direction)
+{
+	if (mCurStat != changeStat)
+	{
+		mCurAni->ChangeCurImage(changeStat, direction);
 	}
 }

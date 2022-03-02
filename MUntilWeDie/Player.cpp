@@ -1,15 +1,27 @@
 #include "Stdafx.h"
 #include "Player.h"
 #include "NpcManager.h"
-#include "Camera.h"
+#include "Weapon.h"
 
 void Player::init(float x, float y, float width, float height)
 {
 	GameObject::Init("Player", x, y, width, height);
-	
+
+	mAni.mappingStatForImg(eStat::Idle, IMAGEMANAGER->findImage(IMGCLASS->PlayerIdleR), IMAGEMANAGER->findImage(IMGCLASS->PlayerIdleL), 3);
+	mAni.mappingStatForImg(eStat::Run, IMAGEMANAGER->findImage(IMGCLASS->PlayerRunR), IMAGEMANAGER->findImage(IMGCLASS->PlayerRunL), 3);
+	mAni.mappingStatForImg(eStat::Dash, IMAGEMANAGER->findImage(IMGCLASS->PlayerRunR), IMAGEMANAGER->findImage(IMGCLASS->PlayerRunL), 3);
+	mAni.mappingStatForImg(eStat::Walk, IMAGEMANAGER->findImage(IMGCLASS->PlayerWalkR), IMAGEMANAGER->findImage(IMGCLASS->PlayerWalkL), 3);
+	mAni.mappingStatForImg(eStat::CommandCall, IMAGEMANAGER->findImage(IMGCLASS->PlayerCommandCallR), IMAGEMANAGER->findImage(IMGCLASS->PlayerCommandCallL), 3);
+	mAni.mappingStatForImg(eStat::CommandExec, IMAGEMANAGER->findImage(IMGCLASS->PlayerCommandExecR), IMAGEMANAGER->findImage(IMGCLASS->PlayerCommandExecL), 3);
+	mAni.mappingStatForImg(eStat::Shoot, IMAGEMANAGER->findImage(IMGCLASS->PlayerShootR), IMAGEMANAGER->findImage(IMGCLASS->PlayerShootL), 3);
+	mAni.mappingStatForImg(eStat::ShootRun, IMAGEMANAGER->findImage(IMGCLASS->PlayerRunShootR), IMAGEMANAGER->findImage(IMGCLASS->PlayerRunShootL), 3);
+
+	mWeapon = new Weapon;
+	mWeapon->init("");
+
 	mNpcManager = new NpcManager;
-	mNpcManager->init(getAbsX(), getAbsY(),&mCurStat, &mCurDirection);
-	
+	mNpcManager->init(getAbsX(), getAbsY(), &mCurStat, &mCurDirection);
+
 	mCurStat = eStat::Idle;
 	mCurDirection = eDirection::Right;
 
@@ -22,6 +34,7 @@ void Player::init(float x, float y, float width, float height)
 
 void Player::release(void)
 {
+	mWeapon->release();
 	mNpcManager->release();
 	SAFE_DELETE(mNpcManager);
 }
@@ -31,12 +44,14 @@ void Player::update(void)
 	move();
 	action();
 	mNpcManager->update();
+	mWeapon->update();
 }
 void Player::render(void)
 {
 	draw();
 	animation();
 	mNpcManager->render();
+	mWeapon->render();
 };
 
 void Player::draw()
@@ -44,6 +59,7 @@ void Player::draw()
 	if (mIsClickDownDashKey) {
 		GDIPLUSMANAGER->drawCProgressBar(getMemDc(), getX(), getY(), 5, mDashTime, PLAYER_DASH_MAX_DASH_TIME);
 	}
+
 	mAni.GetImage()->frameRender(getMemDc(), getX(), getY() + (mHeight - mAni.GetImage()->getHeight()));
 }
 
@@ -112,7 +128,7 @@ void Player::move()
 	if (KEYMANAGER->isOnceKeyDown(PLAYER_COMMAND_EXEC))
 	{
 		changeStat(eStat::CommandExec);
-		orderExcuteNpc();
+		mNpcManager->orderGetWrench();
 	}
 
 	if (KEYMANAGER->isOnceKeyDown(PLAYER_COMMAND_CALL))
@@ -125,6 +141,13 @@ void Player::move()
 	if (KEYMANAGER->isOnceKeyDown(PLAYER_SHOOT))
 	{
 		changeStat(eStat::Shoot);
+
+		if (mCurDirection == eDirection::Right) {
+			mWeapon->shoot(getAbsRc().right, *getAbsY() + (mHeight / 2), mCurDirection);
+		}
+		else {
+			mWeapon->shoot(getAbsRc().left, *getAbsY() + (mHeight / 2), mCurDirection);
+		}
 	}
 
 	if (KEYMANAGER->isOnceKeyUp(PLAYER_MOVE_L) || KEYMANAGER->isOnceKeyUp(PLAYER_MOVE_R)) {
@@ -140,8 +163,18 @@ void Player::action()
 		};
 	}
 
+	if (mCurStat == eStat::Shoot) {
+		if (mAni.mPlayCount > 0) {
+			changeStat(mPastStat);
+		};
+	}
+
 	if (mCurStat == eStat::Dash) {
-		mDashTime -= 0.1;
+		mDashTime -= 0.1f;
+	}
+	else {
+		if(mDashTime < PLAYER_DASH_MAX_DASH_TIME)
+		mDashTime += 0.01f;
 	}
 }
 
@@ -157,10 +190,14 @@ void Player::changeStat(eStat changeStat)
 
 void Player::orderCallNpc()
 {
-	RECT callableRc = getAbsRc();
+	RECT callableRc = getRc();
 	
-	callableRc.left -= 200;
-	callableRc.right += 200;
+	if (mCurDirection == eDirection::Left) {
+		callableRc.left -= 300;
+	}
+	else {
+		callableRc.right += 300;
+	}
 
 	mNpcManager->orderCallNpc(callableRc);
 }

@@ -2,6 +2,8 @@
 #include "GameObject.h"
 
 class NpcManager;
+class Weapon;
+
 class Player : public GameObject
 {
 public:
@@ -17,13 +19,15 @@ public:
 	};
 
 	typedef	struct tagAnimation {
-
-		float mFrameUpdateSec;	// 초당 프레임 업데이트 수
-		float mElapsedSec;		// 프레임과 프레임 사이의 시간
+		float mFrameUpdateSec;
+		int mPlayCount;
 
 		ImageBase* mCurImage;
-
-		int mPlayCount;
+		float mElapsedSec;
+		
+		map<Player::eStat, ImageBase*> mImgRMap;
+		map<Player::eStat, ImageBase*> mImgLMap;
+		map<Player::eStat, float> mFrameUpdateSecMap;
 
 		tagAnimation() {
 			mFrameUpdateSec = 1.0f / 10;
@@ -35,66 +39,25 @@ public:
 
 		void ChangeCurImage(eStat changeStat, eDirection curDirection) {
 			mPlayCount = 0;
-			switch (curDirection) {
-			case eDirection::Left:
-				switch (changeStat) {
-				case eStat::Idle:
-					mCurImage = IMAGEMANAGER->findImage(IMGCLASS->PlayerIdleL);
-					break;
-				case eStat::Walk:
-					mCurImage = IMAGEMANAGER->findImage(IMGCLASS->PlayerWalkL);
-					break;
-				case eStat::Run: case eStat::Dash:
-					mCurImage = IMAGEMANAGER->findImage(IMGCLASS->PlayerRunL);
-					break;
-				case eStat::CommandCall:
-					mCurImage = IMAGEMANAGER->findImage(IMGCLASS->PlayerCommandCallL);
-					break;
-				case eStat::CommandExec:
-					mCurImage = IMAGEMANAGER->findImage(IMGCLASS->PlayerCommandExecL);
-					break;
-				case eStat::Shoot:
-					mCurImage = IMAGEMANAGER->findImage(IMGCLASS->PlayerShootL);
-					break;
-				case eStat::ShootRun:
-					mCurImage = IMAGEMANAGER->findImage(IMGCLASS->PlayerRunShootL);
-					break;
-				default:
-					//Do Nothing
-					break;
+			if (curDirection == eDirection::Left) {
+				auto key = mImgLMap.find(changeStat);
+				if (key != mImgLMap.end())
+				{
+					mCurImage = key->second;
 				}
-				break;
-			case eDirection::Right:
-				switch (changeStat) {
-				case eStat::Idle:
-					mCurImage = IMAGEMANAGER->findImage(IMGCLASS->PlayerIdleR);
-					break;
-				case eStat::Walk:
-					mCurImage = IMAGEMANAGER->findImage(IMGCLASS->PlayerWalkR);
-					break;
-				case eStat::Run: case eStat::Dash:
-					mCurImage = IMAGEMANAGER->findImage(IMGCLASS->PlayerRunR);
-					break;
-				case eStat::CommandCall:
-					mCurImage = IMAGEMANAGER->findImage(IMGCLASS->PlayerCommandCallR);
-					break;
-				case eStat::CommandExec:
-					mCurImage = IMAGEMANAGER->findImage(IMGCLASS->PlayerCommandExecR);
-					break;
-				case eStat::Shoot:
-					mCurImage = IMAGEMANAGER->findImage(IMGCLASS->PlayerShootR);
-					break;
-				case eStat::ShootRun:
-					mCurImage = IMAGEMANAGER->findImage(IMGCLASS->PlayerRunShootR);
-					break;
-				default:
-					//Do Nothing
-					break;
+			}
+			else {
+				auto key = mImgRMap.find(changeStat);
+				if (key != mImgRMap.end())
+				{
+					mCurImage = key->second;
 				}
-				break;
-			default:
-				//Do Nothing
-				break;
+			}
+
+			auto updateSecKey = mFrameUpdateSecMap.find(changeStat);
+			if (updateSecKey != mFrameUpdateSecMap.end())
+			{
+				mFrameUpdateSec = updateSecKey->second;
 			}
 		}
 
@@ -114,6 +77,12 @@ public:
 		}
 
 		inline ImageBase* GetImage() const { return mCurImage; }
+
+		void mappingStatForImg(Player::eStat stat, ImageBase* rightImg, ImageBase* leftImg, float frameUpdateSec) {
+			mImgRMap.insert(make_pair(stat, rightImg));
+			mImgLMap.insert(make_pair(stat, leftImg));
+			mFrameUpdateSecMap.insert(make_pair(stat, 1.0f/ frameUpdateSec));
+		}
 	} Animation;
 
 	void init(float x, float y, float width, float height);
@@ -140,6 +109,8 @@ private:
 
 	Animation mAni;
 	NpcManager* mNpcManager;
+
+	Weapon* mWeapon;
 
 	float mDashTime;
 	float mHp;

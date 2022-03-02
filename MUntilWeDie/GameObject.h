@@ -16,6 +16,15 @@ public:
 	float* getAbsX() { return &mX; };
 	float* getAbsY() { return &mY; };
 
+	void setAbsX(float x) { 
+		mX = x; 
+		mRc = RectMake(mX, mY, mWidth, mHeight);
+	};
+	void setAbsY(float y) { 
+		mY = y; 
+		mRc = RectMake(mX, mY, mWidth, mHeight);
+	};
+
 	inline float getX() { return mX - CAMERA->getX();};
 	inline float getY() { return mY - CAMERA->getY();};
 
@@ -31,7 +40,6 @@ public:
 	inline RECT getAbsRc() {
 		return mRc;
 	};
-
 
 	void offsetX(float x) { 
 		mRc.left += x;
