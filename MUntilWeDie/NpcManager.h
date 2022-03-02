@@ -14,8 +14,10 @@ public:
 	bool orderCallNpc(RECT playerCallableRc);
 	bool orderExecNpc();
 
+	bool changeStat(int npcIndex, Npc::eOrderType stat);
+
 	bool orderGetShovel(); //삽 집는 명령
-	bool orderGetWrench(); //렌치 집는 명령
+	bool orderGetWrench(); // 렌치 집는 명령
 
 	NpcManager() {};
 	~NpcManager() {};

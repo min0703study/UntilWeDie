@@ -13,6 +13,7 @@ public:
 		WalkNoting,
 		FollowToPlayer,
 		Grab,
+		Build,
 	};
 
 	enum class eType {
@@ -22,7 +23,8 @@ public:
 	};
 
 	enum class eOrderType {
-		Grap
+		Grap,
+		Noting
 	};
 
 	typedef	struct tagAnimation {

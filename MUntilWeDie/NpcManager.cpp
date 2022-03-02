@@ -55,6 +55,23 @@ bool NpcManager::orderExecNpc()
 	return true;
 }
 
+bool NpcManager::changeStat(int npcIndex, Npc::eOrderType stat)
+{
+	if (mVNpcs.begin() + npcIndex != mVNpcs.end()) {
+		Npc* npc = *(mVNpcs.begin() + npcIndex);
+		switch (stat)
+		{
+		case Npc::eOrderType::Noting:
+			npc->nothing();
+			break;
+		default:
+			break;
+		}
+	}
+
+	return true;
+}
+
 bool NpcManager::orderGetShovel() {
 	if (mActiveNpcs.begin() == mActiveNpcs.end()) return false;
 	(*mActiveNpcs.begin())->orderGetShovel();

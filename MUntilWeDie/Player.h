@@ -100,6 +100,7 @@ public:
 
 	//interface
 	RECT getPlayerRc() override;
+	void isOverGrapObject(int npcIndex) override;
 
 	Player() {};
 	~Player() {};
