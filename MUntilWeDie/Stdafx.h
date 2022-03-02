@@ -74,10 +74,13 @@ using namespace std;
 #else
 #define WINNAME			(LPSTR)(TEXT("WindowsAPI"))
 #define WINSTYLE		WS_CAPTION | WS_SYSMENU
-#define WINSTART_X		500
+
+#define WINSTART_X		0
 #define WINSTART_Y		0
+
 #define WINSIZE_X		1920
 #define WINSIZE_Y		1080
+
 #define CAMERA_X		1920
 #define CAMERA_Y		1080
 #endif

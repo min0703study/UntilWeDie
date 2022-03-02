@@ -8,6 +8,10 @@ class GameObject: public GameNode
 public:
 	void Init(string id, float x, float y, float width, float height);
 
+	virtual void update(void);
+	virtual void render(void);
+	virtual void release(void);
+
 	virtual void draw(void);
 	virtual void animation(void);
 	virtual void move(void);
@@ -35,12 +39,16 @@ public:
 	};
 	void setAbsY(float y) { 
 		mY = y; 
-		mRc = RectMake(mX, mY, mWidth, mHeight);
+		mRc.top = y - mHeight;
+		mRc.bottom = y;
 	};
-
 
 	inline float getX() { return mX - CAMERA->getX();};
 	inline float getY() { return mY - CAMERA->getY();};
+
+	inline RECT getAbsRc() {
+		return mRc;
+	};
 
 	inline RECT getRc() {
 		RECT cRc = CAMERA->getRc();
@@ -50,11 +58,6 @@ public:
 			mRc.right - cRc.left,
 			mRc.bottom - cRc.top };
 	};
-
-	inline RECT getAbsRc() {
-		return mRc;
-	};
-
 
 	RECT getCenterRc() {
 		RECT cRc = CAMERA->getRc();
@@ -86,11 +89,17 @@ public:
 protected:
 	float mWidth;
 	float mHeight;
+
+	//°³¹ß¿ë vector render¿¡¼­ ÂïÀ½
+	vector<RECT> mVDevelopRect;
+
 private:
 	string mId;
 
 	RECT mRc;
-	float mX;
-	float mY;
+
+	float mX; //Áß¾Ó
+	float mY; //¹Ù´Ú
+
 };
 

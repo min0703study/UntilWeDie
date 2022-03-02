@@ -1,5 +1,5 @@
 #pragma once
-#define GROUND		710
+#define GROUND		710.0f
 
 //∏  ±Ê¿Ã 46363
 namespace MAP{

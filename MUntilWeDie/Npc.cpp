@@ -3,7 +3,7 @@
 
 void Npc::init(float* playerAbsX, float* playerAbsY, eDirection * playerDirection, Player::eStat* playerStat, float width, float height)
 {
-	GameObject::Init("Npc", *playerAbsX + RND->getFromIntTo(300, 600), *playerAbsY, width, height);
+	GameObject::Init("Npc", *playerAbsX + RND->getFromIntTo(300, 600), GROUND, width, height);
 
 	Animation* cAni = new Animation;
 
@@ -60,7 +60,7 @@ void Npc::release(void)
 
 void Npc::draw()
 {
-	mCurAni->GetImage()->frameRender(getMemDc(), getX(), getY(), mCurAni->mFrameX, mCurAni->mFrameY);
+	mCurAni->GetImage()->frameRender(getMemDc(), getRc().left, getRc().top, mCurAni->mFrameX, mCurAni->mFrameY);
 }
 
 void Npc::animation()
@@ -74,7 +74,7 @@ void Npc::move()
 	{
 	case eStat::WalkNoting: {
 		if (mCurDirection == eDirection::Left) {
-			if (mNotingToX < getAbsRc().left) {
+			if (mNotingToX < getRc().left) {
 				offsetX(-1.0f);
 			}
 			else {
@@ -85,7 +85,7 @@ void Npc::move()
 			}
 		}
 		else if (mCurDirection == eDirection::Right) {
-			if (mNotingToX > getAbsRc().right) {
+			if (mNotingToX > getRc().right) {
 				offsetX(1.0f);
 			}
 			else {
@@ -108,10 +108,10 @@ void Npc::move()
 		int distance = 0;
 
 		if (*mPlayerDirection == eDirection::Left) {
-			distance = static_cast<int> (*mPlayerAbsX + (mRank * 80) - *getAbsX());
+			distance = static_cast<int> (*mPlayerAbsX + (mRank * 80) - getAbsX());
 		}
 		else if (*mPlayerDirection == eDirection::Right) {
-			distance = static_cast<int> (*mPlayerAbsX - (mRank * 80) - *getAbsX());
+			distance = static_cast<int> (*mPlayerAbsX - (mRank * 80) - getAbsX());
 		}
 
 		if (distance > 0) {
@@ -162,10 +162,10 @@ void Npc::orderCall(int rank)
 {
 	mRank = rank;
 
-	if (*mPlayerAbsX - *getAbsX() > 0) {
+	if (*mPlayerAbsX - getAbsX() > 0) {
 		mCurDirection = eDirection::Right;
 	}
-	else if (*mPlayerAbsX - *getAbsX() < 0) {
+	else if (*mPlayerAbsX - getAbsX() < 0) {
 		mCurDirection = eDirection::Left;
 	};
 
@@ -199,10 +199,10 @@ void Npc::nothing()
 	mNotingStartX = getX();
 
 	if (mCurDirection == eDirection::Left) {
-		mNotingToX = mNotingStartX - RND->getFromIntTo(0, 400);
+		mNotingToX = mNotingStartX - RND->getFromIntTo(0, 700);
 	}
 	else if (mCurDirection == eDirection::Right) {
-		mNotingToX = mNotingStartX + RND->getFromIntTo(0, 400);
+		mNotingToX = mNotingStartX + RND->getFromIntTo(0, 700);
 	}
 
 	changeStat(eStat::WalkNoting, mCurDirection);

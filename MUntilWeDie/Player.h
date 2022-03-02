@@ -16,13 +16,11 @@ public:
 		ShootRun,
 		CommandCall,
 		CommandExec
-	}
+	};
 
-	typedef	struct tagAnimation
-	{
-
-		float mFrameUpdateSec;	// 초당 프레임 업데이트 수
-		float mElapsedSec;		// 프레임과 프레임 사이의 시간
+	typedef	struct tagAnimation {
+		float mFrameUpdateSec;
+		int mPlayCount;
 
 		ImageBase* mCurImage;
 		float mElapsedSec;
@@ -31,8 +29,7 @@ public:
 		map<Player::eStat, ImageBase*> mImgLMap;
 		map<Player::eStat, float> mFrameUpdateSecMap;
 
-		tagAnimation()
-		{
+		tagAnimation() {
 			mFrameUpdateSec = 1.0f / 10;
 			mElapsedSec = 0;
 			mPlayCount = 0;
@@ -40,8 +37,7 @@ public:
 			mCurImage = nullptr;
 		}
 
-		void ChangeCurImage(eStat changeStat, eDirection curDirection)
-		{
+		void ChangeCurImage(eStat changeStat, eDirection curDirection) {
 			mPlayCount = 0;
 			if (curDirection == eDirection::Left) {
 				auto key = mImgLMap.find(changeStat);
@@ -70,12 +66,10 @@ public:
 			if (elapsedTime < 0) return;
 			mElapsedSec += elapsedTime;
 
-			if (mElapsedSec >= mFrameUpdateSec)
-			{
+			if (mElapsedSec >= mFrameUpdateSec) {
 				mElapsedSec = 0;
 				mCurImage->offsetX(1, true);
-				if (mCurImage->getFrameX() > mCurImage->getMaxFrameX())
-				{
+				if (mCurImage->getFrameX() > mCurImage->getMaxFrameX()) {
 					mPlayCount++;
 					mCurImage->setFrameX(0);
 				}
@@ -93,6 +87,7 @@ public:
 
 	void init(float x, float y, float width, float height);
 	void release(void);
+
 	void update(void);
 
 	void render(void);
@@ -104,7 +99,6 @@ public:
 
 	Player() {};
 	~Player() {};
-
 private:
 	eStat mCurStat;
 	eStat mPastStat;

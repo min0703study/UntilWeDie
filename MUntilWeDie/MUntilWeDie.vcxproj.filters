@@ -2,9 +2,6 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <ClCompile Include="WinMain.cpp" />
-    <ClCompile Include="GameNode.cpp">
-      <Filter>MainGame</Filter>
-    </ClCompile>
     <ClCompile Include="Camera.cpp">
       <Filter>Api Framework\Camera</Filter>
     </ClCompile>
@@ -47,9 +44,6 @@
     <ClCompile Include="Stdafx.cpp">
       <Filter>Api Framework\Stdafx</Filter>
     </ClCompile>
-    <ClCompile Include="MainGame.cpp">
-      <Filter>MainGame</Filter>
-    </ClCompile>
     <ClCompile Include="Utils.cpp">
       <Filter>Api Framework\Utillity</Filter>
     </ClCompile>
@@ -69,35 +63,40 @@
       <Filter>Api Framework\GameObject</Filter>
     </ClCompile>
     <ClCompile Include="BuildManager.cpp">
-      <Filter>Building</Filter>
+      <Filter>Api Framework\Building</Filter>
     </ClCompile>
     <ClCompile Include="ShovelShop.cpp">
-      <Filter>Building</Filter>
+      <Filter>Api Framework\Building</Filter>
     </ClCompile>
-    <ClCompile Include="Map.cpp">
-      <Filter>GameObject</Filter>
-    </ClCompile>
-    <ClCompile Include="ObjectManager.cpp">
-      <Filter>Manager</Filter>
-    </ClCompile>
-    <ClCompile Include="Objects.cpp">
-      <Filter>GameObject</Filter>
-    </ClCompile>
-    <ClCompile Include="Monster.cpp">
-      <Filter>GameObject</Filter>
-    </ClCompile>
-    <ClCompile Include="MonsterManager.cpp">
-      <Filter>Manager</Filter>
-    </ClCompile>
-    <ClCompile Include="Projectile.cpp">
+    <ClCompile Include="GameNode.cpp">
       <Filter>GameNode</Filter>
     </ClCompile>
-    <ClCompile Include="Effect.cpp" />
+    <ClCompile Include="MainGame.cpp">
+      <Filter>GameNode</Filter>
+    </ClCompile>
+    <ClCompile Include="Effect.cpp">
+      <Filter>Api Framework\GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="MonsterManager.cpp">
+      <Filter>Api Framework\GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="ObjectManager.cpp">
+      <Filter>Api Framework\GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="Projectile.cpp">
+      <Filter>Api Framework\GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="Map.cpp">
+      <Filter>Api Framework\GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="Monster.cpp">
+      <Filter>Api Framework\GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="Objects.cpp">
+      <Filter>Api Framework\GameObject</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="GameNode.h">
-      <Filter>MainGame</Filter>
-    </ClInclude>
     <ClInclude Include="SingletonBase.h">
       <Filter>Api Framework\DesignPattern</Filter>
     </ClInclude>
@@ -143,9 +142,6 @@
     <ClInclude Include="Stdafx.h">
       <Filter>Api Framework\Stdafx</Filter>
     </ClInclude>
-    <ClInclude Include="MainGame.h">
-      <Filter>MainGame</Filter>
-    </ClInclude>
     <ClInclude Include="Utils.h">
       <Filter>Api Framework\Utillity</Filter>
     </ClInclude>
@@ -171,33 +167,41 @@
       <Filter>Api Framework\GameObject</Filter>
     </ClInclude>
     <ClInclude Include="BuildManager.h">
-      <Filter>Building</Filter>
+      <Filter>Api Framework\Building</Filter>
     </ClInclude>
     <ClInclude Include="ShovelShop.h">
-      <Filter>Building</Filter>
+      <Filter>Api Framework\Building</Filter>
     </ClInclude>
-    <ClInclude Include="Map.h">
-      <Filter>GameObject</Filter>
-    </ClInclude>
-    <ClInclude Include="MapInfo.h">
-      <Filter>GameObject</Filter>
-    </ClInclude>
-    <ClInclude Include="ObjectManager.h">
-      <Filter>Manager</Filter>
-    </ClInclude>
-    <ClInclude Include="Objects.h">
-      <Filter>GameObject</Filter>
-    </ClInclude>
-    <ClInclude Include="Monster.h">
-      <Filter>GameObject</Filter>
-    </ClInclude>
-    <ClInclude Include="MonsterManager.h">
-      <Filter>Manager</Filter>
-    </ClInclude>
-    <ClInclude Include="Projectile.h">
+    <ClInclude Include="GameNode.h">
       <Filter>GameNode</Filter>
     </ClInclude>
-    <ClInclude Include="Effect.h" />
+    <ClInclude Include="MainGame.h">
+      <Filter>GameNode</Filter>
+    </ClInclude>
+    <ClInclude Include="Effect.h">
+      <Filter>Api Framework\GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="MonsterManager.h">
+      <Filter>Api Framework\GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjectManager.h">
+      <Filter>Api Framework\GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="Projectile.h">
+      <Filter>Api Framework\GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="Map.h">
+      <Filter>Api Framework\GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="MapInfo.h">
+      <Filter>Api Framework\GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="Monster.h">
+      <Filter>Api Framework\GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="Objects.h">
+      <Filter>Api Framework\GameObject</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Api Framework">
@@ -230,11 +234,11 @@
     <Filter Include="Api Framework\Utillity">
       <UniqueIdentifier>{56d38487-8a31-4524-8dda-c3fcef6a1dd1}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Building">
+    <Filter Include="Api Framework\Building">
       <UniqueIdentifier>{021ee022-04f3-40ca-88dc-81fd89d92efa}</UniqueIdentifier>
     </Filter>
-    <Filter Include="GameObject">
-      <UniqueIdentifier>{bb36f608-44d3-4646-a92a-73145b9347cd}</UniqueIdentifier>
+    <Filter Include="GameNode">
+      <UniqueIdentifier>{dc25a2fd-b240-449f-848a-7aa7613327d9}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

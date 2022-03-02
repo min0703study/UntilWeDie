@@ -4,12 +4,6 @@
 
 class Player;
 
-enum class eDirection
-{
-	Left,
-	Right
-};
-
 enum class eMonsterState
 {
 	Idle,

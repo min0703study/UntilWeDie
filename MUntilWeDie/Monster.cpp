@@ -75,7 +75,8 @@ void Monster::update(void)
 	move();
 	search();
 	action();
-	if (bIsAttack && !mAttack) mAttack->update();
+
+	//if (bIsAttack && !mAttack) mAttack->update();
 
 	if (mMonPrevState != mMonCurrState) {
 		changeAnimation();
@@ -245,7 +246,7 @@ void Monster::attack()
 				if (getRc().left > mPlayer->getRc().right) {
 					offsetX(-mStatus.attackSpeed);
 					if (getRc().left < mPlayer->getRc().right) {
-						setX(mPlayer->getRc().right);
+						setAbsX(mPlayer->getRc().right);
 					}
 					mAccrueDistance += -10;
 				}
@@ -254,7 +255,7 @@ void Monster::attack()
 				if (getRc().right < mPlayer->getRc().left) {
 					offsetX(mStatus.attackSpeed);
 					if (getRc().right > mPlayer->getRc().left) {
-						setX(mPlayer->getRc().left - getWidth());
+						setAbsX(mPlayer->getRc().left - getWidth());
 					}
 				}
 			}

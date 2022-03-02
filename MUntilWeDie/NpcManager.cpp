@@ -39,7 +39,7 @@ bool NpcManager::orderCallNpc(RECT playerCallableRc)
 	RECT tempRc;
 	for (mViNpcs = mVNpcs.begin(); mViNpcs != mVNpcs.end(); mViNpcs++) {
 		if ((*mViNpcs)->isActivated()) continue;
-		if (IntersectRect(&tempRc, &(*mViNpcs)->getAbsRc(), &playerCallableRc)) {
+		if (IntersectRect(&tempRc, &(*mViNpcs)->getRc(), &playerCallableRc)) {
 			(*mViNpcs)->orderCall(mActiveNpcs.size() + 1);
 			mActiveNpcs.push_back(*mViNpcs);
 		};

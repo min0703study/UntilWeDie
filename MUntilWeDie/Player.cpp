@@ -6,7 +6,7 @@
 void Player::init(float x, float y, float width, float height)
 {
 	GameObject::Init("Player", x, y, width, height);
-	
+
 	mAni.mappingStatForImg(eStat::Idle, IMAGEMANAGER->findImage(IMGCLASS->PlayerIdleR), IMAGEMANAGER->findImage(IMGCLASS->PlayerIdleL), 3);
 	mAni.mappingStatForImg(eStat::Run, IMAGEMANAGER->findImage(IMGCLASS->PlayerRunR), IMAGEMANAGER->findImage(IMGCLASS->PlayerRunL), 3);
 	mAni.mappingStatForImg(eStat::Dash, IMAGEMANAGER->findImage(IMGCLASS->PlayerRunR), IMAGEMANAGER->findImage(IMGCLASS->PlayerRunL), 3);
@@ -20,7 +20,7 @@ void Player::init(float x, float y, float width, float height)
 	mWeapon->init("");
 
 	mNpcManager = new NpcManager;
-	mNpcManager->init(getAbsX(), getAbsY(), &mCurStat, &mCurDirection);
+	mNpcManager->init(getAbsPX(), getAbsPY(), &mCurStat, &mCurDirection);
 
 	mCurStat = eStat::Idle;
 	mCurDirection = eDirection::Right;
@@ -34,6 +34,8 @@ void Player::init(float x, float y, float width, float height)
 
 void Player::release(void)
 {
+	GameObject::release();
+
 	mWeapon->release();
 	mNpcManager->release();
 	SAFE_DELETE(mNpcManager);
@@ -41,6 +43,8 @@ void Player::release(void)
 
 void Player::update(void)
 {
+	GameObject::update();
+
 	move();
 	action();
 	mNpcManager->update();
@@ -48,6 +52,8 @@ void Player::update(void)
 }
 void Player::render(void)
 {
+	GameObject::render();
+
 	draw();
 	animation();
 	mNpcManager->render();
@@ -60,7 +66,7 @@ void Player::draw()
 		GDIPLUSMANAGER->drawCProgressBar(getMemDc(), getX(), getY(), 5, mDashTime, PLAYER_DASH_MAX_DASH_TIME);
 	}
 
-	mAni.GetImage()->frameRender(getMemDc(), getX(), getY() + (mHeight - mAni.GetImage()->getHeight()));
+	mAni.GetImage()->frameRender(getMemDc(), getRc().left, getRc().bottom - mAni.GetImage()->getHeight());
 }
 
 void Player::animation()
@@ -70,22 +76,35 @@ void Player::animation()
 
 void Player::move()
 {
-	if (KEYMANAGER->isStayKeyDown(PLAYER_MOVE_L))
-	{
-		mCurDirection = Left;
-		//¶Ù´Â ¾×¼Ç
-		if (KEYMANAGER->isStayKeyDown(PLAYER_RUN))
-		{
-			offsetX(-30.0f);
-			CAMERA->offSetX(-30.0f);
 
-			changeStat(Run);
-		}
-		else
+	if (KEYMANAGER->isOnceKeyDown(PLAYER_DASH)) {
+		mIsClickDownDashKey = true;
+	}
+
+	if (KEYMANAGER->isOnceKeyUp(PLAYER_DASH)) {
+		mIsClickDownDashKey = false;
+	}
+
+	if (KEYMANAGER->isStayKeyDown(PLAYER_MOVE_L)) 
+	{
+		mCurDirection = eDirection::Left;
+		if (mIsClickDownDashKey)
 		{
-			offsetX(-1.0f);
-			CAMERA->offSetX(-1.0f);
-			changeStat(Walk);
+			if (mDashTime >= 0) {
+				offsetX(-5.0f);
+				CAMERA->offSetX(-5.0f);
+				changeStat(eStat::Dash);
+			}
+			else {
+				offsetX(-3.0f);
+				CAMERA->offSetX(-3.0f);
+				changeStat(eStat::Run);
+			}
+
+		} else {
+			offsetX(-3.0f);
+			CAMERA->offSetX(-3.0f);
+			changeStat(eStat::Run);
 		}
 	}
 
@@ -130,10 +149,10 @@ void Player::move()
 		changeStat(eStat::Shoot);
 
 		if (mCurDirection == eDirection::Right) {
-			mWeapon->shoot(getAbsRc().right, *getAbsY() + (mHeight / 2), mCurDirection);
+			mWeapon->shoot(getAbsRc().right, getAbsY() + (mHeight / 2), mCurDirection);
 		}
 		else {
-			mWeapon->shoot(getAbsRc().left, *getAbsY() + (mHeight / 2), mCurDirection);
+			mWeapon->shoot(getAbsRc().left, getAbsY() + (mHeight / 2), mCurDirection);
 		}
 	}
 
@@ -167,7 +186,7 @@ void Player::action()
 
 void Player::changeStat(eStat changeStat)
 {
-	if (mCurStat != changeStat)
+	if (mCurStat != changeStat) 
 	{
 		mPastStat = mCurStat;
 		mCurStat = changeStat;

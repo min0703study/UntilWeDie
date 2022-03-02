@@ -7,7 +7,7 @@ HRESULT MainScene::init(void)
 	mMap->init(0,0, CAMERA_X, CAMERA_Y);
 
 	mPlayer = new Player;
-	mPlayer->init(mMap->getCenterX(),mMap->getGoundY() + 280, 100.0f, 100.0f);
+	mPlayer->init(mMap->getCenterX(), GROUND, PLAYER_X_SIZE, PLAYER_Y_SIZE);
 
 	mBuildManager = new BuildManager;
 	mBuildManager->init(100, 100, 100, 100);
@@ -68,6 +68,8 @@ void MainScene::render(void)
 	mPlayer->render();
 	mBuildManager->render();
 	mMonsterMng->render();
+
+	RectangleMake(getMemDc(), RectMake(100, GROUND, 100, 100));
 }
 
 bool MainScene::isEggRespawn(void)
