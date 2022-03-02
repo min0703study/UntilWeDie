@@ -1,17 +1,20 @@
 #include "Stdafx.h"
 #include "MainScene.h"
-#include "Player.h"
-#include "MonsterManager.h"
 
 HRESULT MainScene::init(void)
 {
+	mMap = new Map;
+	mMap->init(0,0, CAMERA_X, CAMERA_Y);
+
 	mPlayer = new Player;
-	mPlayer->init(CAMERA_X / 2 - 20 ,CAMERA_Y - 190, PLAYER_X_SIZE, PLAYER_X_SIZE);
+	mPlayer->init(mMap->getCenterX(), GROUND, PLAYER_X_SIZE, PLAYER_Y_SIZE);
+
+	mBuildManager = new BuildManager;
+	mBuildManager->init(100, 100, 100, 100);
 
 	mMonsterMng = new MonsterManager;
 	mMonsterMng->init();
-
-	mTempBkImg = IMAGEMANAGER->findImage(IMGCLASS->TempBkImg);
+	mMonsterMng->setIPlayer(mPlayer);
 	
 	mEggRespawnTime = TIMEMANAGER->getWorldTime();
 	mMonsterRespawnTime = 0;
@@ -26,6 +29,10 @@ HRESULT MainScene::init(void)
 
 void MainScene::update(void)
 {
+	mMap->update();
+	mPlayer->update();
+	mBuildManager->update();
+
 	/*mEggRespawnTime += TIMEMANAGER->getElapsedTime();
 	if (mMonsterMng->getIsEggRespwan()) mMonsterRespawnTime += TIMEMANAGER->getElapsedTime();*/
 
@@ -42,21 +49,25 @@ void MainScene::update(void)
 		mEggRespawnTime = 0;
 		isOn = true;
 	}
-	mPlayer->update();
+
 	mMonsterMng->getPlayerRef(mPlayer);
 	mMonsterMng->update();
+
 }
 
 void MainScene::release(void)
 {
+	mMap->release();
 	mPlayer->release();
+	mBuildManager->release();
 	mMonsterMng->release();
 }
 
 void MainScene::render(void)
 {
-	mTempBkImg->render(getMemDc(), 0,0, CAMERA->getX(), CAMERA->getY(), CAMERA->getWidth(), CAMERA->getHeight());
+	mMap->render();
 	mPlayer->render();
+	mBuildManager->render();
 	mMonsterMng->render();
 }
 

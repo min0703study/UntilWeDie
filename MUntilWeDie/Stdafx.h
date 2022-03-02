@@ -74,10 +74,13 @@ using namespace std;
 #else
 #define WINNAME			(LPSTR)(TEXT("WindowsAPI"))
 #define WINSTYLE		WS_CAPTION | WS_SYSMENU
-#define WINSTART_X		500
+
+#define WINSTART_X		0
 #define WINSTART_Y		0
+
 #define WINSIZE_X		1920
 #define WINSIZE_Y		1080
+
 #define CAMERA_X		1920
 #define CAMERA_Y		1080
 #endif
@@ -106,6 +109,7 @@ using namespace std;
 #include "ImageClass.h"
 #include "SceneManager.h"
 #include "Camera.h"
+#include "MapInfo.h"
 //CommonFunction==
 
 using namespace MY_UTIL;
@@ -131,8 +135,26 @@ extern int			_winRealSizeY;
 #define PLAYER_MOVE_L			'A'
 #define PLAYER_COMMAND_CALL		'S'
 #define PLAYER_COMMAND_EXEC		'W'
-#define PLAYER_RUN				VK_LSHIFT
-#define PLAYER_SHOOT			VK_LBUTTON
+#define PLAYER_DASH				VK_LSHIFT
+#define PLAYER_SHOOT			VK_SPACE
+
+#define C_DASH_PROGRESS_BAR		Gdiplus::Color(15,112,108)
+
+//min - player default value
+#define PLAYER_DASH_MAX_DASH_TIME		100
+
+//min - npc default value
+#define NPC_INIT_COUNT			4
+#define NPC_BUILD_X_SIZE		220
+
+//map
+#define MAP_X_SIZE				CAMERA_Y * 28
+#define MAP_Y_SIZE				CAMERA_Y
+
+#define CAMERA_START_X		MAP_X_SIZE / 2.0f - (CAMERA_X / 2.0f)
+#define CAMERA_START_Y		0.0f
+
+#define MAX_MUSHROOM 6;
 
 //ijh - monster size
 #define MON_NORMAL_SEARCH_RANGE_X	300
@@ -174,3 +196,8 @@ extern int			_winRealSizeY;
 //ijh - monster infomation
 #define PHASE_OF_MONSTER_NUMBER		3
 #define SIZE_OF_MONSTER_NUMBER		3
+
+enum class eDirection {
+	Left,
+	Right
+};

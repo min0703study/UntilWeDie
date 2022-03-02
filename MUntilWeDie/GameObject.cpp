@@ -4,14 +4,31 @@
 
 void GameObject::Init(string id, float x, float y, float width, float height)
 {
-	if(id == "Player") GameNode::init(true);
-
 	mWidth = width;
 	mHeight = height;
 
 	mX = x;
 	mY = y;
-	mRc = RectMake(x, y, width, height);
+
+	mRc = RectMake(x - (width / 2.0f), y - height ,width, height);
+}
+
+void GameObject::update(void)
+{
+}
+
+void GameObject::render(void)
+{
+	/*
+	for (auto it = mVDevelopRect.begin(); it != mVDevelopRect.end(); it++) {
+		RectangleMake(getMemDc(), *it);
+	}
+	RectangleMake(getMemDc(), getRc());
+	*/
+}
+
+void GameObject::release(void)
+{
 }
 
 void GameObject::draw()

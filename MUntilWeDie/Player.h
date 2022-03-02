@@ -1,34 +1,34 @@
 #pragma once
 #include "GameObject.h"
+#include "IPlayer.h"
 
-class Npc;
+class NpcManager;
+class Weapon;
 
-class Player : public GameObject
+class Player : public GameObject, public IPlayer
 {
 public:
-	enum eStat {
+	enum class eStat {
 		Idle,
 		Walk,
 		Run,
+		Dash,
 		Shoot,
 		ShootRun,
 		CommandCall,
 		CommandExec
 	};
 
-	enum eDirection {
-		Left,
-		Right
-	};
-
 	typedef	struct tagAnimation {
-
-		float mFrameUpdateSec;	// 초당 프레임 업데이트 수
-		float mElapsedSec;		// 프레임과 프레임 사이의 시간
+		float mFrameUpdateSec;
+		int mPlayCount;
 
 		ImageBase* mCurImage;
-
-		int mPlayCount;
+		float mElapsedSec;
+		
+		map<Player::eStat, ImageBase*> mImgRMap;
+		map<Player::eStat, ImageBase*> mImgLMap;
+		map<Player::eStat, float> mFrameUpdateSecMap;
 
 		tagAnimation() {
 			mFrameUpdateSec = 1.0f / 10;
@@ -40,54 +40,25 @@ public:
 
 		void ChangeCurImage(eStat changeStat, eDirection curDirection) {
 			mPlayCount = 0;
-			switch (curDirection) {
-			case Left:
-				switch (changeStat) {
-				case Idle:
-					mCurImage = IMAGEMANAGER->findImage(IMGCLASS->PlayerIdleL);
-					break;
-				case Walk:
-					mCurImage = IMAGEMANAGER->findImage(IMGCLASS->PlayerWalkL);
-					break;
-				case Run:
-					mCurImage = IMAGEMANAGER->findImage(IMGCLASS->PlayerRunL);
-					break;
-				case CommandCall:
-					mCurImage = IMAGEMANAGER->findImage(IMGCLASS->PlayerCommandCallL);
-					break;
-				case CommandExec:
-					mCurImage = IMAGEMANAGER->findImage(IMGCLASS->PlayerCommandExecL);
-					break;
-				default:
-					//Do Nothing
-					break;
+			if (curDirection == eDirection::Left) {
+				auto key = mImgLMap.find(changeStat);
+				if (key != mImgLMap.end())
+				{
+					mCurImage = key->second;
 				}
-				break;
-			case Right:
-				switch (changeStat) {
-				case Idle:
-					mCurImage = IMAGEMANAGER->findImage(IMGCLASS->PlayerIdleR);
-					break;
-				case Walk:
-					mCurImage = IMAGEMANAGER->findImage(IMGCLASS->PlayerWalkR);
-					break;
-				case Run:
-					mCurImage = IMAGEMANAGER->findImage(IMGCLASS->PlayerRunR);
-					break;
-				case CommandCall:
-					mCurImage = IMAGEMANAGER->findImage(IMGCLASS->PlayerCommandCallR);
-					break;
-				case CommandExec:
-					mCurImage = IMAGEMANAGER->findImage(IMGCLASS->PlayerCommandExecR);
-					break;
-				default:
-					//Do Nothing
-					break;
+			}
+			else {
+				auto key = mImgRMap.find(changeStat);
+				if (key != mImgRMap.end())
+				{
+					mCurImage = key->second;
 				}
-				break;
-			default:
-				//Do Nothing
-				break;
+			}
+
+			auto updateSecKey = mFrameUpdateSecMap.find(changeStat);
+			if (updateSecKey != mFrameUpdateSecMap.end())
+			{
+				mFrameUpdateSec = updateSecKey->second;
 			}
 		}
 
@@ -107,26 +78,28 @@ public:
 		}
 
 		inline ImageBase* GetImage() const { return mCurImage; }
+
+		void mappingStatForImg(Player::eStat stat, ImageBase* rightImg, ImageBase* leftImg, float frameUpdateSec) {
+			mImgRMap.insert(make_pair(stat, rightImg));
+			mImgLMap.insert(make_pair(stat, leftImg));
+			mFrameUpdateSecMap.insert(make_pair(stat, 1.0f/ frameUpdateSec));
+		}
 	} Animation;
 
 	void init(float x, float y, float width, float height);
 	void release(void);
 
-	void update(void) {
-		move();
-		action();
-	};
+	void update(void);
 
-	void render(void) {
-		draw();
-		animation();
-	};
+	void render(void);
 
 	void draw();
 	void animation();
 	void move();
 	void action();
 
+	//interface
+	RECT getPlayerRc() override;
 
 	Player() {};
 	~Player() {};
@@ -136,9 +109,20 @@ private:
 
 	eDirection mCurDirection;
 
+	bool mIsClickDownDashKey;
+
 	Animation mAni;
+	NpcManager* mNpcManager;
+
+	Weapon* mWeapon;
+
+	float mDashTime;
+	float mHp;
 
 	void changeStat(eStat changeStat);
+	
+	void orderCallNpc();
+	void orderExcuteNpc();
 
 };
 

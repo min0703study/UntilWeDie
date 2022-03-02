@@ -27,7 +27,7 @@ HRESULT GameNode::init(bool managerInit)
 		IMGCLASS->init();
 		SCENEMANAGER->init();
 		GDIPLUSMANAGER->init();
-		CAMERA->init(0.0f, 0.0f, CAMERA_X, CAMERA_Y);
+		CAMERA->init(CAMERA_START_X, CAMERA_START_Y, CAMERA_X, CAMERA_Y);
 
 		_ptMouse = { 0,0 };
 	}
@@ -64,7 +64,7 @@ void GameNode::release(void)
 }
 
 void GameNode::update(void) {
-	InvalidateRect(_hWnd, NULL, false);
+	//InvalidateRect(_hWnd, NULL, false);
 }
 
 void GameNode::addTimer(int sec, int timerId)

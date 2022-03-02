@@ -1,6 +1,7 @@
 #pragma once
 #include "Monster.h"
 #include "Projectile.h"
+#include "IPlayer.h"
 
 class Player;
 
@@ -11,6 +12,8 @@ public:
 	void release(void);
 	void update(void);
 	void render(void);
+
+	void setIPlayer(IPlayer* player) { mIPlayer = player; };
 
 	vector<Monster*> getMonster(void) { return mvMonster; }
 	vector<Projectile*> getAttackObject(void) { return mvAttackObject; }
@@ -36,6 +39,7 @@ public:
 	}
 private:
 	Player* mPlayer;
+	IPlayer* mIPlayer;
 private:
 	vector<MonEgg> mvMonsterEgg;
 	vector<Monster*> mvMonster;

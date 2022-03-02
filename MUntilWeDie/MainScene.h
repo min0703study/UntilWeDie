@@ -1,9 +1,12 @@
 #pragma once
 #include "GameNode.h"
+#include "Player.h"
+#include "NPC.h"
+#include "Map.h"
+#include "BuildManager.h"
+#include "NpcManager.h"
 #include "Monster.h"
-
-class Player;
-class MonsterManager;
+#include "MonsterManager.h"
 
 class MainScene: public GameNode
 {
@@ -20,9 +23,10 @@ public:
 	~MainScene() {};
 private:
 	Player* mPlayer;
+	BuildManager* mBuildManager;
+	Map* mMap;
 	MonsterManager* mMonsterMng;
-	ImageBase* mTempBkImg; //임시로 추가
-
+	
 	float mEggRespawnTime;
 	float mMonsterRespawnTime;
 	bool isOn;

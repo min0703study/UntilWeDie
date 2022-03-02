@@ -147,24 +147,35 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="BuildManager.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="Effect.cpp" />
     <ClCompile Include="FontManager.cpp" />
     <ClCompile Include="GameNode.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="GdiPlusManager.cpp" />
+    <ClCompile Include="IBuilding.cpp" />
     <ClCompile Include="ImageBase.cpp" />
     <ClCompile Include="ImageClass.cpp" />
     <ClCompile Include="ImageGp.cpp" />
     <ClCompile Include="ImageManager.cpp" />
+    <ClCompile Include="IMonster.cpp" />
+    <ClCompile Include="IObject.cpp" />
+    <ClCompile Include="IPlayer.cpp" />
     <ClCompile Include="KeyManager.cpp" />
     <ClCompile Include="MainGame.cpp" />
     <ClCompile Include="MainScene.cpp" />
+    <ClCompile Include="NPC.cpp" />
+    <ClCompile Include="NpcManager.cpp" />
+    <ClCompile Include="Map.cpp" />
+    <ClCompile Include="ObjectManager.cpp" />
+    <ClCompile Include="Objects.cpp" />
     <ClCompile Include="Monster.cpp" />
     <ClCompile Include="MonsterManager.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Projectile.cpp" />
     <ClCompile Include="SceneManager.cpp" />
+    <ClCompile Include="ShovelShop.cpp" />
     <ClCompile Include="Stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
@@ -173,22 +184,34 @@
     <ClCompile Include="TimeManager.cpp" />
     <ClCompile Include="Timer.cpp" />
     <ClCompile Include="Utils.cpp" />
+    <ClCompile Include="Weapon.cpp" />
     <ClCompile Include="WinMain.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="BuildManager.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="Effect.h" />
     <ClInclude Include="FontManager.h" />
     <ClInclude Include="GameNode.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="GdiPlusManager.h" />
+    <ClInclude Include="IBuilding.h" />
     <ClInclude Include="ImageBase.h" />
     <ClInclude Include="ImageClass.h" />
     <ClInclude Include="ImageGp.h" />
     <ClInclude Include="ImageManager.h" />
+    <ClInclude Include="IMonster.h" />
+    <ClInclude Include="IObject.h" />
+    <ClInclude Include="IPlayer.h" />
     <ClInclude Include="KeyManager.h" />
     <ClInclude Include="MainGame.h" />
     <ClInclude Include="MainScene.h" />
+    <ClInclude Include="NPC.h" />
+    <ClInclude Include="NpcManager.h" />
+    <ClInclude Include="Map.h" />
+    <ClInclude Include="MapInfo.h" />
+    <ClInclude Include="ObjectManager.h" />
+    <ClInclude Include="Objects.h" />
     <ClInclude Include="Monster.h" />
     <ClInclude Include="MonsterManager.h" />
     <ClInclude Include="Player.h" />
@@ -196,12 +219,14 @@
     <ClInclude Include="RandomFunction.h" />
     <ClInclude Include="SceneManager.h" />
     <ClInclude Include="ShapeFunction.h" />
+    <ClInclude Include="ShovelShop.h" />
     <ClInclude Include="SingletonBase.h" />
     <ClInclude Include="Stdafx.h" />
     <ClInclude Include="TempSoundManager.h" />
     <ClInclude Include="TimeManager.h" />
     <ClInclude Include="Timer.h" />
     <ClInclude Include="Utils.h" />
+    <ClInclude Include="Weapon.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

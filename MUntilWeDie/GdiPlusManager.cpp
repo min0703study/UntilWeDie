@@ -62,6 +62,51 @@ void GdiPlusManager::frameRender(HDC hdc, string strKey, float x, float y)
 		&imageAtt);
 }
 
+void GdiPlusManager::drawCProgressBar(HDC hdc, float startX, float startY, int size, float value, float maxValue) {
+
+	using namespace Gdiplus;
+
+	//민채영 - 디테일 조정
+	startX += 0.2;
+
+	Gdiplus::GraphicsPath path;
+	path.StartFigure();
+	path.AddBezier(Gdiplus::PointF(startX, (size * 4) + startY),
+		Gdiplus::PointF(startX + size, (size * 4) + startY),
+		Gdiplus::PointF(startX + (size * 2), (size * 3) + startY),
+		Gdiplus::PointF(startX + (size * 2), (size * 2) + startY));
+	path.AddBezier(Gdiplus::PointF(startX + (size * 2), (size * 2) + startY),
+		Gdiplus::PointF(startX + (size * 2), size + startY),
+		Gdiplus::PointF(startX + size, startY),
+		Gdiplus::PointF(startX, startY));
+	path.AddBezier(Gdiplus::PointF(startX, startY),
+		Gdiplus::PointF(startX - size, startY),
+		Gdiplus::PointF(startX - (size * 2), size + startY),
+		Gdiplus::PointF(startX - (size * 2), (size * 2) + startY));
+	path.AddBezier(Gdiplus::PointF(startX - (size * 2), (size * 2) + startY),
+		Gdiplus::PointF(startX - (size * 2), (size * 3) + startY),
+		Gdiplus::PointF(startX - size, (size * 4) + startY),
+		Gdiplus::PointF(startX, (size * 4) + startY));
+	path.CloseFigure();
+	
+	Gdiplus::Pen pen(C_DASH_PROGRESS_BAR);
+	const float penWidth = 6.0f;
+	pen.SetWidth(penWidth);
+
+	float curValue = value / (maxValue / 110);
+	curValue += 0.2;
+	float dashPattern[2] = { curValue * 0.1, (110 - curValue) * 0.1};
+
+	pen.SetDashPattern(&dashPattern[0], 2);
+
+	Gdiplus::Pen bgPen(Color(50, 0, 0, 0));
+	bgPen.SetWidth(penWidth);
+
+	Gdiplus::Graphics graphics(hdc);
+	graphics.DrawPath(&bgPen, &path);
+	graphics.DrawPath(&pen, &path);
+}
+
 void GdiPlusManager::release()
 {
 	
