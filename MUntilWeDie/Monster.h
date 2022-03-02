@@ -1,10 +1,13 @@
 #pragma once
 #include "GameObject.h"
+#include "Projectile.h"
+
+class Player;
 
 enum class eDirection
 {
-	LEFT,
-	RIGHT
+	Left,
+	Right
 };
 
 enum class eMonsterState
@@ -47,7 +50,8 @@ typedef struct tagMonsterStatus
 	PosF attack;
 	float maxHp;
 	float currentHp;
-	float speed;
+	float moveSpeed;
+	float attackSpeed;
 } MonStatus;
 
 typedef struct tagEgg
@@ -60,41 +64,59 @@ typedef struct tagEgg
 class Monster :	public GameObject
 {
 public:
-	void init(const char* key, eMonsterType type, float posX, float posY, int searchX, int searchY, int attackX, int attackY, int collX, int collY, int finalX, int finalY);
+	void init(eMonsterType type, float posX, float posY, int searchX, int searchY, int attackX, int attackY, int collX, int collY, int imageX, int imageY, int finalX, int finalY);
 	void release(void);
-	void update(void) {
-		move();
-		search();
-		action();
-	};
-	void render(void) {
-		draw();
-		animation();
-	};
+	void update(void);
+	void render(void);
 
-	void draw();
-	void animation();
 	void move();
 	void search();
 	void action();
+	void attack();
+
+	void animation();
+	void draw();
+
+	void changeAnimation(void);
+	void deleteAttack(void);
 
 	Monster();
 	~Monster();
+public:
+	// 예비
+	void getPlayerRef(Player* p) { mPlayer = p; }
 private:
+	//예비
+	Player* mPlayer;
+private:
+	Projectile* mAttack;
 	ImageBase* mImage;
-	MonStatus mStatus;
 	eMonsterType mMonType;
+	eMonsterState mMonPrevState;
+	eMonsterState mMonCurrState;
+	eDirection mMonPrevDir;
+	eDirection mMonCurrDir;
+	MonStatus mStatus;
 	RECT mSearchRange;
 	RECT mAttackRange;
 	RECT mCollideRange;
-
+	int mImageX;
+	int mImageY;
 private:
 	POINT mFinalTarget;
-	eTargetType mTargerType;
+	eTargetType mTargetType;
 	bool mbIsTargetOn;
-	//예비
-	RECT mPlayerRect;
 
-	int mAnimationTime;
+
+	float mAccrueDistance;
+	float mAnimationTime;
+	float mAttackCoolTime;
+	int mCurrFrameX;
+	int mCurrFrameY;
+
+	bool bIsStop;
+	bool bIsMove;
+	bool bIsAttack;
+	bool bIsGround;
 };
 

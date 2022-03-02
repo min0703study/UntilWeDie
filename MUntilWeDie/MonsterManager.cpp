@@ -1,5 +1,6 @@
 #include "Stdafx.h"
 #include "MonsterManager.h"
+#include "Player.h"
 
 void MonsterManager::init(void)
 {
@@ -44,7 +45,7 @@ void MonsterManager::setMonsterEgg(float x, float y, int number)
 void MonsterManager::setMonster(float x, float y, int finalX, int finalY, int number)
 {
 	cout << "mon respawn" << endl;
-	char* key;
+	//char* key;
 	int monsterNumber;
 	int worldTime = TIMEMANAGER->getWorldTime();
 
@@ -70,44 +71,48 @@ void MonsterManager::setMonster(float x, float y, int finalX, int finalY, int nu
 	case 0:
 		monster->init
 		(
-			"MonsterNormal", static_cast<eMonsterType>(monsterNumber), 
+			static_cast<eMonsterType>(monsterNumber), 
 			x, y, 
-			MON_NORMAL_SEARCH_RANGE_X, MON_NORMAL_SEARCH_RANGE_Y, 
-			MON_NORMAL_ATTACK_RANGE_X, MON_NORMAL_ATTACK_RANGE_Y,
-			MON_NORMAL_COLL_RANGE_X, MON_NORMAL_COLL_RANGE_Y, 
+			MON_NORMAL_SEARCH_RANGE_X * 2, MON_NORMAL_SEARCH_RANGE_Y * 2,
+			MON_NORMAL_ATTACK_RANGE_X * 2, MON_NORMAL_ATTACK_RANGE_Y * 2,
+			MON_NORMAL_COLL_RANGE_X * 2, MON_NORMAL_COLL_RANGE_Y * 2,
+			MON_NORMAL_IMAGE_RANGE_X * 2, MON_NORMAL_IMAGE_RANGE_Y * 2,
 			finalX, finalY
 		);
 		break;
 	case 1:
 		monster->init
 		(
-			"MonsterSuicide", static_cast<eMonsterType>(monsterNumber), 
+			static_cast<eMonsterType>(monsterNumber), 
 			x, y, 
 			MON_SUICIDE_SEARCH_RANGE_X, MON_SUICIDE_SEARCH_RANGE_Y,
 			MON_SUICIDE_ATTACK_RANGE_X, MON_SUICIDE_ATTACK_RANGE_Y,
 			MON_SUICIDE_COLL_RANGE_X, MON_SUICIDE_COLL_RANGE_Y, 
+			MON_SUICIDE_IMAGE_RANGE_X, MON_SUICIDE_IMAGE_RANGE_Y,
 			finalX, finalY
 		);
 		break;
 	case 2:
 		monster->init
 		(
-			"MonsterFrog", static_cast<eMonsterType>(monsterNumber),
+			static_cast<eMonsterType>(monsterNumber),
 			x, y, 
 			MON_FROG_SEARCH_RANGE_X, MON_FROG_SEARCH_RANGE_Y,
 			MON_FROG_ATTACK_RANGE_X, MON_FROG_ATTACK_RANGE_Y,
 			MON_FROG_COLL_RANGE_X, MON_FROG_COLL_RANGE_Y, 
+			MON_FROG_IMAGE_RANGE_X, MON_FROG_IMAGE_RANGE_Y,
 			finalX, finalY
 		);
 		break;
 	case 3:
 		monster->init
 		(
-			"MonsterCannon", static_cast<eMonsterType>(monsterNumber), 
+			static_cast<eMonsterType>(monsterNumber), 
 			x, y, 
 			MON_CANNON_SEARCH_RANGE_X, MON_CANNON_SEARCH_RANGE_Y,
 			MON_CANNON_ATTACK_RANGE_X, MON_CANNON_ATTACK_RANGE_Y,
 			MON_CANNON_COLL_RANGE_X, MON_CANNON_COLL_RANGE_Y, 
+			MON_CANNON_IMAGE_RANGE_X, MON_CANNON_IMAGE_RANGE_Y,
 			finalX, finalY
 		);
 		break;

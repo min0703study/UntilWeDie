@@ -1,5 +1,8 @@
 #pragma once
 #include "Monster.h"
+#include "Projectile.h"
+
+class Player;
 
 class MonsterManager
 {
@@ -10,6 +13,7 @@ public:
 	void render(void);
 
 	vector<Monster*> getMonster(void) { return mvMonster; }
+	vector<Projectile*> getAttackObject(void) { return mvAttackObject; }
 	int getNumberOfEgg(void) { return mNumberOfEgg; }
 	int getNumberOfMonster(void) { return mNumberOfMonster; }
 	bool getIsEggRespwan(void) { return mbIsEggRespawn; }
@@ -20,10 +24,23 @@ public:
 
 	MonsterManager() {}
 	~MonsterManager() {}
+public:
+	void getPlayerRef(Player* p)
+	{
+		mviMonster = mvMonster.begin();
+		for (; mviMonster != mvMonster.end(); ++mviMonster) {
+			(*mviMonster)->getPlayerRef(p);
+		}
+	}
+private:
+	Player* mPlayer;
 private:
 	vector<MonEgg> mvMonsterEgg;
 	vector<Monster*> mvMonster;
 	vector<Monster*>::iterator mviMonster;
+
+	vector<Projectile*> mvAttackObject;
+	vector<Projectile*>::iterator mviAttackObject;
 
 	int mNumberOfEgg;
 	int mNumberOfMonster;

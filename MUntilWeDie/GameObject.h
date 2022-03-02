@@ -13,6 +13,30 @@ public:
 	virtual void move(void);
 	virtual void action(void);
 
+	float getWidth() { return mWidth; }
+	float getHeight() { return mHeight; }
+	float getHalfWidth() { return mWidth * 0.5f; }
+	float getHalfHeight() { return mHeight * 0.5f; }
+
+	float getCenterX() { return (mX + mWidth * 0.5f) - CAMERA->getX(); }
+	float getCenterY() { return (mY + mHeight * 0.5f) - CAMERA->getY(); }
+	RECT getCenterRc() {
+		RECT cRc = CAMERA->getRc();
+		return 
+		{
+			(mRc.left - static_cast<int>(mWidth * 0.5f)) - cRc.left,
+			(mRc.top - static_cast<int>(mHeight * 0.5f)) - cRc.top,
+			(mRc.right - static_cast<int>(mWidth * 0.5f)) - cRc.left,
+			(mRc.bottom - static_cast<int>(mHeight * 0.5f)) - cRc.top
+		};
+	};
+
+	void setX(float x) {
+	mRc.left = x;
+	mRc.right = x + mWidth;
+	mX = x;
+	}
+
 	float getAbsX() { return mX; };
 	float getAbsY() { return mY; };
 
@@ -48,11 +72,9 @@ protected:
 	float mHeight;
 private:
 	string mId;
-	
-
-	float mX;
-	float mY;
 
 	RECT mRc;
+	float mX;
+	float mY;
 };
 

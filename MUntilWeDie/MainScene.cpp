@@ -19,6 +19,8 @@ HRESULT MainScene::init(void)
 	respPos.x = mPlayer->getX() - 300;
 	respPos.y = mPlayer->getY();
 
+	isOn = false;
+
 	return S_OK;
 }
 
@@ -32,14 +34,16 @@ void MainScene::update(void)
 		mMonsterMng->setMonsterEgg(respPos.x, respPos.y, mMonsterMng->getNumberOfEgg());
 		mMonsterRespawnTime = 0;
 	}
-	else if (isMonsterRespawn()) {
+	else if (isMonsterRespawn() && !isOn) {
+		mMonsterMng->setMonster(respPos.x - 100, respPos.y, mPlayer->getX() + 600, mPlayer->getY(), 0);
 		for (int i = 0; i < mMonsterMng->getNumberOfMonster(); i++) {
-			mMonsterMng->setMonster(respPos.x - i * 50, respPos.y, mPlayer->getX() + 300, mPlayer->getY(), i);
+			//mMonsterMng->setMonster(respPos.x - i * 100, respPos.y, mPlayer->getX() + 600, mPlayer->getY(), i);
 		}
 		mEggRespawnTime = 0;
+		isOn = true;
 	}
-
 	mPlayer->update();
+	mMonsterMng->getPlayerRef(mPlayer);
 	mMonsterMng->update();
 }
 

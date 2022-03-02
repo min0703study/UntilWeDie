@@ -13,8 +13,8 @@ public:
 	void release(void);
 	void render(void);
 
-	bool isEggRespawn(void);
-	bool isMonsterRespawn(void);
+	bool isEggRespawn(void); //
+	bool isMonsterRespawn(void); //
 
 	MainScene() {};
 	~MainScene() {};
@@ -25,6 +25,7 @@ private:
 
 	float mEggRespawnTime;
 	float mMonsterRespawnTime;
+	bool isOn;
 
 	// ¿¹ºñ
 	PosF respPos;
