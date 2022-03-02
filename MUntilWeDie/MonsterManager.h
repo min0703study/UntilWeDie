@@ -22,6 +22,8 @@ public:
 	void setMonster(float x, float y, int finalX, int finalY, int number);
 	void setNumberOfMonster(int number) { mNumberOfMonster = number; }
 
+	void deleteMonster(void);
+
 	MonsterManager() {}
 	~MonsterManager() {}
 public:

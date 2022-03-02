@@ -79,6 +79,9 @@ public:
 
 	void changeAnimation(void);
 	void deleteAttack(void);
+	void addEffect(void);
+
+	float getCurrentHp(void) { return mStatus.currentHp; }
 
 	Monster();
 	~Monster();
@@ -107,7 +110,6 @@ private:
 	eTargetType mTargetType;
 	bool mbIsTargetOn;
 
-
 	float mAccrueDistance;
 	float mAnimationTime;
 	float mAttackCoolTime;
@@ -118,5 +120,7 @@ private:
 	bool bIsMove;
 	bool bIsAttack;
 	bool bIsGround;
+	bool bIsSuicide;
+	bool bIsAttackEnd;
 };
 

@@ -24,6 +24,7 @@ void MonsterManager::update(void)
 	for (; mviMonster != mvMonster.end(); ++mviMonster) {
 		(*mviMonster)->update();
 	}
+	deleteMonster();
 }
 
 void MonsterManager::render(void)
@@ -36,7 +37,6 @@ void MonsterManager::render(void)
 
 void MonsterManager::setMonsterEgg(float x, float y, int number)
 {
-	cout << "egg respawn" << endl;
 	for (int i = 0; i < number; i++) {
 	}
 	mbIsEggRespawn = true;
@@ -44,12 +44,10 @@ void MonsterManager::setMonsterEgg(float x, float y, int number)
 
 void MonsterManager::setMonster(float x, float y, int finalX, int finalY, int number)
 {
-	cout << "mon respawn" << endl;
-	//char* key;
 	int monsterNumber;
 	int worldTime = TIMEMANAGER->getWorldTime();
 
-	if(number < 3) monsterNumber = 0;
+	if(number < 3) monsterNumber = 1;
 	else {
 		if (worldTime < 300) {
 			monsterNumber = 0;
@@ -85,10 +83,10 @@ void MonsterManager::setMonster(float x, float y, int finalX, int finalY, int nu
 		(
 			static_cast<eMonsterType>(monsterNumber), 
 			x, y, 
-			MON_SUICIDE_SEARCH_RANGE_X, MON_SUICIDE_SEARCH_RANGE_Y,
-			MON_SUICIDE_ATTACK_RANGE_X, MON_SUICIDE_ATTACK_RANGE_Y,
-			MON_SUICIDE_COLL_RANGE_X, MON_SUICIDE_COLL_RANGE_Y, 
-			MON_SUICIDE_IMAGE_RANGE_X, MON_SUICIDE_IMAGE_RANGE_Y,
+			MON_SUICIDE_SEARCH_RANGE_X * 2, MON_SUICIDE_SEARCH_RANGE_Y * 2,
+			MON_SUICIDE_ATTACK_RANGE_X * 2, MON_SUICIDE_ATTACK_RANGE_Y * 2,
+			MON_SUICIDE_COLL_RANGE_X * 2, MON_SUICIDE_COLL_RANGE_Y * 2,
+			MON_SUICIDE_IMAGE_RANGE_X * 2, MON_SUICIDE_IMAGE_RANGE_Y * 2,
 			finalX, finalY
 		);
 		break;
@@ -97,10 +95,10 @@ void MonsterManager::setMonster(float x, float y, int finalX, int finalY, int nu
 		(
 			static_cast<eMonsterType>(monsterNumber),
 			x, y, 
-			MON_FROG_SEARCH_RANGE_X, MON_FROG_SEARCH_RANGE_Y,
-			MON_FROG_ATTACK_RANGE_X, MON_FROG_ATTACK_RANGE_Y,
-			MON_FROG_COLL_RANGE_X, MON_FROG_COLL_RANGE_Y, 
-			MON_FROG_IMAGE_RANGE_X, MON_FROG_IMAGE_RANGE_Y,
+			MON_FROG_SEARCH_RANGE_X * 2, MON_FROG_SEARCH_RANGE_Y * 2,
+			MON_FROG_ATTACK_RANGE_X * 2, MON_FROG_ATTACK_RANGE_Y * 2,
+			MON_FROG_COLL_RANGE_X * 2, MON_FROG_COLL_RANGE_Y * 2,
+			MON_FROG_IMAGE_RANGE_X * 2, MON_FROG_IMAGE_RANGE_Y * 2,
 			finalX, finalY
 		);
 		break;
@@ -109,10 +107,10 @@ void MonsterManager::setMonster(float x, float y, int finalX, int finalY, int nu
 		(
 			static_cast<eMonsterType>(monsterNumber), 
 			x, y, 
-			MON_CANNON_SEARCH_RANGE_X, MON_CANNON_SEARCH_RANGE_Y,
-			MON_CANNON_ATTACK_RANGE_X, MON_CANNON_ATTACK_RANGE_Y,
-			MON_CANNON_COLL_RANGE_X, MON_CANNON_COLL_RANGE_Y, 
-			MON_CANNON_IMAGE_RANGE_X, MON_CANNON_IMAGE_RANGE_Y,
+			MON_CANNON_SEARCH_RANGE_X * 2, MON_CANNON_SEARCH_RANGE_Y * 2,
+			MON_CANNON_ATTACK_RANGE_X * 2, MON_CANNON_ATTACK_RANGE_Y * 2,
+			MON_CANNON_COLL_RANGE_X * 2, MON_CANNON_COLL_RANGE_Y * 2,
+			MON_CANNON_IMAGE_RANGE_X * 2, MON_CANNON_IMAGE_RANGE_Y * 2,
 			finalX, finalY
 		);
 		break;
@@ -121,4 +119,17 @@ void MonsterManager::setMonster(float x, float y, int finalX, int finalY, int nu
 	}
 
 	mvMonster.push_back(monster);
+}
+
+void MonsterManager::deleteMonster(void)
+{
+	for (int i = 0; i < mvMonster.size(); i++) {
+		cout << "hp: " << mvMonster[i]->getCurrentHp() << endl;
+		if (mvMonster[i]->getCurrentHp() <= 0) {
+			mvMonster[i]->addEffect();
+			mvMonster[i]->release();
+			SAFE_DELETE(mvMonster[i]);
+			mvMonster.erase(mvMonster.begin() + i);
+		}
+	}
 }

@@ -29,6 +29,8 @@ public:
 	const char* MONSTER_SUICIDE_IDLE = "MonsterSuicideIdle";
 	const char* MONSTER_SUICIDE_WALK = "MonsterSuicideWalk";
 	const char* MONSTER_SUICIDE_ATTACK = "MonsterSuicideAttack";
+	const char* MONSTER_SUICIDE_DEATH1 = "MonsterSuicideDeath1";
+	const char* MONSTER_SUICIDE_DEATH2 = "MonsterSuicideDeath2";
 
 	const char* MONSTER_FROG_IDLE = "MonsterFrogIdle";
 	const char* MONSTER_FROG_WALK = "MonsterFrogWalk";
@@ -41,8 +43,6 @@ public:
 	const char* MONSTER_CANNON_ATTACK = "MonsterCannonAttack";
 	const char* MONSTER_CANNON_DEATH = "MonsterCannonDeath";
 
-	const char* MONSTER_EFFECT1 = "MonsterEffect1";
-	const char* MONSTER_EFFECT2 = "MonsterEffect2";
 	const char* MONSTER_EFFECT3 = "MonsterEffect3";
 	const char* MONSTER_EFFECT4 = "MonsterEffect4";
 

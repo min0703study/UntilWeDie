@@ -36,6 +36,8 @@ void Monster::init(eMonsterType type, float posX, float posY, int searchX, int s
 	bIsMove = false;
 	bIsAttack = false;
 	bIsGround = true;
+	bIsSuicide = false;
+	bIsAttackEnd = false;
 
 	switch (mMonType)
 	{
@@ -226,8 +228,9 @@ void Monster::action()
 			mMonCurrState = eMonsterState::Attack;
 			//attack();
 		}
-		else {
+		else if (bIsAttackEnd){
 			bIsAttack = false;
+			bIsAttackEnd = false;
 		}
 	}
 	if(bIsAttack) attack();
@@ -259,44 +262,74 @@ void Monster::attack()
 				}
 			}
 		}
-		if (mCurrFrameX == 5) {
-			/*if (mMonCurrDir == eDirection::Left) {
-				RECT tmpRect;
-				if (IntersectRect(&tmpRect, &mAttack->getRc(), &mPlayer->getRc())) {
-					cout << "attack L!" << endl;
-				}
-				mAttack->render();
-			}
-			else {
-				RECT tmpRect;
-				if (IntersectRect(&tmpRect, &mAttack->getRc(), &mPlayer->getRc())) {
-					cout << "attack R!" << endl;
-				}
-				if (getRc().right > mPlayer->getRc().left) {
-					setX(mPlayer->getRc().left);
-					mCurrFrameX = 6;
-				}
-				mAttack->render();
-			}*/
+		//if (mCurrFrameX == 5) {
+		//	/*if (mMonCurrDir == eDirection::Left) {
+		//		RECT tmpRect;
+		//		if (IntersectRect(&tmpRect, &mAttack->getRc(), &mPlayer->getRc())) {
+		//			cout << "attack L!" << endl;
+		//		}
+		//		mAttack->render();
+		//	}
+		//	else {
+		//		RECT tmpRect;
+		//		if (IntersectRect(&tmpRect, &mAttack->getRc(), &mPlayer->getRc())) {
+		//			cout << "attack R!" << endl;
+		//		}
+		//		if (getRc().right > mPlayer->getRc().left) {
+		//			setX(mPlayer->getRc().left);
+		//			mCurrFrameX = 6;
+		//		}
+		//		mAttack->render();
+		//	}*/
 
-			RECT tmpRect;
-			if (IntersectRect(&tmpRect, &mAttack->getRc(), &mPlayer->getRc())) {
-				cout << "attack!" << endl;
-			}
-			if (mAttack) {
-				mAttack->render();
-				deleteAttack();
-			}	
-		}
+		//	RECT tmpRect;
+		//	if (IntersectRect(&tmpRect, &mAttack->getRc(), &mPlayer->getRc())) {
+		//		cout << "attack!" << endl;
+		//	}
+		//	if (mAttack) {
+		//		mAttack->render();
+		//		deleteAttack();
+		//	}	
+		//}
+		mAttackCoolTime = TIMEMANAGER->getWorldTime();
 		break;
 	case eMonsterType::Suicide:
+		if (mMonCurrDir == eDirection::Left) {
+			if (getRc().left > mPlayer->getRc().right) {
+				cout << "getRc().left: " << getRc().left << endl;
+				cout << "Player->getRc().right: " << mPlayer->getRc().right << endl;
+				offsetX(-mStatus.attackSpeed);
+				if (getRc().left < mPlayer->getRc().right) {
+					cout << "coll L" << endl;
+					setX(mPlayer->getRc().right);
+					mStatus.currentHp = 0;
+					bIsSuicide = true;
+				}
+			}
+		}
+		else {
+			if (getRc().right < mPlayer->getRc().left) {
+				cout << "getRc().right: " << getRc().right << endl;
+				cout << "Player->getRc().left: " << mPlayer->getRc().left << endl;
+				offsetX(mStatus.attackSpeed);
+				cout << "getRc().right2: " << getRc().right << endl;
+				cout << "Player->getRc().left2: " << mPlayer->getRc().left << endl;
+				if (getRc().right > mPlayer->getRc().left) {
+					cout << "coll R" << endl;
+					setX(mPlayer->getRc().left - getWidth());
+					mStatus.currentHp = 0;
+					bIsSuicide = true;
+					cout << "getRc().right3: " << getRc().right << endl;
+					cout << "Player->getRc().left3: " << mPlayer->getRc().left << endl;
+				}
+			}
+		}
 		break;
 	case eMonsterType::Frog:
 		break;
 	case eMonsterType::Cannon:
 		break;
 	}
-	mAttackCoolTime = TIMEMANAGER->getWorldTime();
 }
 
 void Monster::changeAnimation(void)
@@ -335,6 +368,45 @@ void Monster::deleteAttack(void)
 {
 	mAttack->release();
 	SAFE_DELETE(mAttack);
+}
+
+void Monster::addEffect(void)
+{
+	switch (mMonType)
+	{
+	case eMonsterType::Normal:
+		if (mMonCurrDir == eDirection::Left) {
+
+		}
+		else {
+
+		}
+		break;
+	case eMonsterType::Suicide:
+		if (bIsSuicide) {
+
+		}
+		else {
+
+		}
+		break;
+	case eMonsterType::Frog:
+		if (mMonCurrDir == eDirection::Left) {
+
+		}
+		else {
+
+		}
+		break;
+	case eMonsterType::Cannon:
+		if (mMonCurrDir == eDirection::Left) {
+
+		}
+		else {
+
+		}
+		break;
+	}
 }
 
 Monster::Monster()

@@ -26,9 +26,11 @@ HRESULT ImageClass::init(void)
 	IMAGEMANAGER->addFrameImage(MONSTER_NORMAL_DEATH, "Resources/Images/Monster/monster_normal_death.bmp", 1200 * 2, 200 * 2, 12, 2);
 	IMAGEMANAGER->addFrameImage(MONSTER_NORMAL_FALL, "Resources/Images/Monster/monster_normal_fall.bmp", 500 * 2, 200 * 2, 5, 2);
 
-	IMAGEMANAGER->addFrameImage(MONSTER_SUICIDE_IDLE, "Resources/Images/Monster/monster_suicide_idle.bmp", 200, 80, 4, 2);
-	IMAGEMANAGER->addFrameImage(MONSTER_SUICIDE_WALK, "Resources/Images/Monster/monster_suicide_walk.bmp", 200, 80, 4, 2);
-	IMAGEMANAGER->addFrameImage(MONSTER_SUICIDE_ATTACK, "Resources/Images/Monster/monster_suicide_attack.bmp", 100, 200, 2, 2);
+	IMAGEMANAGER->addFrameImage(MONSTER_SUICIDE_IDLE, "Resources/Images/Monster/monster_suicide_idle.bmp", 200 * 2, 80 * 2, 4, 2);
+	IMAGEMANAGER->addFrameImage(MONSTER_SUICIDE_WALK, "Resources/Images/Monster/monster_suicide_walk.bmp", 200 * 2, 80 * 2, 4, 2);
+	IMAGEMANAGER->addFrameImage(MONSTER_SUICIDE_ATTACK, "Resources/Images/Monster/monster_suicide_attack.bmp", 100 * 2, 80 * 2, 2, 2);
+	IMAGEMANAGER->addFrameImage(MONSTER_SUICIDE_DEATH1, "Resources/Images/Monster/monster_effect1.bmp", 100 * 2, 50 * 2, 2, 1);
+	IMAGEMANAGER->addFrameImage(MONSTER_SUICIDE_DEATH2, "Resources/Images/Monster/monster_effect2.bmp", 640 * 2, 130 * 2, 8, 1);
 
 	IMAGEMANAGER->addFrameImage(MONSTER_FROG_IDLE, "Resources/Images/Monster/monster_frog_idle.bmp", 900, 160, 6, 2);
 	IMAGEMANAGER->addFrameImage(MONSTER_FROG_WALK, "Resources/Images/Monster/monster_frog_walk.bmp", 1200, 160, 8, 2);
@@ -41,8 +43,6 @@ HRESULT ImageClass::init(void)
 	IMAGEMANAGER->addFrameImage(MONSTER_CANNON_ATTACK, "Resources/Images/Monster/monster_cannon_attack.bmp", 800, 180, 8, 2);
 	IMAGEMANAGER->addFrameImage(MONSTER_CANNON_DEATH, "Resources/Images/Monster/monster_cannon_death.bmp", 900, 180, 9, 2);
 
-	IMAGEMANAGER->addFrameImage(MONSTER_EFFECT1, "Resources/Images/Monster/monster_effect1.bmp", 100, 50, 2, 1);
-	IMAGEMANAGER->addFrameImage(MONSTER_EFFECT2, "Resources/Images/Monster/monster_effect2.bmp", 640, 130, 8, 1);
 	IMAGEMANAGER->addFrameImage(MONSTER_EFFECT3, "Resources/Images/Monster/monster_effect3.bmp", 1540, 80, 11, 1, true, RGB(50, 150, 200));
 	IMAGEMANAGER->addFrameImage(MONSTER_EFFECT4, "Resources/Images/Monster/monster_effect4.bmp", 360, 60, 6, 1);
 
