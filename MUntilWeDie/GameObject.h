@@ -23,9 +23,6 @@ public:
 	float getHalfWidth() { return mWidth * 0.5f; }
 	float getHalfHeight() { return mHeight * 0.5f; }
 
-	float getCenterX() { return (mX + mWidth * 0.5f) - CAMERA->getX(); }
-	float getCenterY() { return (mY + mHeight * 0.5f) - CAMERA->getY(); }
-
 	inline float getAbsX() { return mX; };
 	inline float getAbsY() { return mY; };
 
@@ -33,14 +30,14 @@ public:
 	float* getAbsPY() { return &mY; };
 	
 	void setAbsX(float x) { 
-		mRc.left = x;
-		mRc.right = x + mWidth;
+		mRc.left = x - mWidth * 0.5f;
+		mRc.right = x + mWidth * 0.5f;
 		mX = x;
 	};
 	void setAbsY(float y) { 
-		mY = y; 
 		mRc.top = y - mHeight;
 		mRc.bottom = y;
+		mY = y;
 	};
 
 	inline float getX() { return mX - CAMERA->getX();};
