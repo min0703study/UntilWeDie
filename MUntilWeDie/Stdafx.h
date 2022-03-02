@@ -56,7 +56,7 @@ using namespace std;
 
 #define FPS		20
 
-#define USE_FULLSCREEN			TRUE
+#define USE_FULLSCREEN			FALSE
 
 #pragma comment(linker, "/entry:WinMainCRTStartup /subsystem:console")
 
@@ -74,10 +74,12 @@ using namespace std;
 #else
 #define WINNAME			(LPSTR)(TEXT("WindowsAPI"))
 #define WINSTYLE		WS_CAPTION | WS_SYSMENU
-#define WINSTART_X		0
+#define WINSTART_X		500
 #define WINSTART_Y		0
-#define WINSIZE_X		600
-#define WINSIZE_Y		600
+#define WINSIZE_X		1920
+#define WINSIZE_Y		1080
+#define CAMERA_X		1920
+#define CAMERA_Y		1080
 #endif
 
 #define CENTER_X		WINSIZE_X / 2
@@ -141,3 +143,44 @@ extern int			_winRealSizeY;
 #define CAMERA_START_Y		0.0f
 
 #define MAX_MUSHROOM 6;
+
+//ijh - monster size
+#define MON_NORMAL_SEARCH_RANGE_X	300
+#define MON_NORMAL_SEARCH_RANGE_Y	100
+#define MON_NORMAL_ATTACK_RANGE_X	150
+#define MON_NORMAL_ATTACK_RANGE_Y	90
+#define MON_NORMAL_COLL_RANGE_X		50
+#define MON_NORMAL_COLL_RANGE_Y		80
+#define MON_NORMAL_IMAGE_RANGE_X	100
+#define MON_NORMAL_IMAGE_RANGE_Y	130
+
+#define MON_SUICIDE_SEARCH_RANGE_X	300
+#define MON_SUICIDE_SEARCH_RANGE_Y	40
+#define MON_SUICIDE_ATTACK_RANGE_X	200
+#define MON_SUICIDE_ATTACK_RANGE_Y	40
+#define MON_SUICIDE_COLL_RANGE_X	50
+#define MON_SUICIDE_COLL_RANGE_Y	40
+#define MON_SUICIDE_IMAGE_RANGE_X	100
+#define MON_SUICIDE_IMAGE_RANGE_Y	100
+
+#define MON_FROG_SEARCH_RANGE_X		300
+#define MON_FROG_SEARCH_RANGE_Y		60
+#define MON_FROG_ATTACK_RANGE_X		200
+#define MON_FROG_ATTACK_RANGE_Y		60
+#define MON_FROG_COLL_RANGE_X		140
+#define MON_FROG_COLL_RANGE_Y		60
+#define MON_FROG_IMAGE_RANGE_X		100
+#define MON_FROG_IMAGE_RANGE_Y		100
+
+#define MON_CANNON_SEARCH_RANGE_X	300
+#define MON_CANNON_SEARCH_RANGE_Y	80
+#define MON_CANNON_ATTACK_RANGE_X	200
+#define MON_CANNON_ATTACK_RANGE_Y	80
+#define MON_CANNON_COLL_RANGE_X		100
+#define MON_CANNON_COLL_RANGE_Y		80
+#define MON_CANNON_IMAGE_RANGE_X	100
+#define MON_CANNON_IMAGE_RANGE_Y	100
+
+//ijh - monster infomation
+#define PHASE_OF_MONSTER_NUMBER		3
+#define SIZE_OF_MONSTER_NUMBER		3
