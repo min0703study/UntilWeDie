@@ -68,6 +68,31 @@
     <ClCompile Include="Weapon.cpp">
       <Filter>Api Framework\GameObject</Filter>
     </ClCompile>
+    <ClCompile Include="BuildManager.cpp">
+      <Filter>Building</Filter>
+    </ClCompile>
+    <ClCompile Include="ShovelShop.cpp">
+      <Filter>Building</Filter>
+    </ClCompile>
+    <ClCompile Include="Map.cpp">
+      <Filter>GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="ObjectManager.cpp">
+      <Filter>Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="Objects.cpp">
+      <Filter>GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="Monster.cpp">
+      <Filter>GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="MonsterManager.cpp">
+      <Filter>Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="Projectile.cpp">
+      <Filter>GameNode</Filter>
+    </ClCompile>
+    <ClCompile Include="Effect.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameNode.h">
@@ -145,6 +170,34 @@
     <ClInclude Include="Weapon.h">
       <Filter>Api Framework\GameObject</Filter>
     </ClInclude>
+    <ClInclude Include="BuildManager.h">
+      <Filter>Building</Filter>
+    </ClInclude>
+    <ClInclude Include="ShovelShop.h">
+      <Filter>Building</Filter>
+    </ClInclude>
+    <ClInclude Include="Map.h">
+      <Filter>GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="MapInfo.h">
+      <Filter>GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjectManager.h">
+      <Filter>Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="Objects.h">
+      <Filter>GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="Monster.h">
+      <Filter>GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="MonsterManager.h">
+      <Filter>Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="Projectile.h">
+      <Filter>GameNode</Filter>
+    </ClInclude>
+    <ClInclude Include="Effect.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Api Framework">
@@ -177,8 +230,11 @@
     <Filter Include="Api Framework\Utillity">
       <UniqueIdentifier>{56d38487-8a31-4524-8dda-c3fcef6a1dd1}</UniqueIdentifier>
     </Filter>
-    <Filter Include="MainGame">
-      <UniqueIdentifier>{3c0c825a-889f-4ccb-bffd-c641d5b04583}</UniqueIdentifier>
+    <Filter Include="Building">
+      <UniqueIdentifier>{021ee022-04f3-40ca-88dc-81fd89d92efa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObject">
+      <UniqueIdentifier>{bb36f608-44d3-4646-a92a-73145b9347cd}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

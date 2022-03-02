@@ -9,7 +9,6 @@ void GameObject::Init(string id, float x, float y, float width, float height)
 
 	mX = x;
 	mY = y;
-
 	mRc = RectMake(x, y, width, height);
 }
 

@@ -147,7 +147,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="BuildManager.cpp" />
     <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="Effect.cpp" />
     <ClCompile Include="FontManager.cpp" />
     <ClCompile Include="GameNode.cpp" />
     <ClCompile Include="GameObject.cpp" />
@@ -161,8 +163,15 @@
     <ClCompile Include="MainScene.cpp" />
     <ClCompile Include="NPC.cpp" />
     <ClCompile Include="NpcManager.cpp" />
+    <ClCompile Include="Map.cpp" />
+    <ClCompile Include="ObjectManager.cpp" />
+    <ClCompile Include="Objects.cpp" />
+    <ClCompile Include="Monster.cpp" />
+    <ClCompile Include="MonsterManager.cpp" />
     <ClCompile Include="Player.cpp" />
+    <ClCompile Include="Projectile.cpp" />
     <ClCompile Include="SceneManager.cpp" />
+    <ClCompile Include="ShovelShop.cpp" />
     <ClCompile Include="Stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
@@ -175,7 +184,9 @@
     <ClCompile Include="WinMain.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="BuildManager.h" />
     <ClInclude Include="Camera.h" />
+    <ClInclude Include="Effect.h" />
     <ClInclude Include="FontManager.h" />
     <ClInclude Include="GameNode.h" />
     <ClInclude Include="GameObject.h" />
@@ -189,10 +200,18 @@
     <ClInclude Include="MainScene.h" />
     <ClInclude Include="NPC.h" />
     <ClInclude Include="NpcManager.h" />
+    <ClInclude Include="Map.h" />
+    <ClInclude Include="MapInfo.h" />
+    <ClInclude Include="ObjectManager.h" />
+    <ClInclude Include="Objects.h" />
+    <ClInclude Include="Monster.h" />
+    <ClInclude Include="MonsterManager.h" />
     <ClInclude Include="Player.h" />
+    <ClInclude Include="Projectile.h" />
     <ClInclude Include="RandomFunction.h" />
     <ClInclude Include="SceneManager.h" />
     <ClInclude Include="ShapeFunction.h" />
+    <ClInclude Include="ShovelShop.h" />
     <ClInclude Include="SingletonBase.h" />
     <ClInclude Include="Stdafx.h" />
     <ClInclude Include="TempSoundManager.h" />

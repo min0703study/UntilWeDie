@@ -4,7 +4,8 @@
 class ImageClass: public SingletonBase<ImageClass>
 {
 public:
-	const char* TempBkImg = "임시 배경 화면";
+	const char* BgImg = "배경 화면";
+	const char* BgGrassImg = "배경 풀";
 
 	const char* PlayerIdleR = "플레이어 정지 오른쪽 액션";
 	const char* PlayerIdleL = "플레이어 정지 왼쪽 액션";
@@ -48,6 +49,48 @@ public:
 	const char* EngineerRunL = "엔지니어 NPC 왼쪽으로 뛰는 액션";
 	const char* EngineerRunR = "엔지니어 NPC 오른쪽으로 뛰는 액션";
 
+	const char* Generator_off = "발전기 최초 상태";
+	const char* Generator_01 = "발전기 1단계";
+
+
+	const char* shovelshop_off = "삽 생산시설 최초 상태";
+	const char* shovelshop_off_02 = "삽 생산시설 유닛 투입 전 상태";
+
+	const char* shovelshop_stand = "삽 생산시설 기본 상태";
+	const char* shovelshop_open = "삽 생산시설 오픈";
+	const char* shovelshop_close = "삽 생산시설 폐쇠";
+
+	const char* shovelshop_light = "삽 생산시설 전등";
+	const char* shovelshop_shovel = "삽";
+
+	const char* Object_Mushroom = "버섯";
+	const char* Item_shroom = "버섯조각";
+	const char* MONSTER_NORMAL_IDLE = "MonsterNormalIdle";
+	const char* MONSTER_NORMAL_WALK = "MonsterNormalWalk";
+	const char* MONSTER_NORMAL_ATTACK = "MonsterNormalAttack";
+	const char* MONSTER_NORMAL_DEATH = "MonsterNormalDeath";
+	const char* MONSTER_NORMAL_FALL = "MonsterNormalFall";
+
+	const char* MONSTER_SUICIDE_IDLE = "MonsterSuicideIdle";
+	const char* MONSTER_SUICIDE_WALK = "MonsterSuicideWalk";
+	const char* MONSTER_SUICIDE_ATTACK = "MonsterSuicideAttack";
+
+	const char* MONSTER_FROG_IDLE = "MonsterFrogIdle";
+	const char* MONSTER_FROG_WALK = "MonsterFrogWalk";
+	const char* MONSTER_FROG_JUMP = "MonsterFrogJump";
+	const char* MONSTER_FROG_ATTACK = "MonsterFrogAttack";
+	const char* MONSTER_FROG_DEATH = "MonsterFrogDeath";
+
+	const char* MONSTER_CANNON_IDLE = "MonsterCannonIdle";
+	const char* MONSTER_CANNON_WALK = "MonsterCannonWalk";
+	const char* MONSTER_CANNON_ATTACK = "MonsterCannonAttack";
+	const char* MONSTER_CANNON_DEATH = "MonsterCannonDeath";
+
+	const char* MONSTER_EFFECT1 = "MonsterEffect1";
+	const char* MONSTER_EFFECT2 = "MonsterEffect2";
+	const char* MONSTER_EFFECT3 = "MonsterEffect3";
+	const char* MONSTER_EFFECT4 = "MonsterEffect4";
+	
 	HRESULT init(void);
 	virtual void release(void);
 };

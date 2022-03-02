@@ -6,7 +6,7 @@
 void Player::init(float x, float y, float width, float height)
 {
 	GameObject::Init("Player", x, y, width, height);
-
+	
 	mAni.mappingStatForImg(eStat::Idle, IMAGEMANAGER->findImage(IMGCLASS->PlayerIdleR), IMAGEMANAGER->findImage(IMGCLASS->PlayerIdleL), 3);
 	mAni.mappingStatForImg(eStat::Run, IMAGEMANAGER->findImage(IMGCLASS->PlayerRunR), IMAGEMANAGER->findImage(IMGCLASS->PlayerRunL), 3);
 	mAni.mappingStatForImg(eStat::Dash, IMAGEMANAGER->findImage(IMGCLASS->PlayerRunR), IMAGEMANAGER->findImage(IMGCLASS->PlayerRunL), 3);
@@ -70,35 +70,22 @@ void Player::animation()
 
 void Player::move()
 {
-
-	if (KEYMANAGER->isOnceKeyDown(PLAYER_DASH)) {
-		mIsClickDownDashKey = true;
-	}
-
-	if (KEYMANAGER->isOnceKeyUp(PLAYER_DASH)) {
-		mIsClickDownDashKey = false;
-	}
-
-	if (KEYMANAGER->isStayKeyDown(PLAYER_MOVE_L)) 
+	if (KEYMANAGER->isStayKeyDown(PLAYER_MOVE_L))
 	{
-		mCurDirection = eDirection::Left;
-		if (mIsClickDownDashKey)
+		mCurDirection = Left;
+		//¶Ù´Â ¾×¼Ç
+		if (KEYMANAGER->isStayKeyDown(PLAYER_RUN))
 		{
-			if (mDashTime >= 0) {
-				offsetX(-5.0f);
-				CAMERA->offSetX(-5.0f);
-				changeStat(eStat::Dash);
-			}
-			else {
-				offsetX(-3.0f);
-				CAMERA->offSetX(-3.0f);
-				changeStat(eStat::Run);
-			}
+			offsetX(-30.0f);
+			CAMERA->offSetX(-30.0f);
 
-		} else {
-			offsetX(-3.0f);
-			CAMERA->offSetX(-3.0f);
-			changeStat(eStat::Run);
+			changeStat(Run);
+		}
+		else
+		{
+			offsetX(-1.0f);
+			CAMERA->offSetX(-1.0f);
+			changeStat(Walk);
 		}
 	}
 
@@ -180,7 +167,7 @@ void Player::action()
 
 void Player::changeStat(eStat changeStat)
 {
-	if (mCurStat != changeStat) 
+	if (mCurStat != changeStat)
 	{
 		mPastStat = mCurStat;
 		mCurStat = changeStat;

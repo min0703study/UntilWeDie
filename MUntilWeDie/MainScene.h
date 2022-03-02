@@ -1,9 +1,12 @@
 #pragma once
 #include "GameNode.h"
-
-#include "NpcManager.h"
 #include "Player.h"
 #include "NPC.h"
+#include "Map.h"
+#include "BuildManager.h"
+#include "NpcManager.h"
+#include "Monster.h"
+#include "MonsterManager.h"
 
 class MainScene: public GameNode
 {
@@ -13,10 +16,22 @@ public:
 	void release(void);
 	void render(void);
 
+	bool isEggRespawn(void); //
+	bool isMonsterRespawn(void); //
+
 	MainScene() {};
 	~MainScene() {};
 private:
 	Player* mPlayer;
-	ImageBase* mTempBkImg; //임시로 추가
+	BuildManager* mBuildManager;
+	Map* mMap;
+	MonsterManager* mMonsterMng;
+	
+	float mEggRespawnTime;
+	float mMonsterRespawnTime;
+	bool isOn;
+
+	// 예비
+	PosF respPos;
 };
 

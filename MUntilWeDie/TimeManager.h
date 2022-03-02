@@ -18,4 +18,3 @@ public:
 	TimeManager();
 	~TimeManager();
 };
-
