@@ -64,6 +64,7 @@
     </ClCompile>
     <ClCompile Include="ShovelShop.cpp">
       <Filter>Building</Filter>
+    </ClCompile>
     <ClCompile Include="Map.cpp">
       <Filter>GameObject</Filter>
     </ClCompile>
@@ -146,6 +147,7 @@
     </ClInclude>
     <ClInclude Include="ShovelShop.h">
       <Filter>Building</Filter>
+    </ClInclude>
     <ClInclude Include="Map.h">
       <Filter>GameObject</Filter>
     </ClInclude>
