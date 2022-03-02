@@ -64,7 +64,7 @@ void GameNode::release(void)
 }
 
 void GameNode::update(void) {
-	InvalidateRect(_hWnd, NULL, false);
+	//InvalidateRect(_hWnd, NULL, false);
 }
 
 void GameNode::addTimer(int sec, int timerId)

@@ -23,3 +23,8 @@ void BuildManager::render(void)
 {
 	mShovelShop->render();
 }
+
+RECT BuildManager::getBuildingRc()
+{
+	return RECT();
+}

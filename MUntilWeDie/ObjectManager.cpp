@@ -33,3 +33,8 @@ void ObjectManager::render(void)
 		(*mIterObjects)->render();
 	}
 }
+
+RECT ObjectManager::getObjectRc()
+{
+	return RECT();
+}

@@ -19,10 +19,12 @@ void GameObject::update(void)
 
 void GameObject::render(void)
 {
+	/*
 	for (auto it = mVDevelopRect.begin(); it != mVDevelopRect.end(); it++) {
 		RectangleMake(getMemDc(), *it);
 	}
 	RectangleMake(getMemDc(), getRc());
+	*/
 }
 
 void GameObject::release(void)

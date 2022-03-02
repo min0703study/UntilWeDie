@@ -68,9 +68,6 @@
     <ClCompile Include="ShovelShop.cpp">
       <Filter>Api Framework\Building</Filter>
     </ClCompile>
-    <ClCompile Include="GameNode.cpp">
-      <Filter>GameNode</Filter>
-    </ClCompile>
     <ClCompile Include="MainGame.cpp">
       <Filter>GameNode</Filter>
     </ClCompile>
@@ -94,6 +91,21 @@
     </ClCompile>
     <ClCompile Include="Objects.cpp">
       <Filter>Api Framework\GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="IPlayer.cpp">
+      <Filter>Api Framework\Interface</Filter>
+    </ClCompile>
+    <ClCompile Include="IMonster.cpp">
+      <Filter>Api Framework\Interface</Filter>
+    </ClCompile>
+    <ClCompile Include="IBuilding.cpp">
+      <Filter>Api Framework\Interface</Filter>
+    </ClCompile>
+    <ClCompile Include="IObject.cpp">
+      <Filter>Api Framework\Interface</Filter>
+    </ClCompile>
+    <ClCompile Include="GameNode.cpp">
+      <Filter>Api Framework\GameNode</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -172,9 +184,6 @@
     <ClInclude Include="ShovelShop.h">
       <Filter>Api Framework\Building</Filter>
     </ClInclude>
-    <ClInclude Include="GameNode.h">
-      <Filter>GameNode</Filter>
-    </ClInclude>
     <ClInclude Include="MainGame.h">
       <Filter>GameNode</Filter>
     </ClInclude>
@@ -201,6 +210,21 @@
     </ClInclude>
     <ClInclude Include="Objects.h">
       <Filter>Api Framework\GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="IPlayer.h">
+      <Filter>Api Framework\Interface</Filter>
+    </ClInclude>
+    <ClInclude Include="IMonster.h">
+      <Filter>Api Framework\Interface</Filter>
+    </ClInclude>
+    <ClInclude Include="IBuilding.h">
+      <Filter>Api Framework\Interface</Filter>
+    </ClInclude>
+    <ClInclude Include="IObject.h">
+      <Filter>Api Framework\Interface</Filter>
+    </ClInclude>
+    <ClInclude Include="GameNode.h">
+      <Filter>Api Framework\GameNode</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -239,6 +263,12 @@
     </Filter>
     <Filter Include="GameNode">
       <UniqueIdentifier>{dc25a2fd-b240-449f-848a-7aa7613327d9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Api Framework\Interface">
+      <UniqueIdentifier>{52417879-c87c-41e2-9318-9017f63e42c4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Api Framework\GameNode">
+      <UniqueIdentifier>{96f1db5c-e516-412a-adf5-9a3e6107b32f}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

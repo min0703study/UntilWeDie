@@ -14,6 +14,7 @@ HRESULT MainScene::init(void)
 
 	mMonsterMng = new MonsterManager;
 	mMonsterMng->init();
+	mMonsterMng->setIPlayer(mPlayer);
 	
 	mEggRespawnTime = TIMEMANAGER->getWorldTime();
 	mMonsterRespawnTime = 0;
@@ -68,8 +69,6 @@ void MainScene::render(void)
 	mPlayer->render();
 	mBuildManager->render();
 	mMonsterMng->render();
-
-	RectangleMake(getMemDc(), RectMake(100, GROUND, 100, 100));
 }
 
 bool MainScene::isEggRespawn(void)

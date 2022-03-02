@@ -134,7 +134,7 @@ void Player::move()
 	if (KEYMANAGER->isOnceKeyDown(PLAYER_COMMAND_EXEC))
 	{
 		changeStat(eStat::CommandExec);
-		mNpcManager->orderGetWrench();
+		mNpcManager->orderExecNpc();
 	}
 
 	if (KEYMANAGER->isOnceKeyDown(PLAYER_COMMAND_CALL))
@@ -143,16 +143,15 @@ void Player::move()
 		orderCallNpc();
 	}
 
-
 	if (KEYMANAGER->isOnceKeyDown(PLAYER_SHOOT))
 	{
 		changeStat(eStat::Shoot);
 
 		if (mCurDirection == eDirection::Right) {
-			mWeapon->shoot(getAbsRc().right, getAbsY() + (mHeight / 2), mCurDirection);
+			mWeapon->shoot(getAbsRc().right, getAbsY() - (mHeight / 2), mCurDirection);
 		}
 		else {
-			mWeapon->shoot(getAbsRc().left, getAbsY() + (mHeight / 2), mCurDirection);
+			mWeapon->shoot(getAbsRc().left, getAbsY() - (mHeight / 2), mCurDirection);
 		}
 	}
 
@@ -184,6 +183,11 @@ void Player::action()
 	}
 }
 
+RECT Player::getPlayerRc()
+{
+	return RECT();
+}
+
 void Player::changeStat(eStat changeStat)
 {
 	if (mCurStat != changeStat) 
@@ -196,7 +200,7 @@ void Player::changeStat(eStat changeStat)
 
 void Player::orderCallNpc()
 {
-	RECT callableRc = getRc();
+	RECT callableRc = getAbsRc();
 	
 	if (mCurDirection == eDirection::Left) {
 		callableRc.left -= 300;

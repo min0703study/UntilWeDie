@@ -1,10 +1,11 @@
 #pragma once
 #include "GameObject.h"
+#include "IPlayer.h"
 
 class NpcManager;
 class Weapon;
 
-class Player : public GameObject
+class Player : public GameObject, public IPlayer
 {
 public:
 	enum class eStat {
@@ -96,6 +97,9 @@ public:
 	void animation();
 	void move();
 	void action();
+
+	//interface
+	RECT getPlayerRc() override;
 
 	Player() {};
 	~Player() {};

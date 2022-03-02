@@ -99,7 +99,10 @@ public:
 			}
 		}
 
-		inline ImageBase* GetImage() const { return mCurImage; }
+		inline ImageBase* GetImage() const { 
+			return mCurImage; 
+		
+		}
 
 		void mappingStatForImg(Npc::eStat stat, ImageBase* rightImg, ImageBase* leftImg, float frameUpdateSec) {
 			mImgRMap.insert(make_pair(stat, rightImg));
@@ -117,13 +120,11 @@ public:
 	void release(void);
 
 	void update(void) {
-		GameObject::update();
 		move();
 		action();
 	};
 
 	void render(void) {
-		GameObject::render();
 		draw();
 		animation();
 	};
@@ -166,8 +167,8 @@ private:
 
 	//nothing 상태에서 사용되는 멤버 변수
 	int mNotingStopCount;
-	float mNotingToX;
-	float mNotingStartX;
+	int mNotingToX;
+	int mNotingStartX;
 
 	//명령 수행 시간
 	int mOrderCount;
