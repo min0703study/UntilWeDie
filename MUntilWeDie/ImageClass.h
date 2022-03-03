@@ -63,6 +63,26 @@ public:
 	const char* shovelshop_light = "삽 생산시설 전등";
 	const char* shovelshop_shovel = "삽";
 
+	const char* workbanch = "유닛 초기화 시설";
+
+	const char* shopStalkers_off = "총 생산시설 최초 상태";
+	const char* shopStalkers_off_2 = "총 생산시설 유닛 투입 전 상태";
+
+	const char* shopStalkers_stand  = "총 생산시설 기본 상태";
+	const char* shopStalkers_open = "총 생산시설 오픈";
+	const char* shopStalkers_close = "총 생산시설 폐쇠";
+
+	const char* shopStalkers_weapon = "총";
+
+	const char* engineerShop_off = "렌치 생산시설 최초 상태";
+	const char* engineerShop_off_2 = "렌치 생산시설 유닛 투입 전 상태";
+
+	const char* engineerShop_stand = "렌치 생산시설 기본 상태";
+	const char* engineerShop_open = "렌치 생산시설 오픈";
+	const char* engineerShop_close = "렌치 생산시설 폐쇠";
+				 
+	const char* engineerShop_wrench = "렌치";
+
 	const char* Object_Mushroom = "버섯";
 	const char* Item_shroom = "버섯조각";
 	const char* MONSTER_NORMAL_IDLE = "MonsterNormalIdle";

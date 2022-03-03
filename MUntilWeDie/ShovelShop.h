@@ -37,6 +37,8 @@ public:
 	void autoCreate();
 	void intoNpc();
 
+	void Monstertrue();
+
 private:
 	vector<Shovel*> mShovels;
 	vector<Shovel*>::iterator mItShovels;
@@ -45,6 +47,8 @@ private:
 
 	int mCurShovelCount; //삽 생성 갯수
 	int mCreateCount;  //삽이 생성되기까지 걸리는 시간
+
+	int mBuildHp; //건물 체력
 
 	bool mCreatefull; //삽 대기열이 가득 찼는지
 	bool mShoveltrue; //삽이 있는지 없는지
