@@ -32,3 +32,22 @@ RECT BuildManager::getBuildingRc()
 {
 	return RECT();
 }
+
+int BuildManager::isBuildingCollisionToPlayer(RECT playerAbsRc)
+{
+	RECT tempRc;
+
+	if (IntersectRect(&tempRc, &mShovelShop->getAbsRc(), &playerAbsRc)) {
+		cout << "충돌완료" << ":" << "삽 생산시설 초기상태" << endl;
+
+		return 1;
+	}
+
+	else {
+		cout << "충돌실패" << ":" << "삽 생산시설 초기상태" << endl;
+
+		return -1;
+	}
+
+	return -1;
+}

@@ -13,6 +13,6 @@ public:
 	//채영
 	//건물에 player가 충돌했는지?
 	//충돌 했으면 해당 index, 아니면 -1 return
-	//virtual int isBuildingCollisionToPlayer(RECT playerAbsRc) = 0;
+	virtual int isBuildingCollisionToPlayer(RECT playerAbsRc) = 0;
 };
 

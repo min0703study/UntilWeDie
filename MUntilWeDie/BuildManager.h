@@ -23,6 +23,8 @@ public:
 	//iterface
 	RECT getBuildingRc() override;
 
+	int isBuildingCollisionToPlayer(RECT playerAbsRc) override;
+
 	BuildManager() {}
 	~BuildManager() {}
 

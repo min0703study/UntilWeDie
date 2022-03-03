@@ -59,32 +59,32 @@ HRESULT ImageClass::init(void)
 	IMAGEMANAGER->addImage(shovelshop_off, "Resources/Images/Building/shovelshop/shovelshop_off.bmp", 253 * 2, 107 * 2, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addImage(shovelshop_off_02, "Resources/Images/Building/shovelshop/shovelshop_off_02.bmp", 253 * 2, 107 * 2, true, RGB(255, 0, 255));
 
-	IMAGEMANAGER->addFrameImage(shovelshop_stand, "Resources/Images/Building/shovelshop/shovelshop_stand.bmp", 1518, 107, 6, 1);
-	IMAGEMANAGER->addFrameImage(shovelshop_open, "Resources/Images/Building/shovelshop/shovelshop_open.bmp", 2024, 107, 8, 1);
-	IMAGEMANAGER->addFrameImage(shovelshop_close, "Resources/Images/Building/shovelshop/shovelshop_close.bmp", 2277, 107, 9, 1);
+	IMAGEMANAGER->addFrameImage(shovelshop_stand, "Resources/Images/Building/shovelshop/shovelshop_stand.bmp", 1518 * 2, 107 * 2, 6, 1);
+	IMAGEMANAGER->addFrameImage(shovelshop_open, "Resources/Images/Building/shovelshop/shovelshop_open.bmp", 2024 * 2, 107 * 2, 8, 1);
+	IMAGEMANAGER->addFrameImage(shovelshop_close, "Resources/Images/Building/shovelshop/shovelshop_close.bmp", 2277 * 2, 107 * 2, 9, 1);
 
-	IMAGEMANAGER->addImage(shovelshop_shovel, "Resources/Images/Building/shovelshop/shovelshop_shovel.bmp", 20, 54, true, RGB(255, 0, 255));
-	IMAGEMANAGER->addImage(shovelshop_light, "Resources/Images/Building/shovelshop/shovelshop_light.bmp", 139, 82, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage(shovelshop_shovel, "Resources/Images/Building/shovelshop/shovelshop_shovel.bmp", 20 * 2, 54 * 2, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage(shovelshop_light, "Resources/Images/Building/shovelshop/shovelshop_light.bmp", 139 * 2, 82 * 2, true, RGB(255, 0, 255));
 	
-	IMAGEMANAGER->addImage(workbanch, "Resources/Images/Building/workbanch/workbanch.bmp", 125, 116, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage(workbanch, "Resources/Images/Building/workbanch/workbanch.bmp", 125 * 2, 116 * 2, true, RGB(255, 0, 255));
 
-	IMAGEMANAGER->addImage(shopStalkers_off, "Resources/Images/Building/shopStalkers/shopStalkers_off.bmp", 153, 85, true, RGB(255, 0, 255));
-	IMAGEMANAGER->addImage(shopStalkers_off_2, "Resources/Images/Building/shopStalkers/shopStalkers_off_2.bmp", 247, 178, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage(shopStalkers_off, "Resources/Images/Building/shopStalkers/shopStalkers_off.bmp", 153 * 2, 85 * 2, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage(shopStalkers_off_2, "Resources/Images/Building/shopStalkers/shopStalkers_off_2.bmp", 247 * 2, 178 * 2, true, RGB(255, 0, 255));
 
-	IMAGEMANAGER->addFrameImage(shopStalkers_stand, "Resources/Images/Building/shopStalkers/shopStalkers_stand.bmp", 2277, 107, 9, 1);
-	IMAGEMANAGER->addFrameImage(shopStalkers_open, "Resources/Images/Building/shopStalkers_close/shopStalkers_open.bmp", 2277, 107, 9, 1);
-	IMAGEMANAGER->addFrameImage(shopStalkers_close, "Resources/Images/Building/shopStalkers/shopStalkers_close.bmp", 2277, 107, 9, 1);
+	IMAGEMANAGER->addFrameImage(shopStalkers_stand, "Resources/Images/Building/shopStalkers/shopStalkers_stand.bmp", 1235 * 2, 178 * 2, 5, 1);
+	IMAGEMANAGER->addFrameImage(shopStalkers_open, "Resources/Images/Building/shopStalkers_close/shopStalkers_open.bmp", 2223 * 2, 178 * 2, 9, 1);
+	IMAGEMANAGER->addFrameImage(shopStalkers_close, "Resources/Images/Building/shopStalkers/shopStalkers_close.bmp", 2223 * 2, 178 * 2, 9, 1);
 
-	IMAGEMANAGER->addImage(shopStalkers_weapon, "Resources/Images/Building/shopStalkers/shopStalkers_weapon.bmp", 12, 26, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage(shopStalkers_weapon, "Resources/Images/Building/shopStalkers/shopStalkers_weapon.bmp", 12 * 2, 26 * 2, true, RGB(255, 0, 255));
 
-	IMAGEMANAGER->addImage(engineerShop_off, "Resources/Images/Building/engineerShop/shopStalkers_off.bmp", 170, 17, true, RGB(255, 0, 255));
-	IMAGEMANAGER->addImage(engineerShop_off_2, "Resources/Images/Building/engineerShop/shopStalkers_off_2.bmp", 262, 141, true, RGB(255, 0, 255));
-	//
-	IMAGEMANAGER->addFrameImage(engineerShop_stand, "Resources/Images/Building/engineerShop/shopStalkers_stand.bmp", 2277, 107, 9, 1);
-	IMAGEMANAGER->addFrameImage(engineerShop_open, "Resources/Images/Building/engineerShop/shopStalkers_open.bmp", 2277, 107, 9, 1);
-	IMAGEMANAGER->addFrameImage(engineerShop_close, "Resources/Images/Building/engineerShop/shopStalkers_close.bmp", 2277, 107, 9, 1);
-	//
-	IMAGEMANAGER->addImage(engineerShop_wrench, "Resources/Images/Building/engineerShop/engineerShop_wrench.bmp", 12, 26, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage(engineerShop_off, "Resources/Images/Building/engineerShop/engineerShop_off.bmp", 170 * 2, 17 * 2, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage(engineerShop_off_2, "Resources/Images/Building/engineerShop/engineerShop_off_2.bmp", 262 * 2, 141 * 2, true, RGB(255, 0, 255));
+	
+	IMAGEMANAGER->addFrameImage(engineerShop_stand, "Resources/Images/Building/engineerShop/engineerShop_stand.bmp", 2277 * 2, 107 * 2, 9, 1);
+	IMAGEMANAGER->addFrameImage(engineerShop_open, "Resources/Images/Building/engineerShop/engineerShop_open.bmp", 2277 * 2, 107 * 2, 9, 1);
+	IMAGEMANAGER->addFrameImage(engineerShop_close, "Resources/Images/Building/engineerShop/engineerShop_close.bmp", 2277 * 2, 107 * 2, 9, 1);
+	
+	IMAGEMANAGER->addImage(engineerShop_wrench, "Resources/Images/Building/engineerShop/engineerShop_wrench.bmp", 12 * 2, 26 * 2, true, RGB(255, 0, 255));
 
 	IMAGEMANAGER->addFrameImage(Object_Mushroom, "Resources/Images/Objects/mushroom1.bmp", 440 * 2.125, 41 * 2.125, 4, 1);
 	IMAGEMANAGER->addImage(Item_shroom, "Resources/Images/Items/item_shroom.bmp", 22, 21, true, RGB(255, 0 ,255));
