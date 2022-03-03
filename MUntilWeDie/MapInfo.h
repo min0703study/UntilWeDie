@@ -1,7 +1,7 @@
 #pragma once
-#define GROUND		800.0f // 나머진 이거 쓰면될듯
-#define GROUND_OBJECT 820.0f // 이건 자원만
-#define MONSTER_RESPAWN 7729.687f
+#define GROUND		800.0f // 나머진 이거 쓰면될듯 Y축
+#define GROUND_OBJECT 820.0f // 이건 자원만 Y축
+#define MONSTER_RESPAWN 7729.687f //X축
 
 //맵 길이 46363
 namespace MAP{
@@ -14,7 +14,7 @@ namespace MAP{
 		static float MUSHROOM_05_X = 31770; //맵기준
 		static float MUSHROOM_06_X = 34620; //맵기준
 
-		static float OBJECT_GROUND = GROUND_OBJECT; //맵기준 ( 자원 )
+		static float OBJECT_GROUND = GROUND_OBJECT; //자원만 사용
 		//플레이어 시작 위치
 		static float PLAYER_X = 30291.875; //맵기준
 
@@ -53,9 +53,6 @@ namespace MAP{
 		static float RESETBUILDING_X = 29165.625;
 		//건물-발전기
 		static float GENERATOR_X = 30520.3125;
-
-		//공용바닥
-		static float COMMONO_GROUND = GROUND; //맵기준 ( 자원 )
 	}
 
 	namespace SIZE {
