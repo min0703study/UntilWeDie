@@ -13,6 +13,7 @@ HRESULT MainScene::init(void)
 	mBuildManager->init(100, 100, 100, 100);
 
 	mPlayer->setIBuilding(mBuildManager);
+	mPlayer->setIObject(mMap->getObjectManager());
 
 	mMonsterMng = new MonsterManager;
 	mMonsterMng->init();

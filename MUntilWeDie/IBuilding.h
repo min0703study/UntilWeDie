@@ -15,7 +15,7 @@ public:
 	//건물 시작 타이머가 완료되면 이미지를 바꿔야 겠지
 	//내 npc한테 종료됐다고 사인해줘야 된다.
 	//건물 상태 업데이트 (1. 빌딩, 2. npc 안으로 들어감 3. npc한테 삽 제공)
-	virtual bool startBuilding(int buildingIndex, int npcIndex, OUT int& xPos) = 0;
+	//virtual bool startBuilding(int buildingIndex, int npcIndex, OUT int& xPos) = 0;
 
 	//지혁
 	//enum class eBuildingType { 건물 종류 별로 } -> 건물 종류별로 enum 선언

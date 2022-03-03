@@ -2,6 +2,7 @@
 #include "GameObject.h"
 #include "IPlayer.h"
 #include "IBuilding.h"
+#include "IObject.h"
 
 class NpcManager;
 class Weapon;
@@ -109,6 +110,10 @@ public:
 		mIbuilding = iBuilding;
 	};
 
+	void setIObject(IObject* iObject) {
+		mIObject = iObject;
+	};
+
 	Player() {};
 	~Player() {};
 private:
@@ -125,6 +130,7 @@ private:
 	NpcManager* mNpcManager;
 
 	IBuilding* mIbuilding;
+	IObject* mIObject;
 
 	Weapon* mWeapon;
 

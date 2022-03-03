@@ -270,7 +270,14 @@ void Player::orderCallNpc()
 
 void Player::orderExcuteNpc()
 {
+	// Çö¼®
+	/*
 	if (mIbuilding->isBuildingCollisionToPlayer(getAbsRc()) != -1) {
+		mNpcManager->orderExecNpc();
+	}
+	*/
+
+	if (mIObject->isObjectCollisionToPlayer(getAbsRc()) != -1) {
 		mNpcManager->orderExecNpc();
 	}
 }
