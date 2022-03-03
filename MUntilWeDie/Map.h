@@ -8,11 +8,15 @@ public:
 	void release(void);
 
 	void update(void) {
+		GameObject::update();
+
 		move();
 		action();
 	};
 
 	void render(void) {
+		GameObject::render();
+
 		draw();
 		animation();
 	};

@@ -14,8 +14,14 @@ public:
 	bool orderCallNpc(RECT playerCallableRc);
 	bool orderExecNpc();
 
+	bool changeStat(int npcIndex, Npc::eOrderType stat);
+	bool changeNpcPosition();
+	bool changeRank();
+
+	bool pullRank(int rank);
+
 	bool orderGetShovel(); //삽 집는 명령
-	bool orderGetWrench(); //렌치 집는 명령
+	bool orderGetWrench(); // 렌치 집는 명령
 
 	NpcManager() {};
 	~NpcManager() {};
@@ -23,8 +29,8 @@ private:
 	vector<Npc*> mVNpcs;
 	vector<Npc*>::iterator mViNpcs;
 	
-	vector<Npc*> mActiveNpcs;
-	vector<Npc*>::iterator mItActiveNpcs;
+	vector<Npc*> mVFollowingNpc;
+	vector<Npc*>::iterator mViFollowingNpc;
 
 	int mNpcCount;
 };

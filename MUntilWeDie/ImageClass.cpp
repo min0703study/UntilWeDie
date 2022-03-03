@@ -16,8 +16,8 @@ HRESULT ImageClass::init(void)
 	IMAGEMANAGER->addFrameImage(PlayerCommandCallL, "Resources/Images/Player/tex_hero_command_l.bmp", PLAYER_X_SIZE * 11, PLAYER_Y_ACTION_SIZE, 11, 1);
 	IMAGEMANAGER->addFrameImage(PlayerCommandExecR, "Resources/Images/Player/tex_hero_command2_r.bmp", PLAYER_X_SIZE * 8, PLAYER_Y_ACTION_SIZE, 8, 1);
 	IMAGEMANAGER->addFrameImage(PlayerCommandExecL, "Resources/Images/Player/tex_hero_command2_l.bmp", PLAYER_X_SIZE * 8, PLAYER_Y_ACTION_SIZE, 8, 1);
-	IMAGEMANAGER->addFrameImage(PlayerRunShootL, "Resources/Images/Player/tex_hero_run_reload_l.bmp", PLAYER_X_SIZE * 8, PLAYER_Y_ACTION_SIZE, 8, 1);
-	IMAGEMANAGER->addFrameImage(PlayerRunShootR, "Resources/Images/Player/tex_hero_run_reload_r.bmp", PLAYER_X_SIZE * 8, PLAYER_Y_ACTION_SIZE, 8, 1);
+	IMAGEMANAGER->addFrameImage(PlayerRunShootL, "Resources/Images/Player/tex_hero_run_reload_l.bmp", PLAYER_X_SIZE * 8, PLAYER_X_SIZE, 8, 1);
+	IMAGEMANAGER->addFrameImage(PlayerRunShootR, "Resources/Images/Player/tex_hero_run_reload_r.bmp", PLAYER_X_SIZE * 8, PLAYER_X_SIZE, 8, 1);
 	IMAGEMANAGER->addFrameImage(PlayerShootL, "Resources/Images/Player/tex_hero_reload_l.bmp", PLAYER_X_SIZE * 8, PLAYER_X_SIZE, 8, 1);
 	IMAGEMANAGER->addFrameImage(PlayerShootR, "Resources/Images/Player/tex_hero_reload_r.bmp", PLAYER_X_SIZE * 8, PLAYER_X_SIZE, 8, 1);
 
@@ -40,6 +40,8 @@ HRESULT ImageClass::init(void)
 	IMAGEMANAGER->addFrameImage(DiggerRunL, "Resources/Images/Npc/tex_digger_run_l.bmp", PLAYER_X_SIZE * 8, PLAYER_X_SIZE, 8, 1);
 	IMAGEMANAGER->addFrameImage(DiggerGrabL, "Resources/Images/Npc/tex_digger_grab_l.bmp", PLAYER_X_SIZE * 6, PLAYER_X_SIZE, 6, 1);
 	IMAGEMANAGER->addFrameImage(DiggerGrabR, "Resources/Images/Npc/tex_digger_grab_r.bmp", PLAYER_X_SIZE * 6, PLAYER_X_SIZE, 6, 1);
+	IMAGEMANAGER->addFrameImage(DiggerBuildL, "Resources/Images/Npc/tex_digger_build_l.bmp", NPC_BUILD_X_SIZE * 6, PLAYER_X_SIZE, 6, 1);
+	IMAGEMANAGER->addFrameImage(DiggerBuildR, "Resources/Images/Npc/tex_digger_build_r.bmp", NPC_BUILD_X_SIZE * 6, PLAYER_X_SIZE, 6, 1);
 
 	IMAGEMANAGER->addFrameImage(EngineerIdleL, "Resources/Images/Npc/tex_engineer_idle_l.bmp", PLAYER_X_SIZE * 6, PLAYER_X_SIZE, 6, 1);
 	IMAGEMANAGER->addFrameImage(EngineerIdleR, "Resources/Images/Npc/tex_engineer_idle_r.bmp", PLAYER_X_SIZE * 6, PLAYER_X_SIZE, 6, 1);
@@ -47,8 +49,11 @@ HRESULT ImageClass::init(void)
 	IMAGEMANAGER->addFrameImage(EngineerWalkL, "Resources/Images/Npc/tex_engineer_walk_l.bmp", PLAYER_X_SIZE * 8, PLAYER_X_SIZE, 8, 1);
 	IMAGEMANAGER->addFrameImage(EngineerRunR, "Resources/Images/Npc/tex_engineer_run_r.bmp", PLAYER_X_SIZE * 8, PLAYER_X_SIZE, 8, 1);
 	IMAGEMANAGER->addFrameImage(EngineerRunL, "Resources/Images/Npc/tex_engineer_run_l.bmp", PLAYER_X_SIZE * 8, PLAYER_X_SIZE, 8, 1);
+	IMAGEMANAGER->addFrameImage(EngineerBuildR, "Resources/Images/Npc/tex_engineer_build_r.bmp", PLAYER_X_SIZE * 12, PLAYER_X_SIZE, 12, 1);
+	IMAGEMANAGER->addFrameImage(EngineerBuildL, "Resources/Images/Npc/tex_engineer_build_l.bmp", PLAYER_X_SIZE * 12, PLAYER_X_SIZE, 12, 1);
 
-	IMAGEMANAGER->addImage(Generator_off, "Resources/Images/Building/Generator/Generator_off.bmp", 208, 98);
+	//KHS - BUilding
+	IMAGEMANAGER->addImage(Generator_off, "Resources/Images/Building/Generator/Generator_off.bmp", 208, 98, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addFrameImage(Generator_01, "Resources/Images/Building/Generator/Generator_01.bmp", 802, 93, 4, 1);
 
 	IMAGEMANAGER->addImage(shovelshop_off, "Resources/Images/Building/shovelshop/shovelshop_off.bmp", 253, 107, true, RGB(255, 0, 255));
@@ -58,9 +63,29 @@ HRESULT ImageClass::init(void)
 	IMAGEMANAGER->addFrameImage(shovelshop_open, "Resources/Images/Building/shovelshop/shovelshop_open.bmp", 2024, 107, 8, 1);
 	IMAGEMANAGER->addFrameImage(shovelshop_close, "Resources/Images/Building/shovelshop/shovelshop_close.bmp", 2277, 107, 9, 1);
 
-	IMAGEMANAGER->addImage(shovelshop_shovel, "Resources/Images/Building/shovelshop/shovelshop_shovel.bmp", 20, 54);
-	IMAGEMANAGER->addImage(shovelshop_light, "Resources/Images/Building/shovelshop/shovelshop_light.bmp", 139, 82);
+	IMAGEMANAGER->addImage(shovelshop_shovel, "Resources/Images/Building/shovelshop/shovelshop_shovel.bmp", 20, 54, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage(shovelshop_light, "Resources/Images/Building/shovelshop/shovelshop_light.bmp", 139, 82, true, RGB(255, 0, 255));
 	
+	IMAGEMANAGER->addImage(workbanch, "Resources/Images/Building/workbanch/workbanch.bmp", 125, 116, true, RGB(255, 0, 255));
+
+	IMAGEMANAGER->addImage(shopStalkers_off, "Resources/Images/Building/shopStalkers/shopStalkers_off.bmp", 153, 85, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage(shopStalkers_off_2, "Resources/Images/Building/shopStalkers/shopStalkers_off_2.bmp", 247, 178, true, RGB(255, 0, 255));
+
+	IMAGEMANAGER->addFrameImage(shopStalkers_stand, "Resources/Images/Building/shopStalkers/shopStalkers_stand.bmp", 2277, 107, 9, 1);
+	IMAGEMANAGER->addFrameImage(shopStalkers_open, "Resources/Images/Building/shopStalkers_close/shopStalkers_open.bmp", 2277, 107, 9, 1);
+	IMAGEMANAGER->addFrameImage(shopStalkers_close, "Resources/Images/Building/shopStalkers/shopStalkers_close.bmp", 2277, 107, 9, 1);
+
+	IMAGEMANAGER->addImage(shopStalkers_weapon, "Resources/Images/Building/shopStalkers/shopStalkers_weapon.bmp", 12, 26, true, RGB(255, 0, 255));
+
+	IMAGEMANAGER->addImage(engineerShop_off, "Resources/Images/Building/shopStalkers/shopStalkers_off.bmp", 170, 17, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage(engineerShop_off_2, "Resources/Images/Building/shopStalkers/shopStalkers_off_2.bmp", 262, 141, true, RGB(255, 0, 255));
+	//
+	IMAGEMANAGER->addFrameImage(engineerShop_stand, "Resources/Images/Building/shopStalkers/shopStalkers_stand.bmp", 2277, 107, 9, 1);
+	IMAGEMANAGER->addFrameImage(engineerShop_open, "Resources/Images/Building/shopStalkers_close/shopStalkers_open.bmp", 2277, 107, 9, 1);
+	IMAGEMANAGER->addFrameImage(engineerShop_close, "Resources/Images/Building/shopStalkers/shopStalkers_close.bmp", 2277, 107, 9, 1);
+	//
+	IMAGEMANAGER->addImage(engineerShop_wrench, "Resources/Images/Building/shopStalkers/shopStalkers_weapon.bmp", 12, 26, true, RGB(255, 0, 255));
+
 	IMAGEMANAGER->addFrameImage(Object_Mushroom, "Resources/Images/Objects/mushroom1.bmp", 440 * 2.125, 41 * 2.125, 4, 1);
 	IMAGEMANAGER->addImage(Item_shroom, "Resources/Images/Items/item_shroom.bmp", 22, 21, true, RGB(255, 0 ,255));
 

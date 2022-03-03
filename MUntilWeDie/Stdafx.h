@@ -129,7 +129,6 @@ extern int			_winRealSizeY;
 #define PLAYER_Y_SIZE	140
 #define PLAYER_Y_ACTION_SIZE	180
 
-
 //min - player keboard key
 #define PLAYER_MOVE_R			'D'
 #define PLAYER_MOVE_L			'A'
@@ -146,6 +145,8 @@ extern int			_winRealSizeY;
 //min - npc default value
 #define NPC_INIT_COUNT			4
 #define NPC_BUILD_X_SIZE		220
+#define NPC_FOLLOWING_SPACE		100.0f
+#define NPC_CALLABLE_X_SIZE		300
 
 //map
 #define MAP_X_SIZE				CAMERA_Y * 28

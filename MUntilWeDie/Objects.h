@@ -4,6 +4,12 @@
 class Objects : public GameObject
 {
 public:
+	enum class eType {
+		MUSHROOM,
+		TRASHS,
+		CORPS
+	};
+
 
 	typedef struct tagAnimation {
 
@@ -53,16 +59,16 @@ public:
 		animation();
 	};
 
-
 	void draw();
 	void animation();
 	void move();
 	void action();
 
+	void objtype();
+
 	Objects() {};
 	~Objects() {};
 protected:
 	Animation mAni;
-
 };
 

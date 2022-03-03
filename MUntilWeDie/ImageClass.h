@@ -41,6 +41,8 @@ public:
 	const char* DiggerRunR = "삽 NPC 오른쪽으로 뛰는 액션";
 	const char* DiggerGrabL = "삽 NPC 줍는 액션 왼쪽";
 	const char* DiggerGrabR = "삽 NPC 줍는 액션 오른쪽";
+	const char* DiggerBuildR = "삽 NPC 건물 짓기 액션 오른쪽";
+	const char* DiggerBuildL = "삽 NPC 건물 짓기 액션 왼쪽";
 
 	const char* EngineerIdleR = "엔지니어 NPC 정지 오른쪽 액션";
 	const char* EngineerIdleL = "엔지니어 NPC 정지 왼쪽 액션";
@@ -48,6 +50,8 @@ public:
 	const char* EngineerWalkL = "엔지니어 NPC 왼쪽으로 걷는 액션";
 	const char* EngineerRunL = "엔지니어 NPC 왼쪽으로 뛰는 액션";
 	const char* EngineerRunR = "엔지니어 NPC 오른쪽으로 뛰는 액션";
+	const char* EngineerBuildR = "엔지니어 NPC 오른쪽으로 건물 짓기 액션";
+	const char* EngineerBuildL = "엔지니어 NPC 왼쪽으로 건물 짓기 액션";
 
 	const char* Generator_off = "발전기 최초 상태";
 	const char* Generator_01 = "발전기 1단계";
@@ -62,6 +66,26 @@ public:
 
 	const char* shovelshop_light = "삽 생산시설 전등";
 	const char* shovelshop_shovel = "삽";
+
+	const char* workbanch = "유닛 초기화 시설";
+
+	const char* shopStalkers_off = "총 생산시설 최초 상태";
+	const char* shopStalkers_off_2 = "총 생산시설 유닛 투입 전 상태";
+
+	const char* shopStalkers_stand  = "총 생산시설 기본 상태";
+	const char* shopStalkers_open = "총 생산시설 오픈";
+	const char* shopStalkers_close = "총 생산시설 폐쇠";
+
+	const char* shopStalkers_weapon = "총";
+
+	const char* engineerShop_off = "렌치 생산시설 최초 상태";
+	const char* engineerShop_off_2 = "렌치 생산시설 유닛 투입 전 상태";
+
+	const char* engineerShop_stand = "렌치 생산시설 기본 상태";
+	const char* engineerShop_open = "렌치 생산시설 오픈";
+	const char* engineerShop_close = "렌치 생산시설 폐쇠";
+				 
+	const char* engineerShop_wrench = "렌치";
 
 	const char* Object_Mushroom = "버섯";
 	const char* Item_shroom = "버섯조각";
