@@ -16,8 +16,8 @@ HRESULT ImageClass::init(void)
 	IMAGEMANAGER->addFrameImage(PlayerCommandCallL, "Resources/Images/Player/tex_hero_command_l.bmp", PLAYER_X_SIZE * 11, PLAYER_Y_ACTION_SIZE, 11, 1);
 	IMAGEMANAGER->addFrameImage(PlayerCommandExecR, "Resources/Images/Player/tex_hero_command2_r.bmp", PLAYER_X_SIZE * 8, PLAYER_Y_ACTION_SIZE, 8, 1);
 	IMAGEMANAGER->addFrameImage(PlayerCommandExecL, "Resources/Images/Player/tex_hero_command2_l.bmp", PLAYER_X_SIZE * 8, PLAYER_Y_ACTION_SIZE, 8, 1);
-	IMAGEMANAGER->addFrameImage(PlayerRunShootL, "Resources/Images/Player/tex_hero_run_reload_l.bmp", PLAYER_X_SIZE * 8, PLAYER_Y_ACTION_SIZE, 8, 1);
-	IMAGEMANAGER->addFrameImage(PlayerRunShootR, "Resources/Images/Player/tex_hero_run_reload_r.bmp", PLAYER_X_SIZE * 8, PLAYER_Y_ACTION_SIZE, 8, 1);
+	IMAGEMANAGER->addFrameImage(PlayerRunShootL, "Resources/Images/Player/tex_hero_run_reload_l.bmp", PLAYER_X_SIZE * 8, PLAYER_X_SIZE, 8, 1);
+	IMAGEMANAGER->addFrameImage(PlayerRunShootR, "Resources/Images/Player/tex_hero_run_reload_r.bmp", PLAYER_X_SIZE * 8, PLAYER_X_SIZE, 8, 1);
 	IMAGEMANAGER->addFrameImage(PlayerShootL, "Resources/Images/Player/tex_hero_reload_l.bmp", PLAYER_X_SIZE * 8, PLAYER_X_SIZE, 8, 1);
 	IMAGEMANAGER->addFrameImage(PlayerShootR, "Resources/Images/Player/tex_hero_reload_r.bmp", PLAYER_X_SIZE * 8, PLAYER_X_SIZE, 8, 1);
 
@@ -40,6 +40,8 @@ HRESULT ImageClass::init(void)
 	IMAGEMANAGER->addFrameImage(DiggerRunL, "Resources/Images/Npc/tex_digger_run_l.bmp", PLAYER_X_SIZE * 8, PLAYER_X_SIZE, 8, 1);
 	IMAGEMANAGER->addFrameImage(DiggerGrabL, "Resources/Images/Npc/tex_digger_grab_l.bmp", PLAYER_X_SIZE * 6, PLAYER_X_SIZE, 6, 1);
 	IMAGEMANAGER->addFrameImage(DiggerGrabR, "Resources/Images/Npc/tex_digger_grab_r.bmp", PLAYER_X_SIZE * 6, PLAYER_X_SIZE, 6, 1);
+	IMAGEMANAGER->addFrameImage(DiggerBuildL, "Resources/Images/Npc/tex_digger_build_l.bmp", NPC_BUILD_X_SIZE * 6, PLAYER_X_SIZE, 6, 1);
+	IMAGEMANAGER->addFrameImage(DiggerBuildR, "Resources/Images/Npc/tex_digger_build_r.bmp", NPC_BUILD_X_SIZE * 6, PLAYER_X_SIZE, 6, 1);
 
 	IMAGEMANAGER->addFrameImage(EngineerIdleL, "Resources/Images/Npc/tex_engineer_idle_l.bmp", PLAYER_X_SIZE * 6, PLAYER_X_SIZE, 6, 1);
 	IMAGEMANAGER->addFrameImage(EngineerIdleR, "Resources/Images/Npc/tex_engineer_idle_r.bmp", PLAYER_X_SIZE * 6, PLAYER_X_SIZE, 6, 1);
@@ -47,6 +49,8 @@ HRESULT ImageClass::init(void)
 	IMAGEMANAGER->addFrameImage(EngineerWalkL, "Resources/Images/Npc/tex_engineer_walk_l.bmp", PLAYER_X_SIZE * 8, PLAYER_X_SIZE, 8, 1);
 	IMAGEMANAGER->addFrameImage(EngineerRunR, "Resources/Images/Npc/tex_engineer_run_r.bmp", PLAYER_X_SIZE * 8, PLAYER_X_SIZE, 8, 1);
 	IMAGEMANAGER->addFrameImage(EngineerRunL, "Resources/Images/Npc/tex_engineer_run_l.bmp", PLAYER_X_SIZE * 8, PLAYER_X_SIZE, 8, 1);
+	IMAGEMANAGER->addFrameImage(EngineerBuildR, "Resources/Images/Npc/tex_engineer_build_r.bmp", PLAYER_X_SIZE * 12, PLAYER_X_SIZE, 12, 1);
+	IMAGEMANAGER->addFrameImage(EngineerBuildL, "Resources/Images/Npc/tex_engineer_build_l.bmp", PLAYER_X_SIZE * 12, PLAYER_X_SIZE, 12, 1);
 
 	//KHS - BUilding
 	IMAGEMANAGER->addImage(Generator_off, "Resources/Images/Building/Generator/Generator_off.bmp", 208, 98, true, RGB(255, 0, 255));
