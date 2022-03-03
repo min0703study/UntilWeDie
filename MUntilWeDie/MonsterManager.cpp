@@ -31,7 +31,7 @@ void MonsterManager::render(void)
 {
 	mviMonster = mvMonster.begin();
 	for (; mviMonster != mvMonster.end(); ++mviMonster) {
-		(*mviMonster)->render();
+		//(*mviMonster)->render();
 	}
 }
 

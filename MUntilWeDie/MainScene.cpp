@@ -66,8 +66,8 @@ void MainScene::release(void)
 void MainScene::render(void)
 {
 	mMap->render();
-	mPlayer->render();
 	mBuildManager->render();
+	mPlayer->render();
 	mMonsterMng->render();
 }
 
