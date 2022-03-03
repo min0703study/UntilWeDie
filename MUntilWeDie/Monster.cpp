@@ -65,6 +65,7 @@ void Monster::init(eMonsterType type, float posX, float posY, int searchX, int s
 		mStatus.moveSpeed = 1.f;
 		mStatus.attackSpeed = 5.f;
 		mStatus.power = 30;
+		mStatus.angle = 45;
 		break;
 	}
 }
@@ -116,7 +117,7 @@ void Monster::animation()
 void Monster::draw()
 {
 	//Rectangle(getMemDc(), mSearchRange.left, mSearchRange.top, mSearchRange.right, mSearchRange.bottom);
-	//Rectangle(getMemDc(), mAttackRange.left, mAttackRange.top, mAttackRange.right, mAttackRange.bottom);
+	Rectangle(getMemDc(), mAttackRange.left, mAttackRange.top, mAttackRange.right, mAttackRange.bottom);
 	Rectangle(getMemDc(), mCollideRange.left, mCollideRange.top, mCollideRange.right, mCollideRange.bottom);
 
 	mImage->frameRender
@@ -221,7 +222,7 @@ void Monster::attack()
 					if (getRc().left < mPlayer->getRc().right) {
 						setAbsX(mPlayer->getRc().right);
 					}
-					mAccrueDistance += -10;
+					//mAccrueDistance += -10;
 				}
 			}
 			else {

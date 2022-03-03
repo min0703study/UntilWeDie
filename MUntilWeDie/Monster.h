@@ -47,6 +47,7 @@ typedef struct tagMonsterStatus
 	float currentHp;
 	float moveSpeed;
 	float attackSpeed;
+	float angle;
 	int power;
 } MonStatus;
 

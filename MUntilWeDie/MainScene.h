@@ -16,8 +16,8 @@ public:
 	void release(void);
 	void render(void);
 
-	bool isEggRespawn(void); //
-	bool isMonsterRespawn(void); //
+	bool isEggRespawn(void);
+	bool isMonsterRespawn(void);
 
 	MainScene() {};
 	~MainScene() {};
@@ -25,7 +25,7 @@ private:
 	Player* mPlayer;
 	BuildManager* mBuildManager;
 	Map* mMap;
-	MonsterManager* mMonsterMng;
+	MonsterManager* mMonsterManager;
 	
 	float mEggRespawnTime;
 	float mMonsterRespawnTime;

@@ -12,9 +12,9 @@ HRESULT MainScene::init(void)
 	mBuildManager = new BuildManager;
 	mBuildManager->init(100, 100, 100, 100);
 
-	mMonsterMng = new MonsterManager;
-	mMonsterMng->init();
-	mMonsterMng->setIPlayer(mPlayer);
+	mMonsterManager = new MonsterManager;
+	mMonsterManager->init();
+	mMonsterManager->setIPlayer(mPlayer);
 	
 	mEggRespawnTime = TIMEMANAGER->getWorldTime();
 	mMonsterRespawnTime = 0;
@@ -37,21 +37,21 @@ void MainScene::update(void)
 	if (mMonsterMng->getIsEggRespwan()) mMonsterRespawnTime += TIMEMANAGER->getElapsedTime();*/
 
 	// 리스폰 시간 되면
-	if (isEggRespawn() && !(mMonsterMng->getIsEggRespwan())) {
-		mMonsterMng->setMonsterEgg(respPos.x, respPos.y, mMonsterMng->getNumberOfEgg());
+	if (isEggRespawn() && !(mMonsterManager->getIsEggRespwan())) {
+		mMonsterManager->setMonsterEgg(respPos.x, respPos.y, mMonsterManager->getNumberOfEgg());
 		mMonsterRespawnTime = 0;
 	}
 	else if (isMonsterRespawn() && !isOn) {
-		//mMonsterMng->setMonster(respPos.x - 100, respPos.y, mPlayer->getX() + 600, mPlayer->getY(), 0);
-		for (int i = 0; i < mMonsterMng->getNumberOfMonster(); i++) {
-			mMonsterMng->setMonster(respPos.x - i * 100, respPos.y, mPlayer->getX() + 600, mPlayer->getY(), i);
+		mMonsterManager->setMonster(respPos.x - 100, respPos.y, mPlayer->getX() + 600, mPlayer->getY(), 0);
+		for (int i = 0; i < mMonsterManager->getNumberOfMonster(); i++) {
+			//mMonsterMng->setMonster(respPos.x - i * 100, respPos.y, mPlayer->getX() + 600, mPlayer->getY(), i);
 		}
 		mEggRespawnTime = 0;
 		isOn = true;
 	}
 
-	mMonsterMng->getPlayerRef(mPlayer);
-	mMonsterMng->update();
+	//mMonsterManager->getPlayerRef(mPlayer);
+	mMonsterManager->update();
 
 }
 
@@ -60,7 +60,7 @@ void MainScene::release(void)
 	mMap->release();
 	mPlayer->release();
 	mBuildManager->release();
-	mMonsterMng->release();
+	mMonsterManager->release();
 }
 
 void MainScene::render(void)
@@ -68,7 +68,7 @@ void MainScene::render(void)
 	mMap->render();
 	mPlayer->render();
 	mBuildManager->render();
-	mMonsterMng->render();
+	mMonsterManager->render();
 }
 
 bool MainScene::isEggRespawn(void)
