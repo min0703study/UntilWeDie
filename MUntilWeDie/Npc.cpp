@@ -51,7 +51,7 @@ void Npc::init(float* playerAbsX, float* playerAbsY, eDirection * playerDirectio
 	mCurStat = eStat::StopNoting;
 	mCurDirection = eDirection::Left;
 
-	mType = eType::Engineer;
+	mType = eType::Civilian;
 	mCurAni = mMAni.find(mType)->second;
 
 	nothing();

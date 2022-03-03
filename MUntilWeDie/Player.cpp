@@ -251,10 +251,10 @@ void Player::orderCallNpc()
 	RECT callableRc = getAbsRc();
 	
 	if (mCurDirection == eDirection::Left) {
-		callableRc.left -= 300;
+		callableRc.left -= NPC_CALLABLE_X_SIZE;
 	}
 	else {
-		callableRc.right += 300;
+		callableRc.right += NPC_CALLABLE_X_SIZE;
 	}
 
 	mNpcManager->orderCallNpc(callableRc);
