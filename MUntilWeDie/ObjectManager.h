@@ -13,6 +13,9 @@ public:
 
 	RECT getObjectRc() override;
 
+	int isObjectCollisionToPlayer(RECT playerAbsRc);
+	bool startGrapObject(int objectIndex, int npcIndex, OUT int& xPos);
+
 	ObjectManager() {};
 	~ObjectManager() {};
 

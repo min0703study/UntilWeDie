@@ -12,13 +12,15 @@ namespace MAP{
 		static float MUSHROOM_05_X = 33907.625; //맵기준
 		static float MUSHROOM_06_X = 38190; //맵기준
 
-		static float OBJECT_GROUND = GROUND; //맵기준
 		//플레이어 시작 위치
 		static float PLAYER_X = 1100; //맵기준
 		static float PLAYER_Y = 500; //맵기준
 
 		//건물 위치
-		static float GROUND_Y = 400;
+
+
+		//공용바닥
+		static float OBJECT_GROUND = GROUND; //맵기준
 	}
 
 	namespace SIZE {

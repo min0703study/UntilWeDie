@@ -38,3 +38,25 @@ RECT ObjectManager::getObjectRc()
 {
 	return RECT();
 }
+
+int ObjectManager::isObjectCollisionToPlayer(RECT playerAbsRc)
+{
+	RECT temp;
+	int index;
+	for (mIterObjects = mObjects.begin(); mIterObjects != mObjects.end(); ++mIterObjects, ++ index) {
+		if (IntersectRect(&temp, &(*mIterObjects)->getRc(), &playerAbsRc)) {
+
+			cout << "오브젝트 충돌: " << "버섯" << endl;
+			return index;
+		}
+		else {
+			cout << "충돌 안함 " << endl;
+			return -1;
+		}
+	}
+}
+
+bool ObjectManager::startGrapObject(int objectIndex, int npcIndex, OUT int & xPos)
+{
+	return false;
+}
