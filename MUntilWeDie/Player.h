@@ -1,6 +1,7 @@
 #pragma once
 #include "GameObject.h"
 #include "IPlayer.h"
+#include "IBuilding.h"
 
 class NpcManager;
 class Weapon;
@@ -104,6 +105,10 @@ public:
 	void isOverGrapObject(int npcIndex) override;
 	void attackDamage(int damage) override;
 
+	void setIBuilding(IBuilding* iBuilding) {
+		mIbuilding = iBuilding;
+	};
+
 	Player() {};
 	~Player() {};
 private:
@@ -118,6 +123,8 @@ private:
 
 	Animation mAni;
 	NpcManager* mNpcManager;
+
+	IBuilding* mIbuilding;
 
 	Weapon* mWeapon;
 

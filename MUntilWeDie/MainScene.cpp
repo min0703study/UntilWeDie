@@ -12,6 +12,8 @@ HRESULT MainScene::init(void)
 	mBuildManager = new BuildManager;
 	mBuildManager->init(100, 100, 100, 100);
 
+	mPlayer->setIBuilding(mBuildManager);
+
 	mMonsterMng = new MonsterManager;
 	mMonsterMng->init();
 	mMonsterMng->setIPlayer(mPlayer);

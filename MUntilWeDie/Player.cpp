@@ -165,7 +165,7 @@ void Player::move()
 	{
 		if (mMStatRank.find(mCurStat)->second <= mMStatRank.find(eStat::CommandExec)->second) {
 			changeStat(eStat::CommandExec);
-			mNpcManager->orderExecNpc();
+			orderExcuteNpc();
 		}
 	}
 
@@ -270,5 +270,7 @@ void Player::orderCallNpc()
 
 void Player::orderExcuteNpc()
 {
-	mNpcManager->orderExecNpc();
+	if (mIbuilding->isBuildingCollisionToPlayer(getAbsRc()) != -1) {
+		mNpcManager->orderExecNpc();
+	}
 }

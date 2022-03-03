@@ -16,8 +16,8 @@ public:
 	void release(void);
 	void render(void);
 
-	bool isEggRespawn(void); //
-	bool isMonsterRespawn(void); //
+	bool isEggRespawn(void);
+	bool isMonsterRespawn(void);
 
 	MainScene() {};
 	~MainScene() {};
