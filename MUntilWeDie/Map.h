@@ -1,6 +1,7 @@
 #pragma once
 #include "GameObject.h"
-class ObjectManager;
+#include "ObjectManager.h"
+
 class Map: public GameObject
 {
 public:
@@ -29,6 +30,8 @@ public:
 
 	float getCenterX() { return CAMERA->getX() + (CAMERA_X / 2.0f); }; //∏ ¿« ∞°øÓµ• x
 	float getGoundY() { return 400.0f; }; //∂•¿« ≥Ù¿Ã
+
+	IObject* getObjectManager() { return (IObject*)mObjects; };
 
 
 private:
