@@ -14,19 +14,21 @@ void Map::init(float x, float y, float width, float height)
 
 void Map::release(void)
 {
+	GameObject::release();
+
 	mObjects->release();
 	SAFE_DELETE(mObjects);
 }
 
 void Map::draw()
 {
+
 	//¹è°æ
 	mBgImg->render(getMemDc(), 0, -280, CAMERA->getX(), CAMERA->getY(), mWidth, mBgImg->getHeight());
 	////¹ö¼¸ ¹× ¹ö¼¸³×¹¦
-	//¹è°æ ¹Ù´Ú
 	mObjects->render();
 	//¾Õ¹è°æ
-	mBgGrassImg->render(getMemDc(), 0, GROUND + 50, CAMERA->getX(), CAMERA->getY(), mWidth, mBgGrassImg->getHeight());
+	mBgGrassImg->render(getMemDc(), 0, GROUND - 20, CAMERA->getX(), CAMERA->getY(), mWidth, mBgGrassImg->getHeight());
 }
 
 void Map::animation()
