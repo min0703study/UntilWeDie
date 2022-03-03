@@ -69,7 +69,7 @@ bool NpcManager::changeStat(int npcIndex, Npc::eOrderType stat)
 		Npc* npc = *(mVNpcs.begin() + npcIndex);
 		switch (stat)
 		{
-		case Npc::eOrderType::Noting:
+		case Npc::eOrderType::Nothing:
 			npc->nothing();
 			break;
 		default:
