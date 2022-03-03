@@ -9,6 +9,7 @@ HRESULT NpcManager::init(float* playerAbsX, float* playerAbsY,Player::eStat* pla
 		Npc* npc = new Npc;
 		npc->init(playerAbsX, playerAbsY, playerDirection, playerStat, PLAYER_X_SIZE, PLAYER_X_SIZE);
 		mVNpcs.push_back(npc);
+		mCurFollowingNpcCount = 0;
 	}
 	return S_OK;
 }
@@ -42,6 +43,7 @@ bool NpcManager::orderCallNpc(RECT playerCallableRc)
 		if (IntersectRect(&tempRc, &(*mViNpcs)->getAbsRc(), &playerCallableRc)) {
 			(*mViNpcs)->orderCall(mVFollowingNpc.size() + 1);
 			mVFollowingNpc.push_back(*mViNpcs);
+			mSFollowingNpc.insert(make_pair(++mCurFollowingNpcCount, *mViNpcs));
 		};
 	}
 	return true;
@@ -60,6 +62,25 @@ bool NpcManager::orderExecNpc()
 	}
 
 	mVFollowingNpc.erase(mVFollowingNpc.begin());
+
+	for (int i = 2; i < mCurFollowingNpcCount; i++) {
+		auto key = mSFollowingNpc.find(i-1);
+		auto pull = mSFollowingNpc.find(i);
+
+		//검색한 키를 찾았다면
+		if (key != mSFollowingNpc.end() && pull != mSFollowingNpc.end())
+		{
+			pull->second->setRank(i);
+			pull->second = key->second;
+		}
+
+		if (key == --mSFollowingNpc.end()) {
+			mSFollowingNpc.erase(key);
+		}
+	}
+
+	--mCurFollowingNpcCount;
+
 	return true;
 }
 
@@ -82,14 +103,85 @@ bool NpcManager::changeStat(int npcIndex, Npc::eOrderType stat)
 
 bool NpcManager::changeNpcPosition()
 {
-	for (mViFollowingNpc = mVFollowingNpc.begin() + 1; mViFollowingNpc != mVFollowingNpc.end(); ++mViFollowingNpc) {
-		if ((*mVFollowingNpc.begin())->getType() != (*mViFollowingNpc)->getType()) {
-			int tempRank = (*mViFollowingNpc)->getRank();
-			(*mViFollowingNpc)->setRank((*mVFollowingNpc.begin())->getRank());
-			(*mVFollowingNpc.begin())->setRank(tempRank);
+	Npc* tempNpc = nullptr;
+
+	auto firstNpc = mSFollowingNpc.find(1);
+	if (firstNpc != mSFollowingNpc.end())
+	{
+		tempNpc = firstNpc->second;
+
+		for (int i = 2; i <= mCurFollowingNpcCount; i++) {
+			auto pull = mSFollowingNpc.find(i);
+
+			if (pull != mSFollowingNpc.end())
+			{
+				if (pull->second->getType() != tempNpc->getType()) {
+					//rank change
+					firstNpc->second->setRank(i);
+					pull->second->setRank(1);
+
+					//순서 change
+					tempNpc = pull->second;
+					pull->second = firstNpc->second;
+					firstNpc->second = tempNpc;
+				}
+			}
 		}
 	}
 
+	/*
+
+	Npc* tempNpc = nullptr;
+	Npc* tempNpc2 = nullptr;
+
+	auto firstNpc = mSFollowingNpc.find(1);
+	//검색한 키를 찾았다면
+	if (firstNpc != mSFollowingNpc.end())
+	{
+		tempNpc = firstNpc->second;
+	}
+
+	int startIndex = 0;
+	int endIndex = mCurFollowingNpcCount;
+
+
+	for (int i = 2; i <= mCurFollowingNpcCount; i++) {
+		auto pull = mSFollowingNpc.find(i);
+
+		if (pull != mSFollowingNpc.end())
+		{
+			if (startIndex != 0) {
+				if (pull->second->getType() != tempNpc2->getType()) {
+					endIndex = i;
+				}
+			}
+			else {
+				if (pull->second->getType() != tempNpc->getType()) {
+					tempNpc2 = pull->second;
+					startIndex = i;
+				}
+			}
+		}
+	}
+	map<int, Npc*> tempNpcMap;
+	for (int i = 1; i < startIndex; i++) {
+		tempNpcMap.insert(make_pair(endIndex + i - 1, mSFollowingNpc.find(i)->second));
+	}
+
+	for (int i = startIndex; i <= endIndex; i++) {
+		tempNpcMap.insert(make_pair(i - startIndex + 1, mSFollowingNpc.find(i)->second));
+	}
+
+	for (int i = endIndex; i < mCurFollowingNpcCount; i++) {
+		tempNpcMap.insert(make_pair(i, mSFollowingNpc.find(i)->second));
+	}
+
+	for (int i = 1; i <= mCurFollowingNpcCount; i++) {
+		tempNpcMap.find(i)->second->setRank(i);
+		mSFollowingNpc[i] = tempNpcMap.find(i)->second;
+	}
+
+	*/
 	return true;
 }
 
@@ -115,29 +207,43 @@ bool NpcManager::pullRank(int rank)
 
 bool NpcManager::orderGetShovel() {
 	if (mVFollowingNpc.begin() == mVFollowingNpc.end()) return false;
-	(*mVFollowingNpc.begin())->orderGetShovel();
-	pullRank((*mVFollowingNpc.begin())->getRank());
-	mVFollowingNpc.erase(mVFollowingNpc.begin());
+	for (mViFollowingNpc = mVFollowingNpc.begin(); mViFollowingNpc != mVFollowingNpc.end(); ++mViFollowingNpc) {
+		if ((*mViFollowingNpc)->getRank() == 1) {
+			(*mViFollowingNpc)->orderGetShovel();
+			break;
+		}
+	}
 	return true;
 }
 
 bool NpcManager::orderGetWrench()
 {
 	if (mVFollowingNpc.begin() == mVFollowingNpc.end()) return false;
-	(*mVFollowingNpc.begin())->orderGetWrench();
-	pullRank((*mVFollowingNpc.begin())->getRank());
-	mVFollowingNpc.erase(mVFollowingNpc.begin());
+	for (mViFollowingNpc = mVFollowingNpc.begin(); mViFollowingNpc != mVFollowingNpc.end(); ++mViFollowingNpc) {
+		if ((*mViFollowingNpc)->getRank() == 1) {
+			(*mViFollowingNpc)->orderGetWrench();
+			break;
+		}
+	}
+
 	return true;
 }
 
 bool NpcManager::orderBuildBuilding()
 {
 	if (mVFollowingNpc.begin() == mVFollowingNpc.end()) return false;
-	(*mVFollowingNpc.begin())->orderBuild();
-	pullRank((*mVFollowingNpc.begin())->getRank());
-	mVFollowingNpc.erase(mVFollowingNpc.begin());
+	for (mViFollowingNpc = mVFollowingNpc.begin(); mViFollowingNpc != mVFollowingNpc.end(); ++mViFollowingNpc) {
+		if ((*mViFollowingNpc)->getRank() == 1) {
+			(*mViFollowingNpc)->orderBuild();
+			pullRank(1);
+			mVFollowingNpc.erase(mVFollowingNpc.begin());
+			break;
+		}
+	}
+
 	return true;
 }
+
 vector<RECT> NpcManager::getNpcsRc() {
 	vector<RECT> returnVRc;
 	for (mViNpcs = mVNpcs.begin(); mViNpcs != mVNpcs.end(); mViNpcs++) {

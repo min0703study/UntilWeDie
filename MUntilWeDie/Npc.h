@@ -57,7 +57,7 @@ public:
 		}
 
 		void ChangeCurImage(eStat changeStat, eDirection curDirection) {
-			if (mCurImgStat == changeStat) return;
+			//if (mCurImgStat == changeStat) return;
 			mCurImgStat = changeStat;
 
 			mPlayCount = 0;

@@ -120,6 +120,7 @@ void Npc::move()
 
 		if (distance > 0.0f) {
 			if (*mPlayerStat == Player::eStat::Dash || *mPlayerStat == Player::eStat::ShootDash) {
+				chageImg(eStat::Run, *mPlayerDirection);
 				mCurDirection = *mPlayerDirection;
 				if (distance < 5.0f) {
 					offsetX(distance);
@@ -129,6 +130,7 @@ void Npc::move()
 				}
 			}
 			else if (*mPlayerStat == Player::eStat::Run || *mPlayerStat == Player::eStat::Run) {
+				chageImg(eStat::Run, *mPlayerDirection);
 				mCurDirection = *mPlayerDirection;
 				if (distance < 3.0f) {
 					offsetX(distance);
@@ -149,6 +151,7 @@ void Npc::move()
 		}
 		else if (distance < 0.0f) {
 			if (*mPlayerStat == Player::eStat::Dash || *mPlayerStat == Player::eStat::ShootDash) {
+				chageImg(eStat::Run, *mPlayerDirection);
 				mCurDirection = *mPlayerDirection;
 				if (distance > -5.0f) {
 					offsetX(distance);
@@ -158,6 +161,7 @@ void Npc::move()
 				}
 			}
 			else if(*mPlayerStat == Player::eStat::Run || *mPlayerStat == Player::eStat::ShootRun) {
+				chageImg(eStat::Run, *mPlayerDirection);
 				mCurDirection = *mPlayerDirection;
 				if (distance > -3.0f) {
 					offsetX(distance);
@@ -167,6 +171,7 @@ void Npc::move()
 				}
 			}
 			else {
+				chageImg(eStat::Run, mCurDirection);
 				if (distance > -3.0f) {
 					offsetX(distance);
 				}
@@ -174,7 +179,6 @@ void Npc::move()
 					offsetX(-3.0f);
 				}
 			}
-			chageImg(eStat::Run, mCurDirection);
 		}
 		else {
 			mCurDirection = *mPlayerDirection;
@@ -285,7 +289,7 @@ void Npc::nothing()
 
 void Npc::changeStat(eStat changeStat, eDirection direction)
 {
-	if (mCurStat != changeStat)
+	if (mCurStat != changeStat || mCurDirection != direction)
 	{
 		mPastStat = mCurStat;
 		mCurStat = changeStat;
@@ -295,8 +299,14 @@ void Npc::changeStat(eStat changeStat, eDirection direction)
 
 void Npc::chageImg(eStat changeStat, eDirection direction)
 {
-	if (mCurStat != changeStat || mCurDirection != direction)
+	if (mCurAni->mCurImgStat != changeStat || mCurDirection != direction)
 	{
+		cout <<((direction == eDirection::Left) ? "哭率" : "坷弗率")  << "  ";
+		cout <<((mCurDirection == eDirection::Left) ? "哭率" : "坷弗率") << endl;
 		mCurAni->ChangeCurImage(changeStat, direction);
+	}
+	else {
+		cout << "n" << ((direction == eDirection::Left) ? "哭率" : "坷弗率") << "  " << "/" ;
+		cout << "n" << ((mCurDirection == eDirection::Left) ? "哭率" : "坷弗率") << "  " << endl ;
 	}
 }

@@ -17,6 +17,7 @@
 
 #include <bitset>
 #include <vector>
+#include <set>
 #include <map>
 #include <unordered_map>
 
@@ -134,6 +135,7 @@ extern int			_winRealSizeY;
 #define PLAYER_MOVE_L			'A'
 #define PLAYER_COMMAND_CALL		'S'
 #define PLAYER_COMMAND_EXEC		'W'
+#define PLAYER_COMMAND_POS_CHANGE		'F'
 #define PLAYER_DASH				VK_LSHIFT
 #define PLAYER_SHOOT			VK_SPACE
 

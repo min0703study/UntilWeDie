@@ -35,6 +35,12 @@ private:
 	vector<Npc*> mVFollowingNpc;
 	vector<Npc*>::iterator mViFollowingNpc;
 
+	map<int, Npc*> mSFollowingNpc;
+	map<int, Npc*>::iterator mSiFollowingNpc;
+
+	int mCurFollowingNpcCount;
+
+
 	int mNpcCount;
 };
 

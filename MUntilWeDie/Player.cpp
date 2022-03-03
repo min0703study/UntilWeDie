@@ -200,6 +200,11 @@ void Player::move()
 		};
 	}
 
+	if (KEYMANAGER->isOnceKeyDown(PLAYER_COMMAND_POS_CHANGE))
+	{
+		mNpcManager->changeNpcPosition();
+	}
+
 	if (KEYMANAGER->isOnceKeyUp(PLAYER_MOVE_L) || KEYMANAGER->isOnceKeyUp(PLAYER_MOVE_R)) {
 		changeStat(eStat::Idle);
 	}
@@ -282,6 +287,6 @@ void Player::orderExcuteNpc()
 
 	//충돌된 자원이 있는지
 	if (mIbuilding->isBuildingCollisionToPlayer(getAbsRc()) != -1) {
-		mNpcManager->orderBuildBuilding();
+		mNpcManager->orderGetShovel();
 	}
 }
