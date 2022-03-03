@@ -42,10 +42,9 @@ RECT ObjectManager::getObjectRc()
 int ObjectManager::isObjectCollisionToPlayer(RECT playerAbsRc)
 {
 	RECT temp;
-	int index = -1;
-	for (mIterObjects = mObjects.begin(); mIterObjects != mObjects.end(); ++mIterObjects, ++ index) {
+	int index = 0;
+	for (mIterObjects = mObjects.begin(); mIterObjects != mObjects.end(); ++mIterObjects, ++index) {
 		if (IntersectRect(&temp, &(*mIterObjects)->getAbsRc(), &playerAbsRc)) {
-
 			cout << "오브젝트 충돌: " << "버섯" << endl;
 			return index;
 		}

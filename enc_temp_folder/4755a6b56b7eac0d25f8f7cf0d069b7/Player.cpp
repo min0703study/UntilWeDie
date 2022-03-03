@@ -230,7 +230,7 @@ void Player::action()
 
 RECT Player::getPlayerRc()
 {
-	return getRc();
+	return RECT();
 }
 
 vector<RECT> Player::getNpcsRc()
