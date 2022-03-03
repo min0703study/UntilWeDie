@@ -75,8 +75,8 @@ public:
 	};
 
 	void offsetY(float y) {
-		mRc.left += y;
-		mRc.right += y;
+		mRc.top += y;
+		mRc.bottom += y;
 
 		mY += y; 
 	};
@@ -97,6 +97,5 @@ private:
 
 	float mX; //Áß¾Ó
 	float mY; //¹Ù´Ú
-
 };
 

@@ -198,6 +198,8 @@ extern int			_winRealSizeY;
 #define PHASE_OF_MONSTER_NUMBER		3
 #define SIZE_OF_MONSTER_NUMBER		3
 
+#define GRAVITY 5
+
 enum class eDirection {
 	Left,
 	Right
