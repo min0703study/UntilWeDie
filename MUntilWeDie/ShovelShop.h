@@ -50,8 +50,6 @@ private:
 
 	int mBuildHp; //건물 체력
 
-	bool mCreatefull; //삽 대기열이 가득 찼는지
-	bool mShoveltrue; //삽이 있는지 없는지
 	bool isNpcIn; //NPC가 들어갔는지 안들어갔는지
 };
 

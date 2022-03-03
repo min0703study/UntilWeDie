@@ -5,7 +5,11 @@
 HRESULT BuildManager::init(float x, float y, float width, float height)
 {
 	mShovelShop = new ShovelShop;
-	mShovelShop->init(100, 100, 100, 100); //차후에 정호가 준걸로
+	mShovelShop->init(15120 - 600, GROUND, 253 * 2, 107 * 2);
+
+
+
+
 	return S_OK;
 }
 

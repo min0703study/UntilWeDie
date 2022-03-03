@@ -9,8 +9,6 @@ void ShovelShop::init(float x, float y, float width, float height)
 
 	mCreateCount = 0;
 
-	mCreatefull = false;
-	mShoveltrue = false;
 	isNpcIn = false;
 	mBuildHp = 1;
 }
@@ -26,8 +24,8 @@ void ShovelShop::release(void)
 
 void ShovelShop::draw()
 {
-	mImg->render(getMemDc(), getX(), getY());
-	//mCurShovelCount 개수를 그려준다. --->  원형으로 게이지가 채워지니까....
+	RectangleMake(getMemDc(), getRc());
+	mImg->render(getMemDc(), getRc().left, getRc().top);
 }
 
 void ShovelShop::animation()
@@ -44,13 +42,11 @@ void ShovelShop::move()
 void ShovelShop::action()
 {
 	if (isNpcIn) {
-		if (mCreatefull = false) {
-			mCreateCount++;
+		mCreateCount++;
 
-			if (mCreateCount = 100) {
-				mCreateCount = 0;
-				autoCreate();
-			}
+		if (mCreateCount = 100) {
+			mCreateCount = 0;
+			autoCreate();
 		}
 	}
 
