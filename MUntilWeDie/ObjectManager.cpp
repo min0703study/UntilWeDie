@@ -57,5 +57,8 @@ int ObjectManager::isObjectCollisionToPlayer(RECT playerAbsRc)
 
 bool ObjectManager::startGrapObject(int objectIndex, int npcIndex, OUT int & xPos)
 {
+	for (mIterObjects = mObjects.begin(); mIterObjects != mObjects.end(); ++mIterObjects) {
+
+	}
 	return false;
 }
