@@ -9,10 +9,6 @@ void Projectile::init(eMonsterType type, eDirection dir, float x, float y, float
 
 	mAtkStatus.type = type;
 	mAtkStatus.dir = dir;
-	/*mAtkStatus.x = getCenterX();
-	mAtkStatus.y = getCenterY();
-	mAtkStatus.width = width;
-	mAtkStatus.height = height;*/
 
 	switch (type)
 	{

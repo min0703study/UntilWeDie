@@ -3,6 +3,7 @@
 #include "Projectile.h"
 
 class Player;
+class IPlayer;
 
 enum class eMonsterState
 {
@@ -46,6 +47,7 @@ typedef struct tagMonsterStatus
 	float currentHp;
 	float moveSpeed;
 	float attackSpeed;
+	int power;
 } MonStatus;
 
 typedef struct tagEgg
@@ -82,9 +84,12 @@ public:
 public:
 	// 예비
 	void getPlayerRef(Player* p) { mPlayer = p; }
+	void setIPlayer(IPlayer* p) { mIPlayer = p; }
+	IPlayer* getIP() { return mIPlayer; }
 private:
 	//예비
 	Player* mPlayer;
+	IPlayer* mIPlayer;
 private:
 	Projectile* mAttack;
 	ImageBase* mImage;

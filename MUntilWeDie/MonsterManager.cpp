@@ -5,7 +5,7 @@
 void MonsterManager::init(void)
 {
 	mWorldTime = TIMEMANAGER->getWorldTime();
-	mNumberOfEgg = mNumberOfMonster = 3;
+	mNumberOfEgg = mNumberOfMonster = 4;
 	mbIsEggRespawn = false;
 }
 
@@ -47,7 +47,8 @@ void MonsterManager::setMonster(float x, float y, int finalX, int finalY, int nu
 	int monsterNumber;
 	int worldTime = TIMEMANAGER->getWorldTime();
 
-	if(number < 3) monsterNumber = 1;
+	//monsterNumber = number;
+	if(number < 3) monsterNumber = 3;
 	else {
 		if (worldTime < 300) {
 			monsterNumber = 0;
@@ -117,6 +118,7 @@ void MonsterManager::setMonster(float x, float y, int finalX, int finalY, int nu
 	default:
 		break;
 	}
+	monster->setIPlayer(mIPlayer);
 
 	mvMonster.push_back(monster);
 }
@@ -124,7 +126,6 @@ void MonsterManager::setMonster(float x, float y, int finalX, int finalY, int nu
 void MonsterManager::deleteMonster(void)
 {
 	for (int i = 0; i < mvMonster.size(); i++) {
-		cout << "hp: " << mvMonster[i]->getCurrentHp() << endl;
 		if (mvMonster[i]->getCurrentHp() <= 0) {
 			mvMonster[i]->addEffect();
 			mvMonster[i]->release();

@@ -13,7 +13,13 @@ public:
 	void update(void);
 	void render(void);
 
-	void setIPlayer(IPlayer* player) { mIPlayer = player; };
+	void setIPlayer(IPlayer* player) {
+		if(!mIPlayer) mIPlayer = player;
+		mviMonster = mvMonster.begin();
+		for (; mviMonster != mvMonster.end(); ++mviMonster) {
+			(*mviMonster)->setIPlayer(player);
+		}
+	};
 
 	vector<Monster*> getMonster(void) { return mvMonster; }
 	vector<Projectile*> getAttackObject(void) { return mvAttackObject; }

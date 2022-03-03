@@ -1,6 +1,7 @@
 #include "Stdafx.h"
 #include "Monster.h"
 #include "Player.h"
+#include "IPlayer.h"
 
 void Monster::init(eMonsterType type, float posX, float posY, int searchX, int searchY, int attackX, int attackY, int collX, int collY, int imageX, int imageY, int finalX, int finalY)
 {
@@ -19,9 +20,9 @@ void Monster::init(eMonsterType type, float posX, float posY, int searchX, int s
 	mImageX = imageX;
 	mImageY = imageY;
 
-	mSearchRange = RectMakeCenter(getCenterX(), getCenterY(), searchX, searchY);
-	mAttackRange = RectMakeCenter(getCenterX(), getCenterY(), attackX, attackY);
-	mCollideRange = RectMakeCenter(getCenterX(), getCenterY(), collX, collY);
+	mSearchRange = RectMakeCenter(getX(), getY() - getHalfWidth(), searchX, searchY);
+	mAttackRange = RectMakeCenter(getX(), getY() - getHalfWidth(), attackX, attackY);
+	mCollideRange = RectMakeCenter(getX(), getY() - getHalfWidth(), collX, collY);
 	
 	mFinalTarget = PointMake(finalX, finalY);
 	mbIsTargetOn = false;
@@ -45,21 +46,25 @@ void Monster::init(eMonsterType type, float posX, float posY, int searchX, int s
 		mStatus.maxHp = mStatus.currentHp = 50.f;
 		mStatus.moveSpeed = 2.f;
 		mStatus.attackSpeed = 10.f;
+		mStatus.power = 10;
 		break;
 	case eMonsterType::Suicide:
 		mStatus.maxHp = mStatus.currentHp = 25.f;
 		mStatus.moveSpeed = 4.f;
 		mStatus.attackSpeed = 15.f;
+		mStatus.power = 20;
 		break;
 	case eMonsterType::Frog:
 		mStatus.maxHp = mStatus.currentHp = 150.f;
 		mStatus.moveSpeed = 1.f;
 		mStatus.attackSpeed = 10.f;
+		mStatus.power = 10;
 		break;
 	case eMonsterType::Cannon:
 		mStatus.maxHp = mStatus.currentHp = 150.f;
 		mStatus.moveSpeed = 1.f;
 		mStatus.attackSpeed = 5.f;
+		mStatus.power = 30;
 		break;
 	}
 }
@@ -117,18 +122,14 @@ void Monster::draw()
 	mImage->frameRender
 	(
 		getMemDc(),
-		getCenterX() - mImageX * 0.5f,
-		getCenterY() - mImageY * 0.5f,
+		getX() - mImageX * 0.5f,
+		getY() - mImageY,
 		mCurrFrameX, mCurrFrameY
 	);
 }
 
 void Monster::move()
 {
-	//cout << "p abs: " << mPlayer->getAbsX() << endl;
-	//cout << "p rel: " << mPlayer->getX() << endl;
-	//cout << "m :" << getAbsX() << endl;
-
 	// isGround + !attack -> move
 	if (bIsGround && !bIsAttack) {
 		mMonCurrState = eMonsterState::Walk;
@@ -165,40 +166,9 @@ void Monster::move()
 			}
 		}
 	}
-	/*else if (mMonCurrState == eMonsterState::Attack) {
-		switch (mMonType)
-		{
-		case eMonsterType::Normal:
-			if (mCurrFrameX > 4 && mCurrFrameX < 7) {
-				if (mMonCurrDir == eDirection::Left) {
-					if (getRc().left > mPlayer->getRc().right) {
-						offsetX(-10.0f);
-						if (getRc().left < mPlayer->getRc().right) {
-							setX(mPlayer->getRc().right);
-						}
-					}
-				}
-				else {
-					if (getRc().right < mPlayer->getRc().left) {
-						offsetX(10.0f);
-						if (getRc().right > mPlayer->getRc().left) {
-							setX(mPlayer->getRc().left - getWidth());
-						}
-					}
-				}
-			}
-			break;
-		case eMonsterType::Suicide:
-			break;
-		case eMonsterType::Frog:
-			break;
-		case eMonsterType::Cannon:
-			break;
-		}
-	}*/
-	mSearchRange = RectMakeCenter(getCenterX(), getCenterY(), mStatus.search.x, mStatus.search.y);
-	mAttackRange = RectMakeCenter(getCenterX(), getCenterY(), mStatus.attack.x, mStatus.attack.y);
-	mCollideRange = RectMakeCenter(getCenterX(), getCenterY(), mStatus.size.x, mStatus.size.y);
+	mSearchRange = RectMakeCenter(getX(), getY() - getHalfWidth(), mStatus.search.x, mStatus.search.y);
+	mAttackRange = RectMakeCenter(getX(), getY() - getHalfWidth(), mStatus.attack.x, mStatus.attack.y);
+	mCollideRange = RectMakeCenter(getX(), getY() - getHalfWidth(), mStatus.size.x, mStatus.size.y);
 }
 
 void Monster::search()
@@ -224,7 +194,7 @@ void Monster::action()
 			}
 			if (!mAttack) {
 				mAttack = new Projectile;
-				mAttack->init(mMonType, mMonCurrDir, getCenterX(), getCenterY(), 50, 50, mImageX * 0.3f);
+				mAttack->init(mMonType, mMonCurrDir, getX(), getY() - getHalfWidth(), 50, 50, mImageX * 0.3f);
 			}
 			mMonCurrState = eMonsterState::Attack;
 			//attack();
@@ -239,7 +209,7 @@ void Monster::action()
 
 void Monster::attack()
 {
-	float prevX = getCenterX();
+	float prevX = getX();
 
 	switch (mMonType)
 	{
@@ -297,12 +267,11 @@ void Monster::attack()
 	case eMonsterType::Suicide:
 		if (mMonCurrDir == eDirection::Left) {
 			if (getRc().left > mPlayer->getRc().right) {
-				cout << "getRc().left: " << getRc().left << endl;
-				cout << "Player->getRc().right: " << mPlayer->getRc().right << endl;
 				offsetX(-mStatus.attackSpeed);
 				if (getRc().left < mPlayer->getRc().right) {
+					mIPlayer->attackDamage(mStatus.power);
 					cout << "coll L" << endl;
-					setX(mPlayer->getRc().right);
+					setAbsX(mPlayer->getRc().right);
 					mStatus.currentHp = 0;
 					bIsSuicide = true;
 				}
@@ -310,18 +279,13 @@ void Monster::attack()
 		}
 		else {
 			if (getRc().right < mPlayer->getRc().left) {
-				cout << "getRc().right: " << getRc().right << endl;
-				cout << "Player->getRc().left: " << mPlayer->getRc().left << endl;
 				offsetX(mStatus.attackSpeed);
-				cout << "getRc().right2: " << getRc().right << endl;
-				cout << "Player->getRc().left2: " << mPlayer->getRc().left << endl;
 				if (getRc().right > mPlayer->getRc().left) {
+					mIPlayer->attackDamage(mStatus.power);
 					cout << "coll R" << endl;
-					setX(mPlayer->getRc().left - getWidth());
+					setAbsX(mPlayer->getRc().left - getWidth());
 					mStatus.currentHp = 0;
 					bIsSuicide = true;
-					cout << "getRc().right3: " << getRc().right << endl;
-					cout << "Player->getRc().left3: " << mPlayer->getRc().left << endl;
 				}
 			}
 		}

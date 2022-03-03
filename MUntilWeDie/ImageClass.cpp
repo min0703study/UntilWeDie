@@ -77,19 +77,19 @@ HRESULT ImageClass::init(void)
 	IMAGEMANAGER->addFrameImage(MONSTER_SUICIDE_DEATH1, "Resources/Images/Monster/monster_effect1.bmp", 100 * 2, 50 * 2, 2, 1);
 	IMAGEMANAGER->addFrameImage(MONSTER_SUICIDE_DEATH2, "Resources/Images/Monster/monster_effect2.bmp", 640 * 2, 130 * 2, 8, 1);
 
-	IMAGEMANAGER->addFrameImage(MONSTER_FROG_IDLE, "Resources/Images/Monster/monster_frog_idle.bmp", 900, 160, 6, 2);
-	IMAGEMANAGER->addFrameImage(MONSTER_FROG_WALK, "Resources/Images/Monster/monster_frog_walk.bmp", 1200, 160, 8, 2);
-	IMAGEMANAGER->addFrameImage(MONSTER_FROG_ATTACK, "Resources/Images/Monster/monster_frog_attack.bmp", 1200, 160, 8, 2);
-	IMAGEMANAGER->addFrameImage(MONSTER_FROG_DEATH, "Resources/Images/Monster/monster_frog_death.bmp", 1500, 160, 10, 2);
-	IMAGEMANAGER->addFrameImage(MONSTER_FROG_JUMP, "Resources/Images/Monster/monster_frog_jump.bmp", 1650, 160, 11, 2);
+	IMAGEMANAGER->addFrameImage(MONSTER_FROG_IDLE, "Resources/Images/Monster/monster_frog_idle.bmp", 900 * 2, 160 * 2, 6, 2);
+	IMAGEMANAGER->addFrameImage(MONSTER_FROG_WALK, "Resources/Images/Monster/monster_frog_walk.bmp", 1200 * 2, 160 * 2, 8, 2);
+	IMAGEMANAGER->addFrameImage(MONSTER_FROG_ATTACK, "Resources/Images/Monster/monster_frog_attack.bmp", 1200 * 2, 160 * 2, 8, 2);
+	IMAGEMANAGER->addFrameImage(MONSTER_FROG_DEATH, "Resources/Images/Monster/monster_frog_death.bmp", 1500 * 2, 160 * 2, 10, 2);
+	IMAGEMANAGER->addFrameImage(MONSTER_FROG_JUMP, "Resources/Images/Monster/monster_frog_jump.bmp", 1650 * 2, 160 * 2, 11, 2);
 
-	IMAGEMANAGER->addFrameImage(MONSTER_CANNON_IDLE, "Resources/Images/Monster/monster_cannon_idle.bmp", 600, 180, 6, 2);
-	IMAGEMANAGER->addFrameImage(MONSTER_CANNON_WALK, "Resources/Images/Monster/monster_cannon_walk.bmp", 800, 180, 8, 2);
-	IMAGEMANAGER->addFrameImage(MONSTER_CANNON_ATTACK, "Resources/Images/Monster/monster_cannon_attack.bmp", 800, 180, 8, 2);
-	IMAGEMANAGER->addFrameImage(MONSTER_CANNON_DEATH, "Resources/Images/Monster/monster_cannon_death.bmp", 900, 180, 9, 2);
+	IMAGEMANAGER->addFrameImage(MONSTER_CANNON_IDLE, "Resources/Images/Monster/monster_cannon_idle.bmp", 600 * 2, 180 * 2, 6, 2);
+	IMAGEMANAGER->addFrameImage(MONSTER_CANNON_WALK, "Resources/Images/Monster/monster_cannon_walk.bmp", 800 * 2, 180 * 2, 8, 2);
+	IMAGEMANAGER->addFrameImage(MONSTER_CANNON_ATTACK, "Resources/Images/Monster/monster_cannon_attack.bmp", 800 * 2, 180 * 2, 8, 2);
+	IMAGEMANAGER->addFrameImage(MONSTER_CANNON_DEATH, "Resources/Images/Monster/monster_cannon_death.bmp", 900 * 2, 180 * 2, 9, 2);
 
-	IMAGEMANAGER->addFrameImage(MONSTER_EFFECT3, "Resources/Images/Monster/monster_effect3.bmp", 1540, 80, 11, 1, true, RGB(50, 150, 200));
-	IMAGEMANAGER->addFrameImage(MONSTER_EFFECT4, "Resources/Images/Monster/monster_effect4.bmp", 360, 60, 6, 1);
+	IMAGEMANAGER->addFrameImage(MONSTER_EFFECT3, "Resources/Images/Monster/monster_effect3.bmp", 1540 * 2, 80 * 2, 11, 1, true, RGB(50, 150, 200));
+	IMAGEMANAGER->addFrameImage(MONSTER_EFFECT4, "Resources/Images/Monster/monster_effect4.bmp", 360 * 2, 60 * 2, 6, 1);
 
 	return S_OK;
 }

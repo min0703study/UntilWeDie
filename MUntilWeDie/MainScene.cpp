@@ -19,8 +19,8 @@ HRESULT MainScene::init(void)
 	mEggRespawnTime = TIMEMANAGER->getWorldTime();
 	mMonsterRespawnTime = 0;
 
-	respPos.x = mPlayer->getX() - 300;
-	respPos.y = mPlayer->getY();
+	respPos.x = mPlayer->getAbsX() - 300;
+	respPos.y = mPlayer->getAbsY();
 
 	isOn = false;
 
@@ -42,9 +42,9 @@ void MainScene::update(void)
 		mMonsterRespawnTime = 0;
 	}
 	else if (isMonsterRespawn() && !isOn) {
-		mMonsterMng->setMonster(respPos.x - 100, respPos.y, mPlayer->getX() + 600, mPlayer->getY(), 0);
+		//mMonsterMng->setMonster(respPos.x - 100, respPos.y, mPlayer->getX() + 600, mPlayer->getY(), 0);
 		for (int i = 0; i < mMonsterMng->getNumberOfMonster(); i++) {
-			//mMonsterMng->setMonster(respPos.x - i * 100, respPos.y, mPlayer->getX() + 600, mPlayer->getY(), i);
+			mMonsterMng->setMonster(respPos.x - i * 100, respPos.y, mPlayer->getX() + 600, mPlayer->getY(), i);
 		}
 		mEggRespawnTime = 0;
 		isOn = true;
