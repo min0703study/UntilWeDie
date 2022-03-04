@@ -12,13 +12,13 @@ HRESULT BuildManager::init(float x, float y, float width, float height)
 	mShovelShop->init(MAP::POS::SHOVELBUIDLING_X, GROUND, 253 * 2, 107 * 2);
 
 	mEngineerShop = new engineerShop;
-	mEngineerShop->init(MAP::POS::RENCHBUILDING_X, GROUND, 170 * 2, 17 * 2);
+	mEngineerShop->init(MAP::POS::RENCHBUILDING_X, GROUND, 170 * 2, 71 * 2);
 
 	mshopStalkers = new shopStalkers;
-	mshopStalkers->init(MAP::POS::SHOVELBUIDLING_X, GROUND, 153 * 2, 85 * 2);
+	mshopStalkers->init(MAP::POS::GUNBUILDING_X, GROUND, 153 * 2, 85 * 2);
 
 	mGenerator = new Generator;
-	mGenerator->init(MAP::POS::GUNBUILDING_X, GROUND, 802 * 2, 93 * 2);
+	mGenerator->init(MAP::POS::GENERATOR_X, GROUND, 802 * 2 / 4, 93 * 2);
 
 	mWorkBanch = new workbanch;
 	mWorkBanch->init(MAP::POS::RESETBUILDING_X, GROUND, 125 * 2, 116 * 2);
