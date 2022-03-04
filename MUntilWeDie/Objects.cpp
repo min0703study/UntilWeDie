@@ -28,7 +28,3 @@ void Objects::move()
 void Objects::action()
 {
 }
-
-void Objects::objtype()
-{
-}
