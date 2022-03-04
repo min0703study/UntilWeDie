@@ -2,13 +2,13 @@
 #include "Projectile.h"
 #include "Monster.h"
 
-void Projectile::init(eMonsterType type, eDirection dir, float x, float y, float width, float height, float distance)
+void Projectile::init(eMonsterType type, eDirection dir, float x, float y, float width, float height, float distanceX, float distanceY)
 {
 	//if (dir == eDirection::Left) GameObject::Init("Attack", x - width * 0.5f - distance, y - height * 0.5f, width, height);
 	//else GameObject::Init("Attack", x - width * 0.5f + distance, y - height * 0.5f, width, height);
 
-	if (dir == eDirection::Left) GameObject::Init("Attack", x, y, width, height);
-	else GameObject::Init("Attack", x, y, width, height);
+	if (dir == eDirection::Left) GameObject::Init("Attack", x - distanceX, y - distanceY, width, height);
+	else GameObject::Init("Attack", x + distanceX, y - distanceY, width, height);
 
 	mGravity = 1.5f;
 	mSpeedX = mSpeedY = 0;
@@ -37,7 +37,7 @@ void Projectile::init(eMonsterType type, eDirection dir, float x, float y, float
 		mImage = nullptr;
 		break;
 	case eMonsterType::Cannon:
-		mAtkStatus.speed = 150.f;
+		mAtkStatus.speed = 200.f;
 		mAtkStatus.angle = 45;
 		mAtkStatus.power = 30;
 		mImage = IMAGEMANAGER->findImage("MonsterCannonProjectile");

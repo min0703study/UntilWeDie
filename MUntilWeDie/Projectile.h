@@ -16,7 +16,7 @@ typedef struct tagProjectile
 class Projectile : public GameObject
 {
 public:
-	void init(eMonsterType type, eDirection dir, float x, float y, float width, float height, float distance);
+	void init(eMonsterType type, eDirection dir, float x, float y, float width, float height, float distanceX, float distanceY);
 	void release(void);
 	void update(void);
 	void render(void);

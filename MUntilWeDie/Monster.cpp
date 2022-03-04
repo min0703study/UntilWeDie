@@ -84,11 +84,8 @@ void Monster::update(void)
 	move();
 	search();
 	action();
-	if (bIsAttack) {
-		if (mAttack) mAttack->update();
-		attack();
-	}
-
+	if (mAttack) mAttack->update();
+	if (bIsAttack) attack();
 
 	if (mMonPrevState != mMonCurrState) {
 		changeAnimation();
@@ -109,11 +106,10 @@ void Monster::render(void)
 void Monster::animation()
 {
 	if (mAnimationTime + 0.1f < TIMEMANAGER->getWorldTime()) {
-		mCurrFrameX += 1;
+		if(!mAttack) mCurrFrameX += 1;
 		if (mCurrFrameX > mImage->getMaxFrameX()) {
 			mCurrFrameX = 0;
 		}
-		cout << mCurrFrameX << endl;
 		mAnimationTime = TIMEMANAGER->getWorldTime();
 	}
 }
@@ -206,7 +202,21 @@ void Monster::action()
 			}
 			if (!mAttack) {
 				mAttack = new Projectile;
-				mAttack->init(mMonType, mMonCurrDir, getAbsX(), getAbsY(), 50, 50, mImageX * 0.3f);
+				switch (mMonType)
+				{
+				case eMonsterType::Normal:
+					mAttack->init(mMonType, mMonCurrDir, getAbsX(), getAbsY(), 50, 50, 50, 50);
+					break;
+				case eMonsterType::Suicide:
+					mAttack->init(mMonType, mMonCurrDir, getAbsX(), getAbsY(), 20, 20, 20, 20);
+					break;
+				case eMonsterType::Frog:
+					mAttack->init(mMonType, mMonCurrDir, getAbsX(), getAbsY(), 50, 50, 50, 50);
+					break;
+				case eMonsterType::Cannon:
+					mAttack->init(mMonType, mMonCurrDir, getAbsX(), getAbsY(), 50, 50, -20, 70);
+					break;
+				}
 			}
 			mMonCurrState = eMonsterState::Attack;
 			//attack();

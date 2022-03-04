@@ -62,6 +62,7 @@ void Player::update(void)
 	action();
 	mNpcManager->update();
 	mWeapon->update();
+	//cout << "hp: " << mHp << endl;
 }
 void Player::render(void)
 {
