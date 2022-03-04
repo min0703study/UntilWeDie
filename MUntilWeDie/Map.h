@@ -28,8 +28,8 @@ public:
 	void move();
 	void action();
 
-	float getCenterX() { return CAMERA->getX() + (CAMERA_X / 2.0f); }; //¸ÊÀÇ °¡¿îµ¥ x
-	float getGoundY() { return 400.0f; }; //¶¥ÀÇ ³ôÀÌ
+	//float getCenterX() { return CAMERA->getX() + ( / 2.0f); }; //¸ÊÀÇ °¡¿îµ¥ x
+	//float getGoundY() { return 400.0f; }; //¶¥ÀÇ ³ôÀÌ
 
 	IObject* getObjectManager() { return (IObject*)mObjects; };
 

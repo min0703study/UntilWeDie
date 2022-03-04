@@ -105,15 +105,15 @@ void Player::move()
 			if (mIsClickDownDashKey)
 			{
 				if (mDashTime >= 0) {
-					offsetX(-5.0f);
-					CAMERA->offSetX(-5.0f);
+					offsetX(-PLAYER_SPEED_DASH);
+					CAMERA->offSetX(-PLAYER_SPEED_DASH);
 					if (mCurStat != eStat::ShootDash && mCurStat != eStat::ShootRun) {
 						changeStat(eStat::Dash);
 					}
 				}
 				else {
-					offsetX(-3.0f);
-					CAMERA->offSetX(-3.0f);
+					offsetX(-PLAYER_SPEED_RUN);
+					CAMERA->offSetX(-PLAYER_SPEED_RUN);
 					if (mCurStat != eStat::Run && mCurStat != eStat::ShootRun) {
 						changeStat(eStat::Run);
 					}
@@ -121,8 +121,8 @@ void Player::move()
 
 			}
 			else {
-				offsetX(-3.0f);
-				CAMERA->offSetX(-3.0f);
+				offsetX(-PLAYER_SPEED_RUN);
+				CAMERA->offSetX(-PLAYER_SPEED_RUN);
 				if (mCurStat != eStat::Run && mCurStat != eStat::ShootRun) {
 					changeStat(eStat::Run);
 				}
@@ -137,23 +137,23 @@ void Player::move()
 			if (mIsClickDownDashKey)
 			{
 				if (mDashTime >= 0) {
-					offsetX(5.0f);
-					CAMERA->offSetX(5.0f);
+					offsetX(PLAYER_SPEED_DASH);
+					CAMERA->offSetX(PLAYER_SPEED_DASH);
 					if (mCurStat != eStat::ShootDash && mCurStat != eStat::ShootRun) {
 						changeStat(eStat::Dash);
 					}
 				}
 				else {
-					offsetX(3.0f);
-					CAMERA->offSetX(3.0f);
+					offsetX(PLAYER_SPEED_RUN);
+					CAMERA->offSetX(PLAYER_SPEED_RUN);
 					if (mCurStat != eStat::Run && mCurStat != eStat::ShootRun) {
 						changeStat(eStat::Run);
 					}
 				}
 			}
 			else {
-				offsetX(3.0f);
-				CAMERA->offSetX(3.0f);
+				offsetX(PLAYER_SPEED_RUN);
+				CAMERA->offSetX(PLAYER_SPEED_RUN);
 				if (mCurStat != eStat::Run && mCurStat != eStat::ShootRun) {
 					changeStat(eStat::Run);
 				}

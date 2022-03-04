@@ -82,8 +82,6 @@ using namespace std;
 #define WINSIZE_X		1920
 #define WINSIZE_Y		1080
 
-#define CAMERA_X		1920
-#define CAMERA_Y		1080
 #endif
 
 #define CENTER_X		WINSIZE_X / 2
@@ -126,9 +124,6 @@ extern int			_winRealSizeX;
 extern int			_winRealSizeY;
 
 //min - player size
-#define PLAYER_X_SIZE	140
-#define PLAYER_Y_SIZE	140
-#define PLAYER_Y_ACTION_SIZE	180
 
 //min - player keboard key
 #define PLAYER_MOVE_R			'D'
@@ -142,7 +137,9 @@ extern int			_winRealSizeY;
 #define C_DASH_PROGRESS_BAR		Gdiplus::Color(15,112,108)
 
 //min - player default value
-#define PLAYER_DASH_MAX_DASH_TIME		100
+#define PLAYER_DASH_MAX_DASH_TIME			5000
+#define PLAYER_SPEED_RUN					3.0f
+#define PLAYER_SPEED_DASH					15.0f
 
 //min - npc default value
 #define NPC_INIT_COUNT			4
@@ -199,6 +196,11 @@ extern int			_winRealSizeY;
 //ijh - monster infomation
 #define PHASE_OF_MONSTER_NUMBER		3
 #define SIZE_OF_MONSTER_NUMBER		3
+
+#define DEBUG_ALL_TAG				"ALL"
+#define DEBUG_MY_TAG				"πŒ√§øµ"
+#define DEBUG_MIN					"πŒ√§øµ"
+#define DEBUG_KHS					"±Ë«ˆºÆ"
 
 enum class eDirection {
 	Left,

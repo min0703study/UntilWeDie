@@ -38,14 +38,12 @@ int BuildManager::isBuildingCollisionToPlayer(RECT playerAbsRc)
 	RECT tempRc;
 
 	if (IntersectRect(&tempRc, &mShovelShop->getAbsRc(), &playerAbsRc)) {
-		cout << "충돌완료" << ":" << "삽 생산시설 초기상태" << endl;
-
+		MY_UTIL::log(DEBUG_KHS, "충돌완료 : 삽 생산 시설");
 		return 1;
 	}
 
 	else {
-		cout << "충돌실패" << ":" << "삽 생산시설 초기상태" << endl;
-
+		MY_UTIL::log(DEBUG_KHS, "충돌 실패 : 삽 생산 시설");
 		return -1;
 	}
 

@@ -11,6 +11,8 @@ public:
 	void release(void);
 	void render(void);
 
+	bool pullNpc();
+
 	bool orderCallNpc(RECT playerCallableRc);
 	bool orderExecNpc();
 

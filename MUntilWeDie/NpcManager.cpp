@@ -1,16 +1,18 @@
 #include "Stdafx.h"
 #include "NpcManager.h"
 
-HRESULT NpcManager::init(float* playerAbsX, float* playerAbsY,Player::eStat* playerStat, eDirection* playerDirection)
+HRESULT NpcManager::init(float* playerAbsX, float* playerAbsY, Player::eStat* playerStat, eDirection* playerDirection)
 {
 	mNpcCount = NPC_INIT_COUNT;
 
 	for (int i = 0; i < NPC_INIT_COUNT; i++) {
 		Npc* npc = new Npc;
-		npc->init(playerAbsX, playerAbsY, playerDirection, playerStat, PLAYER_X_SIZE, PLAYER_X_SIZE);
+		npc->init(playerAbsX, playerAbsY, playerDirection, playerStat, MAP::SIZE::NPC_X, MAP::SIZE::NPC_Y);
 		mVNpcs.push_back(npc);
-		mCurFollowingNpcCount = 0;
 	}
+
+	mCurFollowingNpcCount = 0;
+	
 	return S_OK;
 }
 
@@ -33,55 +35,6 @@ void NpcManager::render(void)
 	for (mViNpcs = mVNpcs.begin(); mViNpcs != mVNpcs.end(); mViNpcs++) {
 		(*mViNpcs)->render();
 	}
-}
-
-bool NpcManager::orderCallNpc(RECT playerCallableRc)
-{
-	RECT tempRc;
-	for (mViNpcs = mVNpcs.begin(); mViNpcs != mVNpcs.end(); mViNpcs++) {
-		if ((*mViNpcs)->isActivated()) continue;
-		if (IntersectRect(&tempRc, &(*mViNpcs)->getAbsRc(), &playerCallableRc)) {
-			(*mViNpcs)->orderCall(mVFollowingNpc.size() + 1);
-			mVFollowingNpc.push_back(*mViNpcs);
-			mSFollowingNpc.insert(make_pair(++mCurFollowingNpcCount, *mViNpcs));
-		};
-	}
-	return true;
-}
-
-bool NpcManager::orderExecNpc()
-{
-	if (mVFollowingNpc.begin() == mVFollowingNpc.end()) return false;
-	bool isCanExcuteOrder = (*mVFollowingNpc.begin())->orderGrap();
-	pullRank((*mVFollowingNpc.begin())->getRank());
-
-	if (!isCanExcuteOrder) {
-		Npc* npc = *mVFollowingNpc.begin();
-		mVFollowingNpc.push_back(npc);
-		npc->setRank(mVFollowingNpc.size() - 1);
-	}
-
-	mVFollowingNpc.erase(mVFollowingNpc.begin());
-
-	for (int i = 2; i < mCurFollowingNpcCount; i++) {
-		auto key = mSFollowingNpc.find(i-1);
-		auto pull = mSFollowingNpc.find(i);
-
-		//검색한 키를 찾았다면
-		if (key != mSFollowingNpc.end() && pull != mSFollowingNpc.end())
-		{
-			pull->second->setRank(i);
-			pull->second = key->second;
-		}
-
-		if (key == --mSFollowingNpc.end()) {
-			mSFollowingNpc.erase(key);
-		}
-	}
-
-	--mCurFollowingNpcCount;
-
-	return true;
 }
 
 bool NpcManager::changeStat(int npcIndex, Npc::eOrderType stat)
@@ -202,7 +155,82 @@ bool NpcManager::pullRank(int rank)
 			(*mViFollowingNpc)->setRank((*mViFollowingNpc)->getRank() - 1);
 		}
 	}
+
 	return false;
+}
+
+
+bool NpcManager::pullNpc() {
+	if (mCurFollowingNpcCount < 2) return false;
+
+	for (int i = 2; i < mCurFollowingNpcCount; i++) {
+		auto head = mSFollowingNpc.find(i - 1);
+		auto pull = mSFollowingNpc.find(i);
+
+		//검색한 키를 찾았다면
+		if (pull != mSFollowingNpc.end())
+		{
+			pull->second->setRank(i - 1);
+			pull->second = head->second;
+		}
+
+		if (head == --mSFollowingNpc.end()) {
+			mSFollowingNpc.erase(head);
+			break;
+		}
+	}
+
+	--mCurFollowingNpcCount;
+	return true;
+}
+
+bool NpcManager::orderCallNpc(RECT playerCallableRc)
+{
+	RECT tempRc;
+	for (mViNpcs = mVNpcs.begin(); mViNpcs != mVNpcs.end(); mViNpcs++) {
+		if ((*mViNpcs)->isActivated()) continue;
+		if (IntersectRect(&tempRc, &(*mViNpcs)->getAbsRc(), &playerCallableRc)) {
+			(*mViNpcs)->orderCall(mVFollowingNpc.size() + 1);
+			mVFollowingNpc.push_back(*mViNpcs);
+			mSFollowingNpc.insert(make_pair(++mCurFollowingNpcCount, *mViNpcs));
+		};
+	}
+	return true;
+}
+
+bool NpcManager::orderExecNpc()
+{
+	if (mVFollowingNpc.begin() == mVFollowingNpc.end()) return false;
+	bool isCanExcuteOrder = (*mVFollowingNpc.begin())->orderGrap();
+	pullRank((*mVFollowingNpc.begin())->getRank());
+
+	if (!isCanExcuteOrder) {
+		Npc* npc = *mVFollowingNpc.begin();
+		mVFollowingNpc.push_back(npc);
+		npc->setRank(mVFollowingNpc.size() - 1);
+	}
+
+	mVFollowingNpc.erase(mVFollowingNpc.begin());
+
+	for (int i = 2; i < mCurFollowingNpcCount; i++) {
+		auto key = mSFollowingNpc.find(i - 1);
+		auto pull = mSFollowingNpc.find(i);
+
+		//검색한 키를 찾았다면
+		if (key != mSFollowingNpc.end() && pull != mSFollowingNpc.end())
+		{
+			pull->second->setRank(i);
+			pull->second = key->second;
+		}
+
+		if (key == --mSFollowingNpc.end()) {
+			mSFollowingNpc.erase(key);
+		}
+	}
+
+	--mCurFollowingNpcCount;
+
+	return true;
 }
 
 bool NpcManager::orderGetShovel() {
