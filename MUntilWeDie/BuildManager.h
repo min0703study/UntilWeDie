@@ -3,6 +3,10 @@
 #include "IBuilding.h"
 
 class ShovelShop;
+class engineerShop;
+class shopStalkers;
+class Generator;
+class workbanch;
 
 struct BuildRect
 {
@@ -30,4 +34,8 @@ public:
 
 private:
 	ShovelShop* mShovelShop;
+	engineerShop* mEngineerShop;
+	shopStalkers* mshopStalkers;
+	Generator* mGenerator;
+	workbanch* mWorkBanch;
 };

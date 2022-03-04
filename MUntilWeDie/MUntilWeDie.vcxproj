@@ -150,10 +150,12 @@
     <ClCompile Include="BuildManager.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="Effect.cpp" />
+    <ClCompile Include="engineerShop.cpp" />
     <ClCompile Include="FontManager.cpp" />
     <ClCompile Include="GameNode.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="GdiPlusManager.cpp" />
+    <ClCompile Include="Generator.cpp" />
     <ClCompile Include="IBuilding.cpp" />
     <ClCompile Include="ImageBase.cpp" />
     <ClCompile Include="ImageClass.cpp" />
@@ -175,6 +177,7 @@
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Projectile.cpp" />
     <ClCompile Include="SceneManager.cpp" />
+    <ClCompile Include="shopStalkers.cpp" />
     <ClCompile Include="ShovelShop.cpp" />
     <ClCompile Include="Stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
@@ -186,15 +189,18 @@
     <ClCompile Include="Utils.cpp" />
     <ClCompile Include="Weapon.cpp" />
     <ClCompile Include="WinMain.cpp" />
+    <ClCompile Include="workbanch.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BuildManager.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="Effect.h" />
+    <ClInclude Include="engineerShop.h" />
     <ClInclude Include="FontManager.h" />
     <ClInclude Include="GameNode.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="GdiPlusManager.h" />
+    <ClInclude Include="Generator.h" />
     <ClInclude Include="IBuilding.h" />
     <ClInclude Include="ImageBase.h" />
     <ClInclude Include="ImageClass.h" />
@@ -219,6 +225,7 @@
     <ClInclude Include="RandomFunction.h" />
     <ClInclude Include="SceneManager.h" />
     <ClInclude Include="ShapeFunction.h" />
+    <ClInclude Include="shopStalkers.h" />
     <ClInclude Include="ShovelShop.h" />
     <ClInclude Include="SingletonBase.h" />
     <ClInclude Include="Stdafx.h" />
@@ -227,6 +234,7 @@
     <ClInclude Include="Timer.h" />
     <ClInclude Include="Utils.h" />
     <ClInclude Include="Weapon.h" />
+    <ClInclude Include="workbanch.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
