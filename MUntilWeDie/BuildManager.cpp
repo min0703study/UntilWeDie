@@ -9,19 +9,19 @@
 HRESULT BuildManager::init(float x, float y, float width, float height)
 {
 	mShovelShop = new ShovelShop;
-	mShovelShop->init(15120 + 100, GROUND, 253 * 2, 107 * 2);
+	mShovelShop->init(MAP::POS::SHOVELBUIDLING_X, GROUND, 253 * 2, 107 * 2);
 
 	mEngineerShop = new engineerShop;
-	mEngineerShop->init(15120 - 100, GROUND, 170 * 2, 17 * 2);
+	mEngineerShop->init(MAP::POS::RENCHBUILDING_X, GROUND, 170 * 2, 17 * 2);
 
 	mshopStalkers = new shopStalkers;
-	mshopStalkers->init(15120 + 200, GROUND, 153 * 2, 85 * 2);
+	mshopStalkers->init(MAP::POS::SHOVELBUIDLING_X, GROUND, 153 * 2, 85 * 2);
 
 	mGenerator = new Generator;
-	mGenerator->init(15120, GROUND, 802 * 2, 93 * 2);
+	mGenerator->init(MAP::POS::GUNBUILDING_X, GROUND, 802 * 2, 93 * 2);
 
 	mWorkBanch = new workbanch;
-	mWorkBanch->init(15120 - 70, GROUND, 125 * 2, 116 * 2);
+	mWorkBanch->init(MAP::POS::RESETBUILDING_X, GROUND, 125 * 2, 116 * 2);
 
 	return S_OK;
 }
@@ -29,16 +29,28 @@ HRESULT BuildManager::init(float x, float y, float width, float height)
 void BuildManager::release(void)
 {
 	mShovelShop->release();
+	mEngineerShop->release();
+	mshopStalkers->release();
+	mGenerator->release();
+	mWorkBanch->release();
 }
 
 void BuildManager::update(void)
 {
 	mShovelShop->update();
+	mEngineerShop->update();
+	mshopStalkers->update();
+	mGenerator->update();
+	mWorkBanch->update();
 }
 
 void BuildManager::render(void)
 {
 	mShovelShop->render();
+	mEngineerShop->render();
+	mshopStalkers->render();
+	mGenerator->render();
+	mWorkBanch->render();
 }
 
 RECT BuildManager::getBuildingRc()

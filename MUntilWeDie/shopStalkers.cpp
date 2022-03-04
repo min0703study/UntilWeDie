@@ -23,8 +23,8 @@ void shopStalkers::release(void)
 
 void shopStalkers::draw()
 {
-	mImg->render(getMemDc(), getRc().left, getRc().top);
 	RectangleMake(getMemDc(), getRc());
+	mImg->render(getMemDc(), getRc().left, getRc().top);
 }
 
 void shopStalkers::animation()

@@ -15,8 +15,8 @@ void workbanch::release(void)
 
 void workbanch::draw()
 {
-	mImg->render(getMemDc(), getRc().left, getRc().top);
 	RectangleMake(getMemDc(), getRc());
+	mImg->render(getMemDc(), getRc().left, getRc().top);
 }
 
 void workbanch::animation()
