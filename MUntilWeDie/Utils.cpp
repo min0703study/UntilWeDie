@@ -25,6 +25,6 @@ namespace MY_UTIL {
 	//DEBUG
 	void log(string tag, string log)
 	{
-		if (tag == DEBUG_ALL_TAG || tag == DEBUG_MY_TAG) cout << log << endl;
+		if (tag == DEBUG_ALL_TAG || tag == DEBUG_KHS || tag == DEBUG_MY_TAG) cout << log << endl;
 	}
 }

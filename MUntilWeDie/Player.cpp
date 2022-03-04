@@ -2,6 +2,7 @@
 #include "Player.h"
 #include "NpcManager.h"
 #include "Weapon.h"
+#include "BuildManager.h"
 
 void Player::init(float x, float y, float width, float height)
 {
@@ -296,8 +297,22 @@ void Player::orderExcuteNpc()
 		mNpcManager->orderExecNpc();
 	}
 
+	BuildManager::eBuildType buildCollsion = BuildManager::eBuildType(mIbuilding->isBuildingCollisionToPlayer(getAbsRc()));
+
 	//충돌된 자원이 있는지
-	if (mIbuilding->isBuildingCollisionToPlayer(getAbsRc()) != -1) {
-		mNpcManager->orderGetShovel();
+	if (buildCollsion != BuildManager::eBuildType::tNothing) {
+		switch (buildCollsion)
+		{
+		case BuildManager::eBuildType::tShovelShop :
+			mNpcManager->orderGetShovel();
+			break;
+		case BuildManager::eBuildType::tEngineerShop:
+			mNpcManager->orderGetWrench();
+			break;
+		default:
+			//Do Nothing
+			break;
+		}
+
 	}
 }

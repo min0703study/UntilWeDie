@@ -4,7 +4,7 @@
 
 class ShovelShop;
 class engineerShop;
-class shopStalkers;
+class ShopStalkers;
 class Generator;
 class workbanch;
 
@@ -19,6 +19,15 @@ struct BuildRect
 class BuildManager : public GameNode, public IBuilding
 {
 public:
+	enum eBuildType {
+		tShovelShop,
+		tEngineerShop,
+		tShopStalkers,
+		tGenerator,
+		tWorkbanch,
+		tNothing
+	};
+
 	HRESULT init(float x, float y, float width, float height);
 	void release(void);
 	void update(void);
@@ -35,7 +44,7 @@ public:
 private:
 	ShovelShop* mShovelShop;
 	engineerShop* mEngineerShop;
-	shopStalkers* mshopStalkers;
+	ShopStalkers* mShopStalkers;
 	Generator* mGenerator;
 	workbanch* mWorkBanch;
 };
