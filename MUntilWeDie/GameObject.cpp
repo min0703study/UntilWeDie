@@ -22,7 +22,9 @@ void GameObject::render(void)
 	for (auto it = mVDevelopRect.begin(); it != mVDevelopRect.end(); it++) {
 		RectangleMake(getMemDc(), *it);
 	}
+	
 	RectangleMake(getMemDc(), getRc());
+	//RectangleMake(getMemDc(), getAbsRc());
 }
 
 void GameObject::release(void)

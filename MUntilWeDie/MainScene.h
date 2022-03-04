@@ -25,7 +25,7 @@ private:
 	Player* mPlayer;
 	BuildManager* mBuildManager;
 	Map* mMap;
-	MonsterManager* mMonsterMng;
+	MonsterManager* mMonsterManager;
 	
 	float mEggRespawnTime;
 	float mMonsterRespawnTime;

@@ -8,10 +8,6 @@ typedef struct tagProjectile
 {
 	eMonsterType type;
 	eDirection dir;
-	float x;
-	float y;
-	float width;
-	float height;
 	float speed;
 	float angle;
 	int power;
@@ -20,7 +16,7 @@ typedef struct tagProjectile
 class Projectile : public GameObject
 {
 public:
-	void init(eMonsterType type, eDirection dir, float x, float y, float width, float height, float distance);
+	void init(eMonsterType type, eDirection dir, float x, float y, float width, float height, float distanceX, float distanceY);
 	void release(void);
 	void update(void);
 	void render(void);
@@ -28,10 +24,18 @@ public:
 	void move(void);
 	void draw(void);
 
+	void setSpeedX(float spd) { mSpeedX = spd; }
+	void setSpeedY(float spd) { mSpeedY = spd; }
+
 	Projectile() {}
 	~Projectile() {}
 private:
 	ImageBase* mImage;
 	AttackStatus mAtkStatus;
+	
+	float mGravity;
+	float mSpeedX;
+	float mSpeedY;
+	float mDeltaTime;
 };
 

@@ -117,6 +117,7 @@ HRESULT ImageClass::init(void)
 	IMAGEMANAGER->addFrameImage(MONSTER_CANNON_WALK, "Resources/Images/Monster/monster_cannon_walk.bmp", 800 * 2, 180 * 2, 8, 2);
 	IMAGEMANAGER->addFrameImage(MONSTER_CANNON_ATTACK, "Resources/Images/Monster/monster_cannon_attack.bmp", 800 * 2, 180 * 2, 8, 2);
 	IMAGEMANAGER->addFrameImage(MONSTER_CANNON_DEATH, "Resources/Images/Monster/monster_cannon_death.bmp", 900 * 2, 180 * 2, 9, 2);
+	IMAGEMANAGER->addFrameImage(MONSTER_CANNON_PROJECTILE, "Resources/Images/Monster/monster_projectile.bmp", 150 * 2, 25 * 2, 6, 1);
 
 	IMAGEMANAGER->addFrameImage(MONSTER_EFFECT3, "Resources/Images/Monster/monster_effect3.bmp", 1540 * 2, 80 * 2, 11, 1, true, RGB(50, 150, 200));
 	IMAGEMANAGER->addFrameImage(MONSTER_EFFECT4, "Resources/Images/Monster/monster_effect4.bmp", 360 * 2, 60 * 2, 6, 1);

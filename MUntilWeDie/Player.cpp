@@ -62,6 +62,7 @@ void Player::update(void)
 	action();
 	mNpcManager->update();
 	mWeapon->update();
+	//cout << "hp: " << mHp << endl;
 }
 void Player::render(void)
 {
@@ -238,9 +239,19 @@ RECT Player::getPlayerRc()
 	return getRc();
 }
 
+RECT Player::getPlayerAbsRc()
+{
+	return getAbsRc();
+}
+
 vector<RECT> Player::getNpcsRc()
 {
 	return mNpcManager->getNpcsRc();
+}
+
+vector<RECT> Player::getNpcsAbsRc()
+{
+	return mNpcManager->getNpcsAbsRc();
 }
 
 void Player::isOverGrapObject(int npcIndex)
