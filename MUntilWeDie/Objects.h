@@ -75,6 +75,7 @@ public:
 		float mElapsedSec;
 
 		ImageBase* mDebrisImg[2];
+		int mRndIndex;
 
 		int mPlayCount;
 
@@ -86,6 +87,7 @@ public:
 			mDebrisImg[0] = IMAGEMANAGER->findImage(IMGCLASS->Object_Debris);
 			mDebrisImg[1] = IMAGEMANAGER->findImage(IMGCLASS->Object_Debris2);
 
+			mRndIndex = RND->getInt(2);
 		}
 
 		void frameUpdate(float elapsedTime)
@@ -95,16 +97,16 @@ public:
 
 			if (mElapsedSec >= mFrameUpdateSec) {
 				mElapsedSec = 0;
-				mDebrisImg[RND->getInt(2)]->offsetX(0, false);
-				if (mDebrisImg[RND->getInt(2)]->getFrameX() > mDebrisImg[RND->getInt(2)]->getMaxFrameX()) {
+				mDebrisImg[mRndIndex]->offsetX(0, false);
+				if (mDebrisImg[mRndIndex]->getFrameX() > mDebrisImg[mRndIndex]->getMaxFrameX()) {
 					mPlayCount++;
-					SAFE_DELETE(mDebrisImg[RND->getInt(2)]);
+					SAFE_DELETE(mDebrisImg[mRndIndex]);
 				}
 			}
 		}
 
-		inline ImageBase* GetImage() const { return mDebrisImg[RND->getInt(2)]; }
-	}Animation;
+		inline ImageBase* GetImage() const { return mDebrisImg[mRndIndex]; }
+	} Animation;
 
 	void init(float x, float y, float width, float height);
 	void release(void);
