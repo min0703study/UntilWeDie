@@ -277,6 +277,14 @@ vector<RECT> NpcManager::getNpcsRc() {
 	for (mViNpcs = mVNpcs.begin(); mViNpcs != mVNpcs.end(); mViNpcs++) {
 		returnVRc.push_back((*mViNpcs)->getRc());
 	}
+	return returnVRc;
+}
 
+vector<RECT> NpcManager::getNpcsAbsRc()
+{
+	vector<RECT> returnVRc;
+	for (mViNpcs = mVNpcs.begin(); mViNpcs != mVNpcs.end(); mViNpcs++) {
+		returnVRc.push_back((*mViNpcs)->getAbsRc());
+	}
 	return returnVRc;
 }

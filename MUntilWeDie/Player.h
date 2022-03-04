@@ -103,7 +103,9 @@ public:
 
 	//interface
 	RECT getPlayerRc() override;
+	RECT getPlayerAbsRc() override;
 	vector<RECT> getNpcsRc() override;
+	vector<RECT> getNpcsAbsRc() override;
 	void isOverGrapObject(int npcIndex) override;
 	void attackDamage(int damage) override;
 

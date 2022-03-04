@@ -27,6 +27,7 @@ public:
 	bool orderBuildBuilding();
 
 	vector<RECT> getNpcsRc();
+	vector<RECT> getNpcsAbsRc();
 
 	NpcManager() {};
 	~NpcManager() {};

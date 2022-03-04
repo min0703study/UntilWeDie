@@ -29,15 +29,13 @@ public:
 	float* getAbsPX() { return &mX; };
 	float* getAbsPY() { return &mY; };
 	
-	void setAbsX(float x) { 
-		mRc.left = x - mWidth * 0.5f;
-		mRc.right = x + mWidth * 0.5f;
+	void setAbsX(float x) {
 		mX = x;
+		mRc = RectMake(mX - (mWidth * 0.5f), mY - mHeight, mWidth, mHeight);
 	};
-	void setAbsY(float y) { 
-		mRc.top = y - mHeight;
-		mRc.bottom = y;
+	void setAbsY(float y) {
 		mY = y;
+		mRc = RectMake(mX - (mWidth * 0.5f), mY - mHeight, mWidth, mHeight);
 	};
 
 	inline float getX() { return mX - CAMERA->getX();};
@@ -53,13 +51,13 @@ public:
 			mRc.left - cRc.left,
 			mRc.top - cRc.top,
 			mRc.right - cRc.left,
-			mRc.bottom - cRc.top };
+			mRc.bottom - cRc.top 
+		};
 	};
 
 	RECT getCenterRc() {
 		RECT cRc = CAMERA->getRc();
-		return 
-		{
+		return {
 			(mRc.left - static_cast<int>(mWidth * 0.5f)) - cRc.left,
 			(mRc.top - static_cast<int>(mHeight * 0.5f)) - cRc.top,
 			(mRc.right - static_cast<int>(mWidth * 0.5f)) - cRc.left,
@@ -67,18 +65,14 @@ public:
 		};
 	};
 
-	void offsetX(float x) { 
-		mRc.left += x;
-		mRc.right += x;
-		
-		mX += x; 
+	void offsetX(float x) {
+		mX += x;
+		mRc = RectMake(mX - (mWidth * 0.5f), mY - mHeight, mWidth, mHeight);
 	};
 
 	void offsetY(float y) {
-		mRc.left += y;
-		mRc.right += y;
-
-		mY += y; 
+		mY += y;
+		mRc = RectMake(mX - (mWidth * 0.5f), mY - mHeight, mWidth, mHeight);
 	};
 
 	GameObject() {};
@@ -97,6 +91,5 @@ private:
 
 	float mX; //Áß¾Ó
 	float mY; //¹Ù´Ú
-
 };
 
