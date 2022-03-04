@@ -99,3 +99,12 @@ int BuildManager::isBuildingCollisionToPlayer(RECT playerAbsRc)
 
 	return returnType;
 }
+
+void BuildManager::resetShopItem(int shopType)
+{
+	switch (shopType) {
+	case eBuildType::tShovelShop:
+		//mShovelShop->setShoelCount(mShovelShop->getShoelCount()++);
+		break;
+	}
+}
