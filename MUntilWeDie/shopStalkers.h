@@ -10,7 +10,7 @@ struct Weapon {
 	float height;
 };
 
-class shopStalkers : public GameObject
+class ShopStalkers : public GameObject
 {
 public:
 	enum class eBuildingType {

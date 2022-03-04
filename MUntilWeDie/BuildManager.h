@@ -4,7 +4,7 @@
 
 class ShovelShop;
 class engineerShop;
-class shopStalkers;
+class ShopStalkers;
 class Generator;
 class workbanch;
 
@@ -35,7 +35,7 @@ public:
 private:
 	ShovelShop* mShovelShop;
 	engineerShop* mEngineerShop;
-	shopStalkers* mshopStalkers;
+	ShopStalkers* mShopStalkers;
 	Generator* mGenerator;
 	workbanch* mWorkBanch;
 };
