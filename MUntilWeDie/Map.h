@@ -37,9 +37,7 @@ public:
 private:
 	ImageBase* mBgImg;
 	ImageBase* mBgGrassImg;
-	ImageBase* mShroomImg_01, * mShroomImg_02, * mShroomImg_03,*  mShroomImg_04,*  mShroomImg_05, * mShroomImg_06;
 	ImageBase* mItems;
-	RECT rcShroom_01, rcShroom_02, rcShroom_03, rcShroom_04, rcShroom_05, rcShroom_06;
 
 	ObjectManager* mObjects;
 };

@@ -1,30 +1,57 @@
 #include "Stdafx.h"
 #include "Objects.h"
 
-void Objects::init(float x, float y, float width, float height)
+void Mushroom::init(float x, float y, float width, float height)
 {
-	GameObject::Init("Objects", x, y, width, height);
+	GameObject::Init("Mushroom", x, y, width, height);
 }
 
-void Objects::release(void)
+void Mushroom::release(void)
 {
 }
 
-void Objects::draw()
+void Mushroom::draw()
 {
 	RectangleMake(getMemDc(), getRc());
-	mAni.GetImage()->frameRender(getMemDc(), getRc().left, getRc().bottom - mAni.GetImage()->getHeight());
+	mShroomAni.GetImage()->frameRender(getMemDc(), getRc().left, getRc().bottom - mShroomAni.GetImage()->getHeight());
 }
 
-void Objects::animation()
+void Mushroom::animation()
 {
 }
 
-void Objects::move()
+void Mushroom::move()
 {
 }
 
 
-void Objects::action()
+void Mushroom::action()
+{
+}
+
+void Debris::init(float x, float y, float width, float height)
+{
+	GameObject::Init("Debris", x, y, width, height);
+}
+
+void Debris::release(void)
+{
+}
+
+void Debris::draw()
+{
+	RectangleMake(getMemDc(), getRc());
+	mDebrisAni.GetImage()->frameRender(getMemDc(), getRc().left, getRc().top);
+}
+
+void Debris::animation()
+{
+}
+
+void Debris::move()
+{
+}
+
+void Debris::action()
 {
 }

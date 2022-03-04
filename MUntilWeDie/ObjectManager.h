@@ -20,9 +20,13 @@ public:
 	~ObjectManager() {};
 
 private:
-	vector<Objects*> mObjects;
-	vector<Objects*>::iterator mIterObjects;
+	vector<Mushroom*> mMushrooms;
+	vector<Mushroom*>::iterator mIterMushrooms;
+
+	vector<Debris*> mDebris;
+	vector<Debris*>::iterator mIterDebris;
 	
 	int mShroomCount;
+	int mDebrisCount;
 };
 
