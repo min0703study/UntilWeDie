@@ -76,23 +76,26 @@ int BuildManager::isBuildingCollisionToPlayer(RECT playerAbsRc)
 
 	if (IntersectRect(&tempRc, &mShopStalkers->getAbsRc(), &playerAbsRc)) {
 		MY_UTIL::log(DEBUG_KHS, "충돌완료 : 총 생산 시설");
+		returnType = eBuildType::tShopStalkers;
 		//index = 3;
 	}
 
 	if (IntersectRect(&tempRc, &mGenerator->getAbsRc(), &playerAbsRc)) {
 		MY_UTIL::log(DEBUG_KHS, "충돌완료 : 초기화 시설");
+		returnType = eBuildType::tGenerator;
 		//index = 4;
 	}
 
 	if (IntersectRect(&tempRc, &mWorkBanch->getAbsRc(), &playerAbsRc)) {
 		MY_UTIL::log(DEBUG_KHS, "충돌완료 : 발전기");
+		returnType = eBuildType::tWorkbanch;
 		//index = 5;
 	}
 
-	if (index == eBuildType::tNothing) {
+	if (returnType == eBuildType::tNothing) {
 		MY_UTIL::log(DEBUG_KHS, "충돌 실패 : 삽 생산 시설");
 		//return -1;
 	}
 
-	return index;
+	return returnType;
 }
