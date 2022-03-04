@@ -302,17 +302,22 @@ void Monster::attack()
 	case eMonsterType::Frog:
 		break;
 	case eMonsterType::Cannon:
-		RECT tmpRect;
-		if (IntersectRect(&tmpRect, &mIPlayer->getPlayerAbsRc(), &mAttack->getAbsRc())) {
-			mIPlayer->attackDamage(mStatus.power);
-			//addEffect();
-			deleteAttack();
-		}
-		else if (mAttack) {
-			if (mAttack->getAbsRc().bottom >= GROUND) {
+		if (mAttack)
+		{
+			RECT tmpRect;
+			if (IntersectRect(&tmpRect, &mIPlayer->getPlayerAbsRc(), &mAttack->getAbsRc())) {
+				mIPlayer->attackDamage(mStatus.power);
 				//addEffect();
 				deleteAttack();
 			}
+			else if (mAttack->getAbsRc().bottom >= GROUND) {
+				//addEffect();
+				deleteAttack();
+			}
+		}
+		if (mCurrFrameX == mImage->getMaxFrameX()) {
+			bIsAttack = false;
+			bIsAttackEnd = true;
 		}
 		break;
 	}
