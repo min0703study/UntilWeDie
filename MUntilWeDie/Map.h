@@ -22,6 +22,13 @@ public:
 		animation();
 	};
 
+	void objectRender(void) {
+		GameObject::render();
+
+		////¹ö¼¸ ¹× ¹ö¼¸³×¹¦
+		mObjects->render();
+	}
+
 
 	void draw();
 	void animation();

@@ -70,6 +70,7 @@ void MainScene::render(void)
 {
 	mMap->render();
 	mBuildManager->render();
+	mMap->objectRender();
 	mMonsterMng->render();
 	mPlayer->render();
 }

@@ -22,11 +22,10 @@ void Map::release(void)
 
 void Map::draw()
 {
-
 	//¹è°æ
 	mBgImg->render(getMemDc(), 0, -280, CAMERA->getX(), CAMERA->getY(), mWidth, mBgImg->getHeight());
 	////¹ö¼¸ ¹× ¹ö¼¸³×¹¦
-	mObjects->render();
+//	mObjects->render();
 	//¾Õ¹è°æ
 	mBgGrassImg->render(getMemDc(), 0, GROUND - 20, CAMERA->getX(), CAMERA->getY(), mWidth, mBgGrassImg->getHeight());
 }
