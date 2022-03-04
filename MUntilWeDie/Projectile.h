@@ -33,6 +33,7 @@ private:
 	ImageBase* mImage;
 	AttackStatus mAtkStatus;
 	
+	float mGravity;
 	float mSpeedX;
 	float mSpeedY;
 	float mDeltaTime;

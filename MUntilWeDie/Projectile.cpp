@@ -4,9 +4,13 @@
 
 void Projectile::init(eMonsterType type, eDirection dir, float x, float y, float width, float height, float distance)
 {
-	if (dir == eDirection::Left) GameObject::Init("Attack", x - width * 0.5f - distance, y - height * 0.5f, width, height);
-	else GameObject::Init("Attack", x - width * 0.5f + distance, y - height * 0.5f, width, height);
+	//if (dir == eDirection::Left) GameObject::Init("Attack", x - width * 0.5f - distance, y - height * 0.5f, width, height);
+	//else GameObject::Init("Attack", x - width * 0.5f + distance, y - height * 0.5f, width, height);
 
+	if (dir == eDirection::Left) GameObject::Init("Attack", x, y, width, height);
+	else GameObject::Init("Attack", x, y, width, height);
+
+	mGravity = 1.5f;
 	mSpeedX = mSpeedY = 0;
 
 	mAtkStatus.type = type;
@@ -33,10 +37,10 @@ void Projectile::init(eMonsterType type, eDirection dir, float x, float y, float
 		mImage = nullptr;
 		break;
 	case eMonsterType::Cannon:
-		mAtkStatus.speed = 5.f;
+		mAtkStatus.speed = 150.f;
 		mAtkStatus.angle = 45;
 		mAtkStatus.power = 30;
-		mImage = IMAGEMANAGER->findImage("Cannon");
+		mImage = IMAGEMANAGER->findImage("MonsterCannonProjectile");
 		if (dir == eDirection::Left) mAtkStatus.angle = 180 - 45;
 		mSpeedX = cosf(PI / 180.f * mAtkStatus.angle) * mAtkStatus.speed;
 		mSpeedY = -sinf(PI / 180.f * mAtkStatus.angle) * mAtkStatus.speed;
@@ -74,13 +78,13 @@ void Projectile::move(void)
 		if (mAtkStatus.dir == eDirection::Left)	offsetX(-mSpeedX * mDeltaTime);
 		else if (mAtkStatus.dir == eDirection::Right) offsetX(mSpeedX * mDeltaTime);
 		offsetY(mSpeedY * mDeltaTime);
-		mSpeedY += GRAVITY;
+		mSpeedY += mGravity;
 		break;
 	}
 }
 
 void Projectile::draw(void)
 {
-	Rectangle(getMemDc(), getX(), getY(), getX() + getWidth(), getY() + getHeight());
-	if (mImage != nullptr) mImage->frameRender(getMemDc(), getX(), getY(), 0, 0);
+	Rectangle(getMemDc(), getRc().left, getRc().top, getRc().right, getRc().bottom);
+	if (mImage != nullptr) mImage->frameRender(getMemDc(), getX() - getHalfWidth(), getY() - getHeight(), 0, 0);
 }

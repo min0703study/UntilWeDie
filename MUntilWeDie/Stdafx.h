@@ -194,11 +194,12 @@ extern int			_winRealSizeY;
 #define MON_CANNON_IMAGE_RANGE_X	100
 #define MON_CANNON_IMAGE_RANGE_Y	80
 
+
 //ijh - monster infomation
 #define PHASE_OF_MONSTER_NUMBER		3
 #define SIZE_OF_MONSTER_NUMBER		3
 
-#define GRAVITY 5
+
 
 enum class eDirection {
 	Left,

@@ -111,6 +111,7 @@ public:
 	const char* MONSTER_CANNON_WALK = "MonsterCannonWalk";
 	const char* MONSTER_CANNON_ATTACK = "MonsterCannonAttack";
 	const char* MONSTER_CANNON_DEATH = "MonsterCannonDeath";
+	const char* MONSTER_CANNON_PROJECTILE = "MonsterCannonProjectile";
 
 	const char* MONSTER_EFFECT3 = "MonsterEffect3";
 	const char* MONSTER_EFFECT4 = "MonsterEffect4";

@@ -138,11 +138,20 @@ bool NpcManager::orderBuildBuilding()
 	mVFollowingNpc.erase(mVFollowingNpc.begin());
 	return true;
 }
-vector<RECT> NpcManager::getNpcsRc() {
+vector<RECT> NpcManager::getNpcsRc()
+{
 	vector<RECT> returnVRc;
 	for (mViNpcs = mVNpcs.begin(); mViNpcs != mVNpcs.end(); mViNpcs++) {
 		returnVRc.push_back((*mViNpcs)->getRc());
 	}
+	return returnVRc;
+}
 
+vector<RECT> NpcManager::getNpcsAbsRc()
+{
+	vector<RECT> returnVRc;
+	for (mViNpcs = mVNpcs.begin(); mViNpcs != mVNpcs.end(); mViNpcs++) {
+		returnVRc.push_back((*mViNpcs)->getAbsRc());
+	}
 	return returnVRc;
 }

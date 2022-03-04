@@ -12,19 +12,13 @@ HRESULT MainScene::init(void)
 	mBuildManager = new BuildManager;
 	mBuildManager->init(100, 100, 100, 100);
 
-<<<<<<< HEAD
 	mMonsterManager = new MonsterManager;
 	mMonsterManager->init();
 	mMonsterManager->setIPlayer(mPlayer);
-=======
+
 	mPlayer->setIBuilding(mBuildManager);
 	mPlayer->setIObject(mMap->getObjectManager());
 
-	mMonsterMng = new MonsterManager;
-	mMonsterMng->init();
-	mMonsterMng->setIPlayer(mPlayer);
->>>>>>> master
-	
 	mEggRespawnTime = TIMEMANAGER->getWorldTime();
 	mMonsterRespawnTime = 0;
 
@@ -47,11 +41,11 @@ void MainScene::update(void)
 
 	// 리스폰 시간 되면
 	if (isEggRespawn() && !(mMonsterManager->getIsEggRespwan())) {
-		mMonsterManager->setMonsterEgg(respPos.x, respPos.y, mMonsterManager->getNumberOfEgg());
+		mMonsterManager->setMonsterEgg(respPos.x, GROUND, mMonsterManager->getNumberOfEgg());
 		mMonsterRespawnTime = 0;
 	}
 	else if (isMonsterRespawn() && !isOn) {
-		mMonsterManager->setMonster(respPos.x - 100, respPos.y, mPlayer->getX() + 600, mPlayer->getY(), 0);
+		mMonsterManager->setMonster(respPos.x - 100, GROUND, mPlayer->getAbsX() + 600, mPlayer->getAbsY(), 0);
 		for (int i = 0; i < mMonsterManager->getNumberOfMonster(); i++) {
 			//mMonsterMng->setMonster(respPos.x - i * 100, respPos.y, mPlayer->getX() + 600, mPlayer->getY(), i);
 		}
@@ -67,8 +61,8 @@ void MainScene::update(void)
 void MainScene::release(void)
 {
 	mMap->release();
-	mPlayer->release();
 	mBuildManager->release();
+	mPlayer->release();
 	mMonsterManager->release();
 }
 
@@ -76,12 +70,8 @@ void MainScene::render(void)
 {
 	mMap->render();
 	mBuildManager->render();
-<<<<<<< HEAD
-	mMonsterManager->render();
-=======
 	mPlayer->render();
-	mMonsterMng->render();
->>>>>>> master
+	mMonsterManager->render();
 }
 
 bool MainScene::isEggRespawn(void)
