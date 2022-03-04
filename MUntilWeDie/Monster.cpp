@@ -43,24 +43,28 @@ void Monster::init(eMonsterType type, float posX, float posY, int searchX, int s
 	switch (mMonType)
 	{
 	case eMonsterType::Normal:
+		mImage = IMAGEMANAGER->findImage(IMGCLASS->MONSTER_NORMAL_IDLE);
 		mStatus.maxHp = mStatus.currentHp = 50.f;
 		mStatus.moveSpeed = 2.f;
 		mStatus.attackSpeed = 10.f;
 		mStatus.power = 10;
 		break;
 	case eMonsterType::Suicide:
+		mImage = IMAGEMANAGER->findImage(IMGCLASS->MONSTER_SUICIDE_IDLE);
 		mStatus.maxHp = mStatus.currentHp = 25.f;
 		mStatus.moveSpeed = 4.f;
 		mStatus.attackSpeed = 15.f;
 		mStatus.power = 20;
 		break;
 	case eMonsterType::Frog:
+		mImage = IMAGEMANAGER->findImage(IMGCLASS->MONSTER_FROG_IDLE);
 		mStatus.maxHp = mStatus.currentHp = 150.f;
 		mStatus.moveSpeed = 1.f;
 		mStatus.attackSpeed = 10.f;
 		mStatus.power = 10;
 		break;
 	case eMonsterType::Cannon:
+		mImage = IMAGEMANAGER->findImage(IMGCLASS->MONSTER_CANNON_IDLE);
 		mStatus.maxHp = mStatus.currentHp = 150.f;
 		mStatus.moveSpeed = 1.f;
 		mStatus.attackSpeed = 5.f;
@@ -106,7 +110,7 @@ void Monster::render(void)
 void Monster::animation()
 {
 	if (mAnimationTime + 0.1f < TIMEMANAGER->getWorldTime()) {
-		if(!mAttack) mCurrFrameX += 1;
+		if(bIsAttack) mCurrFrameX += 1;
 		if (mCurrFrameX > mImage->getMaxFrameX()) {
 			mCurrFrameX = 0;
 		}
