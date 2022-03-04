@@ -42,7 +42,7 @@ RECT ObjectManager::getObjectRc()
 int ObjectManager::isObjectCollisionToPlayer(RECT playerAbsRc)
 {
 	RECT temp;
-	int index = 0;
+	int index = -1;
 	for (mIterObjects = mObjects.begin(); mIterObjects != mObjects.end(); ++mIterObjects, ++index) {
 		if (IntersectRect(&temp, &(*mIterObjects)->getAbsRc(), &playerAbsRc)) {
 
@@ -58,8 +58,9 @@ int ObjectManager::isObjectCollisionToPlayer(RECT playerAbsRc)
 
 bool ObjectManager::startGrapObject(int objectIndex, int npcIndex, OUT int & xPos)
 {
-	for (mIterObjects = mObjects.begin(); mIterObjects != mObjects.end(); ++mIterObjects) {
-
-	}
+	for (mIterObjects = mObjects.begin(); mIterObjects != mObjects.end(); ++mIterObjects){
+			
+			
+	}		
 	return false;
 }

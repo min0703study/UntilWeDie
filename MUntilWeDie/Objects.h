@@ -26,6 +26,7 @@ public:
 			mPlayCount = 0;
 
 			mShroomImg = IMAGEMANAGER->findImage(IMGCLASS->Object_Mushroom);
+
 		}
 
 		void frameUpdate(float elapsedTime)
@@ -63,8 +64,6 @@ public:
 	void animation();
 	void move();
 	void action();
-
-	void objtype();
 
 	Objects() {};
 	~Objects() {};
