@@ -105,15 +105,15 @@ void Player::move()
 			if (mIsClickDownDashKey)
 			{
 				if (mDashTime >= 0) {
-					offsetX(-5.0f);
-					CAMERA->offSetX(-5.0f);
+					offsetX(-PLAYER_SPEED_DASH);
+					CAMERA->offSetX(-PLAYER_SPEED_DASH);
 					if (mCurStat != eStat::ShootDash && mCurStat != eStat::ShootRun) {
 						changeStat(eStat::Dash);
 					}
 				}
 				else {
-					offsetX(-3.0f);
-					CAMERA->offSetX(-3.0f);
+					offsetX(-PLAYER_SPEED_RUN);
+					CAMERA->offSetX(-PLAYER_SPEED_RUN);
 					if (mCurStat != eStat::Run && mCurStat != eStat::ShootRun) {
 						changeStat(eStat::Run);
 					}
@@ -121,8 +121,8 @@ void Player::move()
 
 			}
 			else {
-				offsetX(-3.0f);
-				CAMERA->offSetX(-3.0f);
+				offsetX(-PLAYER_SPEED_RUN);
+				CAMERA->offSetX(-PLAYER_SPEED_RUN);
 				if (mCurStat != eStat::Run && mCurStat != eStat::ShootRun) {
 					changeStat(eStat::Run);
 				}
@@ -137,23 +137,23 @@ void Player::move()
 			if (mIsClickDownDashKey)
 			{
 				if (mDashTime >= 0) {
-					offsetX(5.0f);
-					CAMERA->offSetX(5.0f);
+					offsetX(PLAYER_SPEED_DASH);
+					CAMERA->offSetX(PLAYER_SPEED_DASH);
 					if (mCurStat != eStat::ShootDash && mCurStat != eStat::ShootRun) {
 						changeStat(eStat::Dash);
 					}
 				}
 				else {
-					offsetX(3.0f);
-					CAMERA->offSetX(3.0f);
+					offsetX(PLAYER_SPEED_RUN);
+					CAMERA->offSetX(PLAYER_SPEED_RUN);
 					if (mCurStat != eStat::Run && mCurStat != eStat::ShootRun) {
 						changeStat(eStat::Run);
 					}
 				}
 			}
 			else {
-				offsetX(3.0f);
-				CAMERA->offSetX(3.0f);
+				offsetX(PLAYER_SPEED_RUN);
+				CAMERA->offSetX(PLAYER_SPEED_RUN);
 				if (mCurStat != eStat::Run && mCurStat != eStat::ShootRun) {
 					changeStat(eStat::Run);
 				}
@@ -198,6 +198,11 @@ void Player::move()
 				mWeapon->shoot(getAbsRc().left, getAbsY() - (mHeight / 2), mCurDirection);
 			}
 		};
+	}
+
+	if (KEYMANAGER->isOnceKeyDown(PLAYER_COMMAND_POS_CHANGE))
+	{
+		mNpcManager->changeNpcPosition();
 	}
 
 	if (KEYMANAGER->isOnceKeyUp(PLAYER_MOVE_L) || KEYMANAGER->isOnceKeyUp(PLAYER_MOVE_R)) {
@@ -292,6 +297,6 @@ void Player::orderExcuteNpc()
 
 	//충돌된 자원이 있는지
 	if (mIbuilding->isBuildingCollisionToPlayer(getAbsRc()) != -1) {
-		mNpcManager->orderBuildBuilding();
+		mNpcManager->orderGetShovel();
 	}
 }

@@ -120,61 +120,65 @@ void Npc::move()
 
 		if (distance > 0.0f) {
 			if (*mPlayerStat == Player::eStat::Dash || *mPlayerStat == Player::eStat::ShootDash) {
+				chageImg(eStat::Run, *mPlayerDirection);
 				mCurDirection = *mPlayerDirection;
-				if (distance < 5.0f) {
+				if (distance < PLAYER_SPEED_DASH) {
 					offsetX(distance);
 				}
 				else {
-					offsetX(5.0f);
+					offsetX(PLAYER_SPEED_DASH);
 				}
 			}
 			else if (*mPlayerStat == Player::eStat::Run || *mPlayerStat == Player::eStat::Run) {
+				chageImg(eStat::Run, *mPlayerDirection);
 				mCurDirection = *mPlayerDirection;
-				if (distance < 3.0f) {
+				if (distance < PLAYER_SPEED_RUN) {
 					offsetX(distance);
 				}
 				else {
-					offsetX(3.0f);
+					offsetX(PLAYER_SPEED_RUN);
 				}
 			}
 			else {
-				if (distance < 3.0f) {
+				if (distance < PLAYER_SPEED_RUN) {
 					offsetX(distance);
 				}
 				else {
-					offsetX(3.0f);
+					offsetX(PLAYER_SPEED_RUN);
 				}
 			}
 			chageImg(eStat::Run, mCurDirection);
 		}
 		else if (distance < 0.0f) {
 			if (*mPlayerStat == Player::eStat::Dash || *mPlayerStat == Player::eStat::ShootDash) {
+				chageImg(eStat::Run, *mPlayerDirection);
 				mCurDirection = *mPlayerDirection;
-				if (distance > -5.0f) {
+				if (distance > -PLAYER_SPEED_DASH) {
 					offsetX(distance);
 				}
 				else {
-					offsetX(-5.0f);
+					offsetX(-PLAYER_SPEED_DASH);
 				}
 			}
 			else if(*mPlayerStat == Player::eStat::Run || *mPlayerStat == Player::eStat::ShootRun) {
+				chageImg(eStat::Run, *mPlayerDirection);
 				mCurDirection = *mPlayerDirection;
-				if (distance > -3.0f) {
+				if (distance > -PLAYER_SPEED_RUN) {
 					offsetX(distance);
 				}
 				else {
-					offsetX(-3.0f);
+					offsetX(-PLAYER_SPEED_RUN);
 				}
 			}
 			else {
-				if (distance > -3.0f) {
+				chageImg(eStat::Run, mCurDirection);
+				if (distance > -PLAYER_SPEED_RUN) {
 					offsetX(distance);
 				}
 				else {
-					offsetX(-3.0f);
+					offsetX(-PLAYER_SPEED_RUN);
 				}
 			}
-			chageImg(eStat::Run, mCurDirection);
 		}
 		else {
 			mCurDirection = *mPlayerDirection;
@@ -285,7 +289,7 @@ void Npc::nothing()
 
 void Npc::changeStat(eStat changeStat, eDirection direction)
 {
-	if (mCurStat != changeStat)
+	if (mCurStat != changeStat || mCurDirection != direction)
 	{
 		mPastStat = mCurStat;
 		mCurStat = changeStat;
@@ -295,7 +299,7 @@ void Npc::changeStat(eStat changeStat, eDirection direction)
 
 void Npc::chageImg(eStat changeStat, eDirection direction)
 {
-	if (mCurStat != changeStat || mCurDirection != direction)
+	if (mCurAni->mCurImgStat != changeStat || mCurDirection != direction)
 	{
 		mCurAni->ChangeCurImage(changeStat, direction);
 	}

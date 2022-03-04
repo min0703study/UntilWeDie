@@ -21,4 +21,10 @@ namespace MY_UTIL {
 
 		return angle;
 	}
+
+	//DEBUG
+	void log(string tag, string log)
+	{
+		if (tag == DEBUG_ALL_TAG || tag == DEBUG_MY_TAG) cout << log << endl;
+	}
 }

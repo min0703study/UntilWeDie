@@ -12,7 +12,7 @@ void Objects::release(void)
 
 void Objects::draw()
 {
-	//RectangleMake(getMemDc(), getRc());
+	RectangleMake(getMemDc(), getRc());
 	mAni.GetImage()->frameRender(getMemDc(), getRc().left, getRc().bottom - mAni.GetImage()->getHeight());
 }
 
@@ -26,9 +26,5 @@ void Objects::move()
 
 
 void Objects::action()
-{
-}
-
-void Objects::objtype()
 {
 }

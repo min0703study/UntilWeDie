@@ -1,16 +1,16 @@
 #pragma once
 #include "GameObject.h"
 
-#define MAX_SHOVEL_COUNT 5
-#define MAX_UI_SHOVEL_COUNT 4
+#define MAX_WEAPON_COUNT 5
+#define MAX_UI_WEAPON_COUNT 4
 
-struct Shovel {
+struct Weapon {
 	float x, y;
 	float width;
 	float height;
 };
 
-class ShovelShop: public GameObject
+class shopStalkers : public GameObject
 {
 public:
 	enum class eBuildingType {
@@ -41,23 +41,22 @@ public:
 	void move();
 	void action();
 
-	void giveShovelCommand();
+	void giveWeaponCommand();
 	void autoCreate();
 	void intoNpc();
 
 	void Monstertrue();
 
 private:
-	vector<Shovel*> mShovels;
-	vector<Shovel*>::iterator mItShovels;
+	vector<Weapon*> mWeapons;
+	vector<Weapon*>::iterator mItWeapons;
 
 	ImageBase* mImg;
 
-	int mCurShovelCount; //삽 생성 갯수
-	int mCreateCount;  //삽이 생성되기까지 걸리는 시간
+	int mCurWeaponCount;
+	int mCreateCount;
 
-	int mBuildHp; //건물 체력
+	int mBuildHp;
 
-	bool isNpcIn; //NPC가 들어갔는지 안들어갔는지
+	bool isNpcIn;
 };
-
