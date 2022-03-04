@@ -33,8 +33,8 @@ HRESULT MainScene::init(void)
 void MainScene::update(void)
 {
 	mMap->update();
-	mPlayer->update();
 	mBuildManager->update();
+	mPlayer->update();
 
 	/*mEggRespawnTime += TIMEMANAGER->getElapsedTime();
 	if (mMonsterMng->getIsEggRespwan()) mMonsterRespawnTime += TIMEMANAGER->getElapsedTime();*/
@@ -70,8 +70,9 @@ void MainScene::render(void)
 {
 	mMap->render();
 	mBuildManager->render();
-	mPlayer->render();
+	mMap->objectRender();
 	mMonsterMng->render();
+	mPlayer->render();
 }
 
 bool MainScene::isEggRespawn(void)
