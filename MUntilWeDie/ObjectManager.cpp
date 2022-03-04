@@ -62,7 +62,6 @@ int ObjectManager::isObjectCollisionToPlayer(RECT playerAbsRc)
 {
 	RECT temp;
 	int index = -1;
-
 	for (mIterMushrooms = mMushrooms.begin(), index = 0; mIterMushrooms != mMushrooms.end(); ++mIterMushrooms, ++index) {
 		if (IntersectRect(&temp, &(*mIterMushrooms)->getAbsRc(), &playerAbsRc)) {
 			cout << "오브젝트 충돌: " << "버섯" << endl;
