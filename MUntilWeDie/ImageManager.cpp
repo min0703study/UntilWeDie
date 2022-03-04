@@ -41,7 +41,7 @@ ImageBase* ImageManager::addImage(string strKey, const char * fileName, int widt
 	img = new ImageBase;
 	if (FAILED(img->init(fileName, width, height, isTrans, transColor)))//없으면 생성
 	{
-		cout << "이미지 생성 실패 : " << strKey << endl;
+		MY_UTIL::log(DEBUG_ALL_TAG, "이미지 생성 실패 : " + strKey);
 		SAFE_DELETE(img);
 		return NULL;
 	}
@@ -59,7 +59,7 @@ ImageBase* ImageManager::addImage(string strKey, const char * fileName, float x,
 	if (img) return img;//있으면 반환
 
 	img = new ImageBase;
-	if (FAILED(img->init(fileName, x, y, width, height, isTrans, transColor)))//없으면 생성
+	if (FAILED(img->init(fileName, x, y, width, height, isTrans, transColor))) //없으면 생성
 	{
 		SAFE_DELETE(img);
 		return NULL;
@@ -80,7 +80,7 @@ ImageBase* ImageManager::addFrameImage(string strKey, const char * fileName, int
 	img = new ImageBase;
 	if (FAILED(img->init(fileName, width, height, maxFrameX, maxFrameY, isTrans, transColor)))//없으면 생성
 	{
-		cout << "이미지 생성 실패 : " << strKey << endl;
+		MY_UTIL::log(DEBUG_ALL_TAG, "프레임 이미지 생성 실패 : " + strKey);
 		SAFE_DELETE(img);
 		return NULL;
 	}
@@ -120,8 +120,9 @@ ImageBase * ImageManager::findImage(string strKey)
 		return key->second;
 	}
 	else {
-		cout << "이미지 검색 실패 : " << strKey << endl;
+		MY_UTIL::log(DEBUG_ALL_TAG, "이미지 검색 실패 : " + strKey);
 	}
+
 	//검색한 키로 이미지를 못찾았다면 리턴
 	return nullptr;
 }

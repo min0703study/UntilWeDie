@@ -53,9 +53,9 @@ public:
 	const char* EngineerBuildR = "엔지니어 NPC 오른쪽으로 건물 짓기 액션";
 	const char* EngineerBuildL = "엔지니어 NPC 왼쪽으로 건물 짓기 액션";
 
+
 	const char* Generator_off = "발전기 최초 상태";
 	const char* Generator_01 = "발전기 1단계";
-
 
 	const char* shovelshop_off = "삽 생산시설 최초 상태";
 	const char* shovelshop_off_02 = "삽 생산시설 유닛 투입 전 상태";

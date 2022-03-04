@@ -4,10 +4,10 @@
 HRESULT MainScene::init(void)
 {
 	mMap = new Map;
-	mMap->init(0,0, CAMERA_X, CAMERA_Y);
+	mMap->init(0,0, MAP::SIZE::CAMERA_X, MAP::SIZE::CAMERA_X);
 
 	mPlayer = new Player;
-	mPlayer->init(mMap->getCenterX(), GROUND, PLAYER_X_SIZE, PLAYER_Y_SIZE);
+	mPlayer->init(MAP::POS::PLAYER_X, GROUND, MAP::SIZE::PLAYER_X, MAP::SIZE::PLAYER_Y);
 
 	mBuildManager = new BuildManager;
 	mBuildManager->init(100, 100, 100, 100);
@@ -33,8 +33,8 @@ HRESULT MainScene::init(void)
 void MainScene::update(void)
 {
 	mMap->update();
-	mPlayer->update();
 	mBuildManager->update();
+	mPlayer->update();
 
 	/*mEggRespawnTime += TIMEMANAGER->getElapsedTime();
 	if (mMonsterMng->getIsEggRespwan()) mMonsterRespawnTime += TIMEMANAGER->getElapsedTime();*/
@@ -70,8 +70,9 @@ void MainScene::render(void)
 {
 	mMap->render();
 	mBuildManager->render();
-	mPlayer->render();
+	mMap->objectRender();
 	mMonsterMng->render();
+	mPlayer->render();
 }
 
 bool MainScene::isEggRespawn(void)

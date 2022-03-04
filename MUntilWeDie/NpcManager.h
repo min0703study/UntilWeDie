@@ -11,6 +11,8 @@ public:
 	void release(void);
 	void render(void);
 
+	bool pullNpc();
+
 	bool orderCallNpc(RECT playerCallableRc);
 	bool orderExecNpc();
 
@@ -22,6 +24,9 @@ public:
 
 	bool orderGetShovel(); //삽 집는 명령
 	bool orderGetWrench(); // 렌치 집는 명령
+	bool orderBuildBuilding();
+
+	vector<RECT> getNpcsRc();
 
 	NpcManager() {};
 	~NpcManager() {};
@@ -31,6 +36,12 @@ private:
 	
 	vector<Npc*> mVFollowingNpc;
 	vector<Npc*>::iterator mViFollowingNpc;
+
+	map<int, Npc*> mSFollowingNpc;
+	map<int, Npc*>::iterator mSiFollowingNpc;
+
+	int mCurFollowingNpcCount;
+
 
 	int mNpcCount;
 };

@@ -22,14 +22,21 @@ public:
 		animation();
 	};
 
+	void objectRender(void) {
+		GameObject::render();
+
+		////πˆº∏ π◊ πˆº∏≥◊π¶
+		mObjects->render();
+	}
+
 
 	void draw();
 	void animation();
 	void move();
 	void action();
 
-	float getCenterX() { return CAMERA->getX() + (CAMERA_X / 2.0f); }; //∏ ¿« ∞°øÓµ• x
-	float getGoundY() { return 400.0f; }; //∂•¿« ≥Ù¿Ã
+	//float getCenterX() { return CAMERA->getX() + ( / 2.0f); }; //∏ ¿« ∞°øÓµ• x
+	//float getGoundY() { return 400.0f; }; //∂•¿« ≥Ù¿Ã
 
 	IObject* getObjectManager() { return (IObject*)mObjects; };
 

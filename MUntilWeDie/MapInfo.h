@@ -6,6 +6,12 @@
 //맵 길이 46363
 namespace MAP{
 	namespace POS {
+		//플레이어 시작 위치
+		static float PLAYER_X = 30291.875; //맵기준
+
+		static float CAMERA_X = 30291.875 - (1920.0f / 2.0f); //맵기준
+		static float CAMERA_Y = 0; //맵기준
+
 		//자원
 		static float MUSHROOM_01_X = 20370; //맵기준
 		static float MUSHROOM_02_X = 23220; //맵기준
@@ -15,8 +21,6 @@ namespace MAP{
 		static float MUSHROOM_06_X = 34620; //맵기준
 
 		static float OBJECT_GROUND = GROUND_OBJECT; //자원만 사용
-		//플레이어 시작 위치
-		static float PLAYER_X = 30291.875; //맵기준
 
 		//건물 위치
 		//건물-바리케이드
@@ -56,10 +60,17 @@ namespace MAP{
 	}
 
 	namespace SIZE {
+		static float CAMERA_X = 1920; //맵기준
+		static float CAMERA_Y = 1080; //맵기준
+
 		static float MUSHROOM_W = 233.75; //맵기준
 		static float MUSHROOM_H = 87.125; //맵기준
 
-		static int A = 70; //맵기준
-		static int PLAYER_Y = 70; //맵기준
+		static int PLAYER_X = 140; //맵기준
+		static int PLAYER_Y = 140; //맵기준
+		static int PLAYER_Y_ACTION = 180; //맵기준
+
+		static int NPC_X = 140; //맵기준
+		static int NPC_Y = 140; //맵기준
 	}
 }

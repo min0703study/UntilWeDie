@@ -27,7 +27,7 @@ HRESULT GameNode::init(bool managerInit)
 		IMGCLASS->init();
 		SCENEMANAGER->init();
 		GDIPLUSMANAGER->init();
-		CAMERA->init(CAMERA_START_X, CAMERA_START_Y, CAMERA_X, CAMERA_Y);
+		CAMERA->init(MAP::POS::CAMERA_X, MAP::POS::CAMERA_Y, MAP::SIZE::CAMERA_X, MAP::SIZE::CAMERA_Y);
 
 		_ptMouse = { 0,0 };
 	}

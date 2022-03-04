@@ -105,15 +105,15 @@ void Player::move()
 			if (mIsClickDownDashKey)
 			{
 				if (mDashTime >= 0) {
-					offsetX(-5.0f);
-					CAMERA->offSetX(-5.0f);
+					offsetX(-PLAYER_SPEED_DASH);
+					CAMERA->offSetX(-PLAYER_SPEED_DASH);
 					if (mCurStat != eStat::ShootDash && mCurStat != eStat::ShootRun) {
 						changeStat(eStat::Dash);
 					}
 				}
 				else {
-					offsetX(-3.0f);
-					CAMERA->offSetX(-3.0f);
+					offsetX(-PLAYER_SPEED_RUN);
+					CAMERA->offSetX(-PLAYER_SPEED_RUN);
 					if (mCurStat != eStat::Run && mCurStat != eStat::ShootRun) {
 						changeStat(eStat::Run);
 					}
@@ -121,8 +121,8 @@ void Player::move()
 
 			}
 			else {
-				offsetX(-3.0f);
-				CAMERA->offSetX(-3.0f);
+				offsetX(-PLAYER_SPEED_RUN);
+				CAMERA->offSetX(-PLAYER_SPEED_RUN);
 				if (mCurStat != eStat::Run && mCurStat != eStat::ShootRun) {
 					changeStat(eStat::Run);
 				}
@@ -137,23 +137,23 @@ void Player::move()
 			if (mIsClickDownDashKey)
 			{
 				if (mDashTime >= 0) {
-					offsetX(5.0f);
-					CAMERA->offSetX(5.0f);
+					offsetX(PLAYER_SPEED_DASH);
+					CAMERA->offSetX(PLAYER_SPEED_DASH);
 					if (mCurStat != eStat::ShootDash && mCurStat != eStat::ShootRun) {
 						changeStat(eStat::Dash);
 					}
 				}
 				else {
-					offsetX(3.0f);
-					CAMERA->offSetX(3.0f);
+					offsetX(PLAYER_SPEED_RUN);
+					CAMERA->offSetX(PLAYER_SPEED_RUN);
 					if (mCurStat != eStat::Run && mCurStat != eStat::ShootRun) {
 						changeStat(eStat::Run);
 					}
 				}
 			}
 			else {
-				offsetX(3.0f);
-				CAMERA->offSetX(3.0f);
+				offsetX(PLAYER_SPEED_RUN);
+				CAMERA->offSetX(PLAYER_SPEED_RUN);
 				if (mCurStat != eStat::Run && mCurStat != eStat::ShootRun) {
 					changeStat(eStat::Run);
 				}
@@ -200,6 +200,11 @@ void Player::move()
 		};
 	}
 
+	if (KEYMANAGER->isOnceKeyDown(PLAYER_COMMAND_POS_CHANGE))
+	{
+		mNpcManager->changeNpcPosition();
+	}
+
 	if (KEYMANAGER->isOnceKeyUp(PLAYER_MOVE_L) || KEYMANAGER->isOnceKeyUp(PLAYER_MOVE_R)) {
 		changeStat(eStat::Idle);
 	}
@@ -230,7 +235,12 @@ void Player::action()
 
 RECT Player::getPlayerRc()
 {
-	return RECT();
+	return getRc();
+}
+
+vector<RECT> Player::getNpcsRc()
+{
+	return mNpcManager->getNpcsRc();
 }
 
 void Player::isOverGrapObject(int npcIndex)
@@ -270,14 +280,13 @@ void Player::orderCallNpc()
 
 void Player::orderExcuteNpc()
 {
-	// 현석
-	/*
-	if (mIbuilding->isBuildingCollisionToPlayer(getAbsRc()) != -1) {
-		mNpcManager->orderExecNpc();
-	}
-	*/
-
+	//충돌된 건물이 있는지
 	if (mIObject->isObjectCollisionToPlayer(getAbsRc()) != -1) {
 		mNpcManager->orderExecNpc();
+	}
+
+	//충돌된 자원이 있는지
+	if (mIbuilding->isBuildingCollisionToPlayer(getAbsRc()) != -1) {
+		mNpcManager->orderGetShovel();
 	}
 }
