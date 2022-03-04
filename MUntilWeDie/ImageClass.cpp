@@ -78,7 +78,7 @@ HRESULT ImageClass::init(void)
 
 	IMAGEMANAGER->addImage(shopStalkers_weapon, "Resources/Images/Building/shopStalkers/shopStalkers_weapon.bmp", 12 * 2, 26 * 2, true, RGB(255, 0, 255));
 
-	IMAGEMANAGER->addImage(engineerShop_off, "Resources/Images/Building/engineerShop/engineerShop_off.bmp", 170 * 2, 17 * 2, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage(engineerShop_off, "Resources/Images/Building/engineerShop/engineerShop_off.bmp", 170 * 2, 71 * 2, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addImage(engineerShop_off_2, "Resources/Images/Building/engineerShop/engineerShop_off_2.bmp", 262 * 2, 141 * 2, true, RGB(255, 0, 255));
 	
 	IMAGEMANAGER->addFrameImage(engineerShop_stand, "Resources/Images/Building/engineerShop/engineerShop_stand.bmp", 1841 * 2, 141 * 2, 6, 1);
