@@ -89,9 +89,8 @@ int ObjectManager::isObjectCollisionToPlayer(RECT playerAbsRc)
 
 bool ObjectManager::startGrapObject(int objectIndex, int npcIndex, OUT int & xPos)
 {
-	for (mIterMushrooms = mMushrooms.begin(); mIterMushrooms != mMushrooms.end(); ++mIterMushrooms){
-			
-			
-	}		
+	for (mIterMushrooms = mMushrooms.begin(); mIterMushrooms != mMushrooms.end(); ++mIterMushrooms, ++objectIndex) {
+
+	}
 	return false;
 }

@@ -12,7 +12,7 @@ void Mushroom::release(void)
 
 void Mushroom::draw()
 {
-	RectangleMake(getMemDc(), getRc());
+	//RectangleMake(getMemDc(), getRc());
 	mShroomAni.GetImage()->frameRender(getMemDc(), getRc().left, getRc().bottom - mShroomAni.GetImage()->getHeight());
 }
 
@@ -40,7 +40,7 @@ void Debris::release(void)
 
 void Debris::draw()
 {
-	RectangleMake(getMemDc(), getRc());
+	//RectangleMake(getMemDc(), getRc());
 	mDebrisAni.GetImage()->frameRender(getMemDc(), getRc().left, getRc().top);
 }
 
