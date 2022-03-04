@@ -9,10 +9,10 @@ public:
 	//충돌 했으면 해당 index, 아니면 -1 return
 	virtual int isBuildingCollisionToPlayer(RECT playerAbsRc) = 0;
 
-
 	//채영
 	//아이템 돌려주는 소스
-	virtual void resetShopItem(int shopType);
+	virtual void resetShopItem(int shopType) = 0;
+
 
 	//채영
 	//건물 건설 시작
