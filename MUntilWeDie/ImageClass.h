@@ -89,6 +89,9 @@ public:
 
 	const char* Object_Mushroom = "버섯";
 	const char* Item_shroom = "버섯조각";
+	const char* Object_Debris = "상자";
+	const char* Object_Debris2 = "상자2";
+
 	const char* MONSTER_NORMAL_IDLE = "MonsterNormalIdle";
 	const char* MONSTER_NORMAL_WALK = "MonsterNormalWalk";
 	const char* MONSTER_NORMAL_ATTACK = "MonsterNormalAttack";

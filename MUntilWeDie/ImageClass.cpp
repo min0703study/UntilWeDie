@@ -88,6 +88,8 @@ HRESULT ImageClass::init(void)
 
 	IMAGEMANAGER->addFrameImage(Object_Mushroom, "Resources/Images/Objects/mushroom1.bmp", 440 * 2.125, 41 * 2.125, 4, 1);
 	IMAGEMANAGER->addImage(Item_shroom, "Resources/Images/Items/item_shroom.bmp", 22, 21, true, RGB(255, 0 ,255));
+	IMAGEMANAGER->addFrameImage(Object_Debris, "Resources/Images/Objects/Debris.bmp", 570 * 2, 50 * 2, 5, 1);
+	IMAGEMANAGER->addFrameImage(Object_Debris2, "Resources/Images/Objects/Debris2.bmp", 231 * 2, 44 * 2, 3, 1);
 
 	//ijh - Monster
 	IMAGEMANAGER->addFrameImage(MONSTER_NORMAL_IDLE, "Resources/Images/Monster/monster_normal_idle.bmp", 800 * 2, 600 * 2, 8, 6);

@@ -156,6 +156,7 @@ extern int			_winRealSizeY;
 #define CAMERA_START_Y		0.0f
 
 #define MAX_MUSHROOM 6;
+#define MAX_DEBRIS 10;
 
 //ijh - monster size
 #define MON_NORMAL_SEARCH_RANGE_X	300
