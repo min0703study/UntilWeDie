@@ -4,7 +4,7 @@
 void ShovelShop::init(float x, float y, float width, float height)
 {
 	GameObject::Init("ShovelShop", x, y, width, height);
-	
+
 	mImg = IMAGEMANAGER->findImage(IMGCLASS->shovelshop_off);
 
 	mCreateCount = 0;
@@ -24,8 +24,8 @@ void ShovelShop::release(void)
 
 void ShovelShop::draw()
 {
-	RectangleMake(getMemDc(), getRc());
 	mImg->render(getMemDc(), getRc().left, getRc().top);
+	RectangleMake(getMemDc(), getRc());
 }
 
 void ShovelShop::animation()
@@ -62,8 +62,7 @@ void ShovelShop::giveShovelCommand()
 		mCurShovelCount--;
 	}
 
-	else
-	{
+	else {
 		//상호작용 불가능
 	}
 }

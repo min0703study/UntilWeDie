@@ -107,6 +107,18 @@
     <ClCompile Include="GameNode.cpp">
       <Filter>Api Framework\GameNode</Filter>
     </ClCompile>
+    <ClCompile Include="workbanch.cpp">
+      <Filter>Api Framework\Building</Filter>
+    </ClCompile>
+    <ClCompile Include="shopStalkers.cpp">
+      <Filter>Api Framework\Building</Filter>
+    </ClCompile>
+    <ClCompile Include="Generator.cpp">
+      <Filter>Api Framework\Building</Filter>
+    </ClCompile>
+    <ClCompile Include="engineerShop.cpp">
+      <Filter>Api Framework\Building</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="SingletonBase.h">
@@ -225,6 +237,18 @@
     </ClInclude>
     <ClInclude Include="GameNode.h">
       <Filter>Api Framework\GameNode</Filter>
+    </ClInclude>
+    <ClInclude Include="workbanch.h">
+      <Filter>Api Framework\Building</Filter>
+    </ClInclude>
+    <ClInclude Include="shopStalkers.h">
+      <Filter>Api Framework\Building</Filter>
+    </ClInclude>
+    <ClInclude Include="Generator.h">
+      <Filter>Api Framework\Building</Filter>
+    </ClInclude>
+    <ClInclude Include="engineerShop.h">
+      <Filter>Api Framework\Building</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
