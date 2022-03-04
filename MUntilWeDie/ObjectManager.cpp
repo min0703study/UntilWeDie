@@ -69,8 +69,7 @@ int ObjectManager::isObjectCollisionToPlayer(RECT playerAbsRc)
 			return index;
 		}
 		else {
-			cout << "충돌 안함 " << endl;
-			return -1;
+			cout << "충돌 안함 " << endl;;
 		}
 	}
 
@@ -82,9 +81,9 @@ int ObjectManager::isObjectCollisionToPlayer(RECT playerAbsRc)
 		}
 		else {
 			cout << "충돌 안함 " << endl;
-			return -1;
 		}
 	}
+	return index;
 }
 
 bool ObjectManager::startGrapObject(int objectIndex, int npcIndex, OUT int & xPos)
