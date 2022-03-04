@@ -62,29 +62,22 @@ int ObjectManager::isObjectCollisionToPlayer(RECT playerAbsRc)
 {
 	RECT temp;
 	int index = -1;
-
-	for (mIterMushrooms = mMushrooms.begin(); mIterMushrooms != mMushrooms.end(); ++mIterMushrooms, ++index) {
+	for (mIterMushrooms = mMushrooms.begin(), index = 0; mIterMushrooms != mMushrooms.end(); ++mIterMushrooms, ++index) {
 		if (IntersectRect(&temp, &(*mIterMushrooms)->getAbsRc(), &playerAbsRc)) {
 			cout << "오브젝트 충돌: " << "버섯" << endl;
 			return index;
 		}
-		else {
-			cout << "충돌 안함 " << endl;
-			return -1;
-		}
 	}
 
-	for (mIterDebris = mDebris.begin(); mIterDebris != mDebris.end(); ++mIterDebris, ++index) {
+	for (mIterDebris = mDebris.begin(), index = 0; mIterDebris != mDebris.end(); ++mIterDebris, ++index) {
 		if (IntersectRect(&temp, &(*mIterDebris)->getAbsRc(), &playerAbsRc)) {
 
 			cout << "오브젝트 충돌: " << "잡동사니" << endl;
 			return index;
 		}
-		else {
-			cout << "충돌 안함 " << endl;
-			return -1;
-		}
 	}
+
+	return index;
 }
 
 bool ObjectManager::startGrapObject(int objectIndex, int npcIndex, OUT int & xPos)
