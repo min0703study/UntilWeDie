@@ -62,36 +62,36 @@ int BuildManager::isBuildingCollisionToPlayer(RECT playerAbsRc)
 {
 	RECT tempRc;
 
-	int index = -1;
+	int returnType = eBuildType::tNothing;
 
 	if (IntersectRect(&tempRc, &mShovelShop->getAbsRc(), &playerAbsRc)) {
 		MY_UTIL::log(DEBUG_KHS, "충돌완료 : 삽 생산 시설");
-		index = 1;
+		returnType = eBuildType::tShovelShop;
 	}
 
 	if (IntersectRect(&tempRc, &mEngineerShop->getAbsRc(), &playerAbsRc)) {
 		MY_UTIL::log(DEBUG_KHS, "충돌완료 : 렌치 생산 시설");
-		index = 2;
+		returnType = eBuildType::tEngineerShop;
 	}
 
 	if (IntersectRect(&tempRc, &mShopStalkers->getAbsRc(), &playerAbsRc)) {
 		MY_UTIL::log(DEBUG_KHS, "충돌완료 : 총 생산 시설");
-		index = 3;
+		//index = 3;
 	}
 
 	if (IntersectRect(&tempRc, &mGenerator->getAbsRc(), &playerAbsRc)) {
 		MY_UTIL::log(DEBUG_KHS, "충돌완료 : 초기화 시설");
-		index = 4;
+		//index = 4;
 	}
 
 	if (IntersectRect(&tempRc, &mWorkBanch->getAbsRc(), &playerAbsRc)) {
 		MY_UTIL::log(DEBUG_KHS, "충돌완료 : 발전기");
-		index = 5;
+		//index = 5;
 	}
 
-	if (index == -1) {
+	if (index == eBuildType::tNothing) {
 		MY_UTIL::log(DEBUG_KHS, "충돌 실패 : 삽 생산 시설");
-		return -1;
+		//return -1;
 	}
 
 	return index;

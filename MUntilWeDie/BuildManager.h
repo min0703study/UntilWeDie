@@ -19,6 +19,15 @@ struct BuildRect
 class BuildManager : public GameNode, public IBuilding
 {
 public:
+	enum eBuildType {
+		tShovelShop,
+		tEngineerShop,
+		tShopStalkers,
+		tGenerator,
+		tWorkbanch,
+		tNothing
+	};
+
 	HRESULT init(float x, float y, float width, float height);
 	void release(void);
 	void update(void);
