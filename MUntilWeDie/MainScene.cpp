@@ -32,6 +32,8 @@ HRESULT MainScene::init(void)
 
 void MainScene::update(void)
 {
+	mMonsterManager->setIPlayer(mPlayer);
+
 	mMap->update();
 	mPlayer->update();
 	mBuildManager->update();
@@ -53,9 +55,8 @@ void MainScene::update(void)
 		isOn = true;
 	}
 
-	//mMonsterManager->getPlayerRef(mPlayer);
 	mMonsterManager->update();
-
+	EFFECTMANAGER->update();
 }
 
 void MainScene::release(void)
@@ -64,6 +65,7 @@ void MainScene::release(void)
 	mBuildManager->release();
 	mPlayer->release();
 	mMonsterManager->release();
+	EFFECTMANAGER->update();
 }
 
 void MainScene::render(void)
@@ -72,6 +74,7 @@ void MainScene::render(void)
 	mBuildManager->render();
 	mPlayer->render();
 	mMonsterManager->render();
+	EFFECTMANAGER->render();
 }
 
 bool MainScene::isEggRespawn(void)

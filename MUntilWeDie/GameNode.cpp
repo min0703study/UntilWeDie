@@ -28,6 +28,7 @@ HRESULT GameNode::init(bool managerInit)
 		SCENEMANAGER->init();
 		GDIPLUSMANAGER->init();
 		CAMERA->init(MAP::POS::CAMERA_X, MAP::POS::CAMERA_Y, MAP::SIZE::CAMERA_X, MAP::SIZE::CAMERA_Y);
+		EFFECTMANAGER->init();
 
 		_ptMouse = { 0,0 };
 	}
@@ -58,6 +59,9 @@ void GameNode::release(void)
 
 		GDIPLUSMANAGER->release();
 		CAMERA->release();
+
+		EFFECTMANAGER->release();
+		EFFECTMANAGER->releaseSingleton();
 	}
 
 	ReleaseDC(_hWnd, _hdc);

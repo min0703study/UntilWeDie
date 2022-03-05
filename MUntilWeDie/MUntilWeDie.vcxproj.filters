@@ -119,6 +119,9 @@
     <ClCompile Include="engineerShop.cpp">
       <Filter>Api Framework\Building</Filter>
     </ClCompile>
+    <ClCompile Include="EffectManager.cpp">
+      <Filter>Api Framework\Manager</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="SingletonBase.h">
@@ -249,6 +252,9 @@
     </ClInclude>
     <ClInclude Include="engineerShop.h">
       <Filter>Api Framework\Building</Filter>
+    </ClInclude>
+    <ClInclude Include="EffectManager.h">
+      <Filter>Api Framework\Manager</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

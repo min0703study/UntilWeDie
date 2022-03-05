@@ -2,8 +2,10 @@
 class IPlayer
 {
 public:
+	virtual float getPlayerAbsX() = 0;
 	virtual RECT getPlayerRc() = 0;
 	virtual RECT getPlayerAbsRc() = 0;
+	virtual vector<float> getNpcsAbsX() = 0;
 	virtual vector<RECT> getNpcsRc() = 0;
 	virtual vector<RECT> getNpcsAbsRc() = 0;
 	virtual void isOverGrapObject(int npcIndex) = 0;

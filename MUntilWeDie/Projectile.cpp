@@ -10,7 +10,7 @@ void Projectile::init(eMonsterType type, eDirection dir, float x, float y, float
 	if (dir == eDirection::Left) GameObject::Init("Attack", x - distanceX, y - distanceY, width, height);
 	else GameObject::Init("Attack", x + distanceX, y - distanceY, width, height);
 
-	mGravity = 1.5f;
+	mGravity = 2.0f;
 	mSpeedX = mSpeedY = 0;
 
 	mAtkStatus.type = type;
@@ -38,10 +38,10 @@ void Projectile::init(eMonsterType type, eDirection dir, float x, float y, float
 		break;
 	case eMonsterType::Cannon:
 		mAtkStatus.speed = 200.f;
-		mAtkStatus.angle = 45;
+		mAtkStatus.angle = 30.f;
 		mAtkStatus.power = 30;
 		mImage = IMAGEMANAGER->findImage("MonsterCannonProjectile");
-		if (dir == eDirection::Left) mAtkStatus.angle = 180 - 45;
+		if (dir == eDirection::Left) mAtkStatus.angle = 180.f - mAtkStatus.angle;
 		mSpeedX = cosf(PI / 180.f * mAtkStatus.angle) * mAtkStatus.speed;
 		mSpeedY = -sinf(PI / 180.f * mAtkStatus.angle) * mAtkStatus.speed;
 		break;
@@ -75,8 +75,7 @@ void Projectile::move(void)
 	case eMonsterType::Frog:
 		break;
 	case eMonsterType::Cannon:
-		if (mAtkStatus.dir == eDirection::Left)	offsetX(-mSpeedX * mDeltaTime);
-		else if (mAtkStatus.dir == eDirection::Right) offsetX(mSpeedX * mDeltaTime);
+		offsetX(mSpeedX * mDeltaTime);
 		offsetY(mSpeedY * mDeltaTime);
 		mSpeedY += mGravity;
 		break;

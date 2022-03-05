@@ -150,6 +150,7 @@
     <ClCompile Include="BuildManager.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="Effect.cpp" />
+    <ClCompile Include="EffectManager.cpp" />
     <ClCompile Include="engineerShop.cpp" />
     <ClCompile Include="FontManager.cpp" />
     <ClCompile Include="GameNode.cpp" />
@@ -195,6 +196,7 @@
     <ClInclude Include="BuildManager.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="Effect.h" />
+    <ClInclude Include="EffectManager.h" />
     <ClInclude Include="engineerShop.h" />
     <ClInclude Include="FontManager.h" />
     <ClInclude Include="GameNode.h" />

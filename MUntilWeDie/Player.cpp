@@ -234,6 +234,11 @@ void Player::action()
 	}
 }
 
+float Player::getPlayerAbsX()
+{
+	return getAbsX();
+}
+
 RECT Player::getPlayerRc()
 {
 	return getRc();
@@ -242,6 +247,11 @@ RECT Player::getPlayerRc()
 RECT Player::getPlayerAbsRc()
 {
 	return getAbsRc();
+}
+
+vector<float> Player::getNpcsAbsX()
+{
+	return mNpcManager->getNpcsAbsX();
 }
 
 vector<RECT> Player::getNpcsRc()
