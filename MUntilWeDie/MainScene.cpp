@@ -73,6 +73,7 @@ void MainScene::render(void)
 	mMap->objectRender();
 	mMonsterMng->render();
 	mPlayer->render();
+	mMap->frontRender();
 }
 
 bool MainScene::isEggRespawn(void)
