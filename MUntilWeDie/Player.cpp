@@ -87,10 +87,14 @@ void Player::draw()
 
 void Player::animation()
 {
+
 	if (mCurStat == eStat::Death) {
 		if (mAni.mPlayCount == 0) {
 			mAni.frameUpdate(TIMEMANAGER->getElapsedTime());
 		};
+	}
+	else {
+		mAni.frameUpdate(TIMEMANAGER->getElapsedTime());
 	}
 }
 
