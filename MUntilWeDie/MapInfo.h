@@ -1,7 +1,8 @@
 #pragma once
 #define GROUND		800.0f // 나머진 이거 쓰면될듯 Y축
 #define GROUND_OBJECT 820.0f // 이건 자원만 Y축
-#define MONSTER_RESPAWN 7729.687f //X축
+#define MONSTER_RESPAWN_LEFT 29520.3125f; //X축
+#define MONSTER_RESPAWN_RIGHT 31520.3125f; //X축
 
 //맵 길이 46363
 namespace MAP{
