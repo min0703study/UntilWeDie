@@ -319,6 +319,9 @@ void Player::orderExcuteNpc()
 		case BuildManager::eBuildType::tEngineerShop:
 			mNpcManager->orderGetWrench();
 			break;
+		case BuildManager::eBuildType::tWorkbanch:
+			mIbuilding->resetShopItem(mNpcManager->orderResetType());
+			break;
 		default:
 			//Do Nothing
 			break;
