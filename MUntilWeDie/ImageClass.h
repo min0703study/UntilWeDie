@@ -92,6 +92,8 @@ public:
 	const char* Item_Shroom = "버섯조각";
 	const char* Object_Debris = "상자";
 	const char* Object_Debris2 = "상자2";
+	const char* Item_Gear = "상자조각";
+	const char* Item_Flask = "플라스크";
 
 	const char* Object_Cocoon1 = "오브젝트1";
 	const char* Object_Cocoon2 = "오브젝트2";
