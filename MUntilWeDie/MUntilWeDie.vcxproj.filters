@@ -119,6 +119,9 @@
     <ClCompile Include="engineerShop.cpp">
       <Filter>Api Framework\Building</Filter>
     </ClCompile>
+    <ClCompile Include="ItemManager.cpp">
+      <Filter>Api Framework\GameObject</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="SingletonBase.h">
@@ -249,6 +252,9 @@
     </ClInclude>
     <ClInclude Include="engineerShop.h">
       <Filter>Api Framework\Building</Filter>
+    </ClInclude>
+    <ClInclude Include="ItemManager.h">
+      <Filter>Api Framework\GameObject</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

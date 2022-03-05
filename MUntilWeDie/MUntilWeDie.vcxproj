@@ -164,6 +164,7 @@
     <ClCompile Include="IMonster.cpp" />
     <ClCompile Include="IObject.cpp" />
     <ClCompile Include="IPlayer.cpp" />
+    <ClCompile Include="ItemManager.cpp" />
     <ClCompile Include="KeyManager.cpp" />
     <ClCompile Include="MainGame.cpp" />
     <ClCompile Include="MainScene.cpp" />
@@ -209,6 +210,7 @@
     <ClInclude Include="IMonster.h" />
     <ClInclude Include="IObject.h" />
     <ClInclude Include="IPlayer.h" />
+    <ClInclude Include="ItemManager.h" />
     <ClInclude Include="KeyManager.h" />
     <ClInclude Include="MainGame.h" />
     <ClInclude Include="MainScene.h" />

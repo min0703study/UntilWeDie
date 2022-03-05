@@ -201,6 +201,7 @@ bool NpcManager::orderCallNpc(RECT playerCallableRc)
 bool NpcManager::orderExecNpc()
 {
 	if (mVFollowingNpc.begin() == mVFollowingNpc.end()) return false;
+
 	bool isCanExcuteOrder = (*mVFollowingNpc.begin())->orderGrap();
 	pullRank((*mVFollowingNpc.begin())->getRank());
 

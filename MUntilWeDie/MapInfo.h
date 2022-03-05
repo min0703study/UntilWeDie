@@ -67,6 +67,9 @@ namespace MAP{
 		static float MUSHROOM_W = 233.75; //∏ ±‚¡ÿ
 		static float MUSHROOM_H = 87.125; //∏ ±‚¡ÿ
 
+		static float MUSHROOM_ITEM_W = 50; //∏ ±‚¡ÿ
+		static float MUSHROOM_ITEM_H = 50; //∏ ±‚¡ÿ
+
 		static int PLAYER_X = 140; //∏ ±‚¡ÿ
 		static int PLAYER_Y = 140; //∏ ±‚¡ÿ
 		static int PLAYER_Y_ACTION = 180; //∏ ±‚¡ÿ

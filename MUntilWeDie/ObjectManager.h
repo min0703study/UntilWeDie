@@ -2,6 +2,8 @@
 #include "GameNode.h"
 #include "Objects.h"
 #include "IObject.h"
+#include "ItemManager.h"
+#include "IPlayer.h"
 
 class ObjectManager : public GameNode, public IObject
 {
@@ -16,6 +18,8 @@ public:
 	int isObjectCollisionToPlayer(RECT playerAbsRc);
 	bool startGrapObject(int objectIndex, int npcIndex, OUT int& xPos);
 
+	void setIPlayer(IPlayer* iPlayer) { this->mIPlayer = iPlayer; };
+
 	ObjectManager() {};
 	~ObjectManager() {};
 
@@ -25,6 +29,10 @@ private:
 
 	vector<Debris*> mDebris;
 	vector<Debris*>::iterator mIterDebris;
+
+	ItemManager* mItemManager;
+
+	IPlayer* mIPlayer;
 	
 	int mShroomCount;
 	int mDebrisCount;

@@ -59,6 +59,11 @@ public:
 	void move();
 	void action();
 
+	bool isStartGrap;
+	bool isEndGrap;
+
+	int mCount;
+
 	Mushroom() {};
 	~Mushroom() {};
 protected:

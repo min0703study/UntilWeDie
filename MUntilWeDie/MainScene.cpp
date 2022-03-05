@@ -18,6 +18,7 @@ HRESULT MainScene::init(void)
 	mMonsterMng = new MonsterManager;
 	mMonsterMng->init();
 	mMonsterMng->setIPlayer(mPlayer);
+	mMap->setIPlayer(mPlayer);
 	
 	mEggRespawnTime = TIMEMANAGER->getWorldTime();
 	mMonsterRespawnTime = 0;

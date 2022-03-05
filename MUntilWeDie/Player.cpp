@@ -280,13 +280,19 @@ void Player::orderCallNpc()
 
 void Player::orderExcuteNpc()
 {
+	int objectIndex = mIObject->isObjectCollisionToPlayer(getAbsRc());
+
 	//충돌된 건물이 있는지
-	if (mIObject->isObjectCollisionToPlayer(getAbsRc()) != -1) {
+	if (objectIndex != -1) {
+		int xPos = 0;
+		mIObject->startGrapObject(objectIndex, 0, xPos);
 		mNpcManager->orderExecNpc();
 	}
 
+	int buildIndex = mIbuilding->isBuildingCollisionToPlayer(getAbsRc());
 	//충돌된 자원이 있는지
-	if (mIbuilding->isBuildingCollisionToPlayer(getAbsRc()) != -1) {
-		mNpcManager->orderGetShovel();
+	if (buildIndex != -1) {
+		//mNpcManager->orderGetShovel();
+
 	}
 }

@@ -4,6 +4,10 @@
 void Mushroom::init(float x, float y, float width, float height)
 {
 	GameObject::Init("Mushroom", x, y, width, height);
+
+	isStartGrap = false;
+	isEndGrap = false;
+	mCount = GRAB_MUSHROOM_TIME;
 }
 
 void Mushroom::release(void)
@@ -27,6 +31,12 @@ void Mushroom::move()
 
 void Mushroom::action()
 {
+	if (isStartGrap&&!isEndGrap) {
+		mCount--;
+		if (mCount <= 0) {
+			isEndGrap = true;
+		}
+	}
 }
 
 void Debris::init(float x, float y, float width, float height)

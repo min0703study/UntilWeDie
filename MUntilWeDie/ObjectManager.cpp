@@ -6,6 +6,8 @@ HRESULT ObjectManager::init(float x, float y, float width, float height)
 	mShroomCount = MAX_MUSHROOM;
 	mDebrisCount = MAX_DEBRIS;
 
+	mItemManager = new ItemManager;
+
 	for (int i = 0; i < mShroomCount; i++) {
 		Mushroom* mushroom = new Mushroom;
 		mushroom->init((x +( i  * 2850)), y , width, height);
@@ -22,9 +24,20 @@ HRESULT ObjectManager::init(float x, float y, float width, float height)
 
 void ObjectManager::update(void)
 {
-	for (mIterMushrooms = mMushrooms.begin(); mIterMushrooms != mMushrooms.end(); ++mIterMushrooms) {
+	mItemManager->update();
+	for (mIterMushrooms = mMushrooms.begin(); mIterMushrooms != mMushrooms.end();) {
 		(*mIterMushrooms)->update();
+		if ((*mIterMushrooms)->isEndGrap) {
+
+			mItemManager->createDropItem(IMAGEMANAGER->findImage(IMGCLASS->Item_Shroom),(*mIterMushrooms)->getAbsX(), (*mIterMushrooms)->getAbsY(), eDirection::Left);
+			mIPlayer->isOverGrapObject(0);
+			mIterMushrooms = mMushrooms.erase(mIterMushrooms);
+		}
+		else {
+			++mIterMushrooms;
+		}
 	}
+
 	for (mIterDebris = mDebris.begin(); mIterDebris != mDebris.end(); ++mIterDebris) {
 		(*mIterDebris)->update();
 	}
@@ -33,6 +46,7 @@ void ObjectManager::update(void)
 
 void ObjectManager::release(void)
 {
+	mItemManager->release();
 	for (mIterMushrooms = mMushrooms.begin(); mIterMushrooms != mMushrooms.end(); ++mIterMushrooms) {
 		(*mIterMushrooms)->release();
 	}
@@ -44,6 +58,7 @@ void ObjectManager::release(void)
 
 void ObjectManager::render(void)
 {
+	mItemManager->render();
 	for (mIterMushrooms = mMushrooms.begin(); mIterMushrooms != mMushrooms.end(); ++mIterMushrooms) {
 		(*mIterMushrooms)->render();
 	}
@@ -82,9 +97,6 @@ int ObjectManager::isObjectCollisionToPlayer(RECT playerAbsRc)
 
 bool ObjectManager::startGrapObject(int objectIndex, int npcIndex, OUT int & xPos)
 {
-	for (mIterMushrooms = mMushrooms.begin(); mIterMushrooms != mMushrooms.end(); ++mIterMushrooms){
-			
-			
-	}		
+	mMushrooms[objectIndex]->isStartGrap = true;
 	return false;
 }

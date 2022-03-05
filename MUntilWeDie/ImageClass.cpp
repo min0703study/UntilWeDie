@@ -92,7 +92,7 @@ HRESULT ImageClass::init(void)
 
 
 	IMAGEMANAGER->addFrameImage(Object_Mushroom, "Resources/Images/Objects/mushroom1.bmp", 440 * 2.125, 41 * 2.125, 4, 1);
-	IMAGEMANAGER->addImage(Item_Shroom, "Resources/Images/Items/item_shroom.bmp", 22, 21, true, RGB(255, 0 ,255));
+	IMAGEMANAGER->addImage(Item_Shroom, "Resources/Images/Items/item_shroom.bmp", 0,0, MAP::SIZE::MUSHROOM_ITEM_W, MAP::SIZE::MUSHROOM_ITEM_H, true, RGB(255, 0 ,255));
 	IMAGEMANAGER->addFrameImage(Object_Debris, "Resources/Images/Objects/Debris.bmp", 570 * 2, 50 * 2, 5, 1);
 	IMAGEMANAGER->addFrameImage(Object_Debris2, "Resources/Images/Objects/Debris2.bmp", 231 * 2, 44 * 2, 3, 1);
 	IMAGEMANAGER->addFrameImage(Object_Cocoon1, "Resources/Images/Objects/cocoon_01.bmp", 1172 * 2, 340 * 2, 4, 1);

@@ -63,6 +63,8 @@ public:
 	void move();
 	void action();
 
+	void setIPlayer(IPlayer* iPlayer) { mObjects->setIPlayer(iPlayer); }
+
 	//float getCenterX() { return CAMERA->getX() + ( / 2.0f); }; //맵의 가운데 x
 	//float getGoundY() { return 400.0f; }; //땅의 높이
 
