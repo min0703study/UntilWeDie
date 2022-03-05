@@ -3,7 +3,6 @@
 
 HRESULT ItemManager::init()
 {
-
 	return S_OK;
 }
 

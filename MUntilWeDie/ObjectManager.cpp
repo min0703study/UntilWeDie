@@ -28,7 +28,6 @@ void ObjectManager::update(void)
 	for (mIterMushrooms = mMushrooms.begin(); mIterMushrooms != mMushrooms.end();) {
 		(*mIterMushrooms)->update();
 		if ((*mIterMushrooms)->isEndGrap) {
-
 			mItemManager->createDropItem(IMAGEMANAGER->findImage(IMGCLASS->Item_Shroom),(*mIterMushrooms)->getAbsX(), (*mIterMushrooms)->getAbsY(), eDirection::Left);
 			mIPlayer->isOverGrapObject(0);
 			mIterMushrooms = mMushrooms.erase(mIterMushrooms);
@@ -92,7 +91,7 @@ int ObjectManager::isObjectCollisionToPlayer(RECT playerAbsRc)
 		}
 	}
 
-	return index;
+	return -1;
 }
 
 bool ObjectManager::startGrapObject(int objectIndex, int npcIndex, OUT int & xPos)

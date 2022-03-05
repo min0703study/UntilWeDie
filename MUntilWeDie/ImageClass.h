@@ -22,6 +22,8 @@ public:
 	const char* PlayerShootR = "플레이어 오른쪽으로 공격";
 	const char* PlayerRunShootL = "플레이어 뛰면서 왼쪽으로 공격";
 	const char* PlayerRunShootR = "플레이어 뛰면서 오른쪽으로 공격";
+	const char* PlayerDeathL = "플레이어 왼쪽으로 사망";
+	const char* PlayerDeathR = "플레이어 오른쪽으로 사망";
 
 	const char* CivilianIdleR = "민간인 정지 오른쪽 액션";
 	const char* CivilianIdleL = "민간인 정지 왼쪽 액션";

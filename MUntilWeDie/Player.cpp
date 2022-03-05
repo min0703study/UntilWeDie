@@ -17,6 +17,7 @@ void Player::init(float x, float y, float width, float height)
 	mAni.mappingStatForImg(eStat::Shoot, IMAGEMANAGER->findImage(IMGCLASS->PlayerShootR), IMAGEMANAGER->findImage(IMGCLASS->PlayerShootL), 7);
 	mAni.mappingStatForImg(eStat::ShootRun, IMAGEMANAGER->findImage(IMGCLASS->PlayerRunShootR), IMAGEMANAGER->findImage(IMGCLASS->PlayerRunShootL), 7);
 	mAni.mappingStatForImg(eStat::ShootDash, IMAGEMANAGER->findImage(IMGCLASS->PlayerRunShootR), IMAGEMANAGER->findImage(IMGCLASS->PlayerRunShootL), 7);
+	mAni.mappingStatForImg(eStat::Death, IMAGEMANAGER->findImage(IMGCLASS->PlayerDeathL), IMAGEMANAGER->findImage(IMGCLASS->PlayerDeathR), 7);
 
 	mMStatRank.insert(make_pair(eStat::Idle, 0));
 	mMStatRank.insert(make_pair(eStat::Run, 0));
@@ -86,7 +87,11 @@ void Player::draw()
 
 void Player::animation()
 {
-	mAni.frameUpdate(TIMEMANAGER->getElapsedTime());
+	if (mCurStat == eStat::Death) {
+		if (mAni.mPlayCount == 0) {
+			mAni.frameUpdate(TIMEMANAGER->getElapsedTime());
+		};
+	}
 }
 
 void Player::move()
@@ -274,6 +279,9 @@ void Player::attackDamage(int damage)
 {
 	mHp -= damage;
 	cout << "damage : " << mHp << endl;
+	if (mHp <= 0) {
+		changeStat(eStat::Death);
+	}
 }
 
 void Player::changeStat(eStat changeStat)

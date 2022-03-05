@@ -19,7 +19,8 @@ public:
 		ShootRun,
 		ShootDash,
 		CommandCall,
-		CommandExec
+		CommandExec,
+		Death
 	};
 
 	typedef	struct tagAnimation {

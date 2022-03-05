@@ -23,6 +23,8 @@ HRESULT ImageClass::init(void)
 	IMAGEMANAGER->addFrameImage(PlayerRunShootR, "Resources/Images/Player/tex_hero_run_reload_r.bmp", MAP::SIZE::PLAYER_X * 8, MAP::SIZE::PLAYER_X, 8, 1);
 	IMAGEMANAGER->addFrameImage(PlayerShootL, "Resources/Images/Player/tex_hero_reload_l.bmp", MAP::SIZE::PLAYER_X * 8, MAP::SIZE::PLAYER_X, 8, 1);
 	IMAGEMANAGER->addFrameImage(PlayerShootR, "Resources/Images/Player/tex_hero_reload_r.bmp", MAP::SIZE::PLAYER_X * 8, MAP::SIZE::PLAYER_X, 8, 1);
+	IMAGEMANAGER->addFrameImage(PlayerDeathL, "Resources/Images/Player/tex_hero_death_l.bmp", MAP::SIZE::PLAYER_X * 3, MAP::SIZE::PLAYER_X, 3, 1);
+	IMAGEMANAGER->addFrameImage(PlayerDeathR, "Resources/Images/Player/tex_hero_death_r.bmp", MAP::SIZE::PLAYER_X * 3, MAP::SIZE::PLAYER_X, 3, 1);
 
 	IMAGEMANAGER->addFrameImage(CivilianIdleL, "Resources/Images/Npc/tex_civilian_idle_l.bmp", MAP::SIZE::PLAYER_X * 8, MAP::SIZE::PLAYER_X, 8, 1);
 	IMAGEMANAGER->addFrameImage(CivilianIdleR, "Resources/Images/Npc/tex_civilian_idle_r.bmp", MAP::SIZE::PLAYER_X * 8, MAP::SIZE::PLAYER_X, 8, 1);
