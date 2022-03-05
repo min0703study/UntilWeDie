@@ -302,8 +302,12 @@ void Player::orderCallNpc()
 
 void Player::orderExcuteNpc()
 {
+	int objectIndex = mIObject->isObjectCollisionToPlayer(getAbsRc());
+
 	//충돌된 건물이 있는지
-	if (mIObject->isObjectCollisionToPlayer(getAbsRc()) != -1) {
+	if (objectIndex != -1) {
+		int xPos = 0;
+		mIObject->startGrapObject(objectIndex, 0, xPos);
 		mNpcManager->orderExecNpc();
 	}
 
@@ -326,6 +330,5 @@ void Player::orderExcuteNpc()
 			//Do Nothing
 			break;
 		}
-
 	}
 }

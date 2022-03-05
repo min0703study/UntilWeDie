@@ -121,6 +121,8 @@
     </ClCompile>
     <ClCompile Include="EffectManager.cpp">
       <Filter>Api Framework\Manager</Filter>
+    <ClCompile Include="ItemManager.cpp">
+      <Filter>Api Framework\GameObject</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -255,6 +257,9 @@
     </ClInclude>
     <ClInclude Include="EffectManager.h">
       <Filter>Api Framework\Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="ItemManager.h">
+      <Filter>Api Framework\GameObject</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

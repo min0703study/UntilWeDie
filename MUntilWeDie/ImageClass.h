@@ -4,6 +4,7 @@
 class ImageClass: public SingletonBase<ImageClass>
 {
 public:
+	const char* BgBackImg = "뒷 배경 화면";
 	const char* BgImg = "배경 화면";
 	const char* BgGrassImg = "배경 풀";
 
@@ -88,9 +89,23 @@ public:
 	const char* engineerShop_wrench = "렌치";
 
 	const char* Object_Mushroom = "버섯";
-	const char* Item_shroom = "버섯조각";
+	const char* Item_Shroom = "버섯조각";
 	const char* Object_Debris = "상자";
 	const char* Object_Debris2 = "상자2";
+	const char* Item_Gear = "상자조각";
+	const char* Item_Flask = "플라스크";
+
+	const char* Object_Cocoon1 = "오브젝트1";
+	const char* Object_Cocoon2 = "오브젝트2";
+	const char* Object_Cocoon3 = "오브젝트3";
+	const char* Object_Cocoon4 = "오브젝트4";
+	const char* Object_Cocoon5 = "오브젝트5";
+	const char* Object_Cocoon6 = "오브젝트6";
+	const char* Object_CocoonHive = "오브젝트7";
+
+	const char* WaterFallImg = "폭포";
+	const char* WaterFallMImg = "중간폭포";
+	const char* WaterFallSImg = "작은폭포";
 
 	const char* MONSTER_NORMAL_IDLE = "MonsterNormalIdle";
 	const char* MONSTER_NORMAL_WALK = "MonsterNormalWalk";

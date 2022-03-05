@@ -201,6 +201,8 @@ extern int			_winRealSizeY;
 #define PHASE_OF_MONSTER_NUMBER		3
 #define SIZE_OF_MONSTER_NUMBER		3
 
+#define GRAB_MUSHROOM_TIME			500
+
 #define DEBUG_ALL_TAG				"ALL"
 #define DEBUG_MY_TAG				"πŒ√§øµ"
 #define DEBUG_MIN					"πŒ√§øµ"

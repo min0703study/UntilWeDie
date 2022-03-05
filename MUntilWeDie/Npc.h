@@ -168,6 +168,7 @@ private:
 	Animation* mCurAni;
 
 	int mRank;
+	int mId;
 
 	//Player ตฅภฬลอ
 	Player::eStat* mPlayerStat;
