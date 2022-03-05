@@ -160,9 +160,9 @@ void Monster::animation()
 
 void Monster::draw()
 {
-	Rectangle(getMemDc(), mSearchRange.left - CAMERA->getX(), mSearchRange.top - CAMERA->getY(), mSearchRange.right - CAMERA->getX(), mSearchRange.bottom - CAMERA->getY());
-	Rectangle(getMemDc(), mAttackRange.left - CAMERA->getX(), mAttackRange.top - CAMERA->getY(), mAttackRange.right - CAMERA->getX(), mAttackRange.bottom - CAMERA->getY());
-	Rectangle(getMemDc(), mCollideRange.left - CAMERA->getX(), mCollideRange.top - CAMERA->getY(), mCollideRange.right - CAMERA->getX(), mCollideRange.bottom - CAMERA->getY());
+	//Rectangle(getMemDc(), mSearchRange.left - CAMERA->getX(), mSearchRange.top - CAMERA->getY(), mSearchRange.right - CAMERA->getX(), mSearchRange.bottom - CAMERA->getY());
+	//Rectangle(getMemDc(), mAttackRange.left - CAMERA->getX(), mAttackRange.top - CAMERA->getY(), mAttackRange.right - CAMERA->getX(), mAttackRange.bottom - CAMERA->getY());
+	//Rectangle(getMemDc(), mCollideRange.left - CAMERA->getX(), mCollideRange.top - CAMERA->getY(), mCollideRange.right - CAMERA->getX(), mCollideRange.bottom - CAMERA->getY());
 
 	mImage->frameRender
 	(

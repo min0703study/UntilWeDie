@@ -3,6 +3,7 @@
 #include "IPlayer.h"
 #include "IBuilding.h"
 #include "IObject.h"
+#include "IMonster.h"
 
 class NpcManager;
 class Weapon;
@@ -120,6 +121,10 @@ public:
 		mIObject = iObject;
 	};
 
+	void setIMonster(IMonster* iMonster) {
+		mIMonster = iMonster;
+	};
+
 	Player() {};
 	~Player() {};
 private:
@@ -137,7 +142,7 @@ private:
 
 	IBuilding* mIbuilding;
 	IObject* mIObject;
-
+	IMonster* mIMonster;
 	Weapon* mWeapon;
 
 	float mDashTime;
@@ -147,6 +152,8 @@ private:
 	
 	void orderCallNpc();
 	void orderExcuteNpc();
+
+	void collsionCheckMonster();
 
 };
 

@@ -4,9 +4,11 @@
 typedef struct tagBullet
 {
 	RECT rc;
+	RECT absRc;
 	float direction;
 	float x, y;
 	float fireX, fireY;
+	float absX, absY;
 };
 
 
@@ -29,7 +31,10 @@ public:
 	void move(void);
 
 	void shoot(float x, float y, eDirection direction);
+	void attackSuccess();
 	void removeBullet(int arrNum);
+
+	vector<tagBullet> getBullets() { return mVBullet; };
 
 	Weapon(void) {};
 	~Weapon(void) {};
