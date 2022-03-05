@@ -31,7 +31,7 @@ void Monster::init(IPlayer* p, eMonsterType type, float posX, float posY, int se
 
 	mAccrueDistance = 0;//
 	mAttackCoolTime = 0;
-	mFrameUpdateSec = 1.0f / 10.f;
+	mFrameUpdateSec = 1.f / 5.f;
 	mElapsedSec = 0;
 	mDeltaTime = TIMEMANAGER->getElapsedTime();
 
@@ -148,6 +148,27 @@ void Monster::animation()
 {
 	mElapsedSec += mDeltaTime;
 
+	switch (mMonCurrState)
+	{
+	case eMonsterState::Idle:
+		if (mMonType == eMonsterType::Normal) {}
+		else if (mMonType == eMonsterType::Suicide) {}
+		else if (mMonType == eMonsterType::Frog) {}
+		else if (mMonType == eMonsterType::Cannon) {}
+		break;
+	case eMonsterState::Walk:
+		if (mMonType == eMonsterType::Normal) {}
+		else if (mMonType == eMonsterType::Suicide) {}
+		else if (mMonType == eMonsterType::Frog) {}
+		else if (mMonType == eMonsterType::Cannon) {}
+		break;
+	case eMonsterState::Attack:
+		if (mMonType == eMonsterType::Normal) {}
+		else if (mMonType == eMonsterType::Suicide) {}
+		else if (mMonType == eMonsterType::Frog) {}
+		else if (mMonType == eMonsterType::Cannon) {}
+		break;
+	}
 	if (mElapsedSec >= mFrameUpdateSec) {
 		if (mCurrentFrameX > mImage->getMaxFrameX()) {
 			//if (bInAttackRange) mImage->getMaxFrameX();
@@ -496,7 +517,6 @@ void Monster::deleteAttack(void)
 {
 	mAttack->release();
 	SAFE_DELETE(mAttack);
-	cout << "delete!!" << endl;
 }
 
 void Monster::addEffect(eMonsterEffectType type)
