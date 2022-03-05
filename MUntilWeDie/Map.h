@@ -82,12 +82,21 @@ private:
 					   *mCocoonHiveImg_04, *mCocoonHiveImg_05, *mCocoonHiveImg_06 ;
 	ImageBase* mItems;
 
+	ImageBase* mWaterFallImg;
+	ImageBase* mWaterFallMImg;
+	ImageBase* mWaterFallSImg_01;
+	ImageBase* mWaterFallSImg_02;
+
 	ObjectManager* mObjects;
 
 	float mCurrentFrameCocoonX, mCurrentFrameCocoonY;
 	float mCurrentFrameHiveX, mCurrentFrameHiveY;
+	float mCurrentWaterFrameX, mCurrentWaterFrameY;
+	float mCurrentWaterMFrameX, mCurrentWaterMFrameY;
+
 	float mCocoonTime;
 	float mHiveTime;
-
+	float mWaterTime;
+	float mWaterMTime;
 };
 

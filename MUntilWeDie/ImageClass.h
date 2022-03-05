@@ -101,6 +101,9 @@ public:
 	const char* Object_Cocoon6 = "오브젝트6";
 	const char* Object_CocoonHive = "오브젝트7";
 
+	const char* WaterFallImg = "폭포";
+	const char* WaterFallMImg = "중간폭포";
+	const char* WaterFallSImg = "작은폭포";
 
 	const char* MONSTER_NORMAL_IDLE = "MonsterNormalIdle";
 	const char* MONSTER_NORMAL_WALK = "MonsterNormalWalk";

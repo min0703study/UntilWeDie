@@ -8,6 +8,7 @@ HRESULT ImageClass::init(void)
 	IMAGEMANAGER->addImage(BgImg, "Resources/Images/Background/background.bmp", 21818 * 2.125, 780 * 2.125, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addImage(BgGrassImg, "Resources/Images/Background/GrassField.bmp", 21687 * 2.125, 39 * 2.125, true, RGB(255, 0, 255));
 
+
 	IMAGEMANAGER->addFrameImage(PlayerIdleL, "Resources/Images/Player/tex_hero_idle_l.bmp", MAP::SIZE::PLAYER_X * 6, MAP::SIZE::PLAYER_X, 6, 1);
 	IMAGEMANAGER->addFrameImage(PlayerIdleR, "Resources/Images/Player/tex_hero_idle_r.bmp", MAP::SIZE::PLAYER_X * 6, MAP::SIZE::PLAYER_X, 6, 1);
 	IMAGEMANAGER->addFrameImage(PlayerWalkR, "Resources/Images/Player/tex_hero_walk_r.bmp", MAP::SIZE::PLAYER_X * 8, MAP::SIZE::PLAYER_X, 8, 1);
@@ -101,6 +102,9 @@ HRESULT ImageClass::init(void)
 	IMAGEMANAGER->addFrameImage(Object_Cocoon5, "Resources/Images/Objects/cocoon_05..bmp", 1156 * 2, 343 * 2, 4, 1);
 	IMAGEMANAGER->addFrameImage(Object_Cocoon6, "Resources/Images/Objects/cocoon_06.bmp", 740 * 2, 330 * 2, 4, 1);
 	IMAGEMANAGER->addFrameImage(Object_CocoonHive, "Resources/Images/Objects/cocoon_hive.bmp", 1200 * 2, 197 * 2, 8, 1);
+	IMAGEMANAGER->addFrameImage(WaterFallImg, "Resources/Images/Objects/WaterFall.bmp", 256 * 2, 512 * 2, 4, 1);
+	IMAGEMANAGER->addFrameImage(WaterFallMImg, "Resources/Images/Objects/WaterFallM.bmp", 128 * 2, 512 * 2, 8, 1);
+	IMAGEMANAGER->addFrameImage(WaterFallSImg, "Resources/Images/Objects/WaterFallS.bmp", 64 * 2, 512 * 2, 8, 1);
 
 	//ijh - Monster
 	IMAGEMANAGER->addFrameImage(MONSTER_NORMAL_IDLE, "Resources/Images/Monster/monster_normal_idle.bmp", 800 * 2, 600 * 2, 8, 6);

@@ -21,6 +21,11 @@ void Map::init(float x, float y, float width, float height)
 	mCocoonHiveImg_04 = mCocoonHiveImg_05 = mCocoonHiveImg_06 = 
 	IMAGEMANAGER->findImage(IMGCLASS->Object_CocoonHive);
 
+	mWaterFallImg = IMAGEMANAGER->findImage(IMGCLASS->WaterFallImg);
+	mWaterFallMImg = IMAGEMANAGER->findImage(IMGCLASS->WaterFallMImg);
+	mWaterFallSImg_01 = IMAGEMANAGER->findImage(IMGCLASS->WaterFallSImg);
+	mWaterFallSImg_02 = IMAGEMANAGER->findImage(IMGCLASS->WaterFallSImg);
+
 	mObjects = new  ObjectManager;
 	mObjects->init(MAP::POS::MUSHROOM_01_X, MAP::POS::OBJECT_GROUND, MAP::SIZE::MUSHROOM_W, MAP::SIZE::MUSHROOM_H);
 }
@@ -37,6 +42,10 @@ void Map::draw()
 {
 	//¹è°æ
 	mBgBackImg->render(getMemDc(), 0, -280, CAMERA->getX(), CAMERA->getY(), mWidth, mBgBackImg->getHeight());
+	mWaterFallImg->frameRender(getMemDc(), 17684 - CAMERA->getX(), 0 - CAMERA->getY(), mCurrentWaterFrameX, mCurrentWaterFrameY);
+	mWaterFallMImg->frameRender(getMemDc(), 17834 - CAMERA->getX(), 0 - CAMERA->getY(), mCurrentWaterMFrameX, mCurrentWaterMFrameY);
+	mWaterFallSImg_01->frameRender(getMemDc(), 17654 - CAMERA->getX(), 0 - CAMERA->getY(), mCurrentWaterMFrameX, mCurrentWaterMFrameY);
+	mWaterFallSImg_02->frameRender(getMemDc(), 18000 - CAMERA->getX(), 0 - CAMERA->getY(), mCurrentWaterMFrameX, mCurrentWaterMFrameY);
 	mBgImg->render(getMemDc(), 0, -280, CAMERA->getX(), CAMERA->getY(), mWidth, mBgImg->getHeight());
 	////¹ö¼¸ ¹× ¹ö¼¸³×¹¦
 //	mObjects->render();
@@ -46,7 +55,7 @@ void Map::draw()
 
 void Map::animation()
 {
-	if (mHiveTime + 0.3f < TIMEMANAGER->getWorldTime()) {
+	if (mHiveTime + 0.2f < TIMEMANAGER->getWorldTime()) {
 		mCurrentFrameHiveX += 1;
 		if (mCurrentFrameHiveX > mCocoonHiveImg_01->getMaxFrameX() - 1)
 		{
@@ -55,13 +64,31 @@ void Map::animation()
 		mHiveTime = TIMEMANAGER->getWorldTime();
 	}
 
-	if (mCocoonTime + 0.3f < TIMEMANAGER->getWorldTime()) {
+	if (mCocoonTime + 0.2f < TIMEMANAGER->getWorldTime()) {
 		mCurrentFrameCocoonX += 1;
 		if (mCurrentFrameCocoonX > mCocoonImg_01->getMaxFrameX() - 1)
 		{
 			mCurrentFrameCocoonX = 0;
 		}
 		mCocoonTime = TIMEMANAGER->getWorldTime();
+	}
+
+	if (mWaterTime + 0.1f < TIMEMANAGER->getWorldTime()) {
+		mCurrentWaterFrameX += 1;
+		if (mCurrentWaterFrameX > mWaterFallImg->getMaxFrameX() - 1)
+		{
+			mCurrentWaterFrameX = 0;
+		}
+		mWaterTime = TIMEMANAGER->getWorldTime();
+	}
+
+	if (mWaterMTime + 0.1f < TIMEMANAGER->getWorldTime()) {
+		mCurrentWaterMFrameX += 1;
+		if (mCurrentWaterMFrameX > mWaterFallMImg->getMaxFrameX() - 1)
+		{
+			mCurrentWaterMFrameX = 0;
+		}
+		mWaterMTime = TIMEMANAGER->getWorldTime();
 	}
 }
 
