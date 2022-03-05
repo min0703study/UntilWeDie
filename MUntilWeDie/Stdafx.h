@@ -157,6 +157,7 @@ extern int			_winRealSizeY;
 #define CAMERA_START_Y		0.0f
 
 #define MAX_MUSHROOM 6;
+#define MAX_DEBRIS 10;
 
 //ijh - monster size
 #define MON_NORMAL_SEARCH_RANGE_X	300
@@ -199,6 +200,8 @@ extern int			_winRealSizeY;
 //ijh - monster infomation
 #define PHASE_OF_MONSTER_NUMBER		3
 #define SIZE_OF_MONSTER_NUMBER		3
+
+#define GRAB_MUSHROOM_TIME			500
 
 #define DEBUG_ALL_TAG				"ALL"
 #define DEBUG_MY_TAG				"πŒ√§øµ"

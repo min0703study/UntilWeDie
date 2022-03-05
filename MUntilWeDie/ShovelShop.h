@@ -47,6 +47,8 @@ public:
 
 	void Monstertrue();
 
+	//1. getter, setter 만들기 mCurShovelCount
+
 private:
 	vector<Shovel*> mShovels;
 	vector<Shovel*>::iterator mItShovels;
@@ -59,5 +61,6 @@ private:
 	int mBuildHp; //건물 체력
 
 	bool isNpcIn; //NPC가 들어갔는지 안들어갔는지
+
 };
 

@@ -2,6 +2,7 @@
 #include "Player.h"
 #include "NpcManager.h"
 #include "Weapon.h"
+#include "BuildManager.h"
 
 void Player::init(float x, float y, float width, float height)
 {
@@ -16,6 +17,7 @@ void Player::init(float x, float y, float width, float height)
 	mAni.mappingStatForImg(eStat::Shoot, IMAGEMANAGER->findImage(IMGCLASS->PlayerShootR), IMAGEMANAGER->findImage(IMGCLASS->PlayerShootL), 7);
 	mAni.mappingStatForImg(eStat::ShootRun, IMAGEMANAGER->findImage(IMGCLASS->PlayerRunShootR), IMAGEMANAGER->findImage(IMGCLASS->PlayerRunShootL), 7);
 	mAni.mappingStatForImg(eStat::ShootDash, IMAGEMANAGER->findImage(IMGCLASS->PlayerRunShootR), IMAGEMANAGER->findImage(IMGCLASS->PlayerRunShootL), 7);
+	mAni.mappingStatForImg(eStat::Death, IMAGEMANAGER->findImage(IMGCLASS->PlayerDeathL), IMAGEMANAGER->findImage(IMGCLASS->PlayerDeathR), 7);
 
 	mMStatRank.insert(make_pair(eStat::Idle, 0));
 	mMStatRank.insert(make_pair(eStat::Run, 0));
@@ -85,7 +87,15 @@ void Player::draw()
 
 void Player::animation()
 {
-	mAni.frameUpdate(TIMEMANAGER->getElapsedTime());
+
+	if (mCurStat == eStat::Death) {
+		if (mAni.mPlayCount == 0) {
+			mAni.frameUpdate(TIMEMANAGER->getElapsedTime());
+		};
+	}
+	else {
+		mAni.frameUpdate(TIMEMANAGER->getElapsedTime());
+	}
 }
 
 void Player::move()
@@ -198,6 +208,8 @@ void Player::move()
 			else {
 				mWeapon->shoot(getAbsRc().left, getAbsY() - (mHeight / 2), mCurDirection);
 			}
+
+			collsionCheckMonster();
 		};
 	}
 
@@ -273,6 +285,9 @@ void Player::attackDamage(int damage)
 {
 	mHp -= damage;
 	cout << "damage : " << mHp << endl;
+	if (mHp <= 0) {
+		changeStat(eStat::Death);
+	}
 }
 
 void Player::changeStat(eStat changeStat)
@@ -301,13 +316,49 @@ void Player::orderCallNpc()
 
 void Player::orderExcuteNpc()
 {
+	int objectIndex = mIObject->isObjectCollisionToPlayer(getAbsRc());
+
 	//충돌된 건물이 있는지
-	if (mIObject->isObjectCollisionToPlayer(getAbsRc()) != -1) {
+	if (objectIndex != -1) {
+		int xPos = 0;
+		mIObject->startGrapObject(objectIndex, 0, xPos);
 		mNpcManager->orderExecNpc();
 	}
 
+	BuildManager::eBuildType buildCollsion = BuildManager::eBuildType(mIbuilding->isBuildingCollisionToPlayer(getAbsRc()));
+
 	//충돌된 자원이 있는지
-	if (mIbuilding->isBuildingCollisionToPlayer(getAbsRc()) != -1) {
-		mNpcManager->orderGetShovel();
+	if (buildCollsion != BuildManager::eBuildType::tNothing) {
+		switch (buildCollsion)
+		{
+		case BuildManager::eBuildType::tShovelShop :
+			mNpcManager->orderGetShovel();
+			break;
+		case BuildManager::eBuildType::tEngineerShop:
+			mNpcManager->orderGetWrench();
+			break;
+		case BuildManager::eBuildType::tWorkbanch:
+			mIbuilding->resetShopItem(mNpcManager->orderResetType());
+			break;
+		default:
+			//Do Nothing
+			break;
+		}
+	}
+}
+
+void Player::collsionCheckMonster() {
+	vector<RECT> rects = mIMonster->getMonstersAbsRc();
+	vector<tagBullet> bullets = mWeapon->getBullets();
+	RECT tempRect;
+	int i = 0;
+	for (vector<RECT>::iterator iRects = rects.begin(); iRects != rects.end(); iRects++, i++) {
+		for (vector<tagBullet>::iterator iBullets = bullets.begin(); iBullets != bullets.end(); iBullets++) {
+			if (IntersectRect(&tempRect, &(*iRects), &(*iBullets).absRc)) {
+				mIMonster->attackDamage(50, i);
+				mWeapon->attackSuccess();
+				break;
+			}
+		}
 	}
 }

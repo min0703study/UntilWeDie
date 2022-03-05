@@ -3,9 +3,11 @@
 
 HRESULT ImageClass::init(void)
 {
-	MY_UTIL::log(DEBUG_ALL_TAG, "========== 이미지 클래스 시작 ==============");
-	IMAGEMANAGER->addImage(BgImg, "Resources/Images/Background/onworking2.bmp", 21818 * 2.125, 780 * 2.125, true, RGB(255, 0, 255));
+	MY_UTIL::log(DEBUG_ALL_TAG, "========== ?譴?? 클???? ??? ==============");
+	IMAGEMANAGER->addImage(BgBackImg, "Resources/Images/Background/bg_back.bmp", 21818 * 2.125, 780 * 2.125, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage(BgImg, "Resources/Images/Background/background.bmp", 21818 * 2.125, 780 * 2.125, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addImage(BgGrassImg, "Resources/Images/Background/GrassField.bmp", 21687 * 2.125, 39 * 2.125, true, RGB(255, 0, 255));
+
 
 	IMAGEMANAGER->addFrameImage(PlayerIdleL, "Resources/Images/Player/tex_hero_idle_l.bmp", MAP::SIZE::PLAYER_X * 6, MAP::SIZE::PLAYER_X, 6, 1);
 	IMAGEMANAGER->addFrameImage(PlayerIdleR, "Resources/Images/Player/tex_hero_idle_r.bmp", MAP::SIZE::PLAYER_X * 6, MAP::SIZE::PLAYER_X, 6, 1);
@@ -21,6 +23,8 @@ HRESULT ImageClass::init(void)
 	IMAGEMANAGER->addFrameImage(PlayerRunShootR, "Resources/Images/Player/tex_hero_run_reload_r.bmp", MAP::SIZE::PLAYER_X * 8, MAP::SIZE::PLAYER_X, 8, 1);
 	IMAGEMANAGER->addFrameImage(PlayerShootL, "Resources/Images/Player/tex_hero_reload_l.bmp", MAP::SIZE::PLAYER_X * 8, MAP::SIZE::PLAYER_X, 8, 1);
 	IMAGEMANAGER->addFrameImage(PlayerShootR, "Resources/Images/Player/tex_hero_reload_r.bmp", MAP::SIZE::PLAYER_X * 8, MAP::SIZE::PLAYER_X, 8, 1);
+	IMAGEMANAGER->addFrameImage(PlayerDeathL, "Resources/Images/Player/tex_hero_death_l.bmp", MAP::SIZE::PLAYER_X * 3, MAP::SIZE::PLAYER_X, 3, 1);
+	IMAGEMANAGER->addFrameImage(PlayerDeathR, "Resources/Images/Player/tex_hero_death_r.bmp", MAP::SIZE::PLAYER_X * 3, MAP::SIZE::PLAYER_X, 3, 1);
 
 	IMAGEMANAGER->addFrameImage(CivilianIdleL, "Resources/Images/Npc/tex_civilian_idle_l.bmp", MAP::SIZE::PLAYER_X * 8, MAP::SIZE::PLAYER_X, 8, 1);
 	IMAGEMANAGER->addFrameImage(CivilianIdleR, "Resources/Images/Npc/tex_civilian_idle_r.bmp", MAP::SIZE::PLAYER_X * 8, MAP::SIZE::PLAYER_X, 8, 1);
@@ -78,7 +82,7 @@ HRESULT ImageClass::init(void)
 
 	IMAGEMANAGER->addImage(shopStalkers_weapon, "Resources/Images/Building/shopStalkers/shopStalkers_weapon.bmp", 12 * 2, 26 * 2, true, RGB(255, 0, 255));
 
-	IMAGEMANAGER->addImage(engineerShop_off, "Resources/Images/Building/engineerShop/engineerShop_off.bmp", 170 * 2, 17 * 2, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage(engineerShop_off, "Resources/Images/Building/engineerShop/engineerShop_off.bmp", 170 * 2, 71 * 2, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addImage(engineerShop_off_2, "Resources/Images/Building/engineerShop/engineerShop_off_2.bmp", 262 * 2, 141 * 2, true, RGB(255, 0, 255));
 	
 	IMAGEMANAGER->addFrameImage(engineerShop_stand, "Resources/Images/Building/engineerShop/engineerShop_stand.bmp", 1841 * 2, 141 * 2, 6, 1);
@@ -90,7 +94,22 @@ HRESULT ImageClass::init(void)
 
 
 	IMAGEMANAGER->addFrameImage(Object_Mushroom, "Resources/Images/Objects/mushroom1.bmp", 440 * 2.125, 41 * 2.125, 4, 1);
-	IMAGEMANAGER->addImage(Item_shroom, "Resources/Images/Items/item_shroom.bmp", 22, 21, true, RGB(255, 0 ,255));
+	IMAGEMANAGER->addFrameImage(Item_Shroom, "Resources/Images/Items/item_shroom.bmp", 176 * 2, 21 * 2, 8, 1);
+	IMAGEMANAGER->addFrameImage(Item_Gear, "Resources/Images/Items/item_gear.bmp", 160 * 2, 22 * 2, 8, 1);
+	IMAGEMANAGER->addFrameImage(Item_Flask, "Resources/Images/Items/item_flask.bmp", 176 * 2, 32 * 2, 8, 1);
+
+	IMAGEMANAGER->addFrameImage(Object_Debris, "Resources/Images/Objects/Debris.bmp", 570 * 2, 50 * 2, 5, 1);
+	IMAGEMANAGER->addFrameImage(Object_Debris2, "Resources/Images/Objects/Debris2.bmp", 231 * 2, 44 * 2, 3, 1);
+	IMAGEMANAGER->addFrameImage(Object_Cocoon1, "Resources/Images/Objects/cocoon_01.bmp", 1172 * 2, 340 * 2, 4, 1);
+	IMAGEMANAGER->addFrameImage(Object_Cocoon2, "Resources/Images/Objects/cocoon_02.bmp", 792 * 2, 338 * 2, 4, 1);
+	IMAGEMANAGER->addFrameImage(Object_Cocoon3, "Resources/Images/Objects/cocoon_03.bmp", 984 * 2, 214 * 2, 4, 1);
+	IMAGEMANAGER->addFrameImage(Object_Cocoon4, "Resources/Images/Objects/cocoon_04.bmp", 540 * 2, 252 * 2, 4, 1);
+	IMAGEMANAGER->addFrameImage(Object_Cocoon5, "Resources/Images/Objects/cocoon_05..bmp", 1156 * 2, 343 * 2, 4, 1);
+	IMAGEMANAGER->addFrameImage(Object_Cocoon6, "Resources/Images/Objects/cocoon_06.bmp", 740 * 2, 330 * 2, 4, 1);
+	IMAGEMANAGER->addFrameImage(Object_CocoonHive, "Resources/Images/Objects/cocoon_hive.bmp", 1200 * 2, 197 * 2, 8, 1);
+	IMAGEMANAGER->addFrameImage(WaterFallImg, "Resources/Images/Objects/WaterFall.bmp", 256 * 2, 512 * 2, 4, 1);
+	IMAGEMANAGER->addFrameImage(WaterFallMImg, "Resources/Images/Objects/WaterFallM.bmp", 128 * 2, 512 * 2, 8, 1);
+	IMAGEMANAGER->addFrameImage(WaterFallSImg, "Resources/Images/Objects/WaterFallS.bmp", 64 * 2, 512 * 2, 8, 1);
 
 	//ijh - Monster
 	IMAGEMANAGER->addFrameImage(MONSTER_NORMAL_IDLE, "Resources/Images/Monster/monster_normal_idle.bmp", 800 * 2, 600 * 2, 8, 6);
@@ -119,7 +138,7 @@ HRESULT ImageClass::init(void)
 
 	IMAGEMANAGER->addFrameImage(MONSTER_EFFECT3, "Resources/Images/Monster/monster_effect3.bmp", 1540 * 2, 80 * 2, 11, 1, true, RGB(50, 150, 200));
 	IMAGEMANAGER->addFrameImage(MONSTER_EFFECT4, "Resources/Images/Monster/monster_effect4.bmp", 360 * 2, 60 * 2, 6, 1);
-	MY_UTIL::log(DEBUG_ALL_TAG, "========== 이미지 클래스 종료 ==============");
+	MY_UTIL::log(DEBUG_ALL_TAG, "========== ?譴?? 클???? ???? ==============");
 
 	return S_OK;
 }

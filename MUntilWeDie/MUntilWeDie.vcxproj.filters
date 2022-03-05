@@ -69,7 +69,7 @@
       <Filter>Api Framework\Building</Filter>
     </ClCompile>
     <ClCompile Include="MainGame.cpp">
-      <Filter>GameNode</Filter>
+      <Filter>MainGame</Filter>
     </ClCompile>
     <ClCompile Include="Effect.cpp">
       <Filter>Api Framework\GameObject</Filter>
@@ -121,6 +121,9 @@
     </ClCompile>
     <ClCompile Include="EffectManager.cpp">
       <Filter>Api Framework\Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="ItemManager.cpp">
+      <Filter>Api Framework\GameObject</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -200,7 +203,7 @@
       <Filter>Api Framework\Building</Filter>
     </ClInclude>
     <ClInclude Include="MainGame.h">
-      <Filter>GameNode</Filter>
+      <Filter>MainGame</Filter>
     </ClInclude>
     <ClInclude Include="Effect.h">
       <Filter>Api Framework\GameObject</Filter>
@@ -256,6 +259,9 @@
     <ClInclude Include="EffectManager.h">
       <Filter>Api Framework\Manager</Filter>
     </ClInclude>
+    <ClInclude Include="ItemManager.h">
+      <Filter>Api Framework\GameObject</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Api Framework">
@@ -291,14 +297,14 @@
     <Filter Include="Api Framework\Building">
       <UniqueIdentifier>{021ee022-04f3-40ca-88dc-81fd89d92efa}</UniqueIdentifier>
     </Filter>
-    <Filter Include="GameNode">
-      <UniqueIdentifier>{dc25a2fd-b240-449f-848a-7aa7613327d9}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Api Framework\Interface">
       <UniqueIdentifier>{52417879-c87c-41e2-9318-9017f63e42c4}</UniqueIdentifier>
     </Filter>
     <Filter Include="Api Framework\GameNode">
       <UniqueIdentifier>{96f1db5c-e516-412a-adf5-9a3e6107b32f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="MainGame">
+      <UniqueIdentifier>{dc25a2fd-b240-449f-848a-7aa7613327d9}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

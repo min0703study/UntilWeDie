@@ -1,5 +1,6 @@
 #include "Stdafx.h"
 #include "NpcManager.h"
+#include "BuildManager.h"
 
 HRESULT NpcManager::init(float* playerAbsX, float* playerAbsY, Player::eStat* playerStat, eDirection* playerDirection)
 {
@@ -201,6 +202,7 @@ bool NpcManager::orderCallNpc(RECT playerCallableRc)
 bool NpcManager::orderExecNpc()
 {
 	if (mVFollowingNpc.begin() == mVFollowingNpc.end()) return false;
+
 	bool isCanExcuteOrder = (*mVFollowingNpc.begin())->orderGrap();
 	pullRank((*mVFollowingNpc.begin())->getRank());
 
@@ -279,6 +281,23 @@ vector<float> NpcManager::getNpcsAbsX()
 		returnVX.push_back((*mViNpcs)->getAbsX());
 	}
 	return returnVX;
+}
+
+int NpcManager::orderResetType()
+{
+	auto firstNpc = mSFollowingNpc.find(1);
+	if (firstNpc != mSFollowingNpc.end()) {
+		switch (firstNpc->second->getType())
+		{
+			case Npc::eType::Digger:
+				firstNpc->second->changeType(Npc::eType::Civilian);
+				return BuildManager::eBuildType::tShovelShop;
+		default:
+			break;
+		}
+	}
+
+	return -1;
 }
 
 vector<RECT> NpcManager::getNpcsRc() {

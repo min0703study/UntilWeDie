@@ -18,6 +18,8 @@ HRESULT MainScene::init(void)
 
 	mPlayer->setIBuilding(mBuildManager);
 	mPlayer->setIObject(mMap->getObjectManager());
+	mMap->setIPlayer(mPlayer);
+	mPlayer->setIMonster(mMonsterManager);
 
 	mEggRespawnTime = TIMEMANAGER->getWorldTime();
 	mMonsterRespawnTime = 0;
@@ -35,8 +37,8 @@ void MainScene::update(void)
 	mMonsterManager->setIPlayer(mPlayer);
 
 	mMap->update();
-	mPlayer->update();
 	mBuildManager->update();
+	mPlayer->update();
 
 	/*mEggRespawnTime += TIMEMANAGER->getElapsedTime();
 	if (mMonsterMng->getIsEggRespwan()) mMonsterRespawnTime += TIMEMANAGER->getElapsedTime();*/
@@ -72,9 +74,11 @@ void MainScene::render(void)
 {
 	mMap->render();
 	mBuildManager->render();
+	mMap->objectRender();
 	mPlayer->render();
 	mMonsterManager->render();
 	EFFECTMANAGER->render();
+	mMap->frontRender();
 }
 
 bool MainScene::isEggRespawn(void)

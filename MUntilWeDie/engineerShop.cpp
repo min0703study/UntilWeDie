@@ -23,8 +23,8 @@ void engineerShop::release(void)
 
 void engineerShop::draw()
 {
-	mImg->render(getMemDc(), getRc().left, getRc().top);
 	RectangleMake(getMemDc(), getRc());
+	mImg->render(getMemDc(), getRc().left, getRc().top);
 }
 
 void engineerShop::animation()

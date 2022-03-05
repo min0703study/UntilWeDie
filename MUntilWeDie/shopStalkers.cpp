@@ -1,7 +1,7 @@
 #include "Stdafx.h"
-#include "shopStalkers.h"
+#include "ShopStalkers.h"
 
-void shopStalkers::init(float x, float y, float width, float height)
+void ShopStalkers::init(float x, float y, float width, float height)
 {
 	GameObject::Init("shopStalkers", x, y, width, height);
 
@@ -13,7 +13,7 @@ void shopStalkers::init(float x, float y, float width, float height)
 	mBuildHp = 1;
 }
 
-void shopStalkers::release(void)
+void ShopStalkers::release(void)
 {
 	if (true)
 	{
@@ -21,23 +21,23 @@ void shopStalkers::release(void)
 	}
 }
 
-void shopStalkers::draw()
+void ShopStalkers::draw()
 {
-	mImg->render(getMemDc(), getRc().left, getRc().top);
 	RectangleMake(getMemDc(), getRc());
+	mImg->render(getMemDc(), getRc().left, getRc().top);
 }
 
-void shopStalkers::animation()
+void ShopStalkers::animation()
 {
 	//Do thing
 }
 
-void shopStalkers::move()
+void ShopStalkers::move()
 {
 	//Do Nothing
 }
 
-void shopStalkers::action()
+void ShopStalkers::action()
 {
 	if (isNpcIn) {
 		mCreateCount++;
@@ -53,7 +53,7 @@ void shopStalkers::action()
 	}
 }
 
-void shopStalkers::giveWeaponCommand()
+void ShopStalkers::giveWeaponCommand()
 {
 	if (0 < mCurWeaponCount) {
 		mCurWeaponCount--;
@@ -64,7 +64,7 @@ void shopStalkers::giveWeaponCommand()
 	}
 }
 
-void shopStalkers::autoCreate()
+void ShopStalkers::autoCreate()
 {
 	if (MAX_WEAPON_COUNT <= mCurWeaponCount) {
 		mCreateCount = 100;
@@ -77,7 +77,7 @@ void shopStalkers::autoCreate()
 	}
 }
 
-void shopStalkers::intoNpc()
+void ShopStalkers::intoNpc()
 {
 	if (isNpcIn == true) {
 		giveWeaponCommand();
@@ -88,7 +88,7 @@ void shopStalkers::intoNpc()
 	}
 }
 
-void shopStalkers::Monstertrue()
+void ShopStalkers::Monstertrue()
 {
 	//몬스터 충돌 영역 관리
 }

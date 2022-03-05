@@ -41,7 +41,6 @@ void Weapon::draw(void)
 	for (mViBullet = mVBullet.begin(); mViBullet != mVBullet.end(); ++mViBullet) {
 		if (!mIsFire) continue;
 		RectangleMake(getMemDc(), mViBullet->rc);
-		//mBulletImg->render(getMemDc(), mViBullet->x, mViBullet->y);
 	}
 } 
 
@@ -53,8 +52,12 @@ void Weapon::move(void)
 		if (mDirection == eDirection::Left) {
 			mViBullet->x -= mShootSpeed;
 			mViBullet->y += mViBullet->direction;
-			 
+			
+			mViBullet->absX -= mShootSpeed;
+			mViBullet->absY += mViBullet->direction;
+
 			mViBullet->rc = RectMakeCenter(mViBullet->x, mViBullet->y, mWidth, mHeight);
+			mViBullet->absRc = RectMakeCenter(mViBullet->absX, mViBullet->absY, mWidth, mHeight);
 
 			if (mViBullet->fireX - mViBullet->x > 400) {
 				mIsFire = false;
@@ -86,11 +89,18 @@ void Weapon::shoot(float x, float y, eDirection direction)
 	int directionFlag = 1;
 
 	for (mViBullet = mVBullet.begin(); mViBullet != mVBullet.end(); ++mViBullet) {
+		mViBullet->absX = x;
+		mViBullet->absY = y;
 		mViBullet->fireX = mViBullet->x = getX();
 		mViBullet->fireY = mViBullet->y = getY();
 		mViBullet->direction = RND->getFromFloatTo(0.3, 0.7) * directionFlag;
 		directionFlag *= -1;
 	}
+}
+
+void Weapon::attackSuccess()
+{
+	//mIsFire = false;
 }
 
 void Weapon::removeBullet(int arrNum)

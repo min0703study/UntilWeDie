@@ -24,8 +24,8 @@ void ShovelShop::release(void)
 
 void ShovelShop::draw()
 {
-	mImg->render(getMemDc(), getRc().left, getRc().top);
 	RectangleMake(getMemDc(), getRc());
+	mImg->render(getMemDc(), getRc().left, getRc().top);
 }
 
 void ShovelShop::animation()

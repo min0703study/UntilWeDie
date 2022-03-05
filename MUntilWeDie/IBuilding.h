@@ -10,6 +10,11 @@ public:
 	virtual int isBuildingCollisionToPlayer(RECT playerAbsRc) = 0;
 
 	//채영
+	//아이템 돌려주는 소스
+	virtual void resetShopItem(int shopType) = 0;
+
+
+	//채영
 	//건물 건설 시작
 	//건물 건설 시작하면? 건물 시간만큼 타이머가 돈다.
 	//건물 시작 타이머가 완료되면 이미지를 바꿔야 겠지
