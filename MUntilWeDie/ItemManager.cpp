@@ -44,11 +44,23 @@ void ItemManager::createDropItem(ImageBase* img, float x, float y, eDirection di
 {
 	int i = 1;
 	DropItem* dropItem = new DropItem();
-	dropItem->Init("¹ö¼¸", x, y - 50, MAP::SIZE::MUSHROOM_ITEM_W, MAP::SIZE::MUSHROOM_ITEM_H, img, direction);
+	dropItem->Init("¹ö¼¸", x, y, MAP::SIZE::MUSHROOM_ITEM_W, MAP::SIZE::MUSHROOM_ITEM_H, img, direction);
 	mDropItems.push_back(dropItem);
 }
 
 void ItemManager::collisionCheckForDropItem(RECT& playerAbsRc)
 {
 
+}
+
+void DropItem::animation()
+{
+	if (mTime + 0.5f < TIMEMANAGER->getWorldTime()) {
+		mItemFrameX += 1;
+		if (mItemFrameX > mImg->getMaxFrameX() - 1)
+		{
+			mItemFrameX = 0;
+			mTime = TIMEMANAGER->getWorldTime();
+		}
+	}
 }

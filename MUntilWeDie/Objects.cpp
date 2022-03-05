@@ -17,7 +17,7 @@ void Mushroom::release(void)
 void Mushroom::draw()
 {
 	//RectangleMake(getMemDc(), getRc());
-	mShroomAni.GetImage()->frameRender(getMemDc(), getRc().left, getRc().bottom - mShroomAni.GetImage()->getHeight());
+	mShroomAni.GetImage()->frameRender(getMemDc(), getRc().left, getRc().bottom - mShroomAni.GetImage()->getHeight(), mShroomFrameX, mShroomFrameY);
 }
 
 void Mushroom::animation()
@@ -33,6 +33,13 @@ void Mushroom::action()
 {
 	if (isStartGrap&&!isEndGrap) {
 		mCount--;
+		if (mCount % 150 == 0) {
+			mShroomFrameX += 1;
+			if (mShroomFrameX > mShroomAni.GetImage()->getMaxFrameX())
+			{
+				mShroomFrameX = 0;
+			}
+		}
 		if (mCount <= 0) {
 			isEndGrap = true;
 		}

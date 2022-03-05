@@ -92,7 +92,7 @@ int ObjectManager::isObjectCollisionToPlayer(RECT playerAbsRc)
 		}
 	}
 
-	return index;
+	return -1;
 }
 
 bool ObjectManager::startGrapObject(int objectIndex, int npcIndex, OUT int & xPos)

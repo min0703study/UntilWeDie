@@ -27,9 +27,9 @@ public:
 	};
 
 	void draw() {
-		mImg->render(getMemDc(), getRc().left, getRc().top);
+		mImg->frameRender(getMemDc(), getRc().left, getRc().top, mItemFrameX, mItemFrameY);
 	};
-	void animation() {};
+	void animation();
 	void move() {};
 	void action() {};
 
@@ -45,6 +45,10 @@ public:
 
 	float mX;
 	float mY;
+
+	float mItemFrameX;
+	float mItemFrameY;
+	float mTime;
 };
 
 class ItemManager: public GameNode

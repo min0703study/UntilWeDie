@@ -63,6 +63,10 @@ public:
 	bool isEndGrap;
 
 	int mCount;
+	
+	float mShroomFrameX;
+	float mShroomFrameY;
+	float mTime;
 
 	Mushroom() {};
 	~Mushroom() {};
