@@ -272,6 +272,15 @@ bool NpcManager::orderBuildBuilding()
 	return true;
 }
 
+vector<float> NpcManager::getNpcsAbsX()
+{
+	vector<float> returnVX;
+	for (mViNpcs = mVNpcs.begin(); mViNpcs != mVNpcs.end(); mViNpcs++) {
+		returnVX.push_back((*mViNpcs)->getAbsX());
+	}
+	return returnVX;
+}
+
 vector<RECT> NpcManager::getNpcsRc() {
 	vector<RECT> returnVRc;
 	for (mViNpcs = mVNpcs.begin(); mViNpcs != mVNpcs.end(); mViNpcs++) {

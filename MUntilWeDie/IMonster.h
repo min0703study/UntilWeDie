@@ -2,7 +2,7 @@
 class IMonster
 {
 public:
-	virtual vector<RECT> getMonstersRc() = 0;
-	virtual void attackDamage(int damage) = 0;
+	virtual vector<RECT> getMonstersAbsRc() = 0;
+	virtual void attackDamage(int damage, int arrNum) = 0;
 };
 

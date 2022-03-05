@@ -3,10 +3,11 @@
 #include "Player.h"
 #include "IPlayer.h"
 
-void Monster::init(eMonsterType type, float posX, float posY, int searchX, int searchY, int attackX, int attackY, int collX, int collY, int imageX, int imageY, int finalX, int finalY)
+void Monster::init(IPlayer* p, eMonsterType type, float posX, float posY, int searchX, int searchY, int attackX, int attackY, int collX, int collY, int imageX, int imageY, int finalX, int finalY)
 {
 	GameObject::Init("Monster", posX, posY, collX, collY);
 
+	setIPlayer(p);
 	if (posX < finalX) mMonPrevDir = mMonCurrDir = eDirection::Right;
 	else if (posX > finalX) mMonPrevDir = mMonCurrDir = eDirection::Left;
 	mMonType = type;
@@ -25,19 +26,25 @@ void Monster::init(eMonsterType type, float posX, float posY, int searchX, int s
 	mCollideRange = RectMakeCenter(getAbsX(), getAbsY() - getHalfWidth(), collX, collY);
 	
 	mFinalTarget = PointMake(finalX, finalY);
+	mTarget = { eTargetType::Generator, -1 };
 	mbIsTargetOn = false;
 
-	mAccrueDistance = 0;
-	mAnimationTime = TIMEMANAGER->getWorldTime();
+	mAccrueDistance = 0;//
 	mAttackCoolTime = 0;
-	mCurrFrameX = 0;
-	(mMonCurrDir == eDirection::Left) ? mCurrFrameY = 1 : mCurrFrameY = 0;
+	mFrameUpdateSec = 1.0f / 10.f;
+	mElapsedSec = 0;
+	mDeltaTime = TIMEMANAGER->getElapsedTime();
+
+	mCurrentFrameX = 0;
+	(mMonCurrDir == eDirection::Left) ? mCurrentFrameY = 1 : mCurrentFrameY = 0;
 
 	bIsStop = true;
 	bIsMove = false;
-	bIsAttack = false;
 	bIsGround = true;
 	bIsSuicide = false;
+	bInAttackRange = false;
+	bIsAttackStart = false;
+	bIsAttack = false;
 	bIsAttackEnd = false;
 
 	switch (mMonType)
@@ -45,32 +52,38 @@ void Monster::init(eMonsterType type, float posX, float posY, int searchX, int s
 	case eMonsterType::Normal:
 		mImage = IMAGEMANAGER->findImage(IMGCLASS->MONSTER_NORMAL_IDLE);
 		mStatus.maxHp = mStatus.currentHp = 50.f;
-		mStatus.moveSpeed = 2.f;
-		mStatus.attackSpeed = 10.f;
+		mStatus.moveSpeed = 80.f;
+		mStatus.attackSpeed = 150.f;
 		mStatus.power = 10;
 		break;
 	case eMonsterType::Suicide:
 		mImage = IMAGEMANAGER->findImage(IMGCLASS->MONSTER_SUICIDE_IDLE);
 		mStatus.maxHp = mStatus.currentHp = 25.f;
-		mStatus.moveSpeed = 4.f;
-		mStatus.attackSpeed = 15.f;
+		mStatus.moveSpeed = 200.f;
+		mStatus.attackSpeed = 300.f;
 		mStatus.power = 20;
 		break;
 	case eMonsterType::Frog:
 		mImage = IMAGEMANAGER->findImage(IMGCLASS->MONSTER_FROG_IDLE);
 		mStatus.maxHp = mStatus.currentHp = 150.f;
-		mStatus.moveSpeed = 1.f;
-		mStatus.attackSpeed = 10.f;
+		mStatus.moveSpeed = 50.f;
+		mStatus.attackSpeed = 150.f;
 		mStatus.power = 10;
 		break;
 	case eMonsterType::Cannon:
 		mImage = IMAGEMANAGER->findImage(IMGCLASS->MONSTER_CANNON_IDLE);
 		mStatus.maxHp = mStatus.currentHp = 150.f;
-		mStatus.moveSpeed = 1.f;
-		mStatus.attackSpeed = 5.f;
+		mStatus.moveSpeed = 50.f;
+		mStatus.attackSpeed = 200.f;
 		mStatus.power = 30;
 		break;
 	}
+
+	//mBuildingAbsRc = mIBuilding->getBuildingAbsRc();
+	mNpcAbsRc = mIPlayer->getNpcsAbsRc();
+	mNpcAbsX = mIPlayer->getNpcsAbsX();
+	mPlayerAbsRc = mIPlayer->getPlayerAbsRc();
+	mPlayerAbsX = mIPlayer->getPlayerAbsX();
 }
 
 void Monster::release(void)
@@ -83,38 +96,65 @@ void Monster::release(void)
 
 void Monster::update(void)
 {
+	//mBuildingAbsRc = mIBuilding->getBuildingAbsRc();
+	mNpcAbsRc = mIPlayer->getNpcsAbsRc();
+	mNpcAbsX = mIPlayer->getNpcsAbsX();
+	mPlayerAbsRc = mIPlayer->getPlayerAbsRc();
+	mPlayerAbsX = mIPlayer->getPlayerAbsX();
+
 	mMonPrevState = mMonCurrState;
 	mMonPrevDir = mMonCurrDir;
 	move();
 	search();
 	action();
 	if (mAttack) mAttack->update();
-	if (bIsAttack) attack();
+	attack();
+
+	if (bIsGround && !bIsAttack) {
+		if (bInAttackRange && mAttackCoolTime + 1.3f > TIMEMANAGER->getWorldTime()) {
+			mMonCurrState = eMonsterState::Idle;
+			bIsMove = false;
+			bIsStop = true;
+		}
+		else {
+			mMonCurrState = eMonsterState::Walk;
+			bIsMove = true;
+			bIsStop = false;
+		}
+	}
+	else {
+		mMonCurrState = eMonsterState::Attack;
+		bIsMove = false;
+		bIsStop = true;
+	}
 
 	if (mMonPrevState != mMonCurrState) {
 		changeAnimation();
-		mCurrFrameX = 0;
+		mCurrentFrameX = 0;
 	}
 	if (mMonPrevDir != mMonCurrDir) {
-		(mMonCurrDir == eDirection::Left) ? mCurrFrameY = 1 : mCurrFrameY = 0;
+		(mMonCurrDir == eDirection::Left) ? mCurrentFrameY = 1 : mCurrentFrameY = 0;
 	}
+
+	animation();
 }
 
 void Monster::render(void)
 {
-	animation();
 	draw();
-	if (bIsAttack && mAttack) mAttack->render();
 }
 
 void Monster::animation()
 {
-	if (mAnimationTime + 0.1f < TIMEMANAGER->getWorldTime()) {
-		if(bIsAttack) mCurrFrameX += 1;
-		if (mCurrFrameX > mImage->getMaxFrameX()) {
-			mCurrFrameX = 0;
+	mElapsedSec += mDeltaTime;
+
+	if (mElapsedSec >= mFrameUpdateSec) {
+		if (mCurrentFrameX > mImage->getMaxFrameX()) {
+			//if (bInAttackRange) mImage->getMaxFrameX();
+			mCurrentFrameX = 0;
 		}
-		mAnimationTime = TIMEMANAGER->getWorldTime();
+		mElapsedSec = 0;
+		mCurrentFrameX += 1;
 	}
 }
 
@@ -129,46 +169,58 @@ void Monster::draw()
 		getMemDc(),
 		getX() - mImageX * 0.5f,
 		getY() - mImageY,
-		mCurrFrameX, mCurrFrameY
+		mCurrentFrameX, mCurrentFrameY
 	);
 	if (mAttack) mAttack->render();
 }
 
 void Monster::move()
 {
-	// isGround + !attack -> move
-	if (bIsGround && !bIsAttack) {
-		mMonCurrState = eMonsterState::Walk;
-		bIsMove = true;
-		bIsStop = false;
-	}
-	else {
-		mMonCurrState = eMonsterState::Attack;
-		bIsMove = false;
-		bIsStop = true;
-	}
-
 	if (bIsMove) {
 		if (mMonCurrState == eMonsterState::Walk) {
 			if (!mbIsTargetOn) {
 				if (mFinalTarget.x < mSearchRange.left) {
-					offsetX(-mStatus.moveSpeed);
+					offsetX(-mStatus.moveSpeed * mDeltaTime);
 					mMonCurrDir = eDirection::Left;
 				}
 				else if (mFinalTarget.x > mSearchRange.right) {
-					offsetX(mStatus.moveSpeed);
+					offsetX(mStatus.moveSpeed * mDeltaTime);
 					mMonCurrDir = eDirection::Right;
 				}
 			}
 			else {
-				if (mIPlayer->getPlayerAbsRc().right < mCollideRange.left) {
-					offsetX(-mStatus.moveSpeed);
-					mMonCurrDir = eDirection::Left;
+				if (mTarget.type == eTargetType::Player) {
+					if (mPlayerAbsRc.right < mCollideRange.left) {
+						offsetX(-mStatus.moveSpeed * mDeltaTime);
+						mMonCurrDir = eDirection::Left;
+					}
+					else if (mPlayerAbsRc.left > mCollideRange.right) {
+						offsetX(mStatus.moveSpeed * mDeltaTime);
+						mMonCurrDir = eDirection::Right;
+					}
 				}
-				if (mIPlayer->getPlayerAbsRc().left > mCollideRange.right) {
-					offsetX(mStatus.moveSpeed);
-					mMonCurrDir = eDirection::Right;
+				else if (mTarget.type == eTargetType::NPC) {
+					if(mNpcAbsRc[mTarget.arrNum].right < mCollideRange.left) {
+						offsetX(-mStatus.moveSpeed * mDeltaTime);
+						mMonCurrDir = eDirection::Left;
+					}
+					else if (mNpcAbsRc[mTarget.arrNum].left > mCollideRange.right) {
+						offsetX(mStatus.moveSpeed * mDeltaTime);
+						mMonCurrDir = eDirection::Right;
+					}
 				}
+				/*
+				else if (mTarget.type == eTargetType::Building) {
+					if (mNpcAbsRc[mTarget.arrNum].right < mCollideRange.left) {
+						offsetX(-mStatus.moveSpeed * mDeltaTime);
+						mMonCurrDir = eDirection::Left;
+					}
+					else if (mNpcAbsRc[mTarget.arrNum].left > mCollideRange.right) {
+						offsetX(mStatus.moveSpeed * mDeltaTime);
+						mMonCurrDir = eDirection::Right;
+					}
+				}
+				*/
 			}
 		}
 	}
@@ -185,25 +237,90 @@ void Monster::move()
 
 void Monster::search()
 {
-	RECT tmpRect;
-	if (IntersectRect(&tmpRect, &mSearchRange, &mIPlayer->getPlayerAbsRc())) {
-		mTargetType = eTargetType::Player;
-		mbIsTargetOn = true;
-	}
+	if (searchTarget(eTargetType::Player)) {}
+	else if (searchTarget(eTargetType::NPC)) {}
+	else if (searchTarget(eTargetType::Building)) {}
 	else {
+		mTarget.type = eTargetType::Generator;
+		mTarget.arrNum = -1;
 		mbIsTargetOn = false;
+	}
+}
+
+bool Monster::searchTarget(eTargetType type)
+{
+	RECT tmpRect;
+	switch (type)
+	{
+	case eTargetType::Player:
+		if (IntersectRect(&tmpRect, &mSearchRange, &mPlayerAbsRc)) {
+			mTarget.type = eTargetType::Player;
+			mTarget.arrNum = 0;
+			mbIsTargetOn = true;
+			if (getAbsX() < mPlayerAbsX) mMonCurrDir = eDirection::Right;
+			else mMonCurrDir = eDirection::Left;
+			return true;
+		}
+		return false;
+	case eTargetType::NPC:
+		for (int i = 0; i < mNpcAbsRc.size(); i++) {
+			if (IntersectRect(&tmpRect, &mSearchRange, &mNpcAbsRc[i])) {
+				mTarget.type = eTargetType::NPC;
+				mTarget.arrNum = i;
+				mbIsTargetOn = true;
+				if (getAbsX() < mNpcAbsX[i]) mMonCurrDir = eDirection::Right;
+				else mMonCurrDir = eDirection::Left;
+				return true;
+			}
+		}
+		return false;
+	case eTargetType::Building:
+		break;
+	}
+}
+
+bool Monster::attackTarget(eTargetType type)
+{
+	RECT tmpRect;
+	switch (type)
+	{
+	case eTargetType::Player:
+		if (IntersectRect(&tmpRect, &mAttackRange, &mPlayerAbsRc)) {
+			bInAttackRange = true;
+			if (getAbsX() < mPlayerAbsX) mMonCurrDir = eDirection::Right;
+			else mMonCurrDir = eDirection::Left;
+			return true;
+		}
+		return false;
+	case eTargetType::NPC:
+		for (int i = 0; i < mNpcAbsRc.size(); i++) {
+			if (IntersectRect(&tmpRect, &mAttackRange, &mNpcAbsRc[i])) {
+				bInAttackRange = true;
+				if (getAbsX() < mNpcAbsX[i]) mMonCurrDir = eDirection::Right;
+				else mMonCurrDir = eDirection::Left;
+				return true;
+			}
+		}
+		return false;
+	case eTargetType::Building:
+		return false;
 	}
 }
 
 void Monster::action()
 {
-	if (mAttackCoolTime + 2.f < TIMEMANAGER->getWorldTime()) {
-		RECT tmpRect;
-		if (IntersectRect(&tmpRect, &mAttackRange, &mIPlayer->getPlayerAbsRc())) {
-			if (!bIsAttack) {
-				bIsAttack = true;
-				mCurrFrameX = 0;
-			}
+	if (attackTarget(eTargetType::Player)) {}
+	else if (attackTarget(eTargetType::NPC)) {}
+	else if (attackTarget(eTargetType::Building)) {}
+	else bInAttackRange = false;
+
+	if (!bIsAttackStart && mAttackCoolTime + 1.3f < TIMEMANAGER->getWorldTime() && !mAttack && !bIsAttack) bIsAttackStart = true;
+	if (bInAttackRange) {
+		if (!bIsAttack) {
+			bIsAttack = true;
+			mCurrentFrameX = 0;
+		}
+		if (bIsAttackStart && mCurrentFrameX >= 3) {
 			if (!mAttack) {
 				mAttack = new Projectile;
 				switch (mMonType)
@@ -223,12 +340,13 @@ void Monster::action()
 				}
 			}
 			mMonCurrState = eMonsterState::Attack;
-			//attack();
+			mAttackCoolTime = TIMEMANAGER->getWorldTime();
+			bIsAttackStart = false;
 		}
-		else if (bIsAttackEnd){
-			bIsAttack = false;
-			bIsAttackEnd = false;
-		}
+	}
+	if (bIsAttackEnd) {
+		bIsAttack = false;
+		bIsAttackEnd = false;
 	}
 }
 
@@ -239,7 +357,7 @@ void Monster::attack()
 	switch (mMonType)
 	{
 	case eMonsterType::Normal:
-		if (mCurrFrameX > 4 && mCurrFrameX < 7) {
+		if (mCurrentFrameX > 4 && mCurrentFrameX < 7) {
 			if (mMonCurrDir == eDirection::Left) {
 				if (getAbsRc().left > mIPlayer->getPlayerAbsRc().right) {
 					offsetX(-mStatus.attackSpeed);
@@ -291,24 +409,26 @@ void Monster::attack()
 		break;
 	case eMonsterType::Suicide:
 		if (mMonCurrDir == eDirection::Left) {
-			if (getAbsRc().left > mIPlayer->getPlayerAbsRc().right) {
-				offsetX(-mStatus.attackSpeed);
-				if (getAbsRc().left < mIPlayer->getPlayerAbsRc().right) {
+			if (getAbsRc().left > mPlayerAbsRc.right) {
+				offsetX(-mStatus.attackSpeed * mDeltaTime);
+				if (getAbsRc().left < mPlayerAbsRc.right) {
 					mIPlayer->attackDamage(mStatus.power);
-					setAbsX(mIPlayer->getPlayerAbsRc().right);
+					setAbsX(mPlayerAbsRc.right);
 					mStatus.currentHp = 0;
 					bIsSuicide = true;
+					addEffect(eMonsterEffectType::Explosion);
 				}
 			}
 		}
 		else {
-			if (getAbsRc().right < mIPlayer->getPlayerAbsRc().left) {
-				offsetX(mStatus.attackSpeed);
-				if (getAbsRc().right > mIPlayer->getPlayerAbsRc().left) {
+			if (getAbsRc().right < mPlayerAbsRc.left) {
+				offsetX(mStatus.attackSpeed * mDeltaTime);
+				if (getAbsRc().right > mPlayerAbsRc.left) {
 					mIPlayer->attackDamage(mStatus.power);
-					setAbsX(mIPlayer->getPlayerAbsRc().left - getWidth());
+					setAbsX(mPlayerAbsRc.left - getWidth());
 					mStatus.currentHp = 0;
 					bIsSuicide = true;
+					addEffect(eMonsterEffectType::Explosion);
 				}
 			}
 		}
@@ -319,21 +439,24 @@ void Monster::attack()
 		if (mAttack)
 		{
 			RECT tmpRect;
-			if (IntersectRect(&tmpRect, &mIPlayer->getPlayerAbsRc(), &mAttack->getAbsRc())) {
+			if (IntersectRect(&tmpRect, &mPlayerAbsRc, &mAttack->getAbsRc())) {
 				mIPlayer->attackDamage(mStatus.power);
-				//addEffect();
+				addEffect(eMonsterEffectType::Explosion);
 				deleteAttack();
 			}
 			else if (mAttack->getAbsRc().bottom >= GROUND) {
-				//addEffect();
+				addEffect(eMonsterEffectType::Explosion);
 				deleteAttack();
 			}
 		}
-		if (mCurrFrameX == mImage->getMaxFrameX()) {
-			bIsAttack = false;
-			bIsAttackEnd = true;
+		if (bIsAttack) {
+			if (mCurrentFrameX > mImage->getMaxFrameX()) {
+				bIsAttack = false;
+				bIsAttackEnd = true;
+			}
 		}
 		break;
+		
 	}
 }
 
@@ -373,45 +496,64 @@ void Monster::deleteAttack(void)
 {
 	mAttack->release();
 	SAFE_DELETE(mAttack);
+	cout << "delete!!" << endl;
 }
 
-void Monster::addEffect(void)
+void Monster::addEffect(eMonsterEffectType type)
 {
 	switch (mMonType)
 	{
 	case eMonsterType::Normal:
 		if (mMonCurrDir == eDirection::Left) {
-
+			EFFECTMANAGER->addEffect("MonsterNormalDeath", getAbsX(), getAbsY(), 1);
 		}
 		else {
-
+			EFFECTMANAGER->addEffect("MonsterNormalDeath", getAbsX(), getAbsY(), 0);
 		}
 		break;
 	case eMonsterType::Suicide:
-		if (bIsSuicide) {
-
+		if (type == eMonsterEffectType::Death) {
+			EFFECTMANAGER->addEffect("MonsterSuicideDeath1", getAbsX(), getAbsY(), 0);
 		}
-		else {
-
+		else if(type == eMonsterEffectType::Explosion && bIsSuicide) {
+			if (mMonCurrDir == eDirection::Left) {
+				EFFECTMANAGER->addEffect("MonsterSuicideDeath2", getAbsX(), getAbsY(), 1);
+			}
+			else {
+				EFFECTMANAGER->addEffect("MonsterSuicideDeath2", getAbsX(), getAbsY(), 0);
+			}
 		}
 		break;
 	case eMonsterType::Frog:
 		if (mMonCurrDir == eDirection::Left) {
-
+			EFFECTMANAGER->addEffect("MonsterFrogDeath", getAbsX(), getAbsY(), 1);
 		}
 		else {
-
+			EFFECTMANAGER->addEffect("MonsterFrogDeath", getAbsX(), getAbsY(), 0);
 		}
 		break;
 	case eMonsterType::Cannon:
-		if (mMonCurrDir == eDirection::Left) {
-
+		if (type == eMonsterEffectType::Explosion) {
+			if (mAttack) {
+				EFFECTMANAGER->addEffect("MonsterEffect4", mAttack->getAbsX(), mAttack->getAbsY(), 0);
+			}
 		}
 		else {
-
+			if (mMonCurrDir == eDirection::Left) {
+				EFFECTMANAGER->addEffect("MonsterCannonDeath", getAbsX(), getAbsY(), 1);
+			}
+			else {
+				EFFECTMANAGER->addEffect("MonsterCannonDeath", getAbsX(), getAbsY(), 0);
+			}
 		}
 		break;
 	}
+}
+
+void Monster::attackDamage(int damage)
+{
+	mStatus.currentHp -= damage;
+	if (mStatus.currentHp < 0) mStatus.currentHp = 0;
 }
 
 Monster::Monster()

@@ -102,8 +102,10 @@ public:
 	void action();
 
 	//interface
+	float getPlayerAbsX() override;
 	RECT getPlayerRc() override;
 	RECT getPlayerAbsRc() override;
+	vector<float> getNpcsAbsX() override;
 	vector<RECT> getNpcsRc() override;
 	vector<RECT> getNpcsAbsRc() override;
 	void isOverGrapObject(int npcIndex) override;

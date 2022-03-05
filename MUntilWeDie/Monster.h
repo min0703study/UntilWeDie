@@ -23,6 +23,12 @@ enum class eMonsterType
 	Cannon
 };
 
+enum class eMonsterEffectType
+{
+	Death,
+	Explosion
+};
+
 enum class eTargetType
 {
 	Player,
@@ -30,6 +36,12 @@ enum class eTargetType
 	Building,
 	Generator
 };
+
+typedef struct tagTargetInfomation
+{
+	eTargetType type;
+	int arrNum;
+} TargetInfo;
 
 typedef struct tagPointToFloat
 {
@@ -60,7 +72,7 @@ typedef struct tagEgg
 class Monster :	public GameObject
 {
 public:
-	void init(eMonsterType type, float posX, float posY, int searchX, int searchY, int attackX, int attackY, int collX, int collY, int imageX, int imageY, int finalX, int finalY);
+	void init(IPlayer* p, eMonsterType type, float posX, float posY, int searchX, int searchY, int attackX, int attackY, int collX, int collY, int imageX, int imageY, int finalX, int finalY);
 	void release(void);
 	void update(void);
 	void render(void);
@@ -75,20 +87,24 @@ public:
 
 	void changeAnimation(void);
 	void deleteAttack(void);
-	void addEffect(void);
+	void addEffect(eMonsterEffectType type);
 
 	float getCurrentHp(void) { return mStatus.currentHp; }
-
+	bool searchTarget(eTargetType type);
+	bool attackTarget(eTargetType type);
+public:
+	IPlayer* getIPlayer() { return mIPlayer; }
+	void setIPlayer(IPlayer* p) { if (!mIPlayer) mIPlayer = p; }
+	void attackDamage(int damage);
+public:
 	Monster();
 	~Monster();
-public:
-	// 예비
-	void getPlayerRef(Player* p) { mPlayer = p; }
-	void setIPlayer(IPlayer* p) { mIPlayer = p; }
-	IPlayer* getIP() { return mIPlayer; }
 private:
-	//예비
-	Player* mPlayer;
+	vector<RECT> mBuildingAbsRc;
+	vector<RECT> mNpcAbsRc;
+	vector<float> mNpcAbsX;
+	RECT mPlayerAbsRc;
+	float mPlayerAbsX;
 	IPlayer* mIPlayer;
 private:
 	Projectile* mAttack;
@@ -106,20 +122,26 @@ private:
 	int mImageY;
 private:
 	POINT mFinalTarget;
-	eTargetType mTargetType;
+	TargetInfo mTarget;
 	bool mbIsTargetOn;
 
 	float mAccrueDistance;
 	float mAnimationTime;
 	float mAttackCoolTime;
-	int mCurrFrameX;
-	int mCurrFrameY;
+	float mFrameUpdateSec;
+	float mElapsedSec;
+	float mDeltaTime;
+
+	int mCurrentFrameX;
+	int mCurrentFrameY;
 
 	bool bIsStop;
 	bool bIsMove;
-	bool bIsAttack;
 	bool bIsGround;
 	bool bIsSuicide;
+	bool bInAttackRange;
+	bool bIsAttackStart;
+	bool bIsAttack;
 	bool bIsAttackEnd;
 };
 

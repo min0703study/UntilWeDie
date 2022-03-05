@@ -41,6 +41,7 @@ using namespace std;
 #define SCENEMANAGER SceneManager::getSingleton()
 #define GDIPLUSMANAGER GdiPlusManager::getSingleton()
 #define CAMERA Camera::getSingleton()
+#define EFFECTMANAGER EffectManager::getSingleton()
 //Singleton==
 
 // 디그리 1도의 라디안 값
@@ -109,6 +110,7 @@ using namespace std;
 #include "SceneManager.h"
 #include "Camera.h"
 #include "MapInfo.h"
+#include "EffectManager.h"
 //CommonFunction==
 
 using namespace MY_UTIL;

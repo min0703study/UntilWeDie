@@ -26,6 +26,7 @@ public:
 	bool orderGetWrench(); // 렌치 집는 명령
 	bool orderBuildBuilding();
 
+	vector<float> getNpcsAbsX();
 	vector<RECT> getNpcsRc();
 	vector<RECT> getNpcsAbsRc();
 

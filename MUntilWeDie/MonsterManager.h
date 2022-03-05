@@ -1,11 +1,13 @@
 #pragma once
 #include "Monster.h"
+#include "IMonster.h"
 #include "Projectile.h"
-#include "IPlayer.h"
 
+class IPlayer;
 class Player;
+class Npc;
 
-class MonsterManager
+class MonsterManager : public IMonster
 {
 public:
 	void init(void);
@@ -13,13 +15,7 @@ public:
 	void update(void);
 	void render(void);
 
-	void setIPlayer(IPlayer* player) {
-		if(!mIPlayer) mIPlayer = player;
-		mviMonster = mvMonster.begin();
-		for (; mviMonster != mvMonster.end(); ++mviMonster) {
-			(*mviMonster)->setIPlayer(player);
-		}
-	};
+	
 
 	vector<Monster*> getMonster(void) { return mvMonster; }
 	vector<Projectile*> getAttackObject(void) { return mvAttackObject; }
@@ -32,19 +28,15 @@ public:
 	void setNumberOfMonster(int number) { mNumberOfMonster = number; }
 
 	void deleteMonster(void);
+public:
+	void setIPlayer(IPlayer* player);
 
+	vector<RECT> getMonstersAbsRc() override;
+	void attackDamage(int damage, int arrNum) override;
+public:
 	MonsterManager() {}
 	~MonsterManager() {}
-public:
-	void getPlayerRef(Player* p)
-	{
-		mviMonster = mvMonster.begin();
-		for (; mviMonster != mvMonster.end(); ++mviMonster) {
-			(*mviMonster)->getPlayerRef(p);
-		}
-	}
 private:
-	Player* mPlayer;
 	IPlayer* mIPlayer;
 private:
 	vector<MonEgg> mvMonsterEgg;
