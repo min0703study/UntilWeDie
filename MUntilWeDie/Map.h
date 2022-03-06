@@ -55,6 +55,8 @@ public:
 		mCocoonHiveImg_05->frameRender(getMemDc(), 38640 - CAMERA->getX(),  75 - CAMERA->getY(), mCurrentFrameHiveX, mCurrentFrameHiveY);	
 		mCocoonHiveImg_06->frameRender(getMemDc(), 44089 - CAMERA->getX(), 110 - CAMERA->getY(), mCurrentFrameHiveX, mCurrentFrameHiveY);
 
+		mBgMiddleImg->render(getMemDc(), 0, -280, CAMERA->getX(), CAMERA->getY(), mWidth, mBgMiddleImg->getHeight());
+
 		animation();
 	}
 
@@ -74,6 +76,7 @@ public:
 private:
 	ImageBase* mBgBackImg;
 	ImageBase* mBgImg;
+	ImageBase* mBgMiddleImg;
 	ImageBase* mBgGrassImg;
 	ImageBase* mCocoonImg_01, *mCocoonImg_02, *mCocoonImg_03,
 					   *mCocoonImg_04, *mCocoonImg_05, *mCocoonImg_06,

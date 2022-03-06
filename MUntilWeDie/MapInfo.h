@@ -16,10 +16,10 @@ namespace MAP{
 		//¿⁄ø¯
 		static float MUSHROOM_01_X = 20370; //∏ ±‚¡ÿ
 		static float MUSHROOM_02_X = 23220; //∏ ±‚¡ÿ
-		static float MUSHROOM_03_X = 26070; //∏ ±‚¡ÿ
-		static float MUSHROOM_04_X = 28920; //∏ ±‚¡ÿ
-		static float MUSHROOM_05_X = 31770; //∏ ±‚¡ÿ
-		static float MUSHROOM_06_X = 34620; //∏ ±‚¡ÿ
+		static float MUSHROOM_03_X = 25870; //∏ ±‚¡ÿ
+		static float MUSHROOM_04_X = 28720; //∏ ±‚¡ÿ
+		static float MUSHROOM_05_X = 31570; //∏ ±‚¡ÿ
+		static float MUSHROOM_06_X = 34820; //∏ ±‚¡ÿ
 
 		static float OBJECT_GROUND = GROUND_OBJECT; //¿⁄ø¯∏∏ ªÁøÎ
 

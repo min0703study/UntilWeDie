@@ -6,6 +6,7 @@ class ImageClass: public SingletonBase<ImageClass>
 public:
 	const char* BgBackImg = "뒷 배경 화면";
 	const char* BgImg = "배경 화면";
+	const char* BgMiddleImg = "중간 배경 화면";
 	const char* BgGrassImg = "배경 풀";
 	const char* EndSecene = "사망";
 
