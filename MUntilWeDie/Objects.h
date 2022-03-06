@@ -59,8 +59,8 @@ public:
 	void move();
 	void action();
 
-	bool isStartGrap;
-	bool isEndGrap;
+	bool isStartMushroomGrap;
+	bool isEndMushroomGrap;
 
 	int mCount;
 	
@@ -134,6 +134,15 @@ public:
 	void animation();
 	void move();
 	void action();
+
+	bool isStartDebrisGrap;
+	bool isEndDebrisGrap;
+
+	int mCount;
+
+	float mDebrisFrameX;
+	float mDebrisFrameY;
+	float mTime;
 
 	Debris() {};
 	~Debris() {};
