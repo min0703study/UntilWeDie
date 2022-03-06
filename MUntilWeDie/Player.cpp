@@ -288,7 +288,7 @@ void Player::isOverGrapObject(int npcIndex)
 	//mNpcManager->changeStat(npcIndex, Npc::eOrderType::Nothing);
 }
 
-void Player::attackDamage(int damage)
+void Player::attackDamageToPlayer(int damage)
 {
 	mHp -= damage;
 	if (mHp <= 0 && !mIsDead) {
@@ -308,7 +308,6 @@ void Player::attackDamageToNpc(int damage, int arrNum)
 	}
 	*/
 }
-
 
 void Player::changeStat(eStat changeStat)
 {

@@ -133,6 +133,7 @@ void MonsterManager::deleteMonster(void)
 	for (int i = 0; i < mvMonster.size(); i++) {
 		if (mvMonster[i]->getCurrentHp() <= 0) {
 			mvMonster[i]->addEffect(eMonsterEffectType::Death);
+			mvMonster[i]->deleteAttack();
 			mvMonster[i]->release();
 			SAFE_DELETE(mvMonster[i]);
 			mvMonster.erase(mvMonster.begin() + i);
@@ -143,10 +144,6 @@ void MonsterManager::deleteMonster(void)
 void MonsterManager::setIPlayer(IPlayer * player)
 {
 	if (!mIPlayer) mIPlayer = player;
-	/*mviMonster = mvMonster.begin();
-	for (; mviMonster != mvMonster.end(); ++mviMonster) {
-		(*mviMonster)->setIPlayer(player);
-	}*/
 }
 
 vector<RECT> MonsterManager::getMonstersAbsRc()

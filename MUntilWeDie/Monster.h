@@ -134,6 +134,7 @@ private:
 
 	int mCurrentFrameX;
 	int mCurrentFrameY;
+	int mAtkStartFrameX;
 
 	bool bIsStop;
 	bool bIsMove;
@@ -143,5 +144,6 @@ private:
 	bool bIsAttackStart;
 	bool bIsAttack;
 	bool bIsAttackEnd;
+	bool bIsDirLock;
 };
 

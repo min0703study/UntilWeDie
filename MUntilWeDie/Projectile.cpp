@@ -13,6 +13,11 @@ void Projectile::init(eMonsterType type, eDirection dir, float x, float y, float
 	mGravity = 2.0f;
 	mSpeedX = mSpeedY = 0;
 
+	mDeltaTime = TIMEMANAGER->getElapsedTime();
+	mFrameUpdateSec = 1.f / 10.f;
+	mElapsedSec = 0;
+	mCurrentFrameX = 0;
+
 	mAtkStatus.type = type;
 	mAtkStatus.dir = dir;
 
@@ -21,25 +26,21 @@ void Projectile::init(eMonsterType type, eDirection dir, float x, float y, float
 	case eMonsterType::Normal:
 		mAtkStatus.speed = 0;
 		mAtkStatus.angle = 0;
-		mAtkStatus.power = 10;
 		mImage = nullptr;
 		break;
 	case eMonsterType::Suicide:
 		mAtkStatus.speed = 0;
 		mAtkStatus.angle = 0;
-		mAtkStatus.power = 0;
 		mImage = nullptr;
 		break;
 	case eMonsterType::Frog:
 		mAtkStatus.speed = 0;
 		mAtkStatus.angle = 0;
-		mAtkStatus.power = 0;
 		mImage = nullptr;
 		break;
 	case eMonsterType::Cannon:
 		mAtkStatus.speed = 200.f;
 		mAtkStatus.angle = 30.f;
-		mAtkStatus.power = 30;
 		mImage = IMAGEMANAGER->findImage("MonsterCannonProjectile");
 		if (dir == eDirection::Left) mAtkStatus.angle = 180.f - mAtkStatus.angle;
 		mSpeedX = cosf(PI / 180.f * mAtkStatus.angle) * mAtkStatus.speed;
@@ -57,6 +58,7 @@ void Projectile::update(void)
 {
 	mDeltaTime = TIMEMANAGER->getElapsedTime();
 	move();
+	animation();
 }
 
 void Projectile::render(void)
@@ -85,5 +87,18 @@ void Projectile::move(void)
 void Projectile::draw(void)
 {
 	Rectangle(getMemDc(), getRc().left, getRc().top, getRc().right, getRc().bottom);
-	if (mImage != nullptr) mImage->frameRender(getMemDc(), getX() - getHalfWidth(), getY() - getHeight(), 0, 0);
+	if (mImage != nullptr) mImage->frameRender(getMemDc(), getX() - getHalfWidth(), getY() - getHeight(), mCurrentFrameX, 0);
+}
+
+void Projectile::animation(void)
+{
+	mElapsedSec += TIMEMANAGER->getElapsedTime();
+
+	if (mElapsedSec >= mFrameUpdateSec) {
+		mElapsedSec = 0;
+		mCurrentFrameX += 1;
+		if (mCurrentFrameX > mImage->getMaxFrameX()) {
+			mCurrentFrameX = 0;
+		}
+	}
 }
