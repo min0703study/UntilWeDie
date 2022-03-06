@@ -46,6 +46,7 @@ void Monster::init(IPlayer* p, eMonsterType type, float posX, float posY, int se
 	bIsAttackStart = false;
 	bIsAttack = false;
 	bIsAttackEnd = false;
+	bIsDirLock = false;
 
 	switch (mMonType)
 	{
@@ -55,6 +56,7 @@ void Monster::init(IPlayer* p, eMonsterType type, float posX, float posY, int se
 		mStatus.moveSpeed = 80.f;
 		mStatus.attackSpeed = 150.f;
 		mStatus.power = 10;
+		mAtkStartFrameX = 5;
 		break;
 	case eMonsterType::Suicide:
 		mImage = IMAGEMANAGER->findImage(IMGCLASS->MONSTER_SUICIDE_IDLE);
@@ -62,6 +64,7 @@ void Monster::init(IPlayer* p, eMonsterType type, float posX, float posY, int se
 		mStatus.moveSpeed = 200.f;
 		mStatus.attackSpeed = 300.f;
 		mStatus.power = 20;
+		mAtkStartFrameX = 0;
 		break;
 	case eMonsterType::Frog:
 		mImage = IMAGEMANAGER->findImage(IMGCLASS->MONSTER_FROG_IDLE);
@@ -69,6 +72,7 @@ void Monster::init(IPlayer* p, eMonsterType type, float posX, float posY, int se
 		mStatus.moveSpeed = 50.f;
 		mStatus.attackSpeed = 150.f;
 		mStatus.power = 10;
+		mAtkStartFrameX = 3;
 		break;
 	case eMonsterType::Cannon:
 		mImage = IMAGEMANAGER->findImage(IMGCLASS->MONSTER_CANNON_IDLE);
@@ -76,6 +80,7 @@ void Monster::init(IPlayer* p, eMonsterType type, float posX, float posY, int se
 		mStatus.moveSpeed = 50.f;
 		mStatus.attackSpeed = 200.f;
 		mStatus.power = 30;
+		mAtkStartFrameX = 3;
 		break;
 	}
 
@@ -104,39 +109,44 @@ void Monster::update(void)
 
 	mMonPrevState = mMonCurrState;
 	mMonPrevDir = mMonCurrDir;
+	//cout << "prevstate: " << (int)mMonPrevState << endl;
 	move();
 	search();
 	action();
 	if (mAttack) mAttack->update();
 	attack();
 
-	if (bIsGround && !bIsAttack) {
-		if (bInAttackRange && mAttackCoolTime + 1.3f > TIMEMANAGER->getWorldTime()) {
+	if (!bIsAttack) {
+		if (bInAttackRange && mAttackCoolTime > TIMEMANAGER->getWorldTime()) {
 			mMonCurrState = eMonsterState::Idle;
 			bIsMove = false;
 			bIsStop = true;
+			cout << "idle" << endl;
 		}
 		else {
 			mMonCurrState = eMonsterState::Walk;
 			bIsMove = true;
 			bIsStop = false;
+			cout << "walk" << endl;
 		}
 	}
 	else {
 		mMonCurrState = eMonsterState::Attack;
 		bIsMove = false;
 		bIsStop = true;
+		cout << "attack" << endl;
 	}
 
 	if (mMonPrevState != mMonCurrState) {
 		changeAnimation();
 		mCurrentFrameX = 0;
 	}
-	if (mMonPrevDir != mMonCurrDir) {
+	if (mMonPrevDir != mMonCurrDir && !bIsDirLock) {
 		(mMonCurrDir == eDirection::Left) ? mCurrentFrameY = 1 : mCurrentFrameY = 0;
 	}
 
 	animation();
+	//cout << "currstate: " << (int)mMonCurrState << endl;
 }
 
 void Monster::render(void)
@@ -148,42 +158,38 @@ void Monster::animation()
 {
 	mElapsedSec += mDeltaTime;
 
-	switch (mMonCurrState)
-	{
-	case eMonsterState::Idle:
-		if (mMonType == eMonsterType::Normal) {}
-		else if (mMonType == eMonsterType::Suicide) {}
-		else if (mMonType == eMonsterType::Frog) {}
-		else if (mMonType == eMonsterType::Cannon) {}
-		break;
-	case eMonsterState::Walk:
-		if (mMonType == eMonsterType::Normal) {}
-		else if (mMonType == eMonsterType::Suicide) {}
-		else if (mMonType == eMonsterType::Frog) {}
-		else if (mMonType == eMonsterType::Cannon) {}
-		break;
-	case eMonsterState::Attack:
-		if (mMonType == eMonsterType::Normal) {}
-		else if (mMonType == eMonsterType::Suicide) {}
-		else if (mMonType == eMonsterType::Frog) {}
-		else if (mMonType == eMonsterType::Cannon) {}
-		break;
-	}
 	if (mElapsedSec >= mFrameUpdateSec) {
-		if (mCurrentFrameX > mImage->getMaxFrameX()) {
-			//if (bInAttackRange) mImage->getMaxFrameX();
-			mCurrentFrameX = 0;
-		}
 		mElapsedSec = 0;
 		mCurrentFrameX += 1;
+		switch (mMonCurrState)
+		{
+		case eMonsterState::Idle:
+		case eMonsterState::Walk:
+			if (mCurrentFrameX > mImage->getMaxFrameX()) mCurrentFrameX = 0;
+			break;
+		case eMonsterState::Attack:
+			if (mMonType == eMonsterType::Normal) {
+				if (mCurrentFrameX > mImage->getMaxFrameX()) mCurrentFrameX = 0;
+			}
+			else if (mMonType == eMonsterType::Suicide) {
+				if (mCurrentFrameX > mImage->getMaxFrameX()) mCurrentFrameX = 0;
+			}
+			else if (mMonType == eMonsterType::Frog) {
+				if (mCurrentFrameX > mImage->getMaxFrameX()) mCurrentFrameX = 0;
+			}
+			else if (mMonType == eMonsterType::Cannon) {
+				if (mCurrentFrameX > mImage->getMaxFrameX()) mCurrentFrameX = 0;
+			}
+			break;
+		}
 	}
 }
 
 void Monster::draw()
 {
-	//Rectangle(getMemDc(), mSearchRange.left - CAMERA->getX(), mSearchRange.top - CAMERA->getY(), mSearchRange.right - CAMERA->getX(), mSearchRange.bottom - CAMERA->getY());
-	//Rectangle(getMemDc(), mAttackRange.left - CAMERA->getX(), mAttackRange.top - CAMERA->getY(), mAttackRange.right - CAMERA->getX(), mAttackRange.bottom - CAMERA->getY());
-	//Rectangle(getMemDc(), mCollideRange.left - CAMERA->getX(), mCollideRange.top - CAMERA->getY(), mCollideRange.right - CAMERA->getX(), mCollideRange.bottom - CAMERA->getY());
+	Rectangle(getMemDc(), mSearchRange.left - CAMERA->getX(), mSearchRange.top - CAMERA->getY(), mSearchRange.right - CAMERA->getX(), mSearchRange.bottom - CAMERA->getY());
+	Rectangle(getMemDc(), mAttackRange.left - CAMERA->getX(), mAttackRange.top - CAMERA->getY(), mAttackRange.right - CAMERA->getX(), mAttackRange.bottom - CAMERA->getY());
+	Rectangle(getMemDc(), mCollideRange.left - CAMERA->getX(), mCollideRange.top - CAMERA->getY(), mCollideRange.right - CAMERA->getX(), mCollideRange.bottom - CAMERA->getY());
 
 	mImage->frameRender
 	(
@@ -248,12 +254,6 @@ void Monster::move()
 	mSearchRange = RectMakeCenter(getAbsX(), getAbsY() - getHalfWidth(), mStatus.search.x, mStatus.search.y);
 	mAttackRange = RectMakeCenter(getAbsX(), getAbsY() - getHalfWidth(), mStatus.attack.x, mStatus.attack.y);
 	mCollideRange = RectMakeCenter(getAbsX(), getAbsY() - getHalfWidth(), mStatus.size.x, mStatus.size.y);
-	//cout << "mFinalTarget.x: " << mFinalTarget.x << endl;
-	//cout << "mIPlayer->getPlayerRc().left: " << mIPlayer->getPlayerAbsRc().left << endl;
-	//cout << "monAbsRc.right: " << getAbsRc().right << endl;
-	//cout << "monRc.right: " << getRc().right << endl;
-	//cout << "mSearchRange.right: " << mSearchRange.right << endl;
-	//cout << "mAttackRange.right: " << mAttackRange.right << endl;
 }
 
 void Monster::search()
@@ -333,15 +333,18 @@ void Monster::action()
 	if (attackTarget(eTargetType::Player)) {}
 	else if (attackTarget(eTargetType::NPC)) {}
 	else if (attackTarget(eTargetType::Building)) {}
-	else bInAttackRange = false;
+	else {
+		bInAttackRange = false;
+	}
 
-	if (!bIsAttackStart && mAttackCoolTime + 1.3f < TIMEMANAGER->getWorldTime() && !mAttack && !bIsAttack) bIsAttackStart = true;
+	if (!bIsAttackStart && mAttackCoolTime < TIMEMANAGER->getWorldTime() && !mAttack && !bIsAttack) bIsAttackStart = true;
 	if (bInAttackRange) {
-		if (!bIsAttack) {
-			bIsAttack = true;
-			mCurrentFrameX = 0;
-		}
-		if (bIsAttackStart && mCurrentFrameX >= 3) {
+		if (bIsAttackStart && mCurrentFrameX >= mAtkStartFrameX) {
+			if (!bIsAttack) {
+				bIsAttack = true;
+				mCurrentFrameX = 0;
+			}
+			cout << "attack start" << endl;
 			if (!mAttack) {
 				mAttack = new Projectile;
 				switch (mMonType)
@@ -361,8 +364,8 @@ void Monster::action()
 				}
 			}
 			mMonCurrState = eMonsterState::Attack;
-			mAttackCoolTime = TIMEMANAGER->getWorldTime();
 			bIsAttackStart = false;
+			bIsDirLock = true;
 		}
 	}
 	if (bIsAttackEnd) {
@@ -373,67 +376,51 @@ void Monster::action()
 
 void Monster::attack()
 {
+	RECT tmpRect;
 	float prevX = getX();
 
 	switch (mMonType)
 	{
 	case eMonsterType::Normal:
-		if (mCurrentFrameX > 4 && mCurrentFrameX < 7) {
+		if (mCurrentFrameX >= 5) {
 			if (mMonCurrDir == eDirection::Left) {
-				if (getAbsRc().left > mIPlayer->getPlayerAbsRc().right) {
-					offsetX(-mStatus.attackSpeed);
-					if (getAbsRc().left < mIPlayer->getPlayerAbsRc().right) {
-						setAbsX(mIPlayer->getPlayerAbsRc().right);
+				if (getAbsRc().left > mPlayerAbsRc.right) {
+					offsetX(-mStatus.attackSpeed * mDeltaTime);
+					if (getAbsRc().left < mPlayerAbsRc.right) {
+						setAbsX(mPlayerAbsRc.right + getHalfWidth());
 					}
-					//mAccrueDistance += -10;
 				}
 			}
 			else {
-				if (getAbsRc().right < mIPlayer->getPlayerAbsRc().left) {
-					offsetX(mStatus.attackSpeed);
-					if (getAbsRc().right > mIPlayer->getPlayerAbsRc().left) {
-						setAbsX(mIPlayer->getPlayerAbsRc().left - getWidth());
+				if (getAbsRc().right < mPlayerAbsRc.left) {
+					offsetX(mStatus.attackSpeed * mDeltaTime);
+					if (getAbsRc().right > mPlayerAbsRc.left) {
+						setAbsX(mPlayerAbsRc.left - getHalfWidth());
 					}
 				}
 			}
+			if (IntersectRect(&tmpRect, &mAttack->getAbsRc(), &mPlayerAbsRc)) {
+				mIPlayer->attackDamageToPlayer(mStatus.power);
+				cout << "attack" << endl;
+			}
+			if (mAttack) {
+				mAttack->render();
+				deleteAttack();
+			}
+			if (bIsAttack) {
+				if (mCurrentFrameX > mImage->getMaxFrameX()) {
+					bIsAttack = false;
+					bIsAttackEnd = true;
+				}
+			}
 		}
-		//if (mCurrFrameX == 5) {
-		//	/*if (mMonCurrDir == eDirection::Left) {
-		//		RECT tmpRect;
-		//		if (IntersectRect(&tmpRect, &mAttack->getAbsRc(), &mIPlayer->getPlayerRc())) {
-		//			cout << "attack L!" << endl;
-		//		}
-		//		mAttack->render();
-		//	}
-		//	else {
-		//		RECT tmpRect;
-		//		if (IntersectRect(&tmpRect, &mAttack->getAbsRc(), &mIPlayer->getPlayerRc())) {
-		//			cout << "attack R!" << endl;
-		//		}
-		//		if (getAbsRc().right > mIPlayer->getPlayerRc().left) {
-		//			setX(mIPlayer->getPlayerRc().left);
-		//			mCurrFrameX = 6;
-		//		}
-		//		mAttack->render();
-		//	}*/
-
-		//	RECT tmpRect;
-		//	if (IntersectRect(&tmpRect, &mAttack->getAbsRc(), &mIPlayer->getPlayerRc())) {
-		//		cout << "attack!" << endl;
-		//	}
-		//	if (mAttack) {
-		//		mAttack->render();
-		//		deleteAttack();
-		//	}	
-		//}
-		mAttackCoolTime = TIMEMANAGER->getWorldTime();
 		break;
 	case eMonsterType::Suicide:
 		if (mMonCurrDir == eDirection::Left) {
 			if (getAbsRc().left > mPlayerAbsRc.right) {
 				offsetX(-mStatus.attackSpeed * mDeltaTime);
 				if (getAbsRc().left < mPlayerAbsRc.right) {
-					mIPlayer->attackDamage(mStatus.power);
+					mIPlayer->attackDamageToPlayer(mStatus.power);
 					setAbsX(mPlayerAbsRc.right);
 					mStatus.currentHp = 0;
 					bIsSuicide = true;
@@ -445,7 +432,7 @@ void Monster::attack()
 			if (getAbsRc().right < mPlayerAbsRc.left) {
 				offsetX(mStatus.attackSpeed * mDeltaTime);
 				if (getAbsRc().right > mPlayerAbsRc.left) {
-					mIPlayer->attackDamage(mStatus.power);
+					mIPlayer->attackDamageToPlayer(mStatus.power);
 					setAbsX(mPlayerAbsRc.left - getWidth());
 					mStatus.currentHp = 0;
 					bIsSuicide = true;
@@ -459,25 +446,44 @@ void Monster::attack()
 	case eMonsterType::Cannon:
 		if (mAttack)
 		{
-			RECT tmpRect;
-			if (IntersectRect(&tmpRect, &mPlayerAbsRc, &mAttack->getAbsRc())) {
-				mIPlayer->attackDamage(mStatus.power);
-				addEffect(eMonsterEffectType::Explosion);
-				deleteAttack();
+			switch (mTarget.type)
+			{
+			case eTargetType::Player:
+				if (IntersectRect(&tmpRect, &mPlayerAbsRc, &mAttack->getAbsRc())) {
+					mIPlayer->attackDamageToPlayer(mStatus.power);
+					addEffect(eMonsterEffectType::Explosion);
+					deleteAttack();
+				}
+				break;
+			case eTargetType::NPC:
+				for (int i = 0; i < mNpcAbsRc.size(); i++) {
+					if (IntersectRect(&tmpRect, &mNpcAbsRc[i], &mAttack->getAbsRc())) {
+						mIPlayer->attackDamageToNpc(mStatus.power, i);
+						addEffect(eMonsterEffectType::Explosion);
+						deleteAttack();
+						break;
+					}
+				}
+				break;
+			case eTargetType::Building:
+				break;
 			}
-			else if (mAttack->getAbsRc().bottom >= GROUND) {
-				addEffect(eMonsterEffectType::Explosion);
-				deleteAttack();
+			if (mAttack) {
+				if (mAttack->getAbsRc().bottom >= GROUND) {
+					addEffect(eMonsterEffectType::Explosion);
+					deleteAttack();
+				}
 			}
 		}
 		if (bIsAttack) {
-			if (mCurrentFrameX > mImage->getMaxFrameX()) {
+			if (mCurrentFrameX >= mImage->getMaxFrameX()) {
 				bIsAttack = false;
 				bIsAttackEnd = true;
+				bIsDirLock = false;
+				mAttackCoolTime = TIMEMANAGER->getWorldTime() + 1.f;
 			}
 		}
 		break;
-		
 	}
 }
 
@@ -486,37 +492,70 @@ void Monster::changeAnimation(void)
 	switch (mMonType)
 	{
 	case eMonsterType::Normal:
-		if (mMonCurrState == eMonsterState::Idle) mImage = IMAGEMANAGER->findImage(IMGCLASS->MONSTER_NORMAL_IDLE);
-		else if (mMonCurrState == eMonsterState::Walk) mImage = IMAGEMANAGER->findImage(IMGCLASS->MONSTER_NORMAL_WALK);
-		else if (mMonCurrState == eMonsterState::Attack) mImage = IMAGEMANAGER->findImage(IMGCLASS->MONSTER_NORMAL_ATTACK);
-		else if (mMonCurrState == eMonsterState::Death) mImage = IMAGEMANAGER->findImage(IMGCLASS->MONSTER_NORMAL_DEATH);
-		else if (mMonCurrState == eMonsterState::Fall) mImage = IMAGEMANAGER->findImage(IMGCLASS->MONSTER_NORMAL_FALL);
+		if (mMonCurrState == eMonsterState::Idle) {
+			mImage = IMAGEMANAGER->findImage(IMGCLASS->MONSTER_NORMAL_IDLE);
+			mFrameUpdateSec = 1.f / 10.f;
+		}
+		else if (mMonCurrState == eMonsterState::Walk) {
+			mImage = IMAGEMANAGER->findImage(IMGCLASS->MONSTER_NORMAL_WALK);
+			mFrameUpdateSec = 1.f / 10.f;
+		}
+		else if (mMonCurrState == eMonsterState::Attack) {
+			mImage = IMAGEMANAGER->findImage(IMGCLASS->MONSTER_NORMAL_ATTACK);
+			mFrameUpdateSec = 1.f / 5.f;
+		}
 		break;
 	case eMonsterType::Suicide:
-		if (mMonCurrState == eMonsterState::Idle) mImage = IMAGEMANAGER->findImage(IMGCLASS->MONSTER_SUICIDE_IDLE);
-		else if (mMonCurrState == eMonsterState::Walk) mImage = IMAGEMANAGER->findImage(IMGCLASS->MONSTER_SUICIDE_WALK);
-		else if (mMonCurrState == eMonsterState::Attack) mImage = IMAGEMANAGER->findImage(IMGCLASS->MONSTER_SUICIDE_ATTACK);
+		if (mMonCurrState == eMonsterState::Idle) {
+			mImage = IMAGEMANAGER->findImage(IMGCLASS->MONSTER_SUICIDE_IDLE);
+			mFrameUpdateSec = 1.f / 10.f;
+		}
+		else if (mMonCurrState == eMonsterState::Walk) {
+			mImage = IMAGEMANAGER->findImage(IMGCLASS->MONSTER_SUICIDE_WALK);
+			mFrameUpdateSec = 1.f / 10.f;
+		}
+		else if (mMonCurrState == eMonsterState::Attack) {
+			mImage = IMAGEMANAGER->findImage(IMGCLASS->MONSTER_SUICIDE_ATTACK);
+			mFrameUpdateSec = 1.f / 5.f;
+		}
 		break;
 	case eMonsterType::Frog:
-		if (mMonCurrState == eMonsterState::Idle) mImage = IMAGEMANAGER->findImage(IMGCLASS->MONSTER_FROG_IDLE);
-		else if (mMonCurrState == eMonsterState::Walk) mImage = IMAGEMANAGER->findImage(IMGCLASS->MONSTER_FROG_WALK);
-		else if (mMonCurrState == eMonsterState::Attack) mImage = IMAGEMANAGER->findImage(IMGCLASS->MONSTER_FROG_ATTACK);
-		else if (mMonCurrState == eMonsterState::Death) mImage = IMAGEMANAGER->findImage(IMGCLASS->MONSTER_FROG_DEATH);
-		else if (mMonCurrState == eMonsterState::Fall) mImage = IMAGEMANAGER->findImage(IMGCLASS->MONSTER_FROG_JUMP);
+		if (mMonCurrState == eMonsterState::Idle) {
+			mImage = IMAGEMANAGER->findImage(IMGCLASS->MONSTER_FROG_IDLE);
+			mFrameUpdateSec = 1.f / 10.f;
+		}
+		else if (mMonCurrState == eMonsterState::Walk) {
+			mImage = IMAGEMANAGER->findImage(IMGCLASS->MONSTER_FROG_WALK);
+			mFrameUpdateSec = 1.f / 10.f;
+		}
+		else if (mMonCurrState == eMonsterState::Attack) {
+			mImage = IMAGEMANAGER->findImage(IMGCLASS->MONSTER_FROG_ATTACK);
+			mFrameUpdateSec = 1.f / 5.f;
+		}
 		break;
 	case eMonsterType::Cannon:
-		if (mMonCurrState == eMonsterState::Idle) mImage = IMAGEMANAGER->findImage(IMGCLASS->MONSTER_CANNON_IDLE);
-		else if (mMonCurrState == eMonsterState::Walk) mImage = IMAGEMANAGER->findImage(IMGCLASS->MONSTER_CANNON_WALK);
-		else if (mMonCurrState == eMonsterState::Attack) mImage = IMAGEMANAGER->findImage(IMGCLASS->MONSTER_CANNON_ATTACK);
-		else if (mMonCurrState == eMonsterState::Death) mImage = IMAGEMANAGER->findImage(IMGCLASS->MONSTER_CANNON_DEATH);
+		if (mMonCurrState == eMonsterState::Idle) {
+			mImage = IMAGEMANAGER->findImage(IMGCLASS->MONSTER_CANNON_IDLE);
+			mFrameUpdateSec = 1.f / 10.f;
+		}
+		else if (mMonCurrState == eMonsterState::Walk) {
+			mImage = IMAGEMANAGER->findImage(IMGCLASS->MONSTER_CANNON_WALK);
+			mFrameUpdateSec = 1.f / 10.f;
+		}
+		else if (mMonCurrState == eMonsterState::Attack) {
+			mImage = IMAGEMANAGER->findImage(IMGCLASS->MONSTER_CANNON_ATTACK);
+			mFrameUpdateSec = 1.f / 5.f;
+		}
 		break;
 	}
 }
 
 void Monster::deleteAttack(void)
 {
-	mAttack->release();
-	SAFE_DELETE(mAttack);
+	if (mAttack) {
+		mAttack->release();
+		SAFE_DELETE(mAttack);
+	}
 }
 
 void Monster::addEffect(eMonsterEffectType type)

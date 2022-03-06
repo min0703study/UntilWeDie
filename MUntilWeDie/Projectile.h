@@ -10,7 +10,6 @@ typedef struct tagProjectile
 	eDirection dir;
 	float speed;
 	float angle;
-	int power;
 } AttackStatus;
 
 class Projectile : public GameObject
@@ -23,6 +22,7 @@ public:
 
 	void move(void);
 	void draw(void);
+	void animation(void);
 
 	void setSpeedX(float spd) { mSpeedX = spd; }
 	void setSpeedY(float spd) { mSpeedY = spd; }
@@ -37,5 +37,8 @@ private:
 	float mSpeedX;
 	float mSpeedY;
 	float mDeltaTime;
+	float mFrameUpdateSec;
+	float mElapsedSec;
+	int mCurrentFrameX;
 };
 

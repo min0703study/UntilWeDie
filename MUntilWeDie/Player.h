@@ -111,7 +111,8 @@ public:
 	vector<RECT> getNpcsRc() override;
 	vector<RECT> getNpcsAbsRc() override;
 	void isOverGrapObject(int npcIndex) override;
-	void attackDamage(int damage) override;
+	void attackDamageToPlayer(int damage) override;
+	void attackDamageToNpc(int damage, int arrNum) override;
 
 	void setIBuilding(IBuilding* iBuilding) {
 		mIbuilding = iBuilding;

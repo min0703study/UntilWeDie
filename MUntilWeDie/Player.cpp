@@ -281,13 +281,17 @@ void Player::isOverGrapObject(int npcIndex)
 	//mNpcManager->changeStat(npcIndex, Npc::eOrderType::Nothing);
 }
 
-void Player::attackDamage(int damage)
+void Player::attackDamageToPlayer(int damage)
 {
 	mHp -= damage;
 	cout << "damage : " << mHp << endl;
 	if (mHp <= 0) {
 		changeStat(eStat::Death);
 	}
+}
+
+void Player::attackDamageToNpc(int damage, int arrNum)
+{
 }
 
 void Player::changeStat(eStat changeStat)
