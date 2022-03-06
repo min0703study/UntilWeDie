@@ -5,10 +5,15 @@ void engineerShop::init(float x, float y, float width, float height)
 {
 	GameObject::Init("engineerShop", x, y, width, height);
 
+	mBuildCount = BUILD_BUILDING_TIME;
+
 	mImg = IMAGEMANAGER->findImage(IMGCLASS->engineerShop_off);
 	mImg_Tool = IMAGEMANAGER->findImage(IMGCLASS->engineerShop_wrench);
 
+	mBuildType = eBuildingType::off;
+
 	mCreateCount = 0;
+	setWrenchCount = 2;
 
 	isNpcIn = false;
 	mBuildHp = 1;
@@ -25,13 +30,39 @@ void engineerShop::release(void)
 void engineerShop::draw()
 {
 	//RectangleMake(getMemDc(), getRc());
-	mImg->render(getMemDc(), getRc().left, getRc().top);
+	switch (mBuildType)
+	{
+	case eBuildingType::close:
+		mImg = IMAGEMANAGER->findImage(IMGCLASS->engineerShop_off_2);
+		mImg->render(getMemDc(), getRc().left, getRc().bottom - mImg->getHeight());
+		break;
+	case eBuildingType::off:
+		mImg = IMAGEMANAGER->findImage(IMGCLASS->engineerShop_off);
+		mImg->render(getMemDc(), getRc().left, getRc().top);
+		break;
+	case eBuildingType::stand:
+		mImg = IMAGEMANAGER->findImage(IMGCLASS->engineerShop_stand);
+		mImg->frameRender(getMemDc(), getRc().left, getRc().top);
+		break;
+	default:
+
+		break;
+	}
 
 	mImg_Tool->render(getMemDc(), getRc().left + 350, getRc().top + 100);
 }
 
 void engineerShop::animation()
 {
+	if (mAniCount++ % 10 == 0 && (mBuildType == eBuildingType::stand)) {
+		mAniCount = 1;
+		if (mImg->getFrameX() >= mImg->getMaxFrameX()) {
+			mImg->setFrameX(1);
+		}
+		else {
+			mImg->setFrameX(mImg->getFrameX() + 1);
+		}
+	}
 	//Do thing
 }
 
@@ -56,22 +87,20 @@ void engineerShop::action()
 		mCreateCount = 0;
 	}
 
-	if (KEYMANAGER->isOnceKeyDown('7')) {
-		mImg = IMAGEMANAGER->findImage(IMGCLASS->engineerShop_open);
+	if (KEYMANAGER->isOnceKeyDown('5')) {
+		mBuildType = eBuildingType::close;
 	}
 
-	if (KEYMANAGER->isOnceKeyDown('8')) {
-		mImg = IMAGEMANAGER->findImage(IMGCLASS->engineerShop_stand);
+	if (KEYMANAGER->isOnceKeyDown('6')) {
+		mBuildType = eBuildingType::stand;
+	}
 
-		if (mImg = IMAGEMANAGER->findImage(IMGCLASS->engineerShop_stand)) {
-			if (mCreateCount = 100 && setWrenchCount < 5) {
-				mImg_Tool->render(getMemDc(), getRc().left + 350, getRc().top + 100);
-			}
+	if (isStartBuild) {
+		mBuildCount--;
+		if (mBuildCount == 0) {
+			isStartBuild = false;
+			mBuildType = eBuildingType::stand;
 		}
-	}
-
-	if (KEYMANAGER->isOnceKeyDown('9')) {
-		mImg = IMAGEMANAGER->findImage(IMGCLASS->engineerShop_close);
 	}
 }
 
@@ -80,6 +109,10 @@ void engineerShop::giveWrenchCommand()
 {
 	if (0 < mCurWrenchCount) {
 		mCurWrenchCount--;
+		setWrenchCount--;
+
+		mImg_Tool->release();
+		SAFE_DELETE(mImg_Tool);
 	}
 
 	else {
@@ -93,11 +126,13 @@ void engineerShop::autoCreate()
 	if (MAX_WRENCH_COUNT <= mCurWrenchCount) {
 		mCreateCount = 100;
 		mCurWrenchCount = 4;
+		setWrenchCount = 4;
 	}
 
 	else {
 		mCurWrenchCount++;
 		mCreateCount = 0;
+		getWrenchCount();
 	}
 }
 
@@ -111,6 +146,12 @@ void engineerShop::intoNpc()
 	else {
 		isNpcIn = true;
 	}
+}
+
+void engineerShop::startBuild()
+{
+	isStartBuild = true;
+	mBuildType = eBuildingType::close;
 }
 
 void engineerShop::Monstertrue()

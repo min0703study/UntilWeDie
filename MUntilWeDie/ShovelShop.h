@@ -51,7 +51,6 @@ public:
 
 	void getShovelCount(); //»ð Ãß°¡
 
-
 	inline bool getIsBuild() {
 		return mBuildType == eBuildingType::stand;
 	}

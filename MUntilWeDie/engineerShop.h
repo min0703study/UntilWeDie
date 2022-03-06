@@ -45,13 +45,26 @@ public:
 	void autoCreate();
 	void intoNpc();
 
+	void startBuild();
+
 	void Monstertrue();
 
 	void getWrenchCount();
 
+	inline bool getIsBuild() {
+		return mBuildType == eBuildingType::stand;
+	}
+
 private:
 	vector<Wrench*> mWrenchs;
 	vector<Wrench*>::iterator mItWrenchs;
+
+	eBuildingType mBuildType;
+
+	int mAniCount;
+	int mBuildCount;
+
+	bool isStartBuild;
 
 	ImageBase* mImg;
 	ImageBase* mImg_Tool;
