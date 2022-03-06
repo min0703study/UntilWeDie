@@ -27,7 +27,12 @@ HRESULT MainScene::init(void)
 	respPos.x = mPlayer->getAbsX() - 300;
 	respPos.y = mPlayer->getAbsY();
 
+
+	isEndGame = false;
+
 	isOn = false;
+
+	mBgImg = IMAGEMANAGER->findImage(IMGCLASS->EndSecene);
 
 	return S_OK;
 }
@@ -56,6 +61,10 @@ void MainScene::update(void)
 		mEggRespawnTime = 0;
 		isOn = true;
 	}
+	
+	if (!isEndGame && mPlayer->isDeath()) {
+		this->isEndGame = true;
+	}
 
 	mMonsterManager->update();
 	EFFECTMANAGER->update();
@@ -79,6 +88,10 @@ void MainScene::render(void)
 	mMonsterManager->render();
 	EFFECTMANAGER->render();
 	mMap->frontRender();
+
+	if (isEndGame) {
+		mBgImg->alphaRender(getMemDc(), 255);
+	}
 }
 
 bool MainScene::isEggRespawn(void)

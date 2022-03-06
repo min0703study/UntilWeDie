@@ -18,6 +18,6 @@ public:
 	//특정 타이머마다 프레임 깍기/
 	//프레임이 최대치보다 높을시 이미지 삭제
 	//후 일정 타이머가 지날시 재 생성후 푸시백
-	virtual bool startGrapObject(int objectIndex, int npcIndex, OUT int& xPos) = 0;
+	virtual bool startGrapObject(int objectIndex, int npcIndex, OUT float& xPos) = 0;
 };
 

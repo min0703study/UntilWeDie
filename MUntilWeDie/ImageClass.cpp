@@ -3,11 +3,11 @@
 
 HRESULT ImageClass::init(void)
 {
-	MY_UTIL::log(DEBUG_ALL_TAG, "========== ?̹?? Ŭ???? ??? ==============");
+	MY_UTIL::log(DEBUG_ALL_TAG, "========== 이미지 클래스 시작 ==============");
 	IMAGEMANAGER->addImage(BgBackImg, "Resources/Images/Background/bg_back.bmp", 21818 * 2.125, 780 * 2.125, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addImage(BgImg, "Resources/Images/Background/background.bmp", 21818 * 2.125, 780 * 2.125, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addImage(BgGrassImg, "Resources/Images/Background/GrassField.bmp", 21687 * 2.125, 39 * 2.125, true, RGB(255, 0, 255));
-
+	IMAGEMANAGER->addImage(PlayerUIMushRoom, "Resources/Images/ui_item_mushroom.bmp", 189, 86, true, RGB(255, 0, 255));
 
 	IMAGEMANAGER->addFrameImage(PlayerIdleL, "Resources/Images/Player/tex_hero_idle_l.bmp", MAP::SIZE::PLAYER_X * 6, MAP::SIZE::PLAYER_X, 6, 1);
 	IMAGEMANAGER->addFrameImage(PlayerIdleR, "Resources/Images/Player/tex_hero_idle_r.bmp", MAP::SIZE::PLAYER_X * 6, MAP::SIZE::PLAYER_X, 6, 1);
@@ -138,7 +138,9 @@ HRESULT ImageClass::init(void)
 
 	IMAGEMANAGER->addFrameImage(MONSTER_EFFECT3, "Resources/Images/Monster/monster_effect3.bmp", 1540 * 2, 80 * 2, 11, 1, true, RGB(50, 150, 200));
 	IMAGEMANAGER->addFrameImage(MONSTER_EFFECT4, "Resources/Images/Monster/monster_effect4.bmp", 360 * 2, 60 * 2, 6, 1);
-	MY_UTIL::log(DEBUG_ALL_TAG, "========== ?̹?? Ŭ???? ???? ==============");
+
+	IMAGEMANAGER->addImage(EndSecene, "Resources/Images/Background/EndSecene.bmp", WINSIZE_X, WINSIZE_Y);
+	MY_UTIL::log(DEBUG_ALL_TAG, "==========  이미지 클래스 종료 ==============");
 
 	return S_OK;
 }

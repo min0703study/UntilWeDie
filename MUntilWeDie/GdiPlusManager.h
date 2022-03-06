@@ -23,6 +23,7 @@ public:
 	ImageGp * findImage(string strKey);
 	ImageGp * addFrameImage(string strKey, const string fileName, int width, int height, int maxFrameX, int maxFrameY, BOOL isTrans, COLORREF transColor);
 	void frameRender(HDC hdc, string strKey, float x, float y);
+	void drawText(HDC hdc, std::wstring message, float x, float y, int size, Color color);
 	void drawCProgressBar(HDC hdc, float startX, float startY, int size, float value, float maxValue);
 	void release();
 };

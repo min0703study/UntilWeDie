@@ -94,8 +94,9 @@ int ObjectManager::isObjectCollisionToPlayer(RECT playerAbsRc)
 	return -1;
 }
 
-bool ObjectManager::startGrapObject(int objectIndex, int npcIndex, OUT int & xPos)
+bool ObjectManager::startGrapObject(int objectIndex, int npcIndex, OUT float & xPos)
 {
 	mMushrooms[objectIndex]->isStartGrap = true;
+	xPos = mMushrooms[objectIndex]->getAbsX();
 	return false;
 }

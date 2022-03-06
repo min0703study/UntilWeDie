@@ -8,6 +8,7 @@ void Npc::init(float* playerAbsX, float* playerAbsY, eDirection * playerDirectio
 	Animation* cAni = new Animation;
 	cAni->mappingStatForImg(eStat::Idle, IMAGEMANAGER->findImage(IMGCLASS->CivilianIdleR), IMAGEMANAGER->findImage(IMGCLASS->CivilianIdleL), 7);
 	cAni->mappingStatForImg(eStat::Run, IMAGEMANAGER->findImage(IMGCLASS->CivilianRunR), IMAGEMANAGER->findImage(IMGCLASS->CivilianRunL), 7);
+	cAni->mappingStatForImg(eStat::RunOver, IMAGEMANAGER->findImage(IMGCLASS->CivilianRunR), IMAGEMANAGER->findImage(IMGCLASS->CivilianRunL), 7);
 	cAni->mappingStatForImg(eStat::Walk, IMAGEMANAGER->findImage(IMGCLASS->CivilianWalkR), IMAGEMANAGER->findImage(IMGCLASS->CivilianWalkL), 7);
 	cAni->mappingStatForImg(eStat::StopNoting, IMAGEMANAGER->findImage(IMGCLASS->CivilianIdleR), IMAGEMANAGER->findImage(IMGCLASS->CivilianIdleL), 7);
 	cAni->mappingStatForImg(eStat::WalkNoting, IMAGEMANAGER->findImage(IMGCLASS->CivilianWalkR), IMAGEMANAGER->findImage(IMGCLASS->CivilianWalkL), 7);
@@ -19,6 +20,7 @@ void Npc::init(float* playerAbsX, float* playerAbsY, eDirection * playerDirectio
 	Animation* eAni = new Animation;
 	eAni->mappingStatForImg(eStat::Idle, IMAGEMANAGER->findImage(IMGCLASS->EngineerIdleR), IMAGEMANAGER->findImage(IMGCLASS->EngineerIdleL), 7);
 	eAni->mappingStatForImg(eStat::Run, IMAGEMANAGER->findImage(IMGCLASS->EngineerRunR), IMAGEMANAGER->findImage(IMGCLASS->EngineerRunL), 7);
+	eAni->mappingStatForImg(eStat::RunOver, IMAGEMANAGER->findImage(IMGCLASS->EngineerRunR), IMAGEMANAGER->findImage(IMGCLASS->EngineerRunL), 7);
 	eAni->mappingStatForImg(eStat::Walk, IMAGEMANAGER->findImage(IMGCLASS->EngineerWalkR), IMAGEMANAGER->findImage(IMGCLASS->EngineerWalkL), 7);
 	eAni->mappingStatForImg(eStat::StopNoting, IMAGEMANAGER->findImage(IMGCLASS->EngineerIdleR), IMAGEMANAGER->findImage(IMGCLASS->EngineerIdleL), 7);
 	eAni->mappingStatForImg(eStat::WalkNoting, IMAGEMANAGER->findImage(IMGCLASS->EngineerWalkR), IMAGEMANAGER->findImage(IMGCLASS->EngineerWalkL), 7);
@@ -29,6 +31,7 @@ void Npc::init(float* playerAbsX, float* playerAbsY, eDirection * playerDirectio
 	Animation* dAni = new Animation;
 	dAni->mappingStatForImg(eStat::Idle, IMAGEMANAGER->findImage(IMGCLASS->DiggerIdleR), IMAGEMANAGER->findImage(IMGCLASS->DiggerIdleL), 7);
 	dAni->mappingStatForImg(eStat::Run, IMAGEMANAGER->findImage(IMGCLASS->DiggerRunR), IMAGEMANAGER->findImage(IMGCLASS->DiggerRunL), 7);
+	dAni->mappingStatForImg(eStat::RunOver, IMAGEMANAGER->findImage(IMGCLASS->DiggerRunR), IMAGEMANAGER->findImage(IMGCLASS->DiggerRunL), 7);
 	dAni->mappingStatForImg(eStat::Walk, IMAGEMANAGER->findImage(IMGCLASS->DiggerWalkR), IMAGEMANAGER->findImage(IMGCLASS->DiggerWalkL), 7);
 	dAni->mappingStatForImg(eStat::StopNoting, IMAGEMANAGER->findImage(IMGCLASS->DiggerIdleR), IMAGEMANAGER->findImage(IMGCLASS->DiggerIdleL), 7);
 	dAni->mappingStatForImg(eStat::WalkNoting, IMAGEMANAGER->findImage(IMGCLASS->DiggerWalkR), IMAGEMANAGER->findImage(IMGCLASS->DiggerWalkL), 7);
@@ -105,6 +108,18 @@ void Npc::move()
 		mNotingStopCount--;
 		if (mNotingStopCount == 0) {
 			changeStat(eStat::WalkNoting, mCurDirection);
+		}
+		break;
+	case eStat::Grab:
+		if (mToXToGrab < getAbsRc().left) {
+			offsetX(-1.0f);
+			chageImg(eStat::Run, eDirection::Left);
+		} else if (mToXToGrab > getAbsRc().right) {
+			offsetX(1.0f);
+			chageImg(eStat::Run, eDirection::Right);
+		}
+		else {
+			chageImg(eStat::Grab, mCurDirection);
 		}
 		break;
 
@@ -191,7 +206,15 @@ void Npc::move()
 			changeStat(eStat::FollowToPlayer, mCurDirection);
 		}
 		break;
-
+	case eStat::RunOver: {
+		if (mCurDirection == eDirection::Left) {
+			offsetX(5.0f);
+		}
+		else if (mCurDirection == eDirection::Right) {
+			offsetX(-5.0f);
+		}
+	}
+	break;
 	default:
 		//Do Nothing
 		break;
@@ -227,12 +250,13 @@ void Npc::orderCall(int rank)
 	changeStat(eStat::FollowToPlayer, mCurDirection);
 }
 
-bool Npc::orderGrap()
+bool Npc::orderGrap(float xPos)
 {
 	mOrderCount = 500;
 	switch (mType)
 	{
 	case Npc::eType::Civilian: case Npc::eType::Digger:
+		mToXToGrab = xPos;
 		changeStat(eStat::Grab, *mPlayerDirection);
 		return true;
 	case Npc::eType::Engineer:
@@ -285,6 +309,16 @@ void Npc::nothing()
 	}
 
 	changeStat(eStat::WalkNoting, mCurDirection);
+}
+
+void Npc::runDiffDirection()
+{
+	if (mCurDirection == eDirection::Left) {
+		changeStat(eStat::RunOver, eDirection::Right);
+	}
+	else {
+		changeStat(eStat::RunOver, eDirection::Left);
+	}
 }
 
 void Npc::changeStat(eStat changeStat, eDirection direction)

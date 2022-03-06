@@ -26,10 +26,12 @@ private:
 	BuildManager* mBuildManager;
 	Map* mMap;
 	MonsterManager* mMonsterManager;
+	ImageBase* mBgImg;
 	
 	float mEggRespawnTime;
 	float mMonsterRespawnTime;
 	bool isOn;
+	bool isEndGame;
 
 	// ¿¹ºñ
 	PosF respPos;

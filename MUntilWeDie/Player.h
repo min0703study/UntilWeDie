@@ -113,6 +113,8 @@ public:
 	void isOverGrapObject(int npcIndex) override;
 	void attackDamage(int damage) override;
 
+	void attackDamageToNpc(int damage, int arrNum);
+
 	void setIBuilding(IBuilding* iBuilding) {
 		mIbuilding = iBuilding;
 	};
@@ -125,6 +127,10 @@ public:
 		mIMonster = iMonster;
 	};
 
+	bool isDeath() { return mIsDead; }
+
+	ImageBase* mMushRoom;
+
 	Player() {};
 	~Player() {};
 private:
@@ -136,6 +142,7 @@ private:
 	eDirection mCurDirection;
 
 	bool mIsClickDownDashKey;
+	bool mIsDead;
 
 	Animation mAni;
 	NpcManager* mNpcManager;
@@ -144,6 +151,8 @@ private:
 	IObject* mIObject;
 	IMonster* mIMonster;
 	Weapon* mWeapon;
+
+	int mMushRoomCount;
 
 	float mDashTime;
 	float mHp;
@@ -154,6 +163,8 @@ private:
 	void orderExcuteNpc();
 
 	void collsionCheckMonster();
+
+	void collsionCheckObject();
 
 };
 

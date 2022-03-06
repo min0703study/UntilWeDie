@@ -14,7 +14,8 @@ public:
 	bool pullNpc();
 
 	bool orderCallNpc(RECT playerCallableRc);
-	bool orderExecNpc();
+	bool orderRunDiffDirection();
+	bool orderExecNpc(float xPos);
 
 	bool changeStat(int npcIndex, Npc::eOrderType stat);
 	bool changeNpcPosition();

@@ -7,7 +7,10 @@
 void Player::init(float x, float y, float width, float height)
 {
 	GameObject::Init("Player", x, y, width, height);
+	mMushRoomCount = 0;
+	mMushRoom = IMAGEMANAGER->findImage(IMGCLASS->PlayerUIMushRoom);
 
+	mIsDead = false;
 	mAni.mappingStatForImg(eStat::Idle, IMAGEMANAGER->findImage(IMGCLASS->PlayerIdleR), IMAGEMANAGER->findImage(IMGCLASS->PlayerIdleL), 7);
 	mAni.mappingStatForImg(eStat::Run, IMAGEMANAGER->findImage(IMGCLASS->PlayerRunR), IMAGEMANAGER->findImage(IMGCLASS->PlayerRunL), 7);
 	mAni.mappingStatForImg(eStat::Dash, IMAGEMANAGER->findImage(IMGCLASS->PlayerRunR), IMAGEMANAGER->findImage(IMGCLASS->PlayerRunL), 7);
@@ -78,6 +81,8 @@ void Player::render(void)
 
 void Player::draw()
 {
+	mMushRoom->render(getMemDc(), 0, 70);
+	GDIPLUSMANAGER->drawText(getMemDc(), to_wstring(mMushRoomCount), 110, 80, 36, Gdiplus::Color(255, 255, 255));
 	if (mIsClickDownDashKey) {
 		GDIPLUSMANAGER->drawCProgressBar(getMemDc(), getX(), getY(), 5, mDashTime, PLAYER_DASH_MAX_DASH_TIME);
 	}
@@ -100,6 +105,7 @@ void Player::animation()
 
 void Player::move()
 {
+	if (mIsDead) return;
 
 	if (KEYMANAGER->isOnceKeyDown(PLAYER_DASH)) {
 		mIsClickDownDashKey = true;
@@ -284,11 +290,24 @@ void Player::isOverGrapObject(int npcIndex)
 void Player::attackDamage(int damage)
 {
 	mHp -= damage;
-	cout << "damage : " << mHp << endl;
-	if (mHp <= 0) {
+	if (mHp <= 0 && !mIsDead) {
+		mNpcManager->orderRunDiffDirection();
 		changeStat(eStat::Death);
+		mIsDead = true;
 	}
 }
+
+void Player::attackDamageToNpc(int damage, int arrNum)
+{
+	/*
+	mHp -= damage;
+	if (mHp <= 0) {
+		changeStat(eStat::Death);
+		mIsDead = true;
+	}
+	*/
+}
+
 
 void Player::changeStat(eStat changeStat)
 {
@@ -318,16 +337,14 @@ void Player::orderExcuteNpc()
 {
 	int objectIndex = mIObject->isObjectCollisionToPlayer(getAbsRc());
 
-	//충돌된 건물이 있는지
 	if (objectIndex != -1) {
-		int xPos = 0;
+		float xPos = 0;
 		mIObject->startGrapObject(objectIndex, 0, xPos);
-		mNpcManager->orderExecNpc();
+		mNpcManager->orderExecNpc(xPos);
 	}
 
 	BuildManager::eBuildType buildCollsion = BuildManager::eBuildType(mIbuilding->isBuildingCollisionToPlayer(getAbsRc()));
 
-	//충돌된 자원이 있는지
 	if (buildCollsion != BuildManager::eBuildType::tNothing) {
 		switch (buildCollsion)
 		{
@@ -359,6 +376,19 @@ void Player::collsionCheckMonster() {
 				mWeapon->attackSuccess();
 				break;
 			}
+		}
+	}
+}
+
+
+void Player::collsionCheckObject() {
+	vector<RECT> rects;
+	RECT tempRect;
+	int i = 0;
+	for (vector<RECT>::iterator iRects = rects.begin(); iRects != rects.end(); iRects++, i++) {
+		if (IntersectRect(&tempRect, &(*iRects), &getAbsRc())) {
+			mMushRoomCount++;
+			break;
 		}
 	}
 }
