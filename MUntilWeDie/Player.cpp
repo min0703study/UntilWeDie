@@ -9,7 +9,8 @@ void Player::init(float x, float y, float width, float height)
 {
 	GameObject::Init("Player", x, y, width, height);
 	mMushRoomCount = 0;
-	mMushRoom = IMAGEMANAGER->findImage(IMGCLASS->PlayerUIMushRoom);
+	mMushRoomImg = IMAGEMANAGER->findImage(IMGCLASS->PlayerUIMushRoom);
+	mGearImg = IMAGEMANAGER->findImage(IMGCLASS->PlayerUIGear);
 
 	mIsDead = false;
 	mAni.mappingStatForImg(eStat::Idle, IMAGEMANAGER->findImage(IMGCLASS->PlayerIdleR), IMAGEMANAGER->findImage(IMGCLASS->PlayerIdleL), 7);
@@ -46,7 +47,7 @@ void Player::init(float x, float y, float width, float height)
 
 	mAni.ChangeCurImage(mCurStat, mCurDirection);
 
-	mHp = 100;
+	mHp = 200;
 
 	mDashTime = PLAYER_DASH_MAX_DASH_TIME;
 }
@@ -68,7 +69,6 @@ void Player::update(void)
 	action();
 	mNpcManager->update();
 	mWeapon->update();
-	//cout << "hp: " << mHp << endl;
 }
 void Player::render(void)
 {
@@ -82,10 +82,19 @@ void Player::render(void)
 
 void Player::draw()
 {
-	mMushRoom->render(getMemDc(), 0, 70);
+	mMushRoomImg->render(getMemDc(), 0, 70);
 	GDIPLUSMANAGER->drawText(getMemDc(), to_wstring(mMushRoomCount), 110, 80, 36, Gdiplus::Color(255, 255, 255));
+
+	mGearImg->render(getMemDc(), 0, 160);
+	GDIPLUSMANAGER->drawText(getMemDc(), to_wstring(mGearCount), 110, 170, 36, Gdiplus::Color(255, 255, 255));
 	if (mIsClickDownDashKey) {
-		GDIPLUSMANAGER->drawCProgressBar(getMemDc(), getX(), getY(), 5, mDashTime, PLAYER_DASH_MAX_DASH_TIME);
+		if (mCurDirection == eDirection::Left) {
+			GDIPLUSMANAGER->drawCProgressBar(getMemDc(), getRc().right, getRc().top, 5, mDashTime, PLAYER_DASH_MAX_DASH_TIME);
+
+		}
+		else {
+			GDIPLUSMANAGER->drawCProgressBar(getMemDc(), getRc().left, getRc().top, 5, mDashTime, PLAYER_DASH_MAX_DASH_TIME);
+		}
 	}
 
 	mAni.GetImage()->frameRender(getMemDc(), getRc().left, getRc().bottom - mAni.GetImage()->getHeight());
@@ -227,6 +236,21 @@ void Player::move()
 
 	if (KEYMANAGER->isOnceKeyUp(PLAYER_MOVE_L) || KEYMANAGER->isOnceKeyUp(PLAYER_MOVE_R)) {
 		changeStat(eStat::Idle);
+	}
+
+	int returnInt = mIObject->isItemManagerCollisionToPlayer(getAbsRc());
+	switch (returnInt)
+	{
+	case 1:
+		mMushRoomCount++;
+		break;
+	case 2:
+		mGearCount++;
+		break;
+	case -1:
+		break;
+	default:
+		break;
 	}
 }
 
@@ -382,7 +406,7 @@ void Player::collsionCheckMonster() {
 	for (vector<RECT>::iterator iRects = rects.begin(); iRects != rects.end(); iRects++, i++) {
 		for (vector<tagBullet>::iterator iBullets = bullets.begin(); iBullets != bullets.end(); iBullets++) {
 			if (IntersectRect(&tempRect, &(*iRects), &(*iBullets).absRc)) {
-				mIMonster->attackDamage(50, i);
+				mIMonster->attackDamage(70, i);
 				mWeapon->attackSuccess();
 				break;
 			}

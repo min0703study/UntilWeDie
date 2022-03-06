@@ -62,7 +62,7 @@ public:
 	void render();
 
 	void createDropItem(ImageBase* img, float x, float y, eDirection direction);
-	void collisionCheckForDropItem(RECT& playerAbsRc);
+	int collisionCheckForDropItem(RECT& playerAbsRc);
 
 };
 

@@ -42,7 +42,7 @@ void engineerShop::draw()
 		break;
 	case eBuildingType::stand:
 		mImg = IMAGEMANAGER->findImage(IMGCLASS->engineerShop_stand);
-		mImg->frameRender(getMemDc(), getRc().left, getRc().top);
+		mImg->frameRender(getMemDc(), getRc().left, getRc().bottom - mImg->getHeight());
 		break;
 	default:
 

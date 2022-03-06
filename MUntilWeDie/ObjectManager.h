@@ -16,6 +16,7 @@ public:
 	RECT getObjectRc() override;
 
 	int isObjectCollisionToPlayer(RECT playerAbsRc);
+	int isItemManagerCollisionToPlayer(RECT playerAbsRc);
 	bool startGrapObject(int objectIndex, int npcIndex, OUT float& xPos);
 
 	void setIPlayer(IPlayer* iPlayer) { this->mIPlayer = iPlayer; };

@@ -16,8 +16,8 @@ namespace MAP{
 		//자원
 		static float MUSHROOM_01_X = 20370; //맵기준
 		static float MUSHROOM_02_X = 23220; //맵기준
-		static float MUSHROOM_03_X = 25870; //맵기준
-		static float MUSHROOM_04_X = 28720; //맵기준
+		static float MUSHROOM_03_X = 21870; //맵기준
+		static float MUSHROOM_04_X = 25720; //맵기준
 		static float MUSHROOM_05_X = 31570; //맵기준
 		static float MUSHROOM_06_X = 34820; //맵기준
 
@@ -27,7 +27,7 @@ namespace MAP{
 		//건물-바리케이드
 		static float BARRICADE_01_X = 16575;
 		static float BARRICADE_02_X = 20187.5;
-		static float BARRICADE_03_X = 22391.125;
+		static float BARRICADE_03_X = 24391.125;
 		static float BARRICADE_04_X = 25419.25;
 		static float BARRICADE_05_X = 27076.75;
 		static float BARRICADE_06_X = 28368.75;
@@ -55,7 +55,7 @@ namespace MAP{
 		//건물-렌치
 		static float RENCHBUILDING_X = 28846.875;
 		//건물-리셋
-		static float RESETBUILDING_X = 29165.625;
+		static float RESETBUILDING_X = 30000.625;
 		//건물-발전기
 		static float GENERATOR_X = 30520.3125;
 	}

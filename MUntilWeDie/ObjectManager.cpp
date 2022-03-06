@@ -22,6 +22,15 @@ HRESULT ObjectManager::init(float x, float y, float width, float height)
 		debris->init((x + (i * 1850 + RND->getFromIntTo(100, 2000))), y -30, width, height);
 		mDebris.push_back(debris);
 	}
+
+	mMushrooms[0]->setAbsX(MAP::POS::MUSHROOM_01_X);
+	mMushrooms[1]->setAbsX(MAP::POS::MUSHROOM_02_X);
+	mMushrooms[2]->setAbsX(MAP::POS::MUSHROOM_03_X);
+	mMushrooms[3]->setAbsX(MAP::POS::MUSHROOM_04_X);
+	mMushrooms[4]->setAbsX(MAP::POS::MUSHROOM_05_X);
+	mMushrooms[5]->setAbsX(MAP::POS::MUSHROOM_06_X);
+
+
 	return S_OK;
 }
 
@@ -96,7 +105,6 @@ int ObjectManager::isObjectCollisionToPlayer(RECT playerAbsRc)
 
 	for (mIterDebris = mDebris.begin(), index = 0; mIterDebris != mDebris.end(); ++mIterDebris, ++index) {
 		if (IntersectRect(&temp, &(*mIterDebris)->getAbsRc(), &playerAbsRc)) {
-
 			cout << "오브젝트 충돌: " << "잡동사니" << endl;
 			isDebrisGrab = true;
 			return index;
@@ -104,6 +112,12 @@ int ObjectManager::isObjectCollisionToPlayer(RECT playerAbsRc)
 	}
 
 	return -1;
+}
+
+int ObjectManager::isItemManagerCollisionToPlayer(RECT playerAbsRc)
+{
+	int returnInt = mItemManager->collisionCheckForDropItem(playerAbsRc);
+	return returnInt;
 }
 
 bool ObjectManager::startGrapObject(int objectIndex, int npcIndex, OUT float & xPos)

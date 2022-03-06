@@ -139,14 +139,14 @@ extern int			_winRealSizeY;
 #define C_DASH_PROGRESS_BAR		Gdiplus::Color(15,112,108)
 
 //min - player default value
-#define PLAYER_DASH_MAX_DASH_TIME			5000
+#define PLAYER_DASH_MAX_DASH_TIME			150
 #define PLAYER_SPEED_RUN					3.0f
-#define PLAYER_SPEED_DASH					15.0f
+#define PLAYER_SPEED_DASH					6.0f
 
 //min - npc default value
 #define NPC_INIT_COUNT			4
 #define NPC_BUILD_X_SIZE		220
-#define NPC_FOLLOWING_SPACE		100.0f
+#define NPC_FOLLOWING_SPACE		120.0f
 #define NPC_CALLABLE_X_SIZE		300
 
 //map

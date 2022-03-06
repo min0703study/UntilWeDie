@@ -9,6 +9,7 @@ HRESULT ImageClass::init(void)
 	IMAGEMANAGER->addImage(BgMiddleImg, "Resources/Images/Background/Background_middle.bmp", 21818 * 2.125, 780 * 2.125, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addImage(BgGrassImg, "Resources/Images/Background/GrassField.bmp", 21687 * 2.125, 39 * 2.125, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addImage(PlayerUIMushRoom, "Resources/Images/ui_item_mushroom.bmp", 189, 86, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage(PlayerUIGear, "Resources/Images/ui_item_gear.bmp", 189, 86, true, RGB(255, 0, 255));
 
 	IMAGEMANAGER->addFrameImage(PlayerIdleL, "Resources/Images/Player/tex_hero_idle_l.bmp", MAP::SIZE::PLAYER_X * 6, MAP::SIZE::PLAYER_X, 6, 1);
 	IMAGEMANAGER->addFrameImage(PlayerIdleR, "Resources/Images/Player/tex_hero_idle_r.bmp", MAP::SIZE::PLAYER_X * 6, MAP::SIZE::PLAYER_X, 6, 1);
@@ -94,7 +95,7 @@ HRESULT ImageClass::init(void)
 	IMAGEMANAGER->addImage(engineerShop_off, "Resources/Images/Building/engineerShop/engineerShop_off.bmp", 170 * 2, 71 * 2, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addImage(engineerShop_off_2, "Resources/Images/Building/engineerShop/engineerShop_off_2.bmp", 262 * 2, 141 * 2, true, RGB(255, 0, 255));
 	
-	IMAGEMANAGER->addFrameImage(engineerShop_stand, "Resources/Images/Building/engineerShop/engineerShop_stand.bmp", 1841 * 2, 141 * 2, 6, 1);
+	IMAGEMANAGER->addFrameImage(engineerShop_stand, "Resources/Images/Building/engineerShop/engineerShop_stand.bmp", 1841 * 2, 141 * 2, 7, 1);
 	IMAGEMANAGER->addFrameImage(engineerShop_open, "Resources/Images/Building/engineerShop/engineerShop_open.bmp", 2096 * 2, 141 * 2, 8, 1);
 	IMAGEMANAGER->addFrameImage(engineerShop_close, "Resources/Images/Building/engineerShop/engineerShop_close.bmp", 2096 * 2, 141 * 2, 9, 1);
 	

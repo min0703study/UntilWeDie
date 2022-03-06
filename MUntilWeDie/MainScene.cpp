@@ -63,7 +63,7 @@ void MainScene::update(void)
 	//}
 	if (KEYMANAGER->isOnceKeyDown('P')) {
 		for (int i = 0; i < mMonsterManager->getNumberOfMonster(); i++) {
-			mMonsterManager->setMonster(29520.3125f, GROUND, MAP::POS::GENERATOR_X, GROUND, i);
+			mMonsterManager->setMonster(37000, GROUND, MAP::POS::GENERATOR_X, GROUND, i);
 		}
 	}
 	

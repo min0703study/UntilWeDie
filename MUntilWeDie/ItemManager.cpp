@@ -37,6 +37,7 @@ void ItemManager::render()
 {
 	for (vector<DropItem*>::iterator iDropItem = mDropItems.begin(); iDropItem != mDropItems.end(); iDropItem++) 
 	{
+		if ((*iDropItem)->isDropToPlayer) continue;
 		(*iDropItem)->render();
 	}
 }
@@ -45,13 +46,28 @@ void ItemManager::createDropItem(ImageBase* img, float x, float y, eDirection di
 {
 	int i = 1;
 	DropItem* dropItem = new DropItem();
-	dropItem->Init("재료", x, y - 30, MAP::SIZE::MUSHROOM_ITEM_W, MAP::SIZE::MUSHROOM_ITEM_H, img, direction);
+	dropItem->Init("재료", x, y - img->getHeight(), MAP::SIZE::MUSHROOM_ITEM_W, MAP::SIZE::MUSHROOM_ITEM_H, img, direction);
 	mDropItems.push_back(dropItem);
 }
 
-void ItemManager::collisionCheckForDropItem(RECT& playerAbsRc)
+int ItemManager::collisionCheckForDropItem(RECT& playerAbsRc)
 {
+	RECT temp;
+	for (vector<DropItem*>::iterator iDropItem = mDropItems.begin(); iDropItem != mDropItems.end(); iDropItem++)
+	{
+		if (IntersectRect(&temp, &(*iDropItem)->getAbsRc(), &playerAbsRc)) {
+			(*iDropItem)->isDropToPlayer = true;
+			if ((*iDropItem)->mImg == IMAGEMANAGER->findImage(IMGCLASS->Item_Shroom)) {
+				return 1;
+			}
+			else {
+				return 2;
+			}
 
+		}
+	}
+
+	return -1;
 }
 
 void DropItem::animation()

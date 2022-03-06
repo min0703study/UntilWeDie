@@ -128,7 +128,8 @@ public:
 
 	bool isDeath() { return mIsDead; }
 
-	ImageBase* mMushRoom;
+	ImageBase* mMushRoomImg;
+	ImageBase* mGearImg;
 
 	Player() {};
 	~Player() {};
@@ -152,6 +153,7 @@ private:
 	Weapon* mWeapon;
 
 	int mMushRoomCount;
+	int mGearCount;
 
 	float mDashTime;
 	float mHp;
