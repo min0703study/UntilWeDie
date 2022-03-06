@@ -202,6 +202,7 @@ extern int			_winRealSizeY;
 #define SIZE_OF_MONSTER_NUMBER		3
 
 #define GRAB_MUSHROOM_TIME			500
+#define BUILD_BUILDING_TIME			1000
 
 #define DEBUG_ALL_TAG				"ALL"
 #define DEBUG_MY_TAG				"πŒ√§øµ"

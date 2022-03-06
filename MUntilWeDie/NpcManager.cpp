@@ -132,6 +132,35 @@ bool NpcManager::pullNpc() {
 	return true;
 }
 
+
+vector<RECT> NpcManager::getNpcsRc() {
+	vector<RECT> returnVRc;
+	for (mViNpcs = mVNpcs.begin(); mViNpcs != mVNpcs.end(); mViNpcs++) {
+		returnVRc.push_back((*mViNpcs)->getRc());
+	}
+	return returnVRc;
+}
+
+vector<RECT> NpcManager::getNpcsAbsRc()
+{
+	vector<RECT> returnVRc;
+	for (mViNpcs = mVNpcs.begin(); mViNpcs != mVNpcs.end(); mViNpcs++) {
+		returnVRc.push_back((*mViNpcs)->getAbsRc());
+	}
+	return returnVRc;
+}
+
+vector<float> NpcManager::getNpcsAbsX()
+{
+	vector<float> returnVX;
+
+	for (mViNpcs = mVNpcs.begin(); mViNpcs != mVNpcs.end(); mViNpcs++) {
+		returnVX.push_back((*mViNpcs)->getAbsX());
+	}
+	return returnVX;
+}
+
+
 bool NpcManager::orderCallNpc(RECT playerCallableRc)
 {
 	RECT tempRc;
@@ -197,56 +226,73 @@ bool NpcManager::orderExecNpc(float xPos)
 }
 
 bool NpcManager::orderGetShovel() {
-	if (mVFollowingNpc.begin() == mVFollowingNpc.end()) return false;
-	for (mViFollowingNpc = mVFollowingNpc.begin(); mViFollowingNpc != mVFollowingNpc.end(); ++mViFollowingNpc) {
-		if ((*mViFollowingNpc)->getRank() == 1) {
-			(*mViFollowingNpc)->orderGetShovel();
-			break;
+
+	if (mCurFollowingNpcCount < 1) return false;
+	auto orderNpc = mSFollowingNpc.find(1);
+
+	if (orderNpc != mSFollowingNpc.end())
+	{
+		if (orderNpc->second->getType() != Npc::eType::Digger) {
+			orderNpc->second->orderGetShovel();
+			return true;
 		}
 	}
-	return true;
+
+	return false;
 }
 
 bool NpcManager::orderGetWrench()
 {
-	if (mVFollowingNpc.begin() == mVFollowingNpc.end()) return false;
-	for (mViFollowingNpc = mVFollowingNpc.begin(); mViFollowingNpc != mVFollowingNpc.end(); ++mViFollowingNpc) {
-		if ((*mViFollowingNpc)->getRank() == 1) {
-			(*mViFollowingNpc)->orderGetWrench();
-			break;
+	if (mCurFollowingNpcCount < 1) return false;
+	auto orderNpc = mSFollowingNpc.find(1);
+
+	if (orderNpc != mSFollowingNpc.end())
+	{
+		if (orderNpc->second->getType() != Npc::eType::Engineer) {
+			orderNpc->second->orderGetWrench();
+			return true;
 		}
 	}
 
-	return true;
+	return false;
+}
+
+bool NpcManager::orderGetGun()
+{
+	if (mCurFollowingNpcCount < 1) return false;
+	auto orderNpc = mSFollowingNpc.find(1);
+
+	if (orderNpc != mSFollowingNpc.end())
+	{
+		if (orderNpc->second->getType() != Npc::eType::Engineer) {
+			orderNpc->second->orderGetGun();
+			return true;
+		}
+	}
+
+	return false;
 }
 
 bool NpcManager::orderBuildBuilding()
 {
-	if (mVFollowingNpc.begin() == mVFollowingNpc.end()) return false;
-	for (mViFollowingNpc = mVFollowingNpc.begin(); mViFollowingNpc != mVFollowingNpc.end(); ++mViFollowingNpc) {
-		if ((*mViFollowingNpc)->getRank() == 1) {
-			(*mViFollowingNpc)->orderBuild();
-			pullRank(1);
-			mVFollowingNpc.erase(mVFollowingNpc.begin());
-			break;
+	if (mCurFollowingNpcCount < 1) return false;
+	auto orderNpc = mSFollowingNpc.find(1);
+
+	if (orderNpc != mSFollowingNpc.end())
+	{
+		if (orderNpc->second->getType() != Npc::eType::Engineer) {
+			orderNpc->second->orderBuild();
+			pullNpc();
+			return true;
 		}
 	}
 
-	return true;
+	return false;
 }
-
-vector<float> NpcManager::getNpcsAbsX()
-{
-	vector<float> returnVX;
-	for (mViNpcs = mVNpcs.begin(); mViNpcs != mVNpcs.end(); mViNpcs++) {
-		returnVX.push_back((*mViNpcs)->getAbsX());
-	}
-	return returnVX;
-}
-
 int NpcManager::orderResetType()
 {
 	auto firstNpc = mSFollowingNpc.find(1);
+
 	if (firstNpc != mSFollowingNpc.end()) {
 		switch (firstNpc->second->getType())
 		{
@@ -261,19 +307,3 @@ int NpcManager::orderResetType()
 	return -1;
 }
 
-vector<RECT> NpcManager::getNpcsRc() {
-	vector<RECT> returnVRc;
-	for (mViNpcs = mVNpcs.begin(); mViNpcs != mVNpcs.end(); mViNpcs++) {
-		returnVRc.push_back((*mViNpcs)->getRc());
-	}
-	return returnVRc;
-}
-
-vector<RECT> NpcManager::getNpcsAbsRc()
-{
-	vector<RECT> returnVRc;
-	for (mViNpcs = mVNpcs.begin(); mViNpcs != mVNpcs.end(); mViNpcs++) {
-		returnVRc.push_back((*mViNpcs)->getAbsRc());
-	}
-	return returnVRc;
-}

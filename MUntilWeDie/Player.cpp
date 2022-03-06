@@ -344,23 +344,32 @@ void Player::orderExcuteNpc()
 		mNpcManager->orderExecNpc(xPos);
 	}
 
-	BuildManager::eBuildType buildCollsion = BuildManager::eBuildType(mIbuilding->isBuildingCollisionToPlayer(getAbsRc()));
+	bool isBuildSuccess;
+	BuildManager::eBuildType buildCollsion = BuildManager::eBuildType(mIbuilding->isBuildingCollisionToPlayer(getAbsRc(), isBuildSuccess));
 
-	if (buildCollsion != BuildManager::eBuildType::tNothing) {
-		switch (buildCollsion)
-		{
-		case BuildManager::eBuildType::tShovelShop :
-			mNpcManager->orderGetShovel();
-			break;
-		case BuildManager::eBuildType::tEngineerShop:
-			mNpcManager->orderGetWrench();
-			break;
-		case BuildManager::eBuildType::tWorkbanch:
-			mIbuilding->resetShopItem(mNpcManager->orderResetType());
-			break;
-		default:
-			//Do Nothing
-			break;
+	if (!isBuildSuccess) {
+		mNpcManager->orderBuildBuilding();
+	}
+	else {
+		if (buildCollsion != BuildManager::eBuildType::tNothing) {
+			switch (buildCollsion)
+			{
+			case BuildManager::eBuildType::tShovelShop:
+				mNpcManager->orderGetShovel();
+				break;
+			case BuildManager::eBuildType::tEngineerShop:
+				mNpcManager->orderGetWrench();
+				break;
+			case BuildManager::eBuildType::tShopStalkers:
+				mNpcManager->orderGetGun();
+				break;
+			case BuildManager::eBuildType::tWorkbanch:
+				mIbuilding->resetShopItem(mNpcManager->orderResetType());
+				break;
+			default:
+				//Do Nothing
+				break;
+			}
 		}
 	}
 }

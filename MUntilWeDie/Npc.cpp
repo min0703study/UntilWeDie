@@ -40,6 +40,16 @@ void Npc::init(float* playerAbsX, float* playerAbsY, eDirection * playerDirectio
 	dAni->mappingStatForImg(eStat::Build, IMAGEMANAGER->findImage(IMGCLASS->DiggerBuildR), IMAGEMANAGER->findImage(IMGCLASS->DiggerBuildL), 7);
 	dAni->ChangeCurImage(eStat::Idle, mCurDirection);
 
+	Animation* fAni = new Animation;
+	dAni->mappingStatForImg(eStat::Idle, IMAGEMANAGER->findImage(IMGCLASS->FighterIdleR), IMAGEMANAGER->findImage(IMGCLASS->FighterIdleL), 7);
+	dAni->mappingStatForImg(eStat::Run, IMAGEMANAGER->findImage(IMGCLASS->FighterRunR), IMAGEMANAGER->findImage(IMGCLASS->FighterRunL), 7);
+	dAni->mappingStatForImg(eStat::RunOver, IMAGEMANAGER->findImage(IMGCLASS->FighterRunR), IMAGEMANAGER->findImage(IMGCLASS->FighterRunL), 7);
+	dAni->mappingStatForImg(eStat::Walk, IMAGEMANAGER->findImage(IMGCLASS->FighterWalkR), IMAGEMANAGER->findImage(IMGCLASS->FighterWalkL), 7);
+	dAni->mappingStatForImg(eStat::StopNoting, IMAGEMANAGER->findImage(IMGCLASS->FighterIdleR), IMAGEMANAGER->findImage(IMGCLASS->FighterIdleL), 7);
+	dAni->mappingStatForImg(eStat::WalkNoting, IMAGEMANAGER->findImage(IMGCLASS->FighterWalkR), IMAGEMANAGER->findImage(IMGCLASS->FighterWalkL), 7);
+	dAni->mappingStatForImg(eStat::FollowToPlayer, IMAGEMANAGER->findImage(IMGCLASS->FighterRunR), IMAGEMANAGER->findImage(IMGCLASS->FighterRunL), 7);
+	fAni->ChangeCurImage(eStat::Idle, mCurDirection);
+
 	mMAni.insert(make_pair(eType::Civilian, cAni));
 	mMAni.insert(make_pair(eType::Digger, dAni));
 	mMAni.insert(make_pair(eType::Engineer, eAni));
@@ -270,7 +280,8 @@ bool Npc::orderGrap(float xPos)
 
 void Npc::orderBuild()
 {
-	mOrderCount = 500;
+	mOrderCount = BUILD_BUILDING_TIME;
+
 	switch (mType)
 	{
 	case Npc::eType::Digger: case Npc::eType::Engineer: case Npc::eType::Civilian:
@@ -289,6 +300,12 @@ void Npc::orderGetShovel()
 void Npc::orderGetWrench()
 {
 	changeType(eType::Engineer);
+}
+
+
+void Npc::orderGetGun()
+{
+	changeType(eType::Fighter);
 }
 
 void Npc::changeType(eType type)

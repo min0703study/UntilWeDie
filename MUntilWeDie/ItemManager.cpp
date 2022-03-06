@@ -45,7 +45,7 @@ void ItemManager::createDropItem(ImageBase* img, float x, float y, eDirection di
 {
 	int i = 1;
 	DropItem* dropItem = new DropItem();
-	dropItem->Init("재료", x, y - 50, MAP::SIZE::MUSHROOM_ITEM_W, MAP::SIZE::MUSHROOM_ITEM_H, img, direction);
+	dropItem->Init("재료", x, y - 30, MAP::SIZE::MUSHROOM_ITEM_W, MAP::SIZE::MUSHROOM_ITEM_H, img, direction);
 	mDropItems.push_back(dropItem);
 }
 

@@ -36,5 +36,8 @@ private:
 	
 	int mShroomCount;
 	int mDebrisCount;
+
+	bool isMushRoomGrab;
+	bool isDebrisGrab;
 };
 

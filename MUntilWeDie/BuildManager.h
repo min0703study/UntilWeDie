@@ -36,7 +36,7 @@ public:
 	//iterface
 	RECT getBuildingRc() override;
 
-	int isBuildingCollisionToPlayer(RECT playerAbsRc) override;
+	int isBuildingCollisionToPlayer(RECT playerAbsRc, OUT bool & isSuccessBuild);
 
 	void resetShopItem(int shopType) override;
 

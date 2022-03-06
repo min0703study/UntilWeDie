@@ -21,7 +21,8 @@ public:
 	enum class eType {
 		Civilian,
 		Digger,
-		Engineer
+		Engineer,
+		Fighter
 	};
 
 	enum class eOrderType {
@@ -144,6 +145,8 @@ public:
 	void orderBuild();
 	void orderGetShovel();
 	void orderGetWrench();
+
+	void orderGetGun();
 
 	void changeType(eType type);
 	void nothing();

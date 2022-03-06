@@ -58,7 +58,7 @@ RECT BuildManager::getBuildingRc()
 	return RECT();
 }
 
-int BuildManager::isBuildingCollisionToPlayer(RECT playerAbsRc)
+int BuildManager::isBuildingCollisionToPlayer(RECT playerAbsRc, OUT bool& isSuccessBuild)
 {
 	RECT tempRc;
 
@@ -68,9 +68,16 @@ int BuildManager::isBuildingCollisionToPlayer(RECT playerAbsRc)
 		MY_UTIL::log(DEBUG_KHS, "Ãæµ¹¿Ï·á : »ð »ý»ê ½Ã¼³");
 
 		mShovelShop->getShovelCount();
+		isSuccessBuild = mShovelShop->getIsBuild();
+		returnType = eBuildType::tShovelShop;
+
+
+		if (!isSuccessBuild) {
+			mShovelShop->startBuild();
+		}
+
 		cout << "ÇöÀç »ð °¹¼ö" << " : " <<  endl;
 
-		returnType = eBuildType::tShovelShop;
 	}
 
 	if (IntersectRect(&tempRc, &mEngineerShop->getAbsRc(), &playerAbsRc)) {

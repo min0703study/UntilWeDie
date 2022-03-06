@@ -59,6 +59,13 @@ public:
 	const char* EngineerBuildR = "엔지니어 NPC 오른쪽으로 건물 짓기 액션";
 	const char* EngineerBuildL = "엔지니어 NPC 왼쪽으로 건물 짓기 액션";
 
+	const char* FighterIdleR = "총잡이 NPC 정지 오른쪽 액션";
+	const char* FighterIdleL = "총잡이 NPC 정지 왼쪽 액션";
+	const char* FighterWalkR = "총잡이 NPC 오른쪽으로 걷는 액션";
+	const char* FighterWalkL = "총잡이 NPC 왼쪽으로 걷는 액션";
+	const char* FighterRunL = "총잡이 NPC 왼쪽으로 뛰는 액션";
+	const char* FighterRunR = "총잡이 NPC 오른쪽으로 뛰는 액션";
+
 
 	const char* Generator_off = "발전기 최초 상태";
 	const char* Generator_01 = "발전기 1단계";

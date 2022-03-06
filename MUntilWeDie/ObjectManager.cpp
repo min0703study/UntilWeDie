@@ -8,6 +8,9 @@ HRESULT ObjectManager::init(float x, float y, float width, float height)
 
 	mItemManager = new ItemManager;
 
+	isMushRoomGrab = false;
+	isDebrisGrab = false;
+
 	for (int i = 0; i < mShroomCount; i++) {
 		Mushroom* mushroom = new Mushroom;
 		mushroom->init((x +( i  * 2850)), y , width, height);
@@ -86,6 +89,7 @@ int ObjectManager::isObjectCollisionToPlayer(RECT playerAbsRc)
 	for (mIterMushrooms = mMushrooms.begin(), index = 0; mIterMushrooms != mMushrooms.end(); ++mIterMushrooms, ++index) {
 		if (IntersectRect(&temp, &(*mIterMushrooms)->getAbsRc(), &playerAbsRc)) {
 			cout << "오브젝트 충돌: " << "버섯" << endl;
+			isMushRoomGrab = true;
 			return index;
 		}
 	}
@@ -94,6 +98,7 @@ int ObjectManager::isObjectCollisionToPlayer(RECT playerAbsRc)
 		if (IntersectRect(&temp, &(*mIterDebris)->getAbsRc(), &playerAbsRc)) {
 
 			cout << "오브젝트 충돌: " << "잡동사니" << endl;
+			isDebrisGrab = true;
 			return index;
 		}
 	}
@@ -103,14 +108,17 @@ int ObjectManager::isObjectCollisionToPlayer(RECT playerAbsRc)
 
 bool ObjectManager::startGrapObject(int objectIndex, int npcIndex, OUT float & xPos)
 {
-	xPos = mMushrooms[objectIndex]->getAbsX();
-	mMushrooms[objectIndex]->isStartMushroomGrap = true;
-	if (mMushrooms[objectIndex]->isStartMushroomGrap == true) {
-		return mDebris[objectIndex]->isStartDebrisGrap = false;
+	if (isMushRoomGrab) {
+		xPos = mMushrooms[objectIndex]->getAbsX();
+		mMushrooms[objectIndex]->isStartMushroomGrap = true;
+		isMushRoomGrab = false;
+		return true;
 	}
 	else {
-	mDebris[objectIndex]->isStartDebrisGrap = false;
-	return mMushrooms[objectIndex]->isStartMushroomGrap = false ;
+		xPos = mDebris[objectIndex]->getAbsX();
+		mDebris[objectIndex]->isStartDebrisGrap = true;
+		isDebrisGrab = false;
+		return true;
 	}
 	return false;
 }

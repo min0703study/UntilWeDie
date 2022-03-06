@@ -45,13 +45,27 @@ public:
 	void autoCreate();
 	void intoNpc();
 
+	void startBuild();
+
 	void Monstertrue();
 
 	void getShovelCount(); //»ð Ãß°¡
 
+
+	inline bool getIsBuild() {
+		return mBuildType == eBuildingType::stand;
+	}
+
 private:
 	vector<Shovel*> mShovels;
 	vector<Shovel*>::iterator mItShovels;
+
+	eBuildingType mBuildType;
+
+	int mAniCount;
+	int mBuildCount;
+
+	bool isStartBuild;
 
 	ImageBase* mImg;
 	ImageBase* mImg_Tool;

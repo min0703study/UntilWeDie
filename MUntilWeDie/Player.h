@@ -1,7 +1,6 @@
 #pragma once
 #include "GameObject.h"
 #include "IPlayer.h"
-//#include "IBuilding.h"
 #include "IObject.h"
 #include "IMonster.h"
 

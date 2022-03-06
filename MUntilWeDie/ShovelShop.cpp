@@ -4,9 +4,13 @@
 void ShovelShop::init(float x, float y, float width, float height)
 {
 	GameObject::Init("ShovelShop", x, y, width, height);
-
+	
+	mBuildCount = BUILD_BUILDING_TIME;
+	
 	mImg = IMAGEMANAGER->findImage(IMGCLASS->shovelshop_off);
 	mImg_Tool = IMAGEMANAGER->findImage(IMGCLASS->shovelshop_shovel);
+
+	mBuildType = eBuildingType::off;
 
 	mCreateCount = 0;
 	setShovelCount = 2;
@@ -27,13 +31,39 @@ void ShovelShop::release(void)
 void ShovelShop::draw()
 {
 	//RectangleMake(getMemDc(), getRc());
-	mImg->render(getMemDc(), getRc().left, getRc().top);
+	switch (mBuildType)
+	{
+	case eBuildingType::close:
+		mImg = IMAGEMANAGER->findImage(IMGCLASS->shovelshop_off_02);
+		mImg->render(getMemDc(), getRc().left, getRc().bottom - mImg->getHeight());
+		break;
+	case eBuildingType::off :
+		mImg = IMAGEMANAGER->findImage(IMGCLASS->shovelshop_off);
+		mImg->render(getMemDc(), getRc().left, getRc().top);
+		break;
+	case eBuildingType::stand:
+		mImg = IMAGEMANAGER->findImage(IMGCLASS->shovelshop_stand);
+		mImg->frameRender(getMemDc(), getRc().left, getRc().top);
+		break;
+	default:
+		
+		break;
+	}
 
 	mImg_Tool->render(getMemDc(), getRc().left + 350, getRc().top + 100);
 }
 
 void ShovelShop::animation()
 {
+	if (mAniCount++ % 10 == 0 && (mBuildType == eBuildingType::stand)) {
+		mAniCount = 1;
+		if (mImg->getFrameX() >= mImg->getMaxFrameX()) {
+			mImg->setFrameX(1);
+		}
+		else {
+			mImg->setFrameX(mImg->getFrameX() + 1);
+		}
+	}
 	//Do thing
 }
 
@@ -59,21 +89,19 @@ void ShovelShop::action()
 	}
 
 	if (KEYMANAGER->isOnceKeyDown('1')) {
-		mImg = IMAGEMANAGER->findImage(IMGCLASS->shovelshop_open);
+		mBuildType = eBuildingType::close;
 	}
 
 	if (KEYMANAGER->isOnceKeyDown('2')) {
-		mImg = IMAGEMANAGER->findImage(IMGCLASS->shovelshop_stand);
-
-		if (mImg = IMAGEMANAGER->findImage(IMGCLASS->shovelshop_stand)) {
-			if (mCreateCount = 100 && setShovelCount < 5) {
-				mImg_Tool->render(getMemDc(), getRc().left + 350, getRc().top + 100);
-			}
-		}
+		mBuildType = eBuildingType::stand;
 	}
 
-	if (KEYMANAGER->isOnceKeyDown('3')) {
-		mImg = IMAGEMANAGER->findImage(IMGCLASS->shovelshop_close);
+	if (isStartBuild) {
+		mBuildCount--;
+		if (mBuildCount == 0) {
+			isStartBuild = false;
+			mBuildType = eBuildingType::stand;
+		}
 	}
 }
 
@@ -119,6 +147,12 @@ void ShovelShop::intoNpc()
 	else {
 		isNpcIn = true;
 	}
+}
+
+void ShovelShop::startBuild()
+{
+	isStartBuild = true;
+	mBuildType = eBuildingType::close;
 }
 
 void ShovelShop::Monstertrue()

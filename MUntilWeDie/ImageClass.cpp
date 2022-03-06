@@ -38,6 +38,14 @@ HRESULT ImageClass::init(void)
 	IMAGEMANAGER->addFrameImage(CivilianBuildR, "Resources/Images/Npc/tex_civilian_build_r.bmp", NPC_BUILD_X_SIZE * 8, MAP::SIZE::PLAYER_X, 8, 1);
 	IMAGEMANAGER->addFrameImage(CivilianBuildL, "Resources/Images/Npc/tex_civilian_build_l.bmp", NPC_BUILD_X_SIZE * 8, MAP::SIZE::PLAYER_X, 8, 1);
 
+
+	IMAGEMANAGER->addFrameImage(FighterIdleL, "Resources/Images/Npc/tex_fighter_idle_l.bmp", MAP::SIZE::PLAYER_X * 8, MAP::SIZE::PLAYER_X, 8, 1);
+	IMAGEMANAGER->addFrameImage(FighterIdleR, "Resources/Images/Npc/tex_fighter_idle_r.bmp", MAP::SIZE::PLAYER_X * 8, MAP::SIZE::PLAYER_X, 8, 1);
+	IMAGEMANAGER->addFrameImage(FighterWalkR, "Resources/Images/Npc/tex_fighter_walk_r.bmp", MAP::SIZE::PLAYER_X * 8, MAP::SIZE::PLAYER_X, 8, 1);
+	IMAGEMANAGER->addFrameImage(FighterWalkL, "Resources/Images/Npc/tex_fighter_walk_l.bmp", MAP::SIZE::PLAYER_X * 8, MAP::SIZE::PLAYER_X, 8, 1);
+	IMAGEMANAGER->addFrameImage(FighterRunR, "Resources/Images/Npc/tex_fighter_run_r.bmp", MAP::SIZE::PLAYER_X * 8, MAP::SIZE::PLAYER_X, 8, 1);
+	IMAGEMANAGER->addFrameImage(FighterRunL, "Resources/Images/Npc/tex_fighter_run_l.bmp", MAP::SIZE::PLAYER_X * 8, MAP::SIZE::PLAYER_X, 8, 1);
+
 	IMAGEMANAGER->addFrameImage(DiggerIdleL, "Resources/Images/Npc/tex_digger_idle_l.bmp", MAP::SIZE::PLAYER_X * 6, MAP::SIZE::PLAYER_X, 6, 1);
 	IMAGEMANAGER->addFrameImage(DiggerIdleR, "Resources/Images/Npc/tex_digger_idle_r.bmp", MAP::SIZE::PLAYER_X * 6, MAP::SIZE::PLAYER_X, 6, 1);
 	IMAGEMANAGER->addFrameImage(DiggerWalkR, "Resources/Images/Npc/tex_digger_walk_r.bmp", MAP::SIZE::PLAYER_X * 8, MAP::SIZE::PLAYER_X, 8, 1);
@@ -63,7 +71,7 @@ HRESULT ImageClass::init(void)
 	IMAGEMANAGER->addFrameImage(Generator_01, "Resources/Images/Building/Generator/Generator_01.bmp", 802 * 2, 93 * 2, 4, 1);
 
 	IMAGEMANAGER->addImage(shovelshop_off, "Resources/Images/Building/shovelshop/shovelshop_off.bmp", 253 * 2, 107 * 2, true, RGB(255, 0, 255));
-	IMAGEMANAGER->addImage(shovelshop_off_02, "Resources/Images/Building/shovelshop/shovelshop_off_02.bmp", 253 * 2, 107 * 2, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage(shovelshop_off_02, "Resources/Images/Building/shovelshop/shovelshop_off_2.bmp", 253 * 2, 107 * 2, true, RGB(255, 0, 255));
 
 	IMAGEMANAGER->addFrameImage(shovelshop_stand, "Resources/Images/Building/shovelshop/shovelshop_stand.bmp", 1518 * 2, 107 * 2, 6, 1);
 	IMAGEMANAGER->addFrameImage(shovelshop_open, "Resources/Images/Building/shovelshop/shovelshop_open.bmp", 2024 * 2, 107 * 2, 8, 1);
