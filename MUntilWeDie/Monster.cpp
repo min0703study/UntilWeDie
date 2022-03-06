@@ -193,7 +193,7 @@ void Monster::draw()
 		getY() - mImageY,
 		mCurrentFrameX, mCurrentFrameY
 	);
-	if (mAttack) mAttack->render();
+	if (mAttack && mMonType == eMonsterType::Cannon) mAttack->render();
 }
 
 void Monster::move()
