@@ -45,13 +45,26 @@ public:
 	void autoCreate();
 	void intoNpc();
 
+	void startBuild();
+
 	void Monstertrue();
 
 	void getWeaponCount();
 
+	inline bool getIsBuild() {
+		return mBuildType == eBuildingType::stand;
+	}
+
 private:
 	vector<Weapon*> mWeapons;
 	vector<Weapon*>::iterator mItWeapons;
+
+	eBuildingType mBuildType;
+
+	int mAniCount;
+	int mBuildCount;
+
+	bool isStartBuild;
 
 	ImageBase* mImg;
 	ImageBase* mImg_Tool;

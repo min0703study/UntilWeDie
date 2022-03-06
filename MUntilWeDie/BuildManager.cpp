@@ -71,7 +71,6 @@ int BuildManager::isBuildingCollisionToPlayer(RECT playerAbsRc, OUT bool& isSucc
 		isSuccessBuild = mShovelShop->getIsBuild();
 		returnType = eBuildType::tShovelShop;
 
-
 		if (!isSuccessBuild) {
 			mShovelShop->startBuild();
 		}
@@ -83,11 +82,31 @@ int BuildManager::isBuildingCollisionToPlayer(RECT playerAbsRc, OUT bool& isSucc
 	if (IntersectRect(&tempRc, &mEngineerShop->getAbsRc(), &playerAbsRc)) {
 		MY_UTIL::log(DEBUG_KHS, "Ãæµ¹¿Ï·á : ·»Ä¡ »ý»ê ½Ã¼³");
 		returnType = eBuildType::tEngineerShop;
+
+		mEngineerShop->getWrenchCount();
+		isSuccessBuild = mEngineerShop->getIsBuild();
+		returnType = eBuildType::tEngineerShop;
+
+		if (!isSuccessBuild) {
+			mEngineerShop->startBuild();
+		}
+
+		cout << "ÇöÀç ·»Ä¡ °¹¼ö" << " : " << endl;
 	}
 
 	if (IntersectRect(&tempRc, &mShopStalkers->getAbsRc(), &playerAbsRc)) {
 		MY_UTIL::log(DEBUG_KHS, "Ãæµ¹¿Ï·á : ÃÑ »ý»ê ½Ã¼³");
 		returnType = eBuildType::tShopStalkers;
+
+		mShopStalkers->getWeaponCount();
+		isSuccessBuild = mShopStalkers->getIsBuild();
+		returnType = eBuildType::tShopStalkers;
+
+		if (!isSuccessBuild) {
+			mEngineerShop->startBuild();
+		}
+
+		cout << "ÇöÀç ÃÑ °¹¼ö" << " : " << endl;
 	}
 
 	if (IntersectRect(&tempRc, &mGenerator->getAbsRc(), &playerAbsRc)) {

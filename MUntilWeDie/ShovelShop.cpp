@@ -37,7 +37,7 @@ void ShovelShop::draw()
 		mImg = IMAGEMANAGER->findImage(IMGCLASS->shovelshop_off_02);
 		mImg->render(getMemDc(), getRc().left, getRc().bottom - mImg->getHeight());
 		break;
-	case eBuildingType::off :
+	case eBuildingType::off:
 		mImg = IMAGEMANAGER->findImage(IMGCLASS->shovelshop_off);
 		mImg->render(getMemDc(), getRc().left, getRc().top);
 		break;
