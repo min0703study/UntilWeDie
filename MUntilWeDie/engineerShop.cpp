@@ -6,6 +6,7 @@ void engineerShop::init(float x, float y, float width, float height)
 	GameObject::Init("engineerShop", x, y, width, height);
 
 	mImg = IMAGEMANAGER->findImage(IMGCLASS->engineerShop_off);
+	mImg_Tool = IMAGEMANAGER->findImage(IMGCLASS->engineerShop_wrench);
 
 	mCreateCount = 0;
 
@@ -23,8 +24,10 @@ void engineerShop::release(void)
 
 void engineerShop::draw()
 {
-	RectangleMake(getMemDc(), getRc());
+	//RectangleMake(getMemDc(), getRc());
 	mImg->render(getMemDc(), getRc().left, getRc().top);
+
+	mImg_Tool->render(getMemDc(), getRc().left + 350, getRc().top + 100);
 }
 
 void engineerShop::animation()
@@ -51,6 +54,24 @@ void engineerShop::action()
 
 	else {
 		mCreateCount = 0;
+	}
+
+	if (KEYMANAGER->isOnceKeyDown('7')) {
+		mImg = IMAGEMANAGER->findImage(IMGCLASS->engineerShop_open);
+	}
+
+	if (KEYMANAGER->isOnceKeyDown('8')) {
+		mImg = IMAGEMANAGER->findImage(IMGCLASS->engineerShop_stand);
+
+		if (mImg = IMAGEMANAGER->findImage(IMGCLASS->engineerShop_stand)) {
+			if (mCreateCount = 100 && setWrenchCount < 5) {
+				mImg_Tool->render(getMemDc(), getRc().left + 350, getRc().top + 100);
+			}
+		}
+	}
+
+	if (KEYMANAGER->isOnceKeyDown('9')) {
+		mImg = IMAGEMANAGER->findImage(IMGCLASS->engineerShop_close);
 	}
 }
 
@@ -95,4 +116,9 @@ void engineerShop::intoNpc()
 void engineerShop::Monstertrue()
 {
 	//몬스터 충돌 영역 관리
+}
+
+void engineerShop::getWrenchCount()
+{
+	setWrenchCount++;
 }

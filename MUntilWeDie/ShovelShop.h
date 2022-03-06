@@ -47,18 +47,20 @@ public:
 
 	void Monstertrue();
 
-	//1. getter, setter 만들기 mCurShovelCount
+	void getShovelCount(); //삽 추가
 
 private:
 	vector<Shovel*> mShovels;
 	vector<Shovel*>::iterator mItShovels;
 
 	ImageBase* mImg;
+	ImageBase* mImg_Tool;
 
 	int mCurShovelCount; //삽 생성 갯수
 	int mCreateCount;  //삽이 생성되기까지 걸리는 시간
 
 	int mBuildHp; //건물 체력
+	int setShovelCount; //현재 삽 갯수
 
 	bool isNpcIn; //NPC가 들어갔는지 안들어갔는지
 

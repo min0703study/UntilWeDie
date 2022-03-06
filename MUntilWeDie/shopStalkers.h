@@ -47,16 +47,20 @@ public:
 
 	void Monstertrue();
 
+	void getWeaponCount();
+
 private:
 	vector<Weapon*> mWeapons;
 	vector<Weapon*>::iterator mItWeapons;
 
 	ImageBase* mImg;
+	ImageBase* mImg_Tool;
 
 	int mCurWeaponCount;
 	int mCreateCount;
 
 	int mBuildHp;
+	int setWeaponCount; //ÇöÀç »ð °¹¼ö
 
 	bool isNpcIn;
 };

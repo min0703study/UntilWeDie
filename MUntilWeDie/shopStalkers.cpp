@@ -6,6 +6,7 @@ void ShopStalkers::init(float x, float y, float width, float height)
 	GameObject::Init("shopStalkers", x, y, width, height);
 
 	mImg = IMAGEMANAGER->findImage(IMGCLASS->shopStalkers_off);
+	mImg_Tool = IMAGEMANAGER->findImage(IMGCLASS->shopStalkers_weapon);
 
 	mCreateCount = 0;
 
@@ -23,8 +24,10 @@ void ShopStalkers::release(void)
 
 void ShopStalkers::draw()
 {
-	RectangleMake(getMemDc(), getRc());
+	//RectangleMake(getMemDc(), getRc());
 	mImg->render(getMemDc(), getRc().left, getRc().top);
+
+	mImg_Tool->render(getMemDc(), getRc().left + 350, getRc().top + 100);
 }
 
 void ShopStalkers::animation()
@@ -50,6 +53,24 @@ void ShopStalkers::action()
 
 	else {
 		mCreateCount = 0;
+	}
+
+	if (KEYMANAGER->isOnceKeyDown('4')) {
+		mImg = IMAGEMANAGER->findImage(IMGCLASS->shopStalkers_open);
+	}
+
+	if (KEYMANAGER->isOnceKeyDown('5')) {
+		mImg = IMAGEMANAGER->findImage(IMGCLASS->shopStalkers_stand);
+
+		if (mImg = IMAGEMANAGER->findImage(IMGCLASS->shopStalkers_stand)) {
+			if (mCreateCount = 100 && setWeaponCount < 5) {
+				mImg_Tool->render(getMemDc(), getRc().left + 350, getRc().top + 100);
+			}
+		}
+	}
+
+	if (KEYMANAGER->isOnceKeyDown('6')) {
+		mImg = IMAGEMANAGER->findImage(IMGCLASS->shopStalkers_close);
 	}
 }
 
@@ -91,4 +112,9 @@ void ShopStalkers::intoNpc()
 void ShopStalkers::Monstertrue()
 {
 	//몬스터 충돌 영역 관리
+}
+
+void ShopStalkers::getWeaponCount()
+{
+	setWeaponCount++;
 }

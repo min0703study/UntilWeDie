@@ -3,6 +3,7 @@
 #include "NpcManager.h"
 #include "Weapon.h"
 #include "BuildManager.h"
+#include "IBuilding.h"
 
 void Player::init(float x, float y, float width, float height)
 {
