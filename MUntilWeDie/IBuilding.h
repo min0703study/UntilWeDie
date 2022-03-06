@@ -1,4 +1,5 @@
 #pragma once
+
 class IBuilding
 {
 public:
@@ -13,7 +14,6 @@ public:
 	//아이템 돌려주는 소스
 	virtual void resetShopItem(int shopType) = 0;
 
-
 	//채영
 	//건물 건설 시작
 	//건물 건설 시작하면? 건물 시간만큼 타이머가 돈다.
@@ -27,6 +27,7 @@ public:
 	//virtual vector<RECT, eBuildingType> getVectorBuildingRc() = 0; -> 건물 렉트 정보
 	//virtual attackDamage(int damage) = 0; -> 데미지 내가 줄거, 각 건물 init 할때 hp 만들어줘
 	//ㄴ 벽, 발전기는 적당하게, 나머지는 그냥 지나간다고 했으니까 필요없고
+
 
 };
 

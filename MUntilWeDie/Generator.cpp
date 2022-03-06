@@ -17,7 +17,7 @@ void Generator::release(void)
 
 void Generator::draw()
 {
-	RectangleMake(getMemDc(), getRc());
+	//RectangleMake(getMemDc(), getRc());
 	mImg->frameRender(getMemDc(), getRc().left, getRc().top);
 }
 

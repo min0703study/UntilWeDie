@@ -1,11 +1,12 @@
 #pragma once
 #include "GameObject.h"
 #include "IPlayer.h"
-#include "IBuilding.h"
+//#include "IBuilding.h"
 #include "IObject.h"
 #include "IMonster.h"
 
 class NpcManager;
+class IBuilding;
 class Weapon;
 
 class Player : public GameObject, public IPlayer

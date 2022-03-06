@@ -47,16 +47,20 @@ public:
 
 	void Monstertrue();
 
+	void getWrenchCount();
+
 private:
 	vector<Wrench*> mWrenchs;
 	vector<Wrench*>::iterator mItWrenchs;
 
 	ImageBase* mImg;
+	ImageBase* mImg_Tool;
 
 	int mCurWrenchCount;
 	int mCreateCount; 
 
 	int mBuildHp;
+	int setWrenchCount;
 
 	bool isNpcIn;
 };

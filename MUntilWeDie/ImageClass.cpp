@@ -77,7 +77,7 @@ HRESULT ImageClass::init(void)
 	IMAGEMANAGER->addImage(shopStalkers_off_2, "Resources/Images/Building/shopStalkers/shopStalkers_off_2.bmp", 247 * 2, 178 * 2, true, RGB(255, 0, 255));
 
 	IMAGEMANAGER->addFrameImage(shopStalkers_stand, "Resources/Images/Building/shopStalkers/shopStalkers_stand.bmp", 1235 * 2, 178 * 2, 5, 1);
-	IMAGEMANAGER->addFrameImage(shopStalkers_open, "Resources/Images/Building/shopStalkers_close/shopStalkers_open.bmp", 2223 * 2, 178 * 2, 9, 1);
+	IMAGEMANAGER->addFrameImage(shopStalkers_open, "Resources/Images/Building/shopStalkers/shopStalkers_open.bmp", 2223 * 2, 178 * 2, 9, 1);
 	IMAGEMANAGER->addFrameImage(shopStalkers_close, "Resources/Images/Building/shopStalkers/shopStalkers_close.bmp", 2223 * 2, 178 * 2, 9, 1);
 
 	IMAGEMANAGER->addImage(shopStalkers_weapon, "Resources/Images/Building/shopStalkers/shopStalkers_weapon.bmp", 12 * 2, 26 * 2, true, RGB(255, 0, 255));

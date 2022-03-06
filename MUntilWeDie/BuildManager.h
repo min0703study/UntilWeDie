@@ -37,6 +37,7 @@ public:
 	RECT getBuildingRc() override;
 
 	int isBuildingCollisionToPlayer(RECT playerAbsRc) override;
+
 	void resetShopItem(int shopType) override;
 
 	BuildManager() {}
@@ -48,5 +49,4 @@ private:
 	ShopStalkers* mShopStalkers;
 	Generator* mGenerator;
 	workbanch* mWorkBanch;
-
 };
