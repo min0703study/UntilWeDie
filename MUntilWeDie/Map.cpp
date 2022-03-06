@@ -7,6 +7,7 @@ void Map::init(float x, float y, float width, float height)
 	GameObject::Init("Map", x, y, width, height);
 	mBgBackImg = IMAGEMANAGER->findImage(IMGCLASS->BgBackImg);
 	mBgImg = IMAGEMANAGER->findImage(IMGCLASS->BgImg);
+	mBgMiddleImg = IMAGEMANAGER->findImage(IMGCLASS->BgMiddleImg);
 	mBgGrassImg = IMAGEMANAGER->findImage(IMGCLASS->BgGrassImg);
 
 	mCocoonImg_03 = mCocoonImg_06 = mCocoonImg_12 = 

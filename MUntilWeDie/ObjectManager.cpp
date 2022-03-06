@@ -104,6 +104,12 @@ int ObjectManager::isObjectCollisionToPlayer(RECT playerAbsRc)
 bool ObjectManager::startGrapObject(int objectIndex, int npcIndex, OUT int & xPos)
 {
 	mMushrooms[objectIndex]->isStartMushroomGrap = true;
-	mDebris[objectIndex]->isStartDebrisGrap = true;
+	if (mMushrooms[objectIndex]->isStartMushroomGrap == true) {
+		return mDebris[objectIndex]->isStartDebrisGrap = false;
+	}
+	else {
+	mDebris[objectIndex]->isStartDebrisGrap = false;
+	return mMushrooms[objectIndex]->isStartMushroomGrap = false ;
+	}
 	return false;
 }

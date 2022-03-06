@@ -6,6 +6,7 @@ HRESULT ImageClass::init(void)
 	MY_UTIL::log(DEBUG_ALL_TAG, "========== ?̹?? Ŭ???? ??? ==============");
 	IMAGEMANAGER->addImage(BgBackImg, "Resources/Images/Background/bg_back.bmp", 21818 * 2.125, 780 * 2.125, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addImage(BgImg, "Resources/Images/Background/background.bmp", 21818 * 2.125, 780 * 2.125, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage(BgMiddleImg, "Resources/Images/Background/Background_middle.bmp", 21818 * 2.125, 780 * 2.125, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addImage(BgGrassImg, "Resources/Images/Background/GrassField.bmp", 21687 * 2.125, 39 * 2.125, true, RGB(255, 0, 255));
 
 
