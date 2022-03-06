@@ -49,8 +49,8 @@ void MonsterManager::setMonster(float x, float y, int finalX, int finalY, int nu
 	int monsterNumber;
 	int worldTime = TIMEMANAGER->getWorldTime();
 
-	//monsterNumber = number;
-	if(number < 3) monsterNumber = 3;
+	monsterNumber = number;
+	/*if(number < 3) monsterNumber = 3;
 	else {
 		if (worldTime < 300) {
 			monsterNumber = 0;
@@ -64,7 +64,7 @@ void MonsterManager::setMonster(float x, float y, int finalX, int finalY, int nu
 		else if (worldTime >= 900) {
 			monsterNumber = RND->getInt(4);
 		}
-	}
+	}*/
 
 	Monster* monster = new Monster;
 	switch (monsterNumber)
@@ -79,7 +79,7 @@ void MonsterManager::setMonster(float x, float y, int finalX, int finalY, int nu
 			MON_NORMAL_ATTACK_RANGE_X * 2, MON_NORMAL_ATTACK_RANGE_Y * 2,
 			MON_NORMAL_COLL_RANGE_X * 2, MON_NORMAL_COLL_RANGE_Y * 2,
 			MON_NORMAL_IMAGE_RANGE_X * 2, MON_NORMAL_IMAGE_RANGE_Y * 2,
-			MAP::POS::GENERATOR_X, GROUND
+			finalX, finalY
 		);
 		break;
 	case 1:
@@ -92,7 +92,7 @@ void MonsterManager::setMonster(float x, float y, int finalX, int finalY, int nu
 			MON_SUICIDE_ATTACK_RANGE_X * 2, MON_SUICIDE_ATTACK_RANGE_Y * 2,
 			MON_SUICIDE_COLL_RANGE_X * 2, MON_SUICIDE_COLL_RANGE_Y * 2,
 			MON_SUICIDE_IMAGE_RANGE_X * 2, MON_SUICIDE_IMAGE_RANGE_Y * 2,
-			MAP::POS::GENERATOR_X, GROUND
+			finalX, finalY
 		);
 		break;
 	case 2:
@@ -105,7 +105,7 @@ void MonsterManager::setMonster(float x, float y, int finalX, int finalY, int nu
 			MON_FROG_ATTACK_RANGE_X * 2, MON_FROG_ATTACK_RANGE_Y * 2,
 			MON_FROG_COLL_RANGE_X * 2, MON_FROG_COLL_RANGE_Y * 2,
 			MON_FROG_IMAGE_RANGE_X * 2, MON_FROG_IMAGE_RANGE_Y * 2,
-			MAP::POS::GENERATOR_X, GROUND
+			finalX, finalY
 		);
 		break;
 	case 3:
@@ -118,7 +118,7 @@ void MonsterManager::setMonster(float x, float y, int finalX, int finalY, int nu
 			MON_CANNON_ATTACK_RANGE_X * 2, MON_CANNON_ATTACK_RANGE_Y * 2,
 			MON_CANNON_COLL_RANGE_X * 2, MON_CANNON_COLL_RANGE_Y * 2,
 			MON_CANNON_IMAGE_RANGE_X * 2, MON_CANNON_IMAGE_RANGE_Y * 2,
-			MAP::POS::GENERATOR_X, GROUND
+			finalX, finalY
 		);
 		break;
 	default:

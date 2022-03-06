@@ -4,9 +4,6 @@
 
 void Projectile::init(eMonsterType type, eDirection dir, float x, float y, float width, float height, float distanceX, float distanceY)
 {
-	//if (dir == eDirection::Left) GameObject::Init("Attack", x - width * 0.5f - distance, y - height * 0.5f, width, height);
-	//else GameObject::Init("Attack", x - width * 0.5f + distance, y - height * 0.5f, width, height);
-
 	if (dir == eDirection::Left) GameObject::Init("Attack", x - distanceX, y - distanceY, width, height);
 	else GameObject::Init("Attack", x + distanceX, y - distanceY, width, height);
 
@@ -58,7 +55,7 @@ void Projectile::update(void)
 {
 	mDeltaTime = TIMEMANAGER->getElapsedTime();
 	move();
-	animation();
+	if(mAtkStatus.type == eMonsterType::Cannon) animation();
 }
 
 void Projectile::render(void)
