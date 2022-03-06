@@ -14,9 +14,7 @@ public:
 	void release(void);
 	void update(void);
 	void render(void);
-
 	
-
 	vector<Monster*> getMonster(void) { return mvMonster; }
 	vector<Projectile*> getAttackObject(void) { return mvAttackObject; }
 	int getNumberOfEgg(void) { return mNumberOfEgg; }

@@ -49,17 +49,22 @@ void MainScene::update(void)
 	if (mMonsterMng->getIsEggRespwan()) mMonsterRespawnTime += TIMEMANAGER->getElapsedTime();*/
 
 	// 리스폰 시간 되면
-	if (isEggRespawn() && !(mMonsterManager->getIsEggRespwan())) {
-		mMonsterManager->setMonsterEgg(respPos.x, GROUND, mMonsterManager->getNumberOfEgg());
-		mMonsterRespawnTime = 0;
-	}
-	else if (isMonsterRespawn() && !isOn) {
-		mMonsterManager->setMonster(respPos.x - 100, GROUND, mPlayer->getAbsX() + 600, mPlayer->getAbsY(), 0);
+	//if (isEggRespawn() && !(mMonsterManager->getIsEggRespwan())) {
+	//	mMonsterManager->setMonsterEgg(respPos.x, GROUND, mMonsterManager->getNumberOfEgg());
+	//	mMonsterRespawnTime = 0;
+	//}
+	//else if (isMonsterRespawn() && !isOn) {
+	//	//mMonsterManager->setMonster(respPos.x - 100, GROUND, mPlayer->getAbsX() + 600, mPlayer->getAbsY(), 0);
+	//	for (int i = 0; i < mMonsterManager->getNumberOfMonster(); i++) {
+	//		mMonsterManager->setMonster(29520.3125f, GROUND, MAP::POS::GENERATOR_X, GROUND, i);
+	//	}
+	//	mEggRespawnTime = 0;
+	//	isOn = true;
+	//}
+	if (KEYMANAGER->isOnceKeyDown('7')) {
 		for (int i = 0; i < mMonsterManager->getNumberOfMonster(); i++) {
-			//mMonsterMng->setMonster(respPos.x - i * 100, respPos.y, mPlayer->getX() + 600, mPlayer->getY(), i);
+			mMonsterManager->setMonster(29520.3125f, GROUND, MAP::POS::GENERATOR_X, GROUND, i);
 		}
-		mEggRespawnTime = 0;
-		isOn = true;
 	}
 	
 	if (!isEndGame && mPlayer->isDeath()) {
