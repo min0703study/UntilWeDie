@@ -114,8 +114,6 @@ public:
 	void attackDamageToPlayer(int damage) override;
 	void attackDamageToNpc(int damage, int arrNum) override;
 
-	void attackDamageToNpc(int damage, int arrNum);
-
 	void setIBuilding(IBuilding* iBuilding) {
 		mIbuilding = iBuilding;
 	};

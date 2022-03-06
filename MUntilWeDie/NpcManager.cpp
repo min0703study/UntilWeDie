@@ -111,19 +111,19 @@ bool NpcManager::pullRank(int rank)
 bool NpcManager::pullNpc() {
 	if (mCurFollowingNpcCount < 2) return false;
 
-	for (int i = 2; i < mCurFollowingNpcCount; i++) {
+	for (int i = 2; i <= mCurFollowingNpcCount; i++) {
 		auto head = mSFollowingNpc.find(i - 1);
 		auto pull = mSFollowingNpc.find(i);
 
 		//검색한 키를 찾았다면
 		if (pull != mSFollowingNpc.end())
 		{
-			pull->second->setRank(i - 1);
-			pull->second = head->second;
+			head->second = pull->second;
+			head->second->setRank(i - 1);
 		}
 
-		if (head == --mSFollowingNpc.end()) {
-			mSFollowingNpc.erase(head);
+		if (pull == --mSFollowingNpc.end()) {
+			mSFollowingNpc.erase(pull);
 			break;
 		}
 	}
@@ -167,9 +167,8 @@ bool NpcManager::orderCallNpc(RECT playerCallableRc)
 	for (mViNpcs = mVNpcs.begin(); mViNpcs != mVNpcs.end(); mViNpcs++) {
 		if ((*mViNpcs)->isActivated()) continue;
 		if (IntersectRect(&tempRc, &(*mViNpcs)->getAbsRc(), &playerCallableRc)) {
-			(*mViNpcs)->orderCall(mVFollowingNpc.size() + 1);
-			mVFollowingNpc.push_back(*mViNpcs);
 			mSFollowingNpc.insert(make_pair(++mCurFollowingNpcCount, *mViNpcs));
+			(*mViNpcs)->orderCall(mCurFollowingNpcCount);
 		};
 	}
 	return true;
@@ -191,36 +190,17 @@ bool NpcManager::orderRunDiffDirection()
 
 bool NpcManager::orderExecNpc(float xPos)
 {
-	if (mVFollowingNpc.begin() == mVFollowingNpc.end()) return false;
+	if (mCurFollowingNpcCount < 1) return false;
+	auto orderNpc = mSFollowingNpc.find(1);
 
-	bool isCanExcuteOrder = (*mVFollowingNpc.begin())->orderGrap(xPos);
-	pullRank((*mVFollowingNpc.begin())->getRank());
-
-	if (!isCanExcuteOrder) {
-		Npc* npc = *mVFollowingNpc.begin();
-		mVFollowingNpc.push_back(npc);
-		npc->setRank(mVFollowingNpc.size() - 1);
-	}
-
-	mVFollowingNpc.erase(mVFollowingNpc.begin());
-
-	for (int i = 2; i < mCurFollowingNpcCount; i++) {
-		auto key = mSFollowingNpc.find(i - 1);
-		auto pull = mSFollowingNpc.find(i);
-
-		//검색한 키를 찾았다면
-		if (key != mSFollowingNpc.end() && pull != mSFollowingNpc.end())
-		{
-			pull->second->setRank(i);
-			pull->second = key->second;
-		}
-
-		if (key == --mSFollowingNpc.end()) {
-			mSFollowingNpc.erase(key);
+	if (orderNpc != mSFollowingNpc.end())
+	{
+		if (orderNpc->second->getType() != Npc::eType::Engineer) {
+			orderNpc->second->orderGrap(xPos);
+			pullNpc();
+			return true;
 		}
 	}
-
-	--mCurFollowingNpcCount;
 
 	return true;
 }
@@ -291,14 +271,16 @@ bool NpcManager::orderBuildBuilding()
 }
 int NpcManager::orderResetType()
 {
-	auto firstNpc = mSFollowingNpc.find(1);
+	if (mCurFollowingNpcCount < 1) return false;
+	auto orderNpc = mSFollowingNpc.find(1);
 
-	if (firstNpc != mSFollowingNpc.end()) {
-		switch (firstNpc->second->getType())
+	if (orderNpc != mSFollowingNpc.end())
+	{
+		orderNpc->second->changeType(Npc::eType::Civilian);
+		switch (orderNpc->second->getType())
 		{
-			case Npc::eType::Digger:
-				firstNpc->second->changeType(Npc::eType::Civilian);
-				return BuildManager::eBuildType::tShovelShop;
+		case Npc::eType::Digger:
+			return BuildManager::eBuildType::tShovelShop;
 		default:
 			break;
 		}

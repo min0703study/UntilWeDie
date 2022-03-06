@@ -341,6 +341,7 @@ void Player::orderExcuteNpc()
 		float xPos = 0;
 		mIObject->startGrapObject(objectIndex, 0, xPos);
 		mNpcManager->orderExecNpc(xPos);
+		return;
 	}
 
 	bool isBuildSuccess;
