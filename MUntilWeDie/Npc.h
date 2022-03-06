@@ -14,7 +14,8 @@ public:
 		FollowToPlayer,
 		Grab,
 		Build,
-		CantUnderstand
+		CantUnderstand,
+		RunOver
 	};
 
 	enum class eType {
@@ -139,7 +140,7 @@ public:
 
 	//npc 행동
 	void orderCall(int rank);
-	bool orderGrap();
+	bool orderGrap(float xPos);
 	void orderBuild();
 	void orderGetShovel();
 	void orderGetWrench();
@@ -149,6 +150,7 @@ public:
 
 	//getter setter
 	void setRank(int rank) { mRank = rank; }
+	void runDiffDirection();
 	int getRank() { return mRank; }
 	eType getType() const { return mType; }
 
@@ -174,6 +176,8 @@ private:
 	Player::eStat* mPlayerStat;
 	float* mPlayerAbsX;
 	float* mPlayerAbsY;
+
+	float mToXToGrab;
 
 	//nothing 상태에서 사용되는 멤버 변수
 	int mNotingStopCount;

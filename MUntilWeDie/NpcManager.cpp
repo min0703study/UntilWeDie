@@ -83,59 +83,6 @@ bool NpcManager::changeNpcPosition()
 		}
 	}
 
-	/*
-
-	Npc* tempNpc = nullptr;
-	Npc* tempNpc2 = nullptr;
-
-	auto firstNpc = mSFollowingNpc.find(1);
-	//검색한 키를 찾았다면
-	if (firstNpc != mSFollowingNpc.end())
-	{
-		tempNpc = firstNpc->second;
-	}
-
-	int startIndex = 0;
-	int endIndex = mCurFollowingNpcCount;
-
-
-	for (int i = 2; i <= mCurFollowingNpcCount; i++) {
-		auto pull = mSFollowingNpc.find(i);
-
-		if (pull != mSFollowingNpc.end())
-		{
-			if (startIndex != 0) {
-				if (pull->second->getType() != tempNpc2->getType()) {
-					endIndex = i;
-				}
-			}
-			else {
-				if (pull->second->getType() != tempNpc->getType()) {
-					tempNpc2 = pull->second;
-					startIndex = i;
-				}
-			}
-		}
-	}
-	map<int, Npc*> tempNpcMap;
-	for (int i = 1; i < startIndex; i++) {
-		tempNpcMap.insert(make_pair(endIndex + i - 1, mSFollowingNpc.find(i)->second));
-	}
-
-	for (int i = startIndex; i <= endIndex; i++) {
-		tempNpcMap.insert(make_pair(i - startIndex + 1, mSFollowingNpc.find(i)->second));
-	}
-
-	for (int i = endIndex; i < mCurFollowingNpcCount; i++) {
-		tempNpcMap.insert(make_pair(i, mSFollowingNpc.find(i)->second));
-	}
-
-	for (int i = 1; i <= mCurFollowingNpcCount; i++) {
-		tempNpcMap.find(i)->second->setRank(i);
-		mSFollowingNpc[i] = tempNpcMap.find(i)->second;
-	}
-
-	*/
 	return true;
 }
 
@@ -199,11 +146,25 @@ bool NpcManager::orderCallNpc(RECT playerCallableRc)
 	return true;
 }
 
-bool NpcManager::orderExecNpc()
+bool NpcManager::orderRunDiffDirection()
+{
+	for (int i = 1; i <= mCurFollowingNpcCount; i++) {
+		auto key = mSFollowingNpc.find(i);
+
+		//검색한 키를 찾았다면
+		if (key != mSFollowingNpc.end())
+		{
+			key->second->runDiffDirection();
+		}
+	}
+	return true;
+}
+
+bool NpcManager::orderExecNpc(float xPos)
 {
 	if (mVFollowingNpc.begin() == mVFollowingNpc.end()) return false;
 
-	bool isCanExcuteOrder = (*mVFollowingNpc.begin())->orderGrap();
+	bool isCanExcuteOrder = (*mVFollowingNpc.begin())->orderGrap(xPos);
 	pullRank((*mVFollowingNpc.begin())->getRank());
 
 	if (!isCanExcuteOrder) {

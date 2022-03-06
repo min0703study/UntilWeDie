@@ -62,6 +62,15 @@ void GdiPlusManager::frameRender(HDC hdc, string strKey, float x, float y)
 		&imageAtt);
 }
 
+void GdiPlusManager::drawText(HDC hdc, std::wstring message, float x, float y, int size, Color color)
+{
+	Graphics gh(hdc);
+	Font        font(fontFamily, size, FontStyleRegular, UnitPixel);
+	SolidBrush  solidBrush(color);
+	gh.DrawString(message.c_str(), -1, &font, PointF(x, y), &solidBrush);
+}
+
+
 void GdiPlusManager::drawCProgressBar(HDC hdc, float startX, float startY, int size, float value, float maxValue) {
 
 	using namespace Gdiplus;

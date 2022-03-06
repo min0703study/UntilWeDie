@@ -7,6 +7,7 @@ public:
 	const char* BgBackImg = "뒷 배경 화면";
 	const char* BgImg = "배경 화면";
 	const char* BgGrassImg = "배경 풀";
+	const char* EndSecene = "사망";
 
 	const char* PlayerIdleR = "플레이어 정지 오른쪽 액션";
 	const char* PlayerIdleL = "플레이어 정지 왼쪽 액션";
@@ -24,6 +25,7 @@ public:
 	const char* PlayerRunShootR = "플레이어 뛰면서 오른쪽으로 공격";
 	const char* PlayerDeathL = "플레이어 왼쪽으로 사망";
 	const char* PlayerDeathR = "플레이어 오른쪽으로 사망";
+	const char* PlayerUIMushRoom = "플레이어 버섯 수량";
 
 	const char* CivilianIdleR = "민간인 정지 오른쪽 액션";
 	const char* CivilianIdleL = "민간인 정지 왼쪽 액션";
