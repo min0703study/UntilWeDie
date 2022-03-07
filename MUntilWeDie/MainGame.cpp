@@ -30,7 +30,7 @@ void MainGame::render(void)
 	PatBlt(getMemDc(), 0, 0, WINSIZE_X, WINSIZE_Y, BLACKNESS);
 
 	SCENEMANAGER->render();
-	TIMEMANAGER->render(getMemDc());
+	//TIMEMANAGER->render(getMemDc());
 	
 	IMAGEMANAGER->render(getBackBufferKey(), getHdc());
 }

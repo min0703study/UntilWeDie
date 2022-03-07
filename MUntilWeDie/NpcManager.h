@@ -19,10 +19,7 @@ public:
 
 	bool changeStat(int npcIndex, Npc::eOrderType stat);
 	bool changeNpcPosition();
-	bool changeRank();
-
-	bool pullRank(int rank);
-
+	
 	bool orderGetShovel(); //삽 집는 명령
 	bool orderGetWrench(); // 렌치 집는 명령
 	bool orderGetGun();
@@ -38,9 +35,6 @@ public:
 private:
 	vector<Npc*> mVNpcs;
 	vector<Npc*>::iterator mViNpcs;
-	
-	vector<Npc*> mVFollowingNpc;
-	vector<Npc*>::iterator mViFollowingNpc;
 
 	map<int, Npc*> mSFollowingNpc;
 	map<int, Npc*>::iterator mSiFollowingNpc;

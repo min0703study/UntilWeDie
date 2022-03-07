@@ -86,30 +86,29 @@ bool NpcManager::changeNpcPosition()
 	return true;
 }
 
-bool NpcManager::changeRank()
-{
-	int i = 1;
-	for (mViFollowingNpc = mVFollowingNpc.begin(); mViFollowingNpc != mVFollowingNpc.end(); ++mViFollowingNpc, i++) {
-		(*mViFollowingNpc)->setRank(i);
-	}
-	return false;
-}
-
-bool NpcManager::pullRank(int rank)
-{
-	int i = 1;
-	for (mViFollowingNpc = mVFollowingNpc.begin(); mViFollowingNpc != mVFollowingNpc.end(); ++mViFollowingNpc, i++) {
-		if ((*mViFollowingNpc)->getRank() > rank) {
-			(*mViFollowingNpc)->setRank((*mViFollowingNpc)->getRank() - 1);
-		}
-	}
-
-	return false;
-}
-
-
 bool NpcManager::pullNpc() {
 	if (mCurFollowingNpcCount < 2) return false;
+
+	for (int i = 2; i <= mCurFollowingNpcCount; i++) {
+		auto head = mSFollowingNpc.find(i - 1);
+		auto pull = mSFollowingNpc.find(i);
+
+		//검색한 키를 찾았다면
+		if (pull != mSFollowingNpc.end())
+		{
+			cout << "========1=========" <<endl;
+			cout << head->second->getRank() << endl;
+			cout << pull->second->getRank() << endl;
+			cout << "========1=========" <<endl;
+		}
+
+		if (pull == --mSFollowingNpc.end()) {
+			cout << "========2=========" << endl;
+			cout << pull->second->getRank() << endl;
+			cout << "========2=========" << endl;
+			break;
+		}
+	}
 
 	for (int i = 2; i <= mCurFollowingNpcCount; i++) {
 		auto head = mSFollowingNpc.find(i - 1);
@@ -123,7 +122,7 @@ bool NpcManager::pullNpc() {
 		}
 
 		if (pull == --mSFollowingNpc.end()) {
-			mSFollowingNpc.erase(pull);
+			mSFollowingNpc.erase(i);
 			break;
 		}
 	}

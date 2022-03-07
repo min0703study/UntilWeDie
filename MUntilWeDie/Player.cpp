@@ -402,11 +402,12 @@ void Player::collsionCheckMonster() {
 	vector<RECT> rects = mIMonster->getMonstersAbsRc();
 	vector<tagBullet> bullets = mWeapon->getBullets();
 	RECT tempRect;
+
 	int i = 0;
 	for (vector<RECT>::iterator iRects = rects.begin(); iRects != rects.end(); iRects++, i++) {
 		for (vector<tagBullet>::iterator iBullets = bullets.begin(); iBullets != bullets.end(); iBullets++) {
-			if (IntersectRect(&tempRect, &(*iRects), &(*iBullets).absRc)) {
-				mIMonster->attackDamage(70, i);
+ 			if (IntersectRect(&tempRect, &(*iRects), &(*iBullets).absRc)) {
+   				mIMonster->attackDamage(50, i);
 				mWeapon->attackSuccess();
 				break;
 			}
